@@ -26,7 +26,7 @@ class DataWargaController extends Controller
 
         //halaman data warga
         // $warga=DataWarga::all()->where('id_user', $user->id);
-        $warga=DataWarga::where('id_dasawisma',$user->id)->get();
+        $warga=DataWarga::where('id_dasawisma', $user->id)->get();
         // dd($warga);
 
         $dasawisma = DataKelompokDasawisma::all();
@@ -77,62 +77,67 @@ class DataWargaController extends Controller
 
  public function store(Request $request)
 {
-
-    // validasi data
+    // Validasi data
     $request->validate([
-        'id_desa' => 'required',
-        'id_kecamatan' => 'required',
-        'id_dasawisma' => 'required',
-        'no_registrasi' => 'required',
-        'no_ktp' => 'required|min:16',
-        'nama' => 'required',
-        'jabatan' => 'required',
-        'jenis_kelamin' => 'required',
-        'tempat_lahir' => 'required',
-        'tgl_lahir' => 'required',
-        'status_perkawinan' => 'required',
-        'agama' => 'required',
-        'alamat' => 'required',
-        'kabupaten' => 'required',
-        'provinsi' => 'required',
-        'pendidikan' => 'required',
-        'pekerjaan' => 'required',
-        'akseptor_kb' => 'required',
-        'aktif_posyandu' => 'required',
-        'ikut_bkb' => 'required',
-        'memiliki_tabungan' => 'required',
-        'ikut_kelompok_belajar' => 'required',
-        'ikut_paud_sejenis' => 'required',
-        'ikut_koperasi' => 'required',
-        'periode' => 'required',
+        // Kolom lainnya...
+        'aktivitas_UP2K' => 'required|boolean',
+        'aktivitas_kesehatan_lingkungan' => 'required|boolean',
     ], [
         // Pesan error validasi disesuaikan dengan kebutuhan
     ]);
 
-    // cek apakah no_ktp sudah ada
-    $existingWarga = DataWarga::where('no_ktp', strtoupper($request->no_ktp))->first();
-    if ($existingWarga) {
-        return redirect('/data_warga')->with('error', 'Gagal! Data tidak berhasil ditambahkan. No. KTP sudah terdaftar.');
-    }
 
-    $fillable = (new DataWarga)->getFillable(); // Mendapatkan kolom yang dapat diisi dari model
 
-    // Penambahan kolom yang baru
-    $fillable[] = 'pasangan_usia_subur';
-    $fillable[] = 'tiga_buta';
-    $fillable[] = 'ibu_hamil';
-    $fillable[] = 'ibu_menyusui';
+    // Proses penyimpanan data
+    $data = $request->only([
+        'id_desa',
+        'id_kecamatan',
+        'id_dasawisma',
+        'no_registrasi',
+        'no_ktp',
+        'nama',
+        'jabatan',
+        'jenis_kelamin',
+        'tempat_lahir',
+        'tgl_lahir',
+        'status_perkawinan',
+        'agama',
+        'alamat',
+        'kabupaten',
+        'provinsi',
+        'pendidikan',
+        'pekerjaan',
+        'akseptor_kb',
+        'aktif_posyandu',
+        'ikut_bkb',
+        'memiliki_tabungan',
+        'ikut_kelompok_belajar',
+        'ikut_paud_sejenis',
+        'ikut_koperasi',
+        'periode',
+        'berkebutuhan_khusus',
+        'makan_beras',
+        'rt',
+        'rw',
+        'provinsi',
+        'aktivitas_UP2K',
+        'aktivitas_kesehatan_lingkungan',
+    ]);
 
-    $data = $request->only($fillable); // Mengambil hanya data yang ada di kolom yang dapat diisi
-
-    // Memeriksa apakah status keluarga adalah 'kepala keluarga', jika ya, maka set status anggota keluarga menjadi 'kepala keluarga'
-    // $data['status_anggota_keluarga'] = $request->status_keluarga == 'kepala keluarga' ? 'kepala keluarga' : $request->status_anggota_keluarga;
+    // Menambahkan kolom yang baru
+    $data['pasangan_usia_subur'] = $request->pasangan_usia_subur === '1' ? true : false;
+    $data['tiga_buta'] = $request->tiga_buta === '1' ? true : false;
+    $data['ibu_hamil'] = $request->ibu_hamil === '1' ? true : false;
+    $data['ibu_menyusui'] = $request->ibu_menyusui === '1' ? true : false;
+    $data['aktivitas_UP2K'] = $request->aktivitas_UP2K === '1' ? true : false;;
+    $data['aktivitas_kesehatan_lingkungan'] = $request->aktivitas_kesehatan_lingkungan === '1' ? true : false;;
 
     // Simpan data
     $warga = DataWarga::create($data);
 
     return redirect('/data_warga')->with('success', 'Data berhasil ditambahkan.');
 }
+
 
 
 
@@ -152,9 +157,6 @@ class DataWargaController extends Controller
     {
         // halaman form edit data warga
         $desa = DataWarga::with('desa')->first(); // pemanggilan tabel data warga
-         // nama desa yang login
-        // $desas = DB::table('data_desa')->get();
-        // $kec = DB::table('data_kecamatan')->get();
         $desas = DB::table('data_desa')
         ->where('id', auth()->user()->id_desa)
         ->get();
@@ -259,7 +261,7 @@ class DataWargaController extends Controller
     }
 
     public function warga(){
-        $warga = DataWarga::all();
+        $warga = DataWarga::where('is_keluarga',false)->get();
         return response()->json([
             'warga' => $warga
         ]);

@@ -53,6 +53,8 @@ use App\Models\KeteranganKegiatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\PendataanKader\RumahTanggaController;
+
 // use App\Http\Controllers\ForgotPasswordController;
 
 /*
@@ -246,6 +248,9 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
     Route::get('/data_keluarga/{id}/detail', [DataKeluargaController::class,'detail'])->name('keluarga-detail');
 
     Route::resource('/data_keluarga', DataKeluargaController::class);
+    Route::resource('/data-rumah-tangga', RumahTanggaController::class);
+    Route::get('/keluarga', [RumahTanggaController::class,'keluarga']);
+
     Route::resource('/data_pemanfaatan', DataPemanfaatanPekaranganController::class);
     Route::resource('/data_industri', DataIndustriRumahController::class);
     Route::resource('/data_pelatihan', DataPelatihanKaderController::class);

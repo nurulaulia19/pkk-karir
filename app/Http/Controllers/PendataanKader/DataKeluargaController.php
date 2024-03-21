@@ -56,18 +56,13 @@ class DataKeluargaController extends Controller
     ->first();
 
      $keg = DataKeluarga::all();
-     $warga = DataWarga::all();
+     $warga = DataWarga::where('is_keluarga',false)->get();
      $dasawisma = DataKelompokDasawisma::all();
      return view('kader.data_kegiatan.form.create_data_keluarga', compact('warga', 'kec', 'desas', 'kad', 'dasawisma', 'kader'));
 
     }
 
- /**
-  * Store a newly created resource in storage.
-  *
-  * @param  \Illuminate\Http\Request  $request
-  * @return \Illuminate\Http\Response
-  */
+
     public function store(Request $request)
     {
         // dd('ayam geprek');
@@ -77,11 +72,17 @@ class DataKeluargaController extends Controller
 
         // dd($kepalaKeluarga);
         $keluarga = DataKeluarga::create([
-            'nama_kepala_rumah_tangga' => $kepalaKeluarga->nama
+            'nama_kepala_rumah_tangga' => $kepalaKeluarga->nama,
+            'punya_jamban' => $request->jumlah_jamban,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'dusun' => $request->dusun,
+            'provinsi' => $request->provinsi
         ]);
         // dd($keluarga);
         for ($i = 0; $i < count($request->warga); $i++) {
-
+            $datawarga = DataWarga::find($request->warga[$i]);
+            $datawarga->is_keluarga = true;
             Keluargahaswarga::create([
                 'keluarga_id' =>  $keluarga->id,
                 'warga_id' =>  $request->warga[$i],
@@ -263,6 +264,9 @@ class DataKeluargaController extends Controller
         return view('kader.data_kegiatan.form.edit_data_keluarga', compact('data_keluarga','warga', 'kel', 'desas', 'kec', 'kad', 'dasawisma'));
 
     }
+
+
+
 
     /**
      * Update the specified resource in storage.

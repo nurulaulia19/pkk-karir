@@ -14,41 +14,42 @@ class DataWarga extends Model
     use HasFactory;
     protected $table = "data_warga";
     protected $primaryKey = 'id';
+    protected $guarded = ['id'];
 
-    protected $fillable = [
-        'id_desa',
-        'id_kecamatan',
-        'id_dasawisma',
-        'no_registrasi',
-        'no_ktp',
-        'nama',
-        'jabatan',
-        'jenis_kelamin',
-        'tempat_lahir',
-        'tgl_lahir',
-        'umur',
-        'status_perkawinan',
-        'status_keluarga',
-        'agama',
-        'alamat',
-        'kabupaten',
-        'provinsi',
-        'pendidikan',
-        'pekerjaan',
-        'akseptor_kb',
-        'aktif_posyandu',
-        'ikut_bkb',
-        'memiliki_tabungan',
-        'ikut_kelompok_belajar',
-        'ikut_paud_sejenis',
-        'ikut_koperasi',
-        'pasangan_usia_subur',
-        'ibu_hamil',
-        'ibu_menyusui',
-        'tiga_buta',
-        'periode',
-        // 'id_user'
-    ];
+    // protected $fillable = [
+    //     'id_desa',
+    //     'id_kecamatan',
+    //     'id_dasawisma',
+    //     'no_registrasi',
+    //     'no_ktp',
+    //     'nama',
+    //     'jabatan',
+    //     'jenis_kelamin',
+    //     'tempat_lahir',
+    //     'tgl_lahir',
+    //     'umur',
+    //     'status_perkawinan',
+    //     'status_keluarga',
+    //     'agama',
+    //     'alamat',
+    //     'kabupaten',
+    //     'provinsi',
+    //     'pendidikan',
+    //     'pekerjaan',
+    //     'akseptor_kb',
+    //     'aktif_posyandu',
+    //     'ikut_bkb',
+    //     'memiliki_tabungan',
+    //     'ikut_kelompok_belajar',
+    //     'ikut_paud_sejenis',
+    //     'ikut_koperasi',
+    //     'pasangan_usia_subur',
+    //     'ibu_hamil',
+    //     'ibu_menyusui',
+    //     'tiga_buta',
+    //     'periode',
+    //     // 'id_user'
+    // ];
 
 
     public function desa(){

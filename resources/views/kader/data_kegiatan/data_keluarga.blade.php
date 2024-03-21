@@ -46,17 +46,16 @@
 
                                         {{-- nama desa yang login --}}
                                         <td style="vertical-align: middle;">
-                                            {{-- {{ucfirst($c->nama_kepala_rumah_tangga) }} --}}
-                                            agat
+                                            {{ucfirst($c->nama_kepala_rumah_tangga) }}
                                         </td>
                                         <td style="vertical-align: middle;">
-                                            {{-- {{ucfirst($c->jumlah_anggota_keluarga)}}  --}}
+                                            {{ucfirst($c->jumlah_anggota_keluarga)}}
                                             Orang</td>
                                         <td style="vertical-align: middle;">
-                                            {{-- {{ucfirst($c->jumlah_laki)}} --}}
+                                            {{ucfirst($c->jumlah_laki)}}
                                             Orang</td>
                                         <td style="vertical-align: middle;">
-                                            {{-- {{ucfirst($c->jumlah_perempuan)}}  --}}
+                                            {{ucfirst($c->jumlah_perempuan)}} 
                                             Orang</td>
                                         <td class="text-center">
                                             <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >

@@ -65,6 +65,47 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlSelect1">RT</label>
+                                            <input type="number" min="1" class="form-control @error('rt') is-invalid @enderror" name="rt" id="rt" placeholder="Masukkan No. RT" value="{{ old('rt') }}">
+                                        </div>
+                                        @error('rt')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group @error('rw') is-invalid @enderror">
+                                            <label for="exampleFormControlSelect1">RW</label>
+                                            <input type="number" min="1" class="form-control @error('rw') is-invalid @enderror" name="rw" id="rw" placeholder="Masukkan No. RW" value="{{ old('rw') }}">
+                                        </div>
+                                        @error('rw')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group @error('alamat') is-invalid @enderror">
+                                            <label for="exampleFormControlSelect1">Alamat</label>
+                                            <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" id="alamat" placeholder="Isi Alamat" value="{{ old('alamat') }}">
+                                        </div>
+                                        @error('alamat')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
                                         <div class="form-group @error('id_desa') is-invalid @enderror">
                                             <label for="exampleFormControlSelect1">Desa</label>
                                             @foreach ($desas as $c)
@@ -78,12 +119,7 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group @error('id_kecamatan') is-invalid @enderror">
                                             <label for="exampleFormControlSelect1">Kecamatan</label>
@@ -100,7 +136,10 @@
                                             </span>
                                         @enderror
                                     </div>
-
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Kabupaten</label>
@@ -113,7 +152,6 @@
                                                 @enderror
                                         </div>
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Provinsi</label>
@@ -329,17 +367,6 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group @error('alamat') is-invalid @enderror">
-                                            <label for="exampleFormControlSelect1">Alamat</label>
-                                            <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" id="alamat" placeholder="Isi Alamat" value="{{ old('alamat') }}">
-                                        </div>
-                                        @error('alamat')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-6">
                                         <div class="form-group @error('pendidikan') is-invalid @enderror">
                                             <label>Pendidikan</label><br>
                                             {{-- Pilih Pendidikan --}}
@@ -428,21 +455,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
-                                    {{-- <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Umur</label>
-                                            <input type="number" class="form-control @error('umur') is-invalid @enderror" name="umur" id="umur"
-                                                placeholder="Diisi Umur" value="{{ old('umur') }}">
-                                            @error('umur')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-                                    </div> --}}
-
-                                    <div class="col-md-6 tiga_buta" >
+                                    <div class="col-md-6 tiga_buta" id="buta" style="display: none">
                                         <div class="form-group ">
                                             <label class="form-label">3 Buta</label><br>
                                             <div class="d-flex">
@@ -461,6 +474,39 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group @error('makan_beras') is-invalid @enderror">
+                                            {{-- pilih Makanan Pokok Sehari-hari--}}
+                                            <label class="form-label">Makanan Pokok Sehari-hari </label><br>
+                                            <select class="form-control @error('makan_beras') is-invalid @enderror" id="makan_beras" name="makan_beras">
+                                                <option value="" hidden>Pilih Makanan Pokok</option>
+                                                <option value=1>Beras</option>
+                                                <option value=2>Non Beras</option>
+                                            </select>
+                                        </div>
+                                        @error('makan_beras')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group @error('berkebutuhan_khusus') is-invalid @enderror">
+                                            <label class="form-label">Berkebutuhan Khusus</label><br>
+                                            <select class="form-control @error('berkebutuhan_khusus') is-invalid @enderror" id="berkebutuhan_khusus" name="berkebutuhan_khusus">
+                                                <option value="">Pilih</option>
+                                                @foreach(['Cacat Mental', 'Cacat Fisik', 'Lainnya'] as $option)
+                                                    <option value="{{ $option }}" {{ old('berkebutuhan_khusus') == $option ? 'selected' : '' }}>{{ $option }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @error('berkebutuhan_khusus')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group @error('periode') is-invalid @enderror">
                                             {{-- pilih periode --}}
@@ -664,7 +710,6 @@
                             <div class="col-md-3">
                                 <div class="form-group @error('ikut_koperasi') is-invalid @enderror">
                                     <label>Ikut dalam Kegiatan Koperasi</label><br>
-                                    {{-- Pilih mengikuti kegiatan koperasi --}}
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label">
                                             <input type="radio" name="ikut_koperasi" value=1 class="form-check-input">Ya
@@ -682,7 +727,48 @@
                                 </span>
                                 @enderror
                             </div>
-
+                            <div class="col-md-2">
+                                <div class="form-group @error('aktivitas_UP2K') is-invalid @enderror">
+                                    {{-- pilih aktivitas UP2K--}}
+                                    <label>Aktivitas UP2K</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="aktivitas_UP2K" value=1 class="form-check-input">Ya
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="aktivitas_UP2K" value=0 class="form-check-input">Tidak
+                                            </label>
+                                        </div>
+                                </div>
+                                @error('aktivitas_UP2K')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group @error('aktivitas_kesehatan_lingkungan') is-invalid @enderror">
+                                    {{-- pilih aktivitas kegiatan usaha --}}
+                                    <label>Aktivitas Kegiatan Usaha Kesehatan Lingkungan</label><br>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="aktivitas_kesehatan_lingkungan" value=1 class="form-check-input">Ya
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <label class="form-check-label">
+                                                <input type="radio" name="aktivitas_kesehatan_lingkungan" value=0 class="form-check-input">Tidak
+                                            </label>
+                                        </div>
+                                </div>
+                                @error('aktivitas_kesehatan_lingkungan')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                             <div class="col-md-2">
                                 <div class="form-group @error('id_user') is-invalid @enderror">
                                     @foreach ($kad as $c)
@@ -795,6 +881,7 @@
     });
 
        window.onload=function(){
+            const buta = document.getElementById('buta');
 
            $('#tgl_lahir').on('change', function() {
 
@@ -803,7 +890,12 @@
                var today = new Date();
 
                 var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-
+                if(age < 13){
+                    buta.style.display = 'none';
+                }else{
+                    buta.style.display = 'block';
+                }
+                console.log('awuwuw',age);
                $('#umur').val(age);
 
            });

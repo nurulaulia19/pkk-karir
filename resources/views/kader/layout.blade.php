@@ -173,15 +173,22 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
+                        <a href="/data_warga" class="nav-link {{ Request::is('data_warga') ? 'active':'' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Data Warga</p>
+                        </a>
+                      </li>
+                    <li class="nav-item">
                         <a href="/data_keluarga" class="nav-link {{ Request::is('data_keluarga') ? 'active':'' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Data Keluarga</p>
                         </a>
                       </li>
+
                       <li class="nav-item">
-                        <a href="/data_warga" class="nav-link {{ Request::is('data_warga') ? 'active':'' }}">
+                        <a href="/data-rumah-tangga" class="nav-link {{ Request::is('data_warga') ? 'active':'' }}">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Data Warga</p>
+                          <p>Rumah Tangga</p>
                         </a>
                       </li>
                     <li class="nav-item">

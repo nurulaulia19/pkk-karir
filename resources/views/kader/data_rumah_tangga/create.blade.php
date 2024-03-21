@@ -12,13 +12,13 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="keluarga-tab" data-toggle="tab" href="#keluarga" role="tab"
-                    aria-controls="keluarga" aria-selected="false">Data Keluarga</a>
+                    aria-controls="keluarga" aria-selected="false">Data Rumah Tangga</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="kondisi-keluarga-tab" data-toggle="tab" href="#kondisi-keluarga" role="tab" aria-controls="kondisi-keluarga" aria-selected="false">Data Kondisi Keluarga</a>
+                <a class="nav-link" id="kondisi-keluarga-tab" data-toggle="tab" href="#kondisi-keluarga" role="tab" aria-controls="kondisi-keluarga" aria-selected="false">Kriteria Rumah</a>
             </li>
         </ul>
-        <form action="{{ route('data_keluarga.store') }}" method="POST">
+        <form action="{{ route('data-rumah-tangga.store') }}" method="POST">
             @csrf
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="dasawisma" role="tabpanel" aria-labelledby="dasawisma-tab">
@@ -87,7 +87,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group @error('rw') is-invalid @enderror">
                                                 <label for="exampleFormControlSelect1">RW</label>
-                                                <input type="number" min="1" class="form-control @error('rw') is-invalid @enderror" name="rw" id="rw" placeholder="Masukkan No. RW" value="{{ old('rw') }}">
+                                                <input type="number" min="1"
+                                                    class="form-control @error('rw') is-invalid @enderror" name="rw"
+                                                    id="rw" placeholder="Masukkan No. RW"
+                                                    value="{{ old('rw') }}">
                                             </div>
                                             @error('rw')
                                                 <span class="invalid-feedback" role="alert">
@@ -111,6 +114,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -173,8 +177,8 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Provinsi</label>
-                                                    <input type="text" readonly class="form-control @error('provinsi') is-invalid @enderror" name="provinsi" id="provinsi" placeholder="Masukkan Provinsi" value="Jawa Barat">
+                                                <label for="exampleFormControlSelect1">Kepala</label>
+                                                    <input type="text" readonly class="form-control @error('provinsi') is-invalid @enderror" name="provinsi" id="provinsi" placeholder="Masukkan Provisni" value="Jawa Barat">
                                                     @error('provinsi')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -221,11 +225,11 @@
                                             <div class="form-group">
                                                 <label>Nama</label>
                                                 {{-- <input type="text" class="form-control @error('nama_kepala_rumah_tangga') is-invalid @enderror" name="nama_kepala_rumah_tangga" id="nama_kepala_rumah_tangga" placeholder="Masukkan Nama Kepala Rumah Tangga" value="{{ old('nama_kepala_rumah_tangga') }}"> --}}
-                                                <select name="warga[]" id="js-example-basic-multiple"
-                                                    class="form-control js-example-basic-single" name="user_id[]">
+                                                <select name="keluarga[]" id="js-example-basic-multiple"
+                                                    class="form-control js-example-basic-single" >
                                                     <option selected disabled>Type to search</option>
-                                                    @foreach ($warga as $warga)
-                                                        <option value="{{ $warga->id }}">{{ $warga->nama }}</option>
+                                                    @foreach ($keg as $warga)
+                                                        <option value="{{ $warga->id }}">{{ $warga->nama_kepala_rumah_tangga }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('nama_kepala_rumah_tangga')
@@ -239,9 +243,9 @@
                                         <div class="col-md-6">
                                             <div class="form-group ">
                                                 <label>Status</label>
-                                                <select class="form-control" id="status" name="status[]">
+                                                <select class="form-control" id="id_dasawisma" name="status[]">
                                                     {{-- <option selected> -- pili status --</option> --}}
-                                                    <option selected value="kepala-keluarga">Kepala Keluarga</option>
+                                                    <option selected value="kepala-rumah-tangga">Kepala Rumah Tangga</option>
                                                     {{-- <option value="ibu">Ibu</option>
                                                     <option value="anak">Anak</option> --}}
                                                 </select>
@@ -252,6 +256,7 @@
                             </div>
                             <div class="d-flex justify-content-end">
                                 <button id="addRow" type="button" class="btn btn-primary">ADD</button>
+
                             </div>
                         </div>
                         <div class="card-footer">
@@ -285,43 +290,98 @@
                             @endif
 
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group @error('punya_jamban') is-invalid @enderror">
-                                        {{-- pilih mempunyai jamban --}}
-                                        <label>Mempunyai Jamban Keluarga</label><br>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text">
-                                                                <input type="radio" aria-label="Radio button for following text input" name="punya_jamban" value="1">Ya
-                                                            </div>
-                                                        </div>
-                                                        <input type="number" min="0" class="form-control" aria-label="Text input with radio button" name="jumlah_jamban" placeholder="Jumlah Jamban">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-3">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group @error('kriteria_rumah_sehat') is-invalid @enderror">
+                                                {{-- pilih kriteria rumah --}}
+                                                <label>Kriteria Rumah</label><br>
+                                                <select class="form-control @error('kriteria_rumah_sehat') is-invalid @enderror" id="kriteria_rumah_sehat" name="kriteria_rumah_sehat">
+                                                    <option value="" hidden>Pilih Kriteria Rumah</option>
+                                                    <option value=1>Sehat</option>
+                                                    <option value=0>Kurang Sehat</option>
+                                                </select>
+                                            </div>
+                                            @error('kriteria_rumah_sehat')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group @error('punya_tempat_sampah') is-invalid @enderror">
+                                                {{-- pilih punya tempat pembuangan sampah --}}
+                                                <label>Memiliki Tempat Pembuangan Sampah</label><br>
                                                     <div class="form-check form-check-inline">
                                                         <label class="form-check-label">
-                                                            <input type="radio" name="punya_jamban" value="0" class="form-check-input">Tidak
+                                                            <input type="radio" name="punya_tempat_sampah" value=1 class="form-check-input">Ya
                                                         </label>
                                                     </div>
-                                                </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" name="punya_tempat_sampah" value=0 class="form-check-input">Tidak
+                                                        </label>
+                                                    </div>
+                                            </div>
+                                            @error('punya_tempat_sampah')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group @error('saluran_pembuangan_air_limbah') is-invalid @enderror">
+                                                {{-- pilih punya saluran pembuangan air limbah --}}
+                                                <label>Mempunyai Saluran Pembuangan Air Limbah</label><br>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" name="saluran_pembuangan_air_limbah" value=1 class="form-check-input">Ya
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" name="saluran_pembuangan_air_limbah" value=0 class="form-check-input">Tidak
+                                                        </label>
+                                                    </div>
+                                            </div>
+                                            @error('saluran_pembuangan_air_limbah')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
-                                    @error('punya_jamban')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group @error('tempel_stiker') is-invalid @enderror">
+                                                {{-- pilih stiker --}}
+                                                <label>Menempel Stiker P4K</label><br>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" name="tempel_stiker" value=1 class="form-check-input">Ya
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" name="tempel_stiker" value=0 class="form-check-input">Tidak
+                                                        </label>
+                                                    </div>
+                                            </div>
+                                            @error('tempel_stiker')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
                             {{-- <button type="button" data-action="next" class="btn btn-primary">Next</button> --}}
-                            <button type="submit" class="ml-2 btn btn-success">Tambah</button>
+                            <button type="submit" class="ml-2 btn btn-success">submit</button>
 
                         </div>
                     </div>
@@ -511,11 +571,11 @@
     // Fungsi untuk melakukan permintaan API sekali saja di awal
     $(document).ready(function() {
         $.ajax({
-            url: "/warga",
+            url: "/keluarga",
             type: "GET",
             success: function(response) {
                 console.log(response);
-                data = response.warga; // Simpan data warga dalam variabel
+                data = response.keluarga; // Simpan data warga dalam variabel
             },
             error: function(xhr) {
                 console.error(xhr.responseText);
@@ -534,19 +594,16 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Nama</label>
-                            <select id="warga${warga}" class="form-control js-example-basic-single" name="warga[]">
+                            <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
                                 <option selected disabled value="AL">Type to search</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Status</label>
+                            <label>Dasawisma</label>
                             <select class="form-control" name="status[]">
-                                <option disabled selected> -- pilih status -- </option>
-
-                                <option value="ibu">Ibu</option>
-                                <option value="anak">Anak</option>
+                                <option value="kepala-keluarga">Kepala Keluarga</option>
                             </select>
                         </div>
                     </div>
@@ -561,7 +618,7 @@
             data.forEach(function(item) {
                 var option = document.createElement('option');
                 option.value = item.id;
-                option.textContent = item.nama;
+                option.textContent = item.nama_kepala_rumah_tangga;
                 selectElement.appendChild(option);
             });
         }
@@ -570,4 +627,17 @@
 </script>
 
 
+
+
+
+    {{-- <script>
+        $(document).ready(function() {
+
+            var $provinsiSelect = $('#js-example-basic-multiple');
+            $provinsiSelect.select2();
+
+
+            // $('.js-example-basic-multiple').select2();
+        });
+    </script> --}}
 @endpush

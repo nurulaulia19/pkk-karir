@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\DataWarga;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_keluarga', function (Blueprint $table) {
+        Schema::create('rumah_tanggas', function (Blueprint $table) {
             $table->id();
             $table->integer('rt');
             $table->integer('rw');
             $table->string('dusun');
             $table->string('provinsi');
-            $table->string('nama_kepala_rumah_tangga');
-            $table->integer('punya_jamban');
-            $table->boolean('is_rumah_tangga')->default(false);
+            $table->string('name');
+            $table->boolean('punya_tempat_sampah')->default(false);
+            $table->boolean('kriteria_rumah_sehat')->default(false);
+            $table->boolean('tempel_stiker')->default(false);
+            $table->boolean('saluran_pembuangan_air_limbah')->default(false);
             $table->timestamps();
         });
     }
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_keluarga');
+        Schema::dropIfExists('rumah_tanggas');
     }
 };

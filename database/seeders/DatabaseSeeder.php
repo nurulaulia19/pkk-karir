@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\DataKeluarga;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(KategoriKegiatanSeeder::class);
         $this->call(KeteranganKegiatanSeeder::class);
         $this->call(WargaSeeder::class);
+        $this->call(DataKeluargaSeeder::class);
         // $this->call(KategoriPemanfaatanLahanSeeder::class);
         // $this->call(KategoriIndustriRumahSeeder::class);
 
