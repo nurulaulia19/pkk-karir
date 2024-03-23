@@ -54,6 +54,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\PendataanKader\RumahTanggaController;
+use App\Http\Controllers\RtController;
+use App\Http\Controllers\RwController;
 
 // use App\Http\Controllers\ForgotPasswordController;
 
@@ -110,6 +112,8 @@ Route::get('/sekretariat', [PokjaController::class, 'sekretariat']);
 Route::post('/admin_desa/logout', [AdminController::class, 'logoutPost'])->name('admin_desa.logout');
 Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin_desa.dashboard');
+    Route::resource('rw', RwController::class);
+    Route::resource('rt', RtController::class);
 
     // data kelompok dasa wisma
     Route::get('/data_kelompok_dasa_wisma', [AdminController::class, 'data_kelompok_dasa_wisma']);

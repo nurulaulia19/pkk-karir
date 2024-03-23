@@ -180,6 +180,12 @@
                       <p>Keterangan Kegiatan</p>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="/rw" class="nav-link {{ Request::is('rw') ? 'active':'' }}">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>RT / RW</p>
+                    </a>
+                  </li>
 
                 </ul>
               </li>

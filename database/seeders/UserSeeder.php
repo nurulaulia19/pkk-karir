@@ -41,16 +41,16 @@ class UserSeeder extends Seeder
         // $admin_kabupaten->assignRole(Role::ROLE_ADMIN);
 
         // // admin desa anjatan
-        // $admin_desa = User::create([
-        //     'name' => 'Admin PKK Desa Anjatan',
-        //     'foto' => null,
-        //     'id_kecamatan' => 1,
-        //     'email' => 'admindesaanjatan@gmail.com',
-        //     'password' => Hash::make('anjatan'),
-        //     'user_type' => 'admin_desa',
-        //     'id_desa' => 1,
-        // ]);
-        // $admin_desa->assignRole(Role::ROLE_ADMIN);
+        $admin_desa = User::create([
+            'name' => 'Admin PKK Desa Anjatan',
+            'foto' => null,
+            'id_kecamatan' => 1,
+            'email' => 'admindesaanjatan@gmail.com',
+            'password' => Hash::make('anjatan'),
+            'user_type' => 'admin_desa',
+            'id_desa' => 1,
+        ]);
+        $admin_desa->assignRole(Role::ROLE_ADMIN);
 
         // $admin_desa = User::create([
         //     'name' => 'Admin PKK Desa Anjatan Baru',
