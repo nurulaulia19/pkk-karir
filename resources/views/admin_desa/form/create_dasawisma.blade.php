@@ -13,7 +13,7 @@
             <a class="nav-link" id="kader-tab" data-toggle="tab" href="#kader" role="tab" aria-controls="kader" aria-selected="false">Data Kader</a>
         </li>
     </ul>
-    <form action="{{ route('data_dasawisma.store') }}" method="POST">
+    <form action="{{ route('data_dasawisma.store') }}" enctype="multipart/form-data" method="POST">
         @csrf
         @if (count($errors)>0)
             <div class="alert alert-danger">
@@ -210,7 +210,7 @@
                           </div>
                           <div class="form-group">
                               <label>Foto Profil</label>
-                              <input name="foto" type="file" class="form-control-file" id="foto" accept=".img, .jpg, .jpeg, .png" value="{{old('foto')}}">
+                              <input name="foto" type="file" class="form-control-file" id="foto" value="{{old('foto')}}">
                           </div>
                         </div>
                     </div>
@@ -227,3 +227,25 @@
 </div>
 @endsection
 
+@push('script-addon')
+<script>
+    $(document).on('click', '[data-action="next"]', function(e) {
+    var $active = $('#dataDasawismaTabs .active'); // Menggunakan ID yang sesuai
+    var hasError = false;
+
+    // Cek apakah ada input yang kosong di tab aktif
+    $($active.attr('href')).find('[name]').each(function() {
+        if ((!$(this).prop('disabled') || !$(this).prop('readonly')) && !$(this).val()) {
+            $(this).addClass('is-invalid');
+            hasError = true;
+        }
+    });
+
+    // Jika tidak ada error, pindahkan ke tab berikutnya
+    if (!hasError) {
+        $active.parent().next().find('a').click();
+    }
+});
+
+</script>
+@endpush

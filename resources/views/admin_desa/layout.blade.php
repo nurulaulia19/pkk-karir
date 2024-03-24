@@ -195,19 +195,19 @@
                 </ul>
               </li>
 
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="/data_dasawisma" class="nav-link {{ Request::is('data_dasawisma') ? 'active':'' }}">
                 <i class="nav-icon fas fa-folder-open"></i>
                   <p>Data Dasawisma</p>
                 </a>
-              </li>
+              </li> --}}
 
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="/data_kader" class="nav-link {{ Request::is('data_kader') ? 'active':'' }}">
                 <i class="nav-icon fas fa-user"></i>
                   <p>Data Kader Dasawisma</p>
                 </a>
-              </li>
+              </li> --}}
 
 
               <li class="nav-item has-treeview">

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 
 use Illuminate\Http\Request;
@@ -274,12 +275,22 @@ class KelompokDasawismaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // public function edit(DataKelompokDasawisma $data_dasawisma)
+    // {
+    //     //
+    //     return view('admin_desa.form.edit_dasawisma', compact('data_dasawisma'));
+
+    // }
+
     public function edit(DataKelompokDasawisma $data_dasawisma)
     {
-        //
-        return view('admin_desa.form.edit_dasawisma', compact('data_dasawisma'));
+        // Ambil data kader yang terkait dengan Data Kelompok Dasawisma
+        $kader = User::where('id_dasawisma', $data_dasawisma->id)->first();
 
+        // Kirim kedua data tersebut ke tampilan untuk diedit
+        return view('admin_desa.form.edit_dasawisma', compact('data_dasawisma', 'kader'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -288,38 +299,130 @@ class KelompokDasawismaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // public function update(Request $request, DataKelompokDasawisma $data_dasawisma)
+    // {
+    //     $request->validate([
+    //         'nama_dasawisma' => 'required',
+    //         'alamat_dasawisma' => 'required',
+    //         'dusun' => 'required',
+    //         'status' => 'required',
+    //         'id_desa' => 'required',
+    //         'id_kecamatan' => 'required',
+    //         'rt' => 'required',
+    //         'rw' => 'required'
+    //     ], [
+    //         'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
+    //         'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
+    //         'dusun.required' => 'Masukkan Dusun Dasawisma',
+    //         'status.required' => 'Pilih Status',
+    //     ]);
+
+    //     $data_dasawisma->nama_dasawisma = $request->nama_dasawisma;
+    //     $data_dasawisma->alamat_dasawisma = $request->alamat_dasawisma;
+    //     $data_dasawisma->dusun = $request->dusun;
+    //     $data_dasawisma->rt = $request->rt;
+    //     $data_dasawisma->rw = $request->rw;
+    //     $data_dasawisma->status = $request->status;
+    //     $data_dasawisma->id_desa = auth()->user()->id_desa;
+    //     $data_dasawisma->id_kecamatan = auth()->user()->id_kecamatan;
+
+    //     $data_dasawisma->update();
+    //     Alert::success('Berhasil', 'Data berhasil di Ubah');
+
+    //     return redirect('/data_dasawisma');
+    // }
+
     public function update(Request $request, DataKelompokDasawisma $data_dasawisma)
     {
+        $kader = User::where('id_dasawisma', $data_dasawisma->id)->first();
+        // dd($kader);
+
+
         $request->validate([
+            // Aturan validasi untuk Dasawisma data
             'nama_dasawisma' => 'required',
             'alamat_dasawisma' => 'required',
             'dusun' => 'required',
             'status' => 'required',
+            'rt' => 'required',
+            'rw' => 'required',
+
+            // Aturan validasi untuk data Kader
+            'name' => 'required',
+            'email' => [
+                'required',
+                Rule::unique('users')->ignore($kader->id),
+            ],
+            'password' => 'nullable|min:8',
+            'user_type' => 'required',
             'id_desa' => 'required',
             'id_kecamatan' => 'required',
-            'rt' => 'required',
-            'rw' => 'required'
         ], [
+            // Pesan validasi untuk Dasawisma data
             'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
             'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
             'dusun.required' => 'Masukkan Dusun Dasawisma',
             'status.required' => 'Pilih Status',
+
+            // Pesan validasi untuk data Kader
+            'name.required' => 'Masukkan Nama Pengguna',
+            'email.required' => 'Masukkan Email Pengguna',
+            'email.unique' => 'Email sudah digunakan',
+            'password.min' => 'Password minimal harus 8 karakter',
+            'user_type.required' => 'Lengkapi Deskripsi Berita yang ingin dipublish',
         ]);
 
-        $data_dasawisma->nama_dasawisma = $request->nama_dasawisma;
-        $data_dasawisma->alamat_dasawisma = $request->alamat_dasawisma;
-        $data_dasawisma->dusun = $request->dusun;
-        $data_dasawisma->rt = $request->rt;
-        $data_dasawisma->rw = $request->rw;
-        $data_dasawisma->status = $request->status;
-        $data_dasawisma->id_desa = auth()->user()->id_desa;
-        $data_dasawisma->id_kecamatan = auth()->user()->id_kecamatan;
+        // Lakukan pembaruan Data Dasawisma
+        $data_dasawisma->update([
+            'nama_dasawisma' => $request->nama_dasawisma,
+            'alamat_dasawisma' => $request->alamat_dasawisma,
+            'dusun' => $request->dusun,
+            'status' => $request->status,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'periode' => $request->periode,
+        ]);
 
-        $data_dasawisma->update();
-        Alert::success('Berhasil', 'Data berhasil di Ubah');
+        // Lakukan pembaruan data Kader
+        $kader->update([
+            'name' => $request->name,
+            'user_type' => $request->user_type,
+            'id_desa' => $request->id_desa,
+            'id_kecamatan' => $request->id_kecamatan,
+        ]);
 
+        // Jika email diisi dan berbeda dengan email yang ada, lakukan pembaruan email Kader
+        if ($request->filled('email') && $request->email !== $kader->email) {
+            $kader->update([
+                'email' => $request->email,
+            ]);
+        }
+
+        // Jika password diisi, lakukan pembaruan password Kader
+        if ($request->filled('password')) {
+            $kader->update([
+                'password' => Hash::make($request->password),
+            ]);
+        }
+
+        // Jika ada file foto yang diunggah, lakukan pembaruan foto Kader
+        if ($request->hasFile('foto')) {
+            $image = $request->file('foto');
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->storeAs('public/foto', $profileImage); // Simpan file
+            $kader->update([
+                'foto' => 'foto/' . $profileImage, // Simpan jalur file
+            ]);
+        }
+
+        // Redirect dengan pesan keberhasilan
+        Alert::success('Berhasil', 'Data berhasil diperbarui');
         return redirect('/data_dasawisma');
     }
+
+
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -327,12 +430,33 @@ class KelompokDasawismaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // public function destroy($data_dasawisma, DataKelompokDasawisma $dawis)
+    // {
+    //     //temukan id dawis
+    //     $dawis::find($data_dasawisma)->delete();
+    //     Alert::success('Berhasil', 'Data berhasil di Hapus');
+
+    //     return redirect('/data_dasawisma')->with('status', 'sukses');
+    // }
+
     public function destroy($data_dasawisma, DataKelompokDasawisma $dawis)
     {
-        //temukan id dawis
-        $dawis::find($data_dasawisma)->delete();
-        Alert::success('Berhasil', 'Data berhasil di Hapus');
+        // Temukan data dasawisma
+        $dasawisma = $dawis->findOrFail($data_dasawisma);
 
+        // Temukan pengguna yang terkait dengan data dasawisma
+        $kader = User::where('id_dasawisma', $dasawisma->id)->first();
+
+        // Hapus pengguna jika ditemukan
+        if ($kader) {
+            $kader->delete();
+        }
+
+        // Hapus data dasawisma
+        $dasawisma->delete();
+
+        Alert::success('Berhasil', 'Data berhasil dihapus');
         return redirect('/data_dasawisma')->with('status', 'sukses');
     }
+
 }
