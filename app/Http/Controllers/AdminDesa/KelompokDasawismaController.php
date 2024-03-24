@@ -6,6 +6,11 @@ use App\Models\Data_Desa;
 use App\Models\DataKecamatan;
 use App\Models\DataKelompokDasawisma;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,43 +68,194 @@ class KelompokDasawismaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+    //     //
+    //     $request->validate([
+    //         'nama_dasawisma' => 'required',
+    //         'alamat_dasawisma' => 'required',
+    //         'dusun' => 'required',
+    //         'status' => 'required',
+    //         'id_desa' => 'required',
+    //         'id_kecamatan' => 'required',
+    //         'rt' => 'required',
+    //         'rw' => 'required'
+    //     ], [
+    //         'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
+    //         'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
+    //         'dusun.required' => 'Masukkan Dusun Dasawisma',
+    //         'status.required' => 'Pilih Status',
+    //     ]);
+
+    //     $dawis = new DataKelompokDasawisma;
+    //     $dawis->nama_dasawisma = $request->nama_dasawisma;
+    //     $dawis->alamat_dasawisma = $request->alamat_dasawisma;
+    //     $dawis->dusun = $request->dusun;
+    //     $dawis->status = $request->status;
+    //     $dawis->rt = $request->rt;
+    //     $dawis->rw = $request->rw;
+    //     $dawis->id_desa = auth()->user()->id_desa;
+    //     $dawis->id_kecamatan = auth()->user()->id_kecamatan;
+    //     $dawis->periode = $request->periode;
+
+
+    //     $dawis->save();
+    //     // dd($dawis);
+    //     Alert::success('Berhasil', 'Data berhasil di tambahkan');
+
+    //     return redirect('/data_dasawisma');
+    // }
+
     public function store(Request $request)
     {
-        //
         $request->validate([
+            // Validation rules for Dasawisma data
             'nama_dasawisma' => 'required',
             'alamat_dasawisma' => 'required',
             'dusun' => 'required',
             'status' => 'required',
+            'rt' => 'required',
+            'rw' => 'required',
+
+            // Validation rules for Kader data
+            'name' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required|min:8',
+            'user_type' => 'required',
             'id_desa' => 'required',
             'id_kecamatan' => 'required',
-            'rt' => 'required',
-            'rw' => 'required'
         ], [
+            // Validation messages for Dasawisma data
             'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
             'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
             'dusun.required' => 'Masukkan Dusun Dasawisma',
             'status.required' => 'Pilih Status',
+
+            // Validation messages for Kader data
+            'name.required' => 'Masukkan Nama Pengguna',
+            'email.required' => 'Masukkan Email Pengguna',
+            'email.unique' => 'Email sudah digunakan',
+            'password.required' => 'Masukkan Password Pengguna',
+            'user_type.required' => 'Lengkapi Deskripsi Berita yang ingin dipublish',
         ]);
 
-        $dawis = new DataKelompokDasawisma;
-        $dawis->nama_dasawisma = $request->nama_dasawisma;
-        $dawis->alamat_dasawisma = $request->alamat_dasawisma;
-        $dawis->dusun = $request->dusun;
-        $dawis->status = $request->status;
-        $dawis->rt = $request->rt;
-        $dawis->rw = $request->rw;
-        $dawis->id_desa = auth()->user()->id_desa;
-        $dawis->id_kecamatan = auth()->user()->id_kecamatan;
-        $dawis->periode = $request->periode;
+        // Store Dasawisma data
+        $dasawisma = new DataKelompokDasawisma;
+        $dasawisma->nama_dasawisma = $request->nama_dasawisma;
+        $dasawisma->alamat_dasawisma = $request->alamat_dasawisma;
+        $dasawisma->dusun = $request->dusun;
+        $dasawisma->status = $request->status;
+        $dasawisma->rt = $request->rt;
+        $dasawisma->rw = $request->rw;
+        $dasawisma->id_desa = auth()->user()->id_desa;
+        $dasawisma->id_kecamatan = auth()->user()->id_kecamatan;
+        $dasawisma->periode = $request->periode;
+        $dasawisma->save();
 
+        // Store Kader data
+        $kader = new User;
+        $kader->name = $request->name;
+        $kader->email = $request->email;
+        $kader->password = Hash::make($request->password);
+        $kader->user_type = $request->user_type;
+        $kader->id_desa = auth()->user()->id_desa;
+        $kader->id_kecamatan = auth()->user()->id_kecamatan;
+        $kader->id_dasawisma = $dasawisma->id; // Assign Dasawisma ID to Kader
 
-        $dawis->save();
-        // dd($dawis);
-        Alert::success('Berhasil', 'Data berhasil di tambahkan');
+        if ($request->hasFile('foto')) {
+            $image = $request->file('foto');
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->storeAs('public/foto', $profileImage); // Store the file
+            $kader->foto = 'foto/' . $profileImage; // Save the file path
+        }
 
-        return redirect('/data_dasawisma');
+        // dd($kader->foto);
+
+        $kader->save();
+
+        // Logging in the newly created Kader
+        Auth::guard('kader')->login($kader);
+
+        // Redirect with success message
+        Alert::success('Berhasil', 'Data berhasil ditambahkan');
+        return redirect('/data_kader');
     }
+
+//     public function store(Request $request)
+// {
+//     $request->validate([
+//         // Validation rules for Dasawisma data
+//         'nama_dasawisma' => 'required',
+//         'alamat_dasawisma' => 'required',
+//         'dusun' => 'required',
+//         'status' => 'required',
+//         'rt' => 'required',
+//         'rw' => 'required',
+
+//         // Validation rules for Kader data
+//         'name' => 'required',
+//         'email' => 'required|unique:users',
+//         'password' => 'required|min:8',
+//         'user_type' => 'required',
+//         'id_desa' => 'required',
+//         'id_kecamatan' => 'required',
+//     ], [
+//         // Validation messages for Dasawisma data
+//         'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
+//         'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
+//         'dusun.required' => 'Masukkan Dusun Dasawisma',
+//         'status.required' => 'Pilih Status',
+
+//         // Validation messages for Kader data
+//         'name.required' => 'Masukkan Nama Pengguna',
+//         'email.required' => 'Masukkan Email Pengguna',
+//         'email.unique' => 'Email sudah digunakan',
+//         'password.required' => 'Masukkan Password Pengguna',
+//         'user_type.required' => 'Lengkapi Deskripsi Berita yang ingin dipublish',
+//     ]);
+
+//     // Store Dasawisma data
+//     $dasawisma = new DataKelompokDasawisma;
+//     $dasawisma->nama_dasawisma = $request->nama_dasawisma;
+//     $dasawisma->alamat_dasawisma = $request->alamat_dasawisma;
+//     $dasawisma->dusun = $request->dusun;
+//     $dasawisma->status = $request->status;
+//     $dasawisma->rt = $request->rt;
+//     $dasawisma->rw = $request->rw;
+//     $dasawisma->id_desa = auth()->user()->id_desa;
+//     $dasawisma->id_kecamatan = auth()->user()->id_kecamatan;
+//     $dasawisma->periode = $request->periode;
+//     $dasawisma->save();
+
+//     // Store Kader data
+//     $kader = new User;
+//     $kader->name = $request->name;
+//     $kader->email = $request->email;
+//     $kader->password = Hash::make($request->password);
+//     $kader->user_type = $request->user_type;
+//     $kader->id_desa = auth()->user()->id_desa;
+//     $kader->id_kecamatan = auth()->user()->id_kecamatan;
+//     $kader->id_dasawisma = $dasawisma->id; // Assign Dasawisma ID to Kader
+
+//     if ($request->hasFile('foto')) {
+//         $image = $request->file('foto');
+//         $profileImage = date('YmdHis') . "_" . uniqid() . "." . $image->getClientOriginalExtension(); // Unique filename
+//         $image->storeAs('public/foto', $profileImage); // Store the file
+//         $kader->foto = 'foto/' . $profileImage; // Save the file path
+//     }
+
+//     $kader->save();
+
+//     // Logging in the newly created Kader
+//     Auth::guard('kader')->login($kader);
+
+//     // Redirect with success message
+//     Alert::success('Berhasil', 'Data berhasil ditambahkan');
+//     return redirect('/data_kader');
+// }
+
+
+
 
     /**
      * Display the specified resource.

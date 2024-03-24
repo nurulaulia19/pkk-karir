@@ -25,10 +25,9 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+         @endif
 
         <div class="card-body">
-
           <div class="form-group">
             <label>Nama</label>
             <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Masukkan Nama Kader" required value="{{ old('name') }}">
@@ -102,7 +101,6 @@
 
         </div>
         <!-- /.card-body -->
-
         <div class="card-footer">
           <button type="submit" class="btn btn-primary">Tambah</button>
           <a href="/data_kader" class="btn btn-outline-primary">

@@ -1,15 +1,15 @@
 @extends('admin_desa.layout')
 
-@section('title', 'Tambah Kategori Kegiatan | Admin Desa PKK Kab. Indramayu')
+@section('title', 'Tambah RT | Admin Desa PKK Kab. Indramayu')
 
-@section('bread', 'Tambah Kategori Kegiatan')
+@section('bread', 'Tambah RT')
 @section('container')
 
 <div class="col-md-4">
     <!-- general form elements -->
     <div class="card card-primary">
       <div class="card-header">
-        <h3 class="card-title">Tambah Kategori Kegiatan</h3>
+        <h3 class="card-title">Tambah RT</h3>
       </div>
       <!-- /.card-header -->
       <!-- form start -->
@@ -31,28 +31,26 @@
 
         <div class="card-body">
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Nama Kegiatan</label>
-                        {{-- nama Nama Kegiatan --}}
+                        <label for="exampleFormControlSelect1">Nama RT</label>
+                        {{-- nama Nama RT --}}
                         <input type="hidden" name="rw" value="{{ $rw }}">
 
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama Kegiatan" value="{{ old('name') }}">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama RT" value="{{ old('name') }}">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                     </div>
-
-
             </div>
         </div>
         <!-- /.card-body -->
 
         <div class="card-footer">
           <button type="submit" class="btn btn-primary">Tambah</button>
-          <a href="/rt" class="btn btn-outline-primary">
-            <span>Batalkan</span>
-        </a>
+            <a href="{{ route('rw.show', ['id' => $rw]) }}" class="btn btn-outline-primary">
+                <span>Batalkan</span>
+            </a>
         </div>
       </form>
     </div>

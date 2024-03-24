@@ -1,20 +1,17 @@
 @extends('admin_desa.layout')
 
-@section('title', 'Edit Kategori Kegiatan | Admin Desa PKK Kab. Indramayu')
+@section('title', 'Edit RW | Admin Desa PKK Kab. Indramayu')
 
-@section('bread', 'Edit Kategori Kegiatan')
+@section('bread', 'Edit RW')
 @section('container')
 
 <div class="col-md-12">
     <!-- general form elements -->
     <div class="card card-primary">
       <div class="card-header">
-        <h3 class="card-title">Edit Kategori Kegiatan</h3>
+        <h3 class="card-title">Edit RW</h3>
       </div>
-      <!-- /.card-header -->
-      <!-- form start -->
-
-      <form action="{{ url('kategori_kegiatan', $kategori_kegiatan->id) }}" method="POST">
+      <form action="{{ url('rw', $rw->id) }}" method="POST">
         @method('PUT')
         @csrf
         @if (count($errors)>0)
@@ -30,18 +27,16 @@
 
         <div class="card-body">
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Nama Dasawisma</label>
-                        {{-- nama Nama Kegiatan --}}
-                            <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" name="nama_kegiatan" id="nama_kegiatan" placeholder="Isi Nama Kegiatan" value="{{ old('nama_dasawismma', $kategori_kegiatan->nama_kegiatan) }}">
-                            @error('nama_kegiatan')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                <label for="exampleFormControlSelect1">Nama RW</label>
+                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama RW" value="{{ old('name', $rw->name) }}">
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                   @enderror
             </div>
         </div>
-
-            </div>
+        </div>
         </div>
         <!-- /.card-body -->
 

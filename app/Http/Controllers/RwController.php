@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataKelompokDasawisma;
-use App\Models\KategoriKegiatan;
 use App\Models\Rw;
 use App\Models\User;
 use FontLib\Table\Type\name;
@@ -15,23 +13,23 @@ class RwController extends Controller
 {
     public function index()
     {
-        $kategori = Rw::all();
+        $rw = Rw::all();
 
-        return view('admin_desa.rw.index', compact('kategori'));
+        return view('admin_desa.rw.index', compact('rw'));
     }
     public function show($id)
     {
-        $kategori = Rw::with('rt')->find($id);
-        if(!$kategori){
-            dd('nyasar bos');
+        $rt = Rw::with('rt')->find($id);
+        if(!$rt){
+            dd('tidak ada rw');
         }
 
-        return view('admin_desa.rw.rt.index', compact('kategori'));
+        return view('admin_desa.rw.rt.index', compact('rt'));
     }
 
     public function create(Request $request)
     {
-        // halaman create kategori kegiatan
+        // halaman create rw
         return view('admin_desa.rw.create');
     }
     public function store(Request $request)
@@ -55,33 +53,45 @@ class RwController extends Controller
         return redirect('/rw');
     }
 
-    public function edit(KategoriKegiatan $kategori_kegiatan)
+    public function edit(RW $rw)
     {
         //
-        return view('admin_desa.rw.edit', compact('kategori_kegiatan'));
+        return view('admin_desa.rw.edit', compact('rw'));
 
     }
 
-    public function update(Request $request, KategoriKegiatan $kategori_kegiatan)
+    public function update(Request $request, RW $rw)
     {
         $request->validate([
-            'nama_kegiatan' => 'required',
+            'name' => 'required',
         ], [
-            'nama_kegiatan.required' => 'Masukkan Nama Kategori Kegiatan',
+            'name.required' => 'Masukkan Nama RW',
         ]);
 
-        $kategori_kegiatan->nama_kegiatan = $request->nama_kegiatan;
-        $kategori_kegiatan->update();
+        $rw->name = $request->name;
+        $rw->update();
         Alert::success('Berhasil', 'Data berhasil di Ubah');
 
-        return redirect('/kategori_kegiatan');
+        return redirect('/rw');
     }
-    public function destroy($kategori_kegiatan, KategoriKegiatan $kat)
-    {
-        //temukan id kat
-        $kat::find($kategori_kegiatan)->delete();
-        Alert::success('Berhasil', 'Data berhasil di Hapus');
 
-        return redirect('/kategori_kegiatan')->with('status', 'sukses');
+    public function destroy($rwId, RW $dataRw)
+    {
+        // Temukan data RW berdasarkan ID
+        $rw = $dataRw::findOrFail($rwId);
+
+        // Simpan ID RW
+        $rwId = $rw->id;
+
+        // Hapus data RT yang terkait dengan RW
+        $rw->rt()->delete();
+
+        // Hapus data RW
+        $rw->delete();
+
+        Alert::success('Berhasil', 'Data berhasil dihapus');
+
+        return redirect('/rw')->with('status', 'sukses');
     }
+
 }

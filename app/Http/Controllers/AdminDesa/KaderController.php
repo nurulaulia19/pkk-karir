@@ -75,6 +75,7 @@ class KaderController extends Controller
         $kader->user_type = $request->user_type;
         $kader->id_desa = auth()->user()->id_desa;
         $kader->id_kecamatan = auth()->user()->id_kecamatan;
+        $kader->id_dasawisma = auth()->user()->id_dasawisma;
 
         if ($request->hasFile('foto')) {
             if ($kader->foto && Storage::disk('public')->exists($kader->foto)) {

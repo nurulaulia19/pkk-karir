@@ -1,8 +1,8 @@
 @extends('admin_desa.layout')
 
-@section('title', 'Kategori Kegiatan | Admin Desa PKK Kab. Indramayu')
+@section('title', 'Data RW | Admin Desa PKK Kab. Indramayu')
 
-@section('bread', 'Kategori Kegiatan')
+@section('bread', 'Data RW')
 @section('container')
 
     <!-- Main content -->
@@ -35,31 +35,31 @@
 
                                     <tbody>
 
-                                        @foreach ($kategori as $c)
+                                        @foreach ($rw as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td style="vertical-align: middle;">{{$c->name}}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-primary btn-sm" href="{{ url('rw/'.$c->id) }}">Detail</a>
-                                            <a class="btn btn-primary btn-sm" href="{{ url('rw/'.$c->id.'/edit') }}">Edit</a>
-
-                                            <form action="{{ route('rw.destroy',$c->id) }}" method="POST">
-
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit" class="btn btn-danger btn-sm delete" >Delete</button>
-                                            </form>
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-warning btn-sm btn-block" href="{{ url('rw/'.$c->id) }}">Data RT</a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <a class="btn btn-primary btn-sm btn-block" href="{{ url('rw/'.$c->id.'/edit') }}">Edit</a>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="{{ route('rw.destroy', $c->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm btn-block delete">Delete</button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </td>
-
-
                                     </tr>
-
                                     @endforeach
                                     </tbody>
-
                                 </table>
-
                             </div>
                         </div>
 

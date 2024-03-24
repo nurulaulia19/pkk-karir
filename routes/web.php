@@ -114,6 +114,7 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin_desa.dashboard');
     Route::resource('rw', RwController::class);
     Route::resource('rt', RtController::class);
+    Route::get('/rw/{id}', [RwController::class, 'show'])->name('rw.show');
 
     // data kelompok dasa wisma
     Route::get('/data_kelompok_dasa_wisma', [AdminController::class, 'data_kelompok_dasa_wisma']);

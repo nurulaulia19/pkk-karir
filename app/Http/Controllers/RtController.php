@@ -13,51 +13,48 @@ class RtController extends Controller
 {
     public function index()
     {
-        $kategori = Rw::all();
+        $rw = Rw::all();
 
-        return view('admin_desa.rw.index', compact('kategori'));
+        return view('admin_desa.rw.index', compact('rw'));
     }
     public function show($id)
     {
-        $kategori = Rw::with('rt')->find($id);
-        if(!$kategori){
-            dd('nyasar bos');
+        $rt = Rw::with('rt')->find($id);
+        if(!$rt){
+            dd('Tidak ada RT');
         }
 
-        return view('admin_desa.rw.show_rt', compact('kategori'));
+        return view('admin_desa.rw.show_rt', compact('rt'));
     }
 
     public function create(Request $request)
     {
         $rwQuery = $request->input('rw');
         if(!$rwQuery){
-            dd('nyasar');
+            dd('Tidak ada RW');
         }
         $rwData = Rw::find($rwQuery);
         if(!$rwData){
-            dd('nyasar');
+            dd('Tidak ada RW');
         }
         $rw = $rwData->name;
 
-        // dd('selamat datang');
-        // halaman create kategori kegiatan
         return view('admin_desa.rw.rt.create',compact('rw'));
     }
     public function store(Request $request)
     {
         $rwQuery = $request->input('rw');
         if(!$rwQuery){
-            dd('nyasar');
+            dd('Tidak ada RW');
         }
         $rw = Rw::where('name',$rwQuery)->first();
-        // dd($rwQuery);
-        // dd($rw);
+
         if(!$rw){
-            dd('gada rw');
+            dd('Tidak ada RW');
         }
-        // dd($request->all());
+
         $user = Auth::user();
-        // dd($user)
+
 ;        $request->validate([
             'name' => 'required',
         ], [
@@ -71,36 +68,44 @@ class RtController extends Controller
         // dd($kat);
         Alert::success('Berhasil', 'RW berhasil di tambahkan');
 
-        return redirect('/rw');
+        // return redirect('/rw');
+        return redirect()->route('rw.show', $rw->id);
+
     }
 
-    public function edit(KategoriKegiatan $kategori_kegiatan)
+    public function edit(RT $rt)
     {
         //
-        return view('admin_desa.rw.edit', compact('kategori_kegiatan'));
+        return view('admin_desa.rw.rt.edit', compact('rt'));
 
     }
 
-    public function update(Request $request, KategoriKegiatan $kategori_kegiatan)
+    public function update(Request $request, RT $rt)
     {
         $request->validate([
-            'nama_kegiatan' => 'required',
+            'name' => 'required',
         ], [
-            'nama_kegiatan.required' => 'Masukkan Nama Kategori Kegiatan',
+            'name.required' => 'Masukkan Nama RT',
         ]);
 
-        $kategori_kegiatan->nama_kegiatan = $request->nama_kegiatan;
-        $kategori_kegiatan->update();
+        $rt->name = $request->name;
+        $rt->update();
         Alert::success('Berhasil', 'Data berhasil di Ubah');
 
-        return redirect('/kategori_kegiatan');
+        return redirect('rw/'.$rt->rw_id);
     }
-    public function destroy($kategori_kegiatan, KategoriKegiatan $kat)
-    {
-        //temukan id kat
-        $kat::find($kategori_kegiatan)->delete();
-        Alert::success('Berhasil', 'Data berhasil di Hapus');
 
-        return redirect('/kategori_kegiatan')->with('status', 'sukses');
+    public function destroy($rt, RT $dataRT)
+    {
+        // Temukan data RT berdasarkan ID
+        $rtData = $dataRT::findOrFail($rt);
+        $rwId = $rtData->rw_id;
+        $rtData->delete();
+
+        Alert::success('Berhasil', 'Data berhasil dihapus');
+
+        // Redirect ke halaman RW dengan ID RW yang terkait
+        return redirect('rw/'.$rwId)->with('status', 'sukses');
     }
+
 }

@@ -186,7 +186,12 @@
                       <p>RT / RW</p>
                     </a>
                   </li>
-
+                  <li class="nav-item">
+                    <a href="/data_dasawisma" class="nav-link {{ Request::is('data_dasawisma') ? 'active':'' }}">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Data Dasawisma</p>
+                    </a>
+                  </li>
                 </ul>
               </li>
 
