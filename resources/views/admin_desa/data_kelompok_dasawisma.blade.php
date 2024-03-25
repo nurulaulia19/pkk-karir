@@ -47,7 +47,10 @@
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td style="vertical-align: middle;">{{$c->nama_dasawisma}}</td>
                                         <td style="vertical-align: middle;">{{$c->alamat_dasawisma}}</td>
-                                        <td style="vertical-align: middle;">{{$c->rt}}/{{ $c->rw }}</td>
+                                        {{-- <td style="vertical-align: middle;">{{$c->rt}}/{{ $c->rw }}</td> --}}
+                                        <td style="vertical-align: middle;">
+                                            {{ $c->rt->name }}/{{ $c->rw->name }}
+                                        </td>
                                         <td style="vertical-align: middle;">{{$c->dusun}}</td>
                                         @if($c->status == 1)
                                             <td style="vertical-align: middle;">Aktif</td>

@@ -108,4 +108,14 @@ class RtController extends Controller
         return redirect('rw/'.$rwId)->with('status', 'sukses');
     }
 
+    public function getRTByRW(Request $request)
+    {
+        $rwId = $request->rw_id;
+
+        // Ambil data RT berdasarkan RW yang dipilih
+        $rts = Rt::where('rw_id', $rwId)->pluck('name', 'id');
+
+        return response()->json($rts);
+    }
+
 }

@@ -32,6 +32,15 @@ class DataKelompokDasawisma extends Model
         return $this->hasMany(DataWarga::class, 'id');
     }
 
+    public function rw()
+    {
+        return $this->belongsTo(Rw::class, 'id_rw');
+    }
+
+    public function rt()
+    {
+        return $this->belongsTo(Rt::class, 'id_rt');
+    }
 
 
 

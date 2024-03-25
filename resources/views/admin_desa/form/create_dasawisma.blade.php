@@ -54,8 +54,27 @@
                                         @enderror
                                 </div>
                             </div>
-
                             <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>RW</label>
+                                    <select class="form-control" name="id_rw" id="rw" required>
+                                        <option value="" selected disabled>Pilih RW</option>
+                                        @foreach($rws as $rw)
+                                            <option value="{{ $rw->id }}">{{ $rw->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>RT</label>
+                                    <select class="form-control" name="id_rt" id="rt" required>
+                                        <option value="" selected disabled>Pilih RT</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            {{-- <div class="col-sm-3">
                                 <div class="form-group">
                                     <label>RT</label>
                                     <input type="number" class="form-control @error('rt') is-invalid @enderror" name="rt" id="rt" placeholder="Isi RT" required value="{{ old('rt') }}">
@@ -65,18 +84,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-group">
-                                    <label>RW</label>
-                                    <input type="number" class="form-control @error('rw') is-invalid @enderror" name="rw" id="rw" placeholder="Isi RW" required value="{{ old('rw') }}">
-                                    @error('rw')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+                            </div> --}}
                             <div class="col-sm-3">
                                 <div class="form-group @error('dusun') is-invalid @enderror">
                                     <label>Dusun</label>
@@ -93,8 +101,8 @@
                                     <label>Status</label>
                                     <select name="status" id="status" class="form-control">
                                         <option hidden> Pilih Status Dasawisma</option>
-                                        <option value="1">Aktif</option>
-                                        <option value="0">Tidak Aktif</option>
+                                        <option value=1>Aktif</option>
+                                        <option value=2>Tidak Aktif</option>
                                     </select>
                                     @error('status')
                                         <span class="invalid-feedback" role="alert">
@@ -116,7 +124,7 @@
                                 <div class="form-group @error('periode') is-invalid @enderror">
                                     <label>Periode</label>
                                     {{-- pilih periode --}}
-                                    <select style="cursor:pointer;" class="form-control " id="periode" name="periode" value="{{ old('periode') }}">
+                                    {{-- <select style="cursor:pointer;" class="form-control " id="periode" name="periode" value="{{ old('periode') }}">
                                         <option hidden> Pilih Tahun</option>
                                             <?php
                                             $year = date('Y');
@@ -125,7 +133,8 @@
                                             for( $i=$min; $i<=$max; $i++ ) {
                                             echo '<option value='.$i.'>'.$i.'</option>';
                                         }?>
-                                    </select>
+                                    </select> --}}
+                                    <input type="text" class="form-control" id="periode" name="periode" value="{{ date('Y') }}" readonly>
                                 </div>
                                 @error('periode')
                                     <span class="invalid-feedback" role="alert">
@@ -248,4 +257,32 @@
 });
 
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#rw').on('change', function() {
+            var rwId = $(this).val();
+            if(rwId) {
+                $.ajax({
+                    url: '{{ route("get.rt.by.rw") }}', // Sesuaikan dengan rute yang Anda gunakan
+                    type: 'GET',
+                    data: {rw_id: rwId},
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#rt').empty();
+                        $('#rt').append('<option value="" selected disabled>Pilih RT</option>');
+                        $.each(data, function(key, value) {
+                            $('#rt').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#rt').empty();
+                $('#rt').append('<option value="" selected disabled>Pilih RT</option>');
+            }
+        });
+    });
+</script>
+
 @endpush

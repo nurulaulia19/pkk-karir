@@ -457,7 +457,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6 tiga_buta" >
+                                    {{-- <div class="col-md-6 tiga_buta" >
                                         <div class="form-group ">
                                             <label class="form-label">3 Buta</label><br>
                                             <div class="d-flex">
@@ -475,7 +475,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-6">
                                         <div class="form-group @error('makan_beras') is-invalid @enderror">
                                             {{-- pilih Makanan Pokok Sehari-hari--}}

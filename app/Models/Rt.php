@@ -14,4 +14,8 @@ class Rt extends Model
         return $this->belongsTo(Rw::class, 'rt_id');
     }
 
+    public function dasawisma(){
+        return $this->hasMany(Rt::class, 'id');
+    }
+
 }

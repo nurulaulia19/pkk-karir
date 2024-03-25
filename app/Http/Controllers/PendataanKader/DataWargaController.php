@@ -26,7 +26,7 @@ class DataWargaController extends Controller
 
         //halaman data warga
         // $warga=DataWarga::all()->where('id_user', $user->id);
-        $warga=DataWarga::where('id_dasawisma', $user->id)->get();
+        $warga=DataWarga::where('id_dasawisma', $user->id_dasawisma)->get();
         // dd($warga);
 
         $dasawisma = DataKelompokDasawisma::all();
@@ -126,7 +126,7 @@ class DataWargaController extends Controller
 
     // Menambahkan kolom yang baru
     $data['pasangan_usia_subur'] = $request->pasangan_usia_subur === '1' ? true : false;
-    $data['tiga_buta'] = $request->tiga_buta === '1' ? true : false;
+    // $data['tiga_buta'] = $request->tiga_buta === '1' ? true : false;
     $data['ibu_hamil'] = $request->ibu_hamil === '1' ? true : false;
     $data['ibu_menyusui'] = $request->ibu_menyusui === '1' ? true : false;
     $data['aktivitas_UP2K'] = $request->aktivitas_UP2K === '1' ? true : false;;

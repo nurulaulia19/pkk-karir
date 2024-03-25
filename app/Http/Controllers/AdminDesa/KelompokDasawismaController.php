@@ -4,6 +4,8 @@ namespace App\Http\Controllers\AdminDesa;
 use App\Http\Controllers\Controller;
 use App\Models\Data_Desa;
 use App\Models\DataKecamatan;
+use App\Models\Rw;
+use App\Models\Rt;
 use App\Models\DataKelompokDasawisma;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
@@ -42,7 +44,7 @@ class KelompokDasawismaController extends Controller
         $desaId = $user->id_desa;
 
         // Get all records from DataKelompokDasawisma table where id_desa matches the logged-in user's desa ID
-        $dasawisma = DataKelompokDasawisma::where('id_desa', $desaId)->get();
+        $dasawisma = DataKelompokDasawisma::where('id_desa', $desaId)->with(['rw', 'rt'])->get();
         // dd($dasawisma);
 
         // Pass the variables to the view
@@ -60,7 +62,8 @@ class KelompokDasawismaController extends Controller
         // halaman create dasawisma
         $desa = Data_Desa::all();
         $kec = DataKecamatan::all();
-        return view('admin_desa.form.create_dasawisma', compact('desa', 'kec'));
+        $rws = Rw::all();
+        return view('admin_desa.form.create_dasawisma', compact('desa', 'kec','rws'));
     }
 
     /**
@@ -115,8 +118,8 @@ class KelompokDasawismaController extends Controller
             'alamat_dasawisma' => 'required',
             'dusun' => 'required',
             'status' => 'required',
-            'rt' => 'required',
-            'rw' => 'required',
+            'id_rt' => 'required',
+            'id_rw' => 'required',
 
             // Validation rules for Kader data
             'name' => 'required',
@@ -146,8 +149,8 @@ class KelompokDasawismaController extends Controller
         $dasawisma->alamat_dasawisma = $request->alamat_dasawisma;
         $dasawisma->dusun = $request->dusun;
         $dasawisma->status = $request->status;
-        $dasawisma->rt = $request->rt;
-        $dasawisma->rw = $request->rw;
+        $dasawisma->id_rt = $request->id_rt;
+        $dasawisma->id_rw = $request->id_rw;
         $dasawisma->id_desa = auth()->user()->id_desa;
         $dasawisma->id_kecamatan = auth()->user()->id_kecamatan;
         $dasawisma->periode = $request->periode;
@@ -179,7 +182,7 @@ class KelompokDasawismaController extends Controller
 
         // Redirect with success message
         Alert::success('Berhasil', 'Data berhasil ditambahkan');
-        return redirect('/data_kader');
+        return redirect('/data_dasawisma');
     }
 
 //     public function store(Request $request)
@@ -286,9 +289,10 @@ class KelompokDasawismaController extends Controller
     {
         // Ambil data kader yang terkait dengan Data Kelompok Dasawisma
         $kader = User::where('id_dasawisma', $data_dasawisma->id)->first();
-
+        $rws = Rw::all();
+        $rts = Rt::all();
         // Kirim kedua data tersebut ke tampilan untuk diedit
-        return view('admin_desa.form.edit_dasawisma', compact('data_dasawisma', 'kader'));
+        return view('admin_desa.form.edit_dasawisma', compact('data_dasawisma', 'kader','rws','rts'));
     }
 
 
@@ -344,8 +348,8 @@ class KelompokDasawismaController extends Controller
             'alamat_dasawisma' => 'required',
             'dusun' => 'required',
             'status' => 'required',
-            'rt' => 'required',
-            'rw' => 'required',
+            'id_rt' => 'required',
+            'id_rw' => 'required',
 
             // Aturan validasi untuk data Kader
             'name' => 'required',
@@ -378,8 +382,8 @@ class KelompokDasawismaController extends Controller
             'alamat_dasawisma' => $request->alamat_dasawisma,
             'dusun' => $request->dusun,
             'status' => $request->status,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
+            'id_rt' => $request->id_rt,
+            'id_rw' => $request->id_rw,
             'periode' => $request->periode,
         ]);
 

@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('pendidikan');
             $table->string('pekerjaan');
             $table->boolean('pasangan_usia_subur')->default(false);
-            $table->boolean('tiga_buta')->default(false);
+            // $table->boolean('tiga_buta')->default(false);
             $table->boolean('ibu_hamil')->default(false);
             $table->boolean('ibu_menyusui')->default(false);
             $table->enum('berkebutuhan_khusus', ['Cacat Mental', 'Cacat Fisik', 'Lainnya'])->nullable()->default(null);
