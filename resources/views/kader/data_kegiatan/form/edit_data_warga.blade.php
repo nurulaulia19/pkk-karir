@@ -65,7 +65,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">RT</label>
-                                            <input type="number" min="1" class="form-control @error('rt') is-invalid @enderror" name="rt" id="rt" placeholder="Masukkan No. RT" value="{{ucfirst(old('rt', $data_warga->rt))}}">
+                                            <input type="hidden" disabled class="form-control" name="rw_id" id="rw_id"  value="{{ $kader->dasawisma->rt_id }}">
+                                            <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rt->name }}">
                                         </div>
                                         @error('rt')
                                             <span class="invalid-feedback" role="alert">
@@ -80,7 +81,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group @error('rw') is-invalid @enderror">
                                             <label for="exampleFormControlSelect1">RW</label>
-                                            <input type="number" min="1" class="form-control @error('rw') is-invalid @enderror" name="rw" id="rw" placeholder="Masukkan No. RW" value="{{ucfirst(old('rw', $data_warga->rw))}}">
+                                            <input type="hidden" disabled class="form-control" name="rw_id" id="rw_id"  value="{{ $kader->dasawisma->rw_id }}">
+                                            <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rw->name }}">
                                         </div>
                                         @error('rw')
                                             <span class="invalid-feedback" role="alert">
@@ -497,7 +499,7 @@
                                             <label class="form-label">Berkebutuhan Khusus</label><br>
                                             <select class="form-control @error('berkebutuhan_khusus') is-invalid @enderror" id="berkebutuhan_khusus" name="berkebutuhan_khusus">
                                                 <option value="">Pilih</option>
-                                                @foreach(['Cacat Mental', 'Cacat Fisik', 'Lainnya'] as $option)
+                                                @foreach(['Tidak', 'Cacat Mental', 'Cacat Fisik', 'Lainnya'] as $option)
                                                     <option value="{{ $option }}" {{ old('berkebutuhan_khusus', $data_warga->berkebutuhan_khusus) == $option ? 'selected' : '' }}>{{ $option }}</option>
                                                 @endforeach
                                             </select>

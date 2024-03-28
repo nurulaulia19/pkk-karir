@@ -20,7 +20,7 @@ class DataKeluargaSeeder extends Seeder
         $kepala = DataWarga::find(1);
         $keluarga = DataKeluarga::create([
             'nama_kepala_rumah_tangga' => $kepala->nama,
-            'punya_jamban' => 2
+            'punya_jamban' => 1
         ]);
 
             Keluargahaswarga::create([

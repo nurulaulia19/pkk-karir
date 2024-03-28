@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('dusun');
             $table->string('provinsi');
             $table->string('nama_kepala_rumah_tangga');
-            $table->integer('punya_jamban');
+            $table->boolean('punya_jamban');
             $table->boolean('is_rumah_tangga')->default(false);
             $table->timestamps();
         });

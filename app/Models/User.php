@@ -80,5 +80,12 @@ class User extends Authenticatable
     public function pemanfaatan(){
         return $this->hasMany(DataPemanfaatanPekarangan::class);
     }
+    public function rt(){
+        return $this->belongsTo(Rt::class,'rt_id');
+    }
+
+    public function rw(){
+        return $this->belongsTo(Rw::class,'rw_id');
+    }
 
 }

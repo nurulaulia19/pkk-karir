@@ -22,12 +22,11 @@
         @method('PUT')
         @csrf
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="dasawisma" role="tabpanel" aria-labelledby="dasawisma-tab">
+            {{-- <div class="tab-pane fade show active" id="dasawisma" role="tabpanel" aria-labelledby="dasawisma-tab">
                 <div class="card">
                     <div class="card-body">
                         <div class="row justify-content-end mb-4">
                             <div class="col-md-2 d-flex justify-content-end">
-                                <!-- Tombol yang memicu modal -->
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalSaya">
                                     Klik Info
                                 </button>
@@ -52,9 +51,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group ">
                                             <label>Dasa Wisma</label>
-                                            {{-- <input type="text" class="form-control @error('dasa_wisma') is-invalid @enderror" name="dasa_wisma" id="dasa_wisma" placeholder="Masukkan Nama Dasa Wisma" value="{{ old('dasa_wisma') }}"> --}}
                                             <select class="form-control" id="id_dasawisma" name="id_dasawisma">
-                                                {{-- nama dasa wisma --}}
                                                 @foreach ($dasawisma as $c)
                                                     <option value="{{$c->id}}" {{ $c->id === $c->id_dasawisma ? 'selected' : '' }}>{{ $c->nama_dasawisma }}</option>
                                                 @endforeach
@@ -72,13 +69,7 @@
                                             <label for="exampleFormControlSelect1">RT</label>
                                             <input type="number" min="1" class="form-control @error('rt') is-invalid @enderror" name="rt" id="rt" placeholder="Masukkan No. RT" value="{{ old('rt', $data_keluarga->rt ) }}">
 
-                                                {{-- <select class="form-control" id="rt" name="rt"> --}}
-                                                    {{-- nomor rt --}}
-                                                    {{-- <option value="" hidden> Pilih RT</option>
-                                                    @foreach ($warga as $c)
-                                                        <option value="{{$c->id}}">{{ $c->rt }}</option>
-                                                    @endforeach
-                                                </select> --}}
+
                                         </div>
                                         @error('rt')
                                             <span class="invalid-feedback" role="alert">
@@ -92,13 +83,6 @@
                                             <label for="exampleFormControlSelect1">RW</label>
                                             <input type="number" min="1" class="form-control @error('rw') is-invalid @enderror" name="rw" id="rw" placeholder="Masukkan No. RW" value="{{ old('rw', $data_keluarga->rw ) }}">
 
-                                            {{-- <select class="form-control " id="rw" name="rw"> --}}
-                                                {{-- nama rw --}}
-                                                {{-- <option value="" hidden> Pilih RW</option>
-                                                @foreach ($warga as $c)
-                                                    <option value="{{$c->id}}">{{ $c->rw }}</option>
-                                                @endforeach
-                                            </select> --}}
                                         </div>
                                         @error('rw')
                                             <span class="invalid-feedback" role="alert">
@@ -143,7 +127,6 @@
                                     <div class="col-md-6">
                                         <div class="form-group @error('id_kecamatan') is-invalid @enderror">
                                             <label for="exampleFormControlSelect1">Kecamatan</label>
-                                            {{-- nama kecamatan --}}
                                             @foreach ($kec as $c)
                                             <input type="hidden" class="form-control" name="id_kecamatan" id="id_kecamatan" placeholder="Masukkan Nama Kecamatan" value="{{$c->id}}">
                                             <input type="text" disabled class="form-control" name="id_kecamatan" id="id_kecamatan" placeholder="Masukkan Nama Kecamatan" value="{{ $c->nama_kecamatan }}">
@@ -160,7 +143,6 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Kabupaten</label>
-                                            {{-- nama kabupaten --}}
                                                 <input type="text" readonly class="form-control @error('kabupaten') is-invalid @enderror" name="kabupaten" id="kabupaten" placeholder="Masukkan kabupaten" value="Indramayu">
                                                 @error('kabupaten')
                                                     <span class="invalid-feedback" role="alert">
@@ -173,7 +155,6 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Provinsi</label>
-                                            {{-- nama provinsi --}}
                                                 <input type="text" readonly class="form-control @error('provinsi') is-invalid @enderror" name="provinsi" id="provinsi" placeholder="Masukkan Provisni" value="Jawa Barat">
                                                 @error('provinsi')
                                                     <span class="invalid-feedback" role="alert">
@@ -193,13 +174,12 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="tab-pane fade" id="keluarga" role="tabpanel" aria-labelledby="keluarga-tab">
                 <div class="card">
                     <div class="card-body">
                         <div class="row justify-content-end mb-4">
                             <div class="col-md-2 d-flex justify-content-end">
-                                <!-- Tombol yang memicu modal -->
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalSaya">
                                     Klik Info
                                 </button>
@@ -216,20 +196,21 @@
                                 </ul>
                             </div>
                         @endif
-
                         <div class="row" id="container">
+                        @foreach ($data_keluarga->anggota as $index => $item)
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Nama</label>
-                                            {{-- <input type="text" class="form-control @error('nama_kepala_rumah_tangga') is-invalid @enderror" name="nama_kepala_rumah_tangga" id="nama_kepala_rumah_tangga" placeholder="Masukkan Nama Kepala Rumah Tangga" value="{{ old('nama_kepala_rumah_tangga') }}"> --}}
                                             <select name="warga[]" id="js-example-basic-multiple"
                                                 class="form-control js-example-basic-single" name="user_id[]">
-                                                <option selected disabled>Type to search</option>
-                                                @foreach ($warga as $warga)
-                                                    <option value="{{ $warga->id }}">{{ $warga->nama }}</option>
-                                                @endforeach
+                                                {{-- <option selected disabled>Type to search</option> --}}
+                                                                                          {{-- <option value="{{ $warga->id }}">{{ $warga->nama }}</option> --}}
+
+                                                    <option  value="{{ $item->warga->id }}">{{ $item->warga->nama }}</option>
+
+
                                             </select>
                                             @error('nama_kepala_rumah_tangga')
                                                 <span class="invalid-feedback" role="alert">
@@ -239,37 +220,53 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="form-group ">
                                             <label>Status</label>
                                             <select class="form-control" id="status" name="status[]">
-                                                {{-- <option selected> -- pili status --</option> --}}
-                                                <option selected value="kepala-keluarga">Kepala Keluarga</option>
-                                                {{-- <option value="ibu">Ibu</option>
-                                                <option value="anak">Anak</option> --}}
+                                                {{-- <option selected value="kepala-keluarga">Kepala Keluarga</option> --}}
+                                                @if ($index == 0)
+                                                <option value="kepala-keluarga">Kepala Keluarga</option>
+
+
+@else
+<option  value="ibu" >Ibu</option>
+<option  value="anak"  >Anak</option>
+@endif
+
+
                                             </select>
                                         </div>
+
+                                    </div>
+
+                                    <div class="col-md-1 d-flex align-items-center">
+                                        <a href="{{route('keluarga-delete-warga',['id' =>$item->id ])}}" class="btn btn-danger btn-sm mt-2">delete</a>
+
                                     </div>
                                 </div>
                             </div>
+                        @endforeach
                         </div>
+
+
+
+
                         <div class="d-flex justify-content-end">
                             <button id="addRow" type="button" class="btn btn-primary">ADD</button>
                         </div>
                     </div>
                     <div class="card-footer">
                         <button type="button" data-action="next" class="btn btn-primary">Next</button>
-                        {{-- <button type="submit" class="ml-2 btn btn-success">submit</button> --}}
 
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="kondisi-keluarga" role="tabpanel" aria-labelledby="kondisi-keluarga-tab">
+            {{-- <div class="tab-pane fade" id="kondisi-keluarga" role="tabpanel" aria-labelledby="kondisi-keluarga-tab">
                 <div class="card">
                     <div class="card-body">
                         <div class="row justify-content-end mb-4">
                             <div class="col-md-2 d-flex justify-content-end">
-                                <!-- Tombol yang memicu modal -->
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalSaya">
                                     Klik Info
                                 </button>
@@ -290,29 +287,19 @@
                         <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group @error('punya_jamban') is-invalid @enderror">
-                                        {{-- pilih mempunyai jamban --}}
-                                        <label>Mempunyai Jamban Keluarga</label><br>
+                                        <div >
+                                            <label>Punya Jamban ?</label>
                                             <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text">
-                                                                <input type="radio" aria-label="Radio button for following text input" name="punya_jamban" value="1">Ya
-                                                            </div>
-                                                        </div>
-                                                        <input type="number" min="0" class="form-control" aria-label="Text input with radio button" name="jumlah_jamban" placeholder="Jumlah Jamban">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="punya_jamban" value="0" class="form-check-input">Tidak
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                                <div class="col-md-2">
+                                                    <input  {{ $data_keluarga->punya_jamban === 1 ? 'checked' : '' }} type="radio" name="punya_jamban" value="1" id="punya_jamban_ya"> Ya
+                                            </div>
+                                            <div class="col-md-2">
+                                                    <input {{ $data_keluarga->punya_jamban === 0 ? 'checked' : '' }} type="radio" name="punya_jamban" value="0" id="punya_jamban_tidak"> Tidak
+                                            </div>
+                                            </div>
                                         </div>
                                     </div>
+
                                     @error('punya_jamban')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -329,7 +316,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
     </form>
@@ -424,11 +411,10 @@
     });
 
     // Fungsi untuk menambahkan row saat tombol diklik
-    document.getElementById('addRow').addEventListener('click', function() {
-        var container = document.getElementById('container');
-        var rownew = document.createElement('div');
-        rownew.className = 'row w-100';
-        rownew.innerHTML = `
+    $('#addRow').on('click', function() {
+        var container = $('#container');
+        var rownew = $('<div class="row w-100"></div>');
+        rownew.html(`
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
@@ -439,33 +425,58 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label>Status</label>
-                            <select class="form-control" name="status[]">
-                                <option disabled selected> -- pilih status -- </option>
-
-                                <option value="ibu">Ibu</option>
-                                <option value="anak">Anak</option>
+                            <select class="form-control status-select" name="status[]">
                             </select>
                         </div>
                     </div>
+                    <div class="col-md-1 d-flex align-items-center">
+                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+                    </div>
                 </div>
             </div>
-        `;
-        container.appendChild(rownew);
+        `);
+        container.append(rownew);
 
-        var selectElement = document.getElementById(`warga${warga}`);
+        var selectElement = $(`#warga${warga}`);
         // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
+        console.log('aul',data)
         if (data) {
             data.forEach(function(item) {
-                var option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = item.nama;
-                selectElement.appendChild(option);
+                var option = $('<option></option>');
+                option.val(item.id);
+                option.text(item.nama);
+                selectElement.append(option);
             });
         }
+
+        // Mengecek apakah ini adalah baris pertama atau bukan
+        if (warga === 1) {
+            // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
+            rownew.find('.status-select').append('<option value="kepala">Kepala Keluarga</option>');
+        } else {
+            // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
+            var statusSelect = rownew.find('.status-select');
+            statusSelect.append('<option value="ibu">Ibu</option>');
+            statusSelect.append('<option value="anak">Anak</option>');
+            statusSelect.append('<option value="lainnya">Lainnya</option>');
+        }
+
         warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
     });
+
+    function onDelete(id){
+        $(`#warga${id}`).closest('.row').remove();
+    }
+</script>
+
+
+
+
+<script>
+    // Mencetak data yang dikirim dari controller ke konsol
+    console.log(@json($data_keluarga));
 </script>
 @endpush

@@ -7,6 +7,8 @@ use App\Models\DataDasaWisma;
 use App\Models\DataKelompokDasawisma;
 use App\Models\DataKeluarga;
 use App\Models\DataWarga;
+use App\Models\Rw;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,12 +24,7 @@ class DataWargaController extends Controller
     public function index()
     {
         $user = Auth::user();
-        // dd($user);
-
-        //halaman data warga
-        // $warga=DataWarga::all()->where('id_user', $user->id);
         $warga=DataWarga::where('id_dasawisma', $user->id_dasawisma)->get();
-        // dd($warga);
 
         $dasawisma = DataKelompokDasawisma::all();
 
@@ -44,13 +41,13 @@ class DataWargaController extends Controller
      // nama desa yang login
     //  $user = Auth::user();
     //  dd($user);
-    $rt = [];
-    $rw = [];
-    for ($i=1; $i < 30; $i++) {
-        $rt[] =  $i;
-        $rw[] = $i;
-    }
-
+    // $rt = [];
+    // $rw = [];
+    // for ($i=1; $i < 30; $i++) {
+    //     $rt[] =  $i;
+    //     $rw[] = $i;
+    // }
+     $rws = Rw::all();
      $desas = DB::table('data_desa')
      ->where('id', auth()->user()->id_desa)
      ->get();
@@ -63,84 +60,80 @@ class DataWargaController extends Controller
      $kad = DB::table('users')
         ->where('id', auth()->user()->id)
         ->get();
-        $kader = DB::table('users')
+        $kader = User::with('dasawisma.rt.rw')
         ->where('id', auth()->user()->id)
         ->first();
+
+// dd($kader);
 
      $kel = DataKeluarga::all();
      $dasawisma = DataKelompokDasawisma::all();
     //  dd($dasawisma);
 
-     return view('kader.data_kegiatan.form.create_data_warga', compact('desas', 'kader', 'kec', 'kel', 'kad', 'dasawisma','rt','rw'));
+     return view('kader.data_kegiatan.form.create_data_warga', compact('desas', 'kader', 'kec', 'kel', 'kad', 'dasawisma'));
 
  }
 
- public function store(Request $request)
-{
-    // Validasi data
-    $request->validate([
-        // Kolom lainnya...
-        'aktivitas_UP2K' => 'required|boolean',
-        'aktivitas_kesehatan_lingkungan' => 'required|boolean',
-    ], [
-        // Pesan error validasi disesuaikan dengan kebutuhan
-    ]);
+    public function store(Request $request)
+    {
+        // Validasi data
+        $request->validate([
+            // Kolom lainnya...
+            'aktivitas_UP2K' => 'required|boolean',
+            'aktivitas_kesehatan_lingkungan' => 'required|boolean',
+        ], [
+            // Pesan error validasi disesuaikan dengan kebutuhan
+        ]);
 
 
 
-    // Proses penyimpanan data
-    $data = $request->only([
-        'id_desa',
-        'id_kecamatan',
-        'id_dasawisma',
-        'no_registrasi',
-        'no_ktp',
-        'nama',
-        'jabatan',
-        'jenis_kelamin',
-        'tempat_lahir',
-        'tgl_lahir',
-        'status_perkawinan',
-        'agama',
-        'alamat',
-        'kabupaten',
-        'provinsi',
-        'pendidikan',
-        'pekerjaan',
-        'akseptor_kb',
-        'aktif_posyandu',
-        'ikut_bkb',
-        'memiliki_tabungan',
-        'ikut_kelompok_belajar',
-        'ikut_paud_sejenis',
-        'ikut_koperasi',
-        'periode',
-        'berkebutuhan_khusus',
-        'makan_beras',
-        'rt',
-        'rw',
-        'provinsi',
-        'aktivitas_UP2K',
-        'aktivitas_kesehatan_lingkungan',
-    ]);
+        // Proses penyimpanan data
+        $data = $request->only([
+            'id_desa',
+            'id_kecamatan',
+            'id_dasawisma',
+            'no_registrasi',
+            'no_ktp',
+            'nama',
+            'jabatan',
+            'jenis_kelamin',
+            'tempat_lahir',
+            'tgl_lahir',
+            'status_perkawinan',
+            'agama',
+            'alamat',
+            'kabupaten',
+            'provinsi',
+            'pendidikan',
+            'pekerjaan',
+            'akseptor_kb',
+            'aktif_posyandu',
+            'ikut_bkb',
+            'memiliki_tabungan',
+            'ikut_kelompok_belajar',
+            'ikut_paud_sejenis',
+            'ikut_koperasi',
+            'periode',
+            'berkebutuhan_khusus',
+            'makan_beras',
+            'provinsi',
+            'aktivitas_UP2K',
+            'aktivitas_kesehatan_lingkungan',
+        ]);
 
-    // Menambahkan kolom yang baru
-    $data['pasangan_usia_subur'] = $request->pasangan_usia_subur === '1' ? true : false;
-    // $data['tiga_buta'] = $request->tiga_buta === '1' ? true : false;
-    $data['ibu_hamil'] = $request->ibu_hamil === '1' ? true : false;
-    $data['ibu_menyusui'] = $request->ibu_menyusui === '1' ? true : false;
-    $data['aktivitas_UP2K'] = $request->aktivitas_UP2K === '1' ? true : false;;
-    $data['aktivitas_kesehatan_lingkungan'] = $request->aktivitas_kesehatan_lingkungan === '1' ? true : false;;
+        // Menambahkan kolom yang baru
+        $data['pasangan_usia_subur'] = $request->pasangan_usia_subur === '1' ? true : false;
+        // $data['tiga_buta'] = $request->tiga_buta === '1' ? true : false;
+        $data['ibu_hamil'] = $request->ibu_hamil === '1' ? true : false;
+        $data['ibu_menyusui'] = $request->ibu_menyusui === '1' ? true : false;
+        $data['aktivitas_UP2K'] = $request->aktivitas_UP2K === '1' ? true : false;;
+        $data['aktivitas_kesehatan_lingkungan'] = $request->aktivitas_kesehatan_lingkungan === '1' ? true : false;;
 
-    // Simpan data
-    $warga = DataWarga::create($data);
+        // Simpan data
+        $warga = DataWarga::create($data);
 
-    return redirect('/data_warga')->with('success', 'Data berhasil ditambahkan.');
-}
-
-
-
-
+        return redirect('/data_warga')->with('success', 'Data berhasil ditambahkan.');
+    }
 
 
     public function show(DataWarga $data_warga)
@@ -171,8 +164,11 @@ class DataWargaController extends Controller
 
         $kel = DataKeluarga::all();
         $dasawisma = DataKelompokDasawisma::all();
+        $kader = User::with('dasawisma.rt.rw')
+        ->where('id', auth()->user()->id)
+        ->first();
 
-        return view('kader.data_kegiatan.form.edit_data_warga', compact('data_warga','desa','desas','kec', 'kel', 'kad', 'dasawisma'));
+        return view('kader.data_kegiatan.form.edit_data_warga', compact('data_warga','desa','desas','kec', 'kel', 'kad', 'dasawisma','kader'));
 
     }
 

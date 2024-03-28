@@ -242,6 +242,8 @@ class DataKeluargaController extends Controller
     */
     public function edit(DataKeluarga $data_keluarga)
     {
+        $data_keluarga->load('anggota.warga');
+        // dd($data_keluarga);
         // nama desa yang login
         $desas = DB::table('data_desa')
         ->where('id', auth()->user()->id_desa)
@@ -256,6 +258,7 @@ class DataKeluargaController extends Controller
         ->get();
         //halaman edit data keluarga
         $warga = DataWarga::all();
+        // dd($warga);
         $kel = DataKeluarga::all();
         $dasawisma = DataKelompokDasawisma::all();
 
@@ -266,15 +269,6 @@ class DataKeluargaController extends Controller
     }
 
 
-
-
-    /**
-     * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
     public function update(Request $request, DataKeluarga $data_keluarga)
     {
         // proses mengubah untuk data keluarga
@@ -360,12 +354,7 @@ class DataKeluargaController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+
     public function destroy($data_keluarga, DataKeluarga $kel)
     {
         $kel = $kel::find($data_keluarga);
@@ -397,6 +386,21 @@ class DataKeluargaController extends Controller
         $keluarga = DataKeluarga::with('anggota.warga')->find($id);
         // dd($keluarga);
         return view('kader.catatan_keluarga',compact('keluarga'));
+    }
+
+    public function deleteWargaInKeluara($id)
+    {
+        $HasWarga = Keluargahaswarga::with('warga')->find($id);
+        if(!$HasWarga){
+            abort(404, 'Not Found');
+        }
+        $warga = DataWarga::find($HasWarga->warga_id);
+        // dd($HasWarga);
+        $warga->is_keluarga = false;
+        $warga->update();
+
+        $HasWarga->delete();
+        dd('berhasil');
     }
 
 

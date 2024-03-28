@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(DataKecamatanSeeder::class);
         $this->call(DataDesaSeeder::class);
+        $this->call(RWSeeder::class);
+        $this->call(RTSeeder::class);
         $this->call(DasawismaSeeder::class);
 
         $this->call(UserSeeder::class);

@@ -71,6 +71,7 @@ class WargaSeeder extends Seeder
 
         // DataWarga::create([
         //     'id_desa' => 1,
+
         //     'id_kecamatan' => 1,
         //     'id_dasawisma' => 1,
         //     'no_registrasi' => 2,

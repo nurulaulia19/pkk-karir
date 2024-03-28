@@ -11,7 +11,7 @@ class Rt extends Model
     protected $guarded = ['id'];
 
     public function rw(){
-        return $this->belongsTo(Rw::class, 'rt_id');
+        return $this->belongsTo(Rw::class, 'rw_id');
     }
 
     public function dasawisma(){

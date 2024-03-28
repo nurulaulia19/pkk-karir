@@ -15,8 +15,6 @@ return new class extends Migration
     {
         Schema::create('data_warga', function (Blueprint $table) {
             $table->id();
-            $table->integer('rt');
-            $table->integer('rw');
             $table->bigInteger('id_desa')->unsigned();
             $table->foreign('id_desa')->references('id')->on('data_desa');
             $table->bigInteger('id_kecamatan')->unsigned();
@@ -47,7 +45,7 @@ return new class extends Migration
             // $table->boolean('tiga_buta')->default(false);
             $table->boolean('ibu_hamil')->default(false);
             $table->boolean('ibu_menyusui')->default(false);
-            $table->enum('berkebutuhan_khusus', ['Cacat Mental', 'Cacat Fisik', 'Lainnya'])->nullable()->default(null);
+            $table->enum('berkebutuhan_khusus', ['Tidak', 'Cacat Mental', 'Cacat Fisik', 'Lainnya'])->nullable()->default(null);
             $table->boolean('makan_beras')->default(false);
             $table->integer('periode');
             $table->boolean('akseptor_kb')->default(false);

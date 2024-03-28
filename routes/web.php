@@ -114,8 +114,6 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin_desa.dashboard');
     Route::resource('rw', RwController::class);
     Route::resource('rt', RtController::class);
-    Route::get('/get-rt-by-rw', [RtController::class, 'getRTByRW'])->name('get.rt.by.rw');
-    Route::get('/rw/{id}', [RwController::class, 'show'])->name('rw.show');
 
     // data kelompok dasa wisma
     Route::get('/data_kelompok_dasa_wisma', [AdminController::class, 'data_kelompok_dasa_wisma']);
@@ -252,6 +250,9 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
     Route::get('/warga', [DataWargaController::class,'warga']);
     Route::resource('/data_kegiatan', DataKegiatanWargaController::class);
     Route::get('/data_keluarga/{id}/detail', [DataKeluargaController::class,'detail'])->name('keluarga-detail');
+    Route::get('/data_keluarga/{id}/delete-warga', [DataKeluargaController::class,'deleteWargaInKeluara'])->name('keluarga-delete-warga');
+
+
 
     Route::resource('/data_keluarga', DataKeluargaController::class);
     Route::resource('/data-rumah-tangga', RumahTanggaController::class);
@@ -291,6 +292,8 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
     Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     // routes/web.php
 
+    // Route::get('/get-rt-by-rw', [RtController::class, 'getRTByRW'])->name('get.rt.by.rw');
+    // Route::get('/rw/{id}', [RwController::class, 'show'])->name('rw.show');
 
 
 // Route::get('/forgot-password', [ForgotPasswordController::class, 'showForgotPasswordForm'])->name('forgot.password');
@@ -300,3 +303,6 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
 
 
 });
+
+Route::get('/get-rt-by-rw', [RtController::class, 'getRTByRW'])->name('get.rt.by.rw');
+Route::get('/rw/{id}', [RwController::class, 'show'])->name('rw.show');

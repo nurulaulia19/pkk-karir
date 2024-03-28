@@ -266,7 +266,6 @@
                         <div class="card-body">
                             <div class="row justify-content-end mb-4">
                                 <div class="col-md-2 d-flex justify-content-end">
-                                    <!-- Tombol yang memicu modal -->
                                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalSaya">
                                         Klik Info
                                     </button>
@@ -285,44 +284,35 @@
                             @endif
 
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group @error('punya_jamban') is-invalid @enderror">
-                                        {{-- pilih mempunyai jamban --}}
-                                        <label>Mempunyai Jamban Keluarga</label><br>
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <div class="input-group-text">
-                                                                <input type="radio" aria-label="Radio button for following text input" name="punya_jamban" value="1">Ya
-                                                            </div>
-                                                        </div>
-                                                        <input type="number" min="0" class="form-control" aria-label="Text input with radio button" name="jumlah_jamban" placeholder="Jumlah Jamban">
-                                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group @error('punya_jamban') is-invalid @enderror">
+                                            <div >
+                                                <label>Punya Jamban ?</label>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <input type="radio" name="punya_jamban" value="1" id="punya_jamban_ya"> Ya
                                                 </div>
-
-                                                <div class="col-md-3">
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="punya_jamban" value="0" class="form-check-input">Tidak
-                                                        </label>
-                                                    </div>
+                                                <div class="col-md-2">
+                                                        <input type="radio" name="punya_jamban" value="0" id="punya_jamban_tidak"> Tidak
                                                 </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @error('punya_jamban')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+
+                                        @error('punya_jamban')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
 
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            {{-- <button type="button" data-action="next" class="btn btn-primary">Next</button> --}}
-                            <button type="submit" class="ml-2 btn btn-success">Tambah</button>
-
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                            <a href="/data_keluarga" class="btn btn-outline-primary">
+                                <span>Batalkan</span>
+                            </a>
                         </div>
                     </div>
                 </div>

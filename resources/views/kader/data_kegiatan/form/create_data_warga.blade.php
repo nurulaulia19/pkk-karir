@@ -47,7 +47,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group ">
-                                            <label>Dasa Wisma</label>
+                                            <label>Dasawisma</label>
                                             <select class="form-control" id="id_dasawisma" name="id_dasawisma">
                                                 {{-- <option value="" hidden> Pilih Dasa Wisma</option> --}}
                                                 @foreach ($dasawisma as $c)
@@ -66,29 +66,21 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect1">RT</label>
-                                            <input type="number" min="1" class="form-control @error('rt') is-invalid @enderror" name="rt" id="rt" placeholder="Masukkan No. RT" value="{{ old('rt') }}">
+                                            <label>RW</label>
+                                            <input type="hidden" disabled class="form-control" name="rw_id" id="rw_id"  value="{{ $kader->dasawisma->rw_id }}">
+                                            <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rw->name }}">
                                         </div>
-                                        @error('rt')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group @error('rw') is-invalid @enderror">
-                                            <label for="exampleFormControlSelect1">RW</label>
-                                            <input type="number" min="1" class="form-control @error('rw') is-invalid @enderror" name="rw" id="rw" placeholder="Masukkan No. RW" value="{{ old('rw') }}">
+                                        <div class="form-group">
+                                            <label>RT</label>
+                                            <input type="hidden" disabled class="form-control" name="rt_id" id="rt_id"  value="{{ $kader->dasawisma->rt_id }}">
+                                            <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rt->name }}">
                                         </div>
-                                        @error('rw')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group @error('alamat') is-invalid @enderror">
@@ -495,7 +487,7 @@
                                             <label class="form-label">Berkebutuhan Khusus</label><br>
                                             <select class="form-control @error('berkebutuhan_khusus') is-invalid @enderror" id="berkebutuhan_khusus" name="berkebutuhan_khusus">
                                                 <option value="">Pilih</option>
-                                                @foreach(['Cacat Mental', 'Cacat Fisik', 'Lainnya'] as $option)
+                                                @foreach(['Tidak' ,'Cacat Mental', 'Cacat Fisik', 'Lainnya'] as $option)
                                                     <option value="{{ $option }}" {{ old('berkebutuhan_khusus') == $option ? 'selected' : '' }}>{{ $option }}</option>
                                                 @endforeach
                                             </select>
@@ -991,6 +983,33 @@
             } else {
                 // Jika jenis kelamin yang dipilih bukan menikah, sembunyikan pasangan_usia_subur
                 pasangan_usia_subur.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script>
+    $(document).ready(function() {
+        $('#rw').on('change', function() {
+            var rwId = $(this).val();
+            if(rwId) {
+                $.ajax({
+                    url: '{{ route("get.rt.by.rw") }}', // Sesuaikan dengan rute yang Anda gunakan
+                    type: 'GET',
+                    data: {rw_id: rwId},
+                    dataType: 'json',
+                    success: function(data) {
+                        $('#rt').empty();
+                        $('#rt').append('<option value="" selected disabled>Pilih RT</option>');
+                        $.each(data, function(key, value) {
+                            $('#rt').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#rt').empty();
+                $('#rt').append('<option value="" selected disabled>Pilih RT</option>');
             }
         });
     });
