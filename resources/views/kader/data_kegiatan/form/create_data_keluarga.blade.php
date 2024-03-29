@@ -68,32 +68,21 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">RT</label>
-                                                <input type="number" min="1"
-                                                    class="form-control @error('rt') is-invalid @enderror" name="rt"
-                                                    id="rt" placeholder="Masukkan No. RT"
-                                                    value="{{ old('rt') }}">
+                                                <label>RW</label>
+                                                <input type="hidden" disabled class="form-control" name="rw_id" id="rw_id"  value="{{ $kader->dasawisma->rw_id }}">
+                                                <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rw->name }}">
                                             </div>
-                                            @error('rt')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group @error('rw') is-invalid @enderror">
-                                                <label for="exampleFormControlSelect1">RW</label>
-                                                <input type="number" min="1" class="form-control @error('rw') is-invalid @enderror" name="rw" id="rw" placeholder="Masukkan No. RW" value="{{ old('rw') }}">
+                                            <div class="form-group">
+                                                <label>RT</label>
+                                                <input type="hidden" disabled class="form-control" name="rt_id" id="rt_id"  value="{{ $kader->dasawisma->rt_id }}">
+                                                <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rt->name }}">
                                             </div>
-                                            @error('rw')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group @error('rw') is-invalid @enderror">
@@ -228,7 +217,7 @@
                                                         <option value="{{ $warga->id }}">{{ $warga->nama }}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('nama_kepala_rumah_tangga')
+                                                @error('nama_kepala_keluarga')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -290,10 +279,10 @@
                                                 <label>Punya Jamban ?</label>
                                                 <div class="row">
                                                     <div class="col-md-2">
-                                                        <input type="radio" name="punya_jamban" value="1" id="punya_jamban_ya"> Ya
+                                                        <input type="radio" name="punya_jamban" value=1 id="punya_jamban_ya"> Ya
                                                 </div>
                                                 <div class="col-md-2">
-                                                        <input type="radio" name="punya_jamban" value="0" id="punya_jamban_tidak"> Tidak
+                                                        <input type="radio" name="punya_jamban" value=1 id="punya_jamban_tidak"> Tidak
                                                 </div>
                                                 </div>
                                             </div>

@@ -250,7 +250,7 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
     Route::get('/warga', [DataWargaController::class,'warga']);
     Route::resource('/data_kegiatan', DataKegiatanWargaController::class);
     Route::get('/data_keluarga/{id}/detail', [DataKeluargaController::class,'detail'])->name('keluarga-detail');
-    Route::get('/data_keluarga/{id}/delete-warga', [DataKeluargaController::class,'deleteWargaInKeluara'])->name('keluarga-delete-warga');
+    Route::get('/data_keluarga/{id}/delete-warga', [DataKeluargaController::class,'deleteWargaInKeluarga'])->name('keluarga-delete-warga');
 
 
 

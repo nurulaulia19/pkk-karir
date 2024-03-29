@@ -16,11 +16,13 @@ return new class extends Migration
     {
         Schema::create('data_keluarga', function (Blueprint $table) {
             $table->id();
-            $table->integer('rt');
-            $table->integer('rw');
+            // $table->integer('rt');
+            // $table->integer('rw');
+            $table->bigInteger('id_dasawisma')->unsigned()->nullable();
+            $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma');
             $table->string('dusun');
             $table->string('provinsi');
-            $table->string('nama_kepala_rumah_tangga');
+            $table->string('nama_kepala_keluarga');
             $table->boolean('punya_jamban');
             $table->boolean('is_rumah_tangga')->default(false);
             $table->timestamps();

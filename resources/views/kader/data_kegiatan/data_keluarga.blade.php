@@ -46,7 +46,7 @@
 
                                         {{-- nama desa yang login --}}
                                         <td style="vertical-align: middle;">
-                                            {{ucfirst($c->nama_kepala_rumah_tangga) }}
+                                            {{ucfirst($c->nama_kepala_keluarga) }}
                                         </td>
                                         <td style="vertical-align: middle;">
                                             {{ucfirst($c->jumlah_anggota_keluarga)}}
@@ -55,26 +55,26 @@
                                             {{ucfirst($c->jumlah_laki)}}
                                             Orang</td>
                                         <td style="vertical-align: middle;">
-                                            {{ucfirst($c->jumlah_perempuan)}} 
+                                            {{ucfirst($c->jumlah_perempuan)}}
                                             Orang</td>
                                         <td class="text-center">
                                             <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >
                                                 Detail
                                               </a>
-                                            <form action="{{ route('data_keluarga.destroy',$c->id) }}" method="POST">
-
-                                            {{-- <a class="btn btn-info btn-sm" href="{{ url('data_keluarga.show',$c->id) }}">Show</a> --}}
-                                            {{-- <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">
-                                                Detail
-                                              </button> --}}
-
+                                            {{-- <form action="{{ route('data_keluarga.destroy',$c->id) }}" method="POST">
                                                 <a class="btn btn-primary btn-sm" href="{{ url('data_keluarga/'.$c->id.'/edit') }}">Edit</a>
-
                                                 @csrf
                                                 @method('DELETE')
-
+                                                <button type="submit" class="btn btn-danger btn-sm delete">Hapus</button>
+                                            </form> --}}
+                                            <form action="{{ route('data_keluarga.destroy', $c->id) }}" method="POST">
+                                                {{-- {{dd($c->id)}} --}}
+                                                @csrf
+                                                @method('DELETE')
+                                                <a class="btn btn-primary btn-sm" href="{{ route('data_keluarga.edit', $c->id) }}">Edit</a>
                                                 <button type="submit" class="btn btn-danger btn-sm delete">Hapus</button>
                                             </form>
+
                                         </td>
 
                                     </tr>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\DataKelompokDasawisma;
 use App\Models\DataKeluarga;
 use App\Models\DataWarga;
+use App\Models\User;
 use App\Models\Keluargahaswarga;
 use App\Models\NotifDataKeluarga;
 use Illuminate\Http\Request;
@@ -51,7 +52,7 @@ class DataKeluargaController extends Controller
     $kad = DB::table('users')
     ->where('id', auth()->user()->id)
     ->get();
-    $kader = DB::table('users')
+    $kader = User::with('dasawisma.rt.rw')
     ->where('id', auth()->user()->id)
     ->first();
 
@@ -72,12 +73,13 @@ class DataKeluargaController extends Controller
 
         // dd($kepalaKeluarga);
         $keluarga = DataKeluarga::create([
-            'nama_kepala_rumah_tangga' => $kepalaKeluarga->nama,
-            'punya_jamban' => $request->jumlah_jamban,
+            'nama_kepala_keluarga' => $kepalaKeluarga->nama,
+            'punya_jamban' => $request->punya_jamban,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'dusun' => $request->dusun,
-            'provinsi' => $request->provinsi
+            'provinsi' => $request->provinsi,
+            'id_dasawisma' => $request->id_dasawisma
         ]);
         // dd($keluarga);
         for ($i = 0; $i < count($request->warga); $i++) {
@@ -358,16 +360,19 @@ class DataKeluargaController extends Controller
     public function destroy($data_keluarga, DataKeluarga $kel)
     {
         $kel = $kel::find($data_keluarga);
+        // dd( $kel);
 
         DB::beginTransaction();
 
         try {
             //temukan id data keluarga
-            $kel->warga()->delete();
-            $kel->pemanfaatan()->delete();
-            $kel->industri()->delete();
-            $kel->delete();
 
+            $kel->delete();
+            // $kel->warga()->delete();
+            // // dd( $kel->warga);
+            // $kel->pemanfaatan()->delete();
+            // $kel->industri()->delete();
+            // $kel->delete();
             DB::commit();
             Alert::success('Berhasil', 'Data berhasil di Hapus');
 
@@ -380,28 +385,59 @@ class DataKeluargaController extends Controller
         }
     }
 
+
+
     public function detail($id)
      {
 
-        $keluarga = DataKeluarga::with('anggota.warga')->find($id);
+        $keluarga = DataKeluarga::with('anggota.warga', 'dasawisma')->find($id);
         // dd($keluarga);
         return view('kader.catatan_keluarga',compact('keluarga'));
     }
 
-    public function deleteWargaInKeluara($id)
+    // public function deleteWargaInKeluarga($id)
+    // {
+    //     $HasWarga = Keluargahaswarga::with('warga')->find($id);
+    //     if(!$HasWarga){
+    //         abort(404, 'Not Found');
+    //     }
+    //     $warga = DataWarga::find($HasWarga->warga_id);
+    //     // dd($HasWarga);
+    //     $warga->is_keluarga = false;
+    //     $warga->update();
+
+    //     $HasWarga->delete();
+    //     dd('berhasil');
+    // }
+    public function deleteWargaInKeluarga($id)
     {
-        $HasWarga = Keluargahaswarga::with('warga')->find($id);
-        if(!$HasWarga){
+        $hasWarga = Keluargahaswarga::with('warga')->find($id);
+
+        if (!$hasWarga) {
             abort(404, 'Not Found');
         }
-        $warga = DataWarga::find($HasWarga->warga_id);
-        // dd($HasWarga);
+
+        $warga = DataWarga::find($hasWarga->warga_id);
+
+        // Update status is_keluarga
         $warga->is_keluarga = false;
         $warga->update();
 
-        $HasWarga->delete();
+        // Hapus data keluarga has warga
+        $hasWarga->delete();
+
+        // Periksa apakah keluarga memiliki warga terkait
+        $countWarga = Keluargahaswarga::where('keluarga_id', $hasWarga->keluarga_id)->count();
+
+        if ($countWarga === 0) {
+            // Hapus data keluarga jika tidak ada warga terkait lagi
+            DataKeluarga::find($hasWarga->keluarga_id)->delete();
+        }
+
         dd('berhasil');
+        return redirect()->back();
     }
+
 
 
 }

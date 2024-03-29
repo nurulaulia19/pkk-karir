@@ -22,6 +22,7 @@ return new class extends Migration
             // $table->bigInteger('id_keluarga')->unsigned();
             // $table->foreign('id_keluarga')->references('id')->on('data_keluarga');
             $table->bigInteger('id_dasawisma')->unsigned()->nullable();
+            $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma');
             $table->string('no_registrasi');
             $table->string('no_ktp');
             $table->string('nama');

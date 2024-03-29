@@ -20,8 +20,8 @@
 
                                 <div class="row">
                                     <div class="col-sm-8">
-                                        <h6>Catatan Keluarga dari : {{ $keluarga->nama_kepala_rumah_tangga }}</h6>
-                                        <h6>Anggota Kelompok Dasawisma : matahari</h6>
+                                        <h6>Catatan Keluarga dari : {{ $keluarga->nama_kepala_keluarga }}</h6>
+                                        <h6>Anggota Kelompok Dasawisma : {{ $keluarga->dasawisma->nama_dasawisma }}</h6>
                                         <h6>Tahun : 2024</h6>
                                     </div>
                                     <div class="col-sm-4">

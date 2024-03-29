@@ -7,7 +7,7 @@
 <div class="container">
     <ul class="nav nav-tabs" id="dataWargaTabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="dasawisma-tab" data-toggle="tab" href="#dasawisma" role="tab" aria-controls="dasawisma" aria-selected="true">Data Dasa Wisma</a>
+            <a class="nav-link active" id="dasawisma-tab" data-toggle="tab" href="#dasawisma" role="tab" aria-controls="dasawisma" aria-selected="true">Data Dasawisma</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="warga-tab" data-toggle="tab" href="#warga" role="tab" aria-controls="warga" aria-selected="false">Data Warga</a>
@@ -53,7 +53,6 @@
                                                 @foreach ($dasawisma as $c)
                                                     @if ($kader->id_dasawisma == $c->id)
                                                     <option selected value="{{$c->id}}">{{ $c->nama_dasawisma }}</option>
-
                                                     @endif
                                                 @endforeach
                                             </select>
@@ -500,26 +499,15 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="form-group @error('periode') is-invalid @enderror">
+                                        <div class="form-group">
                                             {{-- pilih periode --}}
                                             <label>Periode</label>
-                                            <select style="cursor:pointer;" class="form-control" id="periode" name="periode">
-                                                <option value="" hidden> Pilih Tahun</option>
-                                                    <?php
-                                                    $year = date('Y');
-                                                    $min = $year ;
-                                                        $max = $year + 20;
-                                                    for( $i=$min; $i<=$max; $i++ ) {
-                                                    echo '<option value='.$i.'>'.$i.'</option>';
-                                                }?>
+                                            <select class="form-control" id="periode" name="periode" readonly>
+                                                <option value="{{ date('Y') }}">{{ date('Y') }}</option>
                                             </select>
                                         </div>
-                                        @error('periode')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
+
 
                                     <div class="col-md-6">
                                         <div class="form-group @error('id_user') is-invalid @enderror">

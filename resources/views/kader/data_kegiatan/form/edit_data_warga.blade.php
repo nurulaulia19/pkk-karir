@@ -512,26 +512,13 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="form-group @error('periode') is-invalid @enderror">
+                                        <div class="form-group">
                                             {{-- pilih periode --}}
                                             <label>Periode</label>
-                                            <select style="cursor:pointer;" class="form-control" id="periode" name="periode">
-                                                <option value="{{ $data_warga->periode }}" {{ $data_warga->periode ? 'selected' : '' }}>
-                                                    {{ $data_warga->periode }}</option>
-                                                <?php
-                                                                    $year = date('Y');
-                                                                    $min = $year ;
-                                                                        $max = $year + 20;
-                                                                    for( $i=$min; $i<=$max; $i++ ) {
-                                                                    echo '<option value='.$i.'>'.$i.'</option>';
-                                                                }?>
+                                            <select class="form-control" id="periode" name="periode" readonly>
+                                                <option value="{{ date('Y') }}">{{ date('Y') }}</option>
                                             </select>
                                         </div>
-                                        @error('periode')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
 
                                     <div class="col-md-6">

@@ -209,10 +209,8 @@
                                                                                           {{-- <option value="{{ $warga->id }}">{{ $warga->nama }}</option> --}}
 
                                                     <option  value="{{ $item->warga->id }}">{{ $item->warga->nama }}</option>
-
-
                                             </select>
-                                            @error('nama_kepala_rumah_tangga')
+                                            @error('nama_kepala_keluarga')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -227,14 +225,10 @@
                                                 {{-- <option selected value="kepala-keluarga">Kepala Keluarga</option> --}}
                                                 @if ($index == 0)
                                                 <option value="kepala-keluarga">Kepala Keluarga</option>
-
-
-@else
-<option  value="ibu" >Ibu</option>
-<option  value="anak"  >Anak</option>
-@endif
-
-
+                                                    @else
+                                                    <option  value="ibu" >Ibu</option>
+                                                    <option  value="anak"  >Anak</option>
+                                                    @endif
                                             </select>
                                         </div>
 
@@ -242,15 +236,11 @@
 
                                     <div class="col-md-1 d-flex align-items-center">
                                         <a href="{{route('keluarga-delete-warga',['id' =>$item->id ])}}" class="btn btn-danger btn-sm mt-2">delete</a>
-
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                         </div>
-
-
-
 
                         <div class="d-flex justify-content-end">
                             <button id="addRow" type="button" class="btn btn-primary">ADD</button>
