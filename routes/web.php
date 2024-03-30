@@ -53,6 +53,7 @@ use App\Models\KeteranganKegiatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\KeluargaHasWargaController;
 use App\Http\Controllers\PendataanKader\RumahTanggaController;
 use App\Http\Controllers\RtController;
 use App\Http\Controllers\RwController;
@@ -306,3 +307,4 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
 
 Route::get('/get-rt-by-rw', [RtController::class, 'getRTByRW'])->name('get.rt.by.rw');
 Route::get('/rw/{id}', [RwController::class, 'show'])->name('rw.show');
+Route::get('/keluarga_has_warga', [KeluargaHasWargaController::class, 'getDataKeluargaHasWarga']);

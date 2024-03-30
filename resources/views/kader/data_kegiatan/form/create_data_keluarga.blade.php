@@ -8,7 +8,7 @@
         <ul class="nav nav-tabs" id="dataKeluargaTabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="dasawisma-tab" data-toggle="tab" href="#dasawisma" role="tab"
-                    aria-controls="dasawisma" aria-selected="true">Data Dasa Wisma</a>
+                    aria-controls="dasawisma" aria-selected="true">Data Dasawisma</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="keluarga-tab" data-toggle="tab" href="#keluarga" role="tab"

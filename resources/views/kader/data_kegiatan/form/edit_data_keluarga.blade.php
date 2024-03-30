@@ -8,7 +8,7 @@
 <div class="container">
     <ul class="nav nav-tabs" id="dataKeluargaTabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="dasawisma-tab" data-toggle="tab" href="#dasawisma" role="tab" aria-controls="dasawisma" aria-selected="true">Data Dasa Wisma</a>
+            <a class="nav-link active" id="dasawisma-tab" data-toggle="tab" href="#dasawisma" role="tab" aria-controls="dasawisma" aria-selected="true">Data Dasawisma</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="keluarga-tab" data-toggle="tab" href="#keluarga" role="tab" aria-controls="keluarga" aria-selected="false">Data Keluarga</a>
@@ -22,7 +22,7 @@
         @method('PUT')
         @csrf
         <div class="tab-content" id="myTabContent">
-            {{-- <div class="tab-pane fade show active" id="dasawisma" role="tabpanel" aria-labelledby="dasawisma-tab">
+            <div class="tab-pane fade show active" id="dasawisma" role="tabpanel" aria-labelledby="dasawisma-tab">
                 <div class="card">
                     <div class="card-body">
                         <div class="row justify-content-end mb-4">
@@ -67,9 +67,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">RT</label>
-                                            <input type="number" min="1" class="form-control @error('rt') is-invalid @enderror" name="rt" id="rt" placeholder="Masukkan No. RT" value="{{ old('rt', $data_keluarga->rt ) }}">
-
-
+                                            <input type="hidden" disabled class="form-control" name="rt_id" id="rt_id"  value="{{ $kader->dasawisma->rt_id }}">
+                                            <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rt->name }}">
                                         </div>
                                         @error('rt')
                                             <span class="invalid-feedback" role="alert">
@@ -79,12 +78,12 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="form-group @error('rw') is-invalid @enderror">
-                                            <label for="exampleFormControlSelect1">RW</label>
-                                            <input type="number" min="1" class="form-control @error('rw') is-invalid @enderror" name="rw" id="rw" placeholder="Masukkan No. RW" value="{{ old('rw', $data_keluarga->rw ) }}">
-
+                                        <div class="form-group">
+                                            <label for="exampleFormControlSelect1">RT</label>
+                                            <input type="hidden" disabled class="form-control" name="rw_id" id="rw_id"  value="{{ $kader->dasawisma->rw_id }}">
+                                            <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rw->name }}">
                                         </div>
-                                        @error('rw')
+                                        @error('rw_id')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -168,13 +167,10 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                        <a href="/data_keluarga" class="btn btn-outline-primary">
-                            <span>Batalkan</span>
-                        </a>
+                        <button type="button" data-action="next" class="btn btn-primary">Next</button>
                     </div>
                 </div>
-            </div> --}}
+            </div>
             <div class="tab-pane fade" id="keluarga" role="tabpanel" aria-labelledby="keluarga-tab">
                 <div class="card">
                     <div class="card-body">
@@ -197,50 +193,115 @@
                             </div>
                         @endif
                         <div class="row" id="container">
-                        @foreach ($data_keluarga->anggota as $index => $item)
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Nama</label>
-                                            <select name="warga[]" id="js-example-basic-multiple"
-                                                class="form-control js-example-basic-single" name="user_id[]">
-                                                {{-- <option selected disabled>Type to search</option> --}}
-                                                                                          {{-- <option value="{{ $warga->id }}">{{ $warga->nama }}</option> --}}
-
-                                                    <option  value="{{ $item->warga->id }}">{{ $item->warga->nama }}</option>
-                                            </select>
-                                            @error('nama_kepala_keluarga')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                            @foreach ($data_keluarga->anggota as $index => $item)
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        {{-- <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nama</label>
+                                                <select name="warga[]" id="js-example-basic-multiple"
+                                                    class="form-control js-example-basic-single" name="user_id[]">
+                                                        <option  value="{{ $item->warga->id }}">{{ $item->warga->nama }}</option>
+                                                </select>
+                                                @error('nama_kepala_keluarga')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div> --}}
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nama</label>
+                                                <select name="warga[]" class="form-control js-example-basic-single">
+                                                    <option value="" disabled selected>Pilih Nama Warga</option>
+                                                    @foreach ($data_warga as $warga)
+                                                        <option value="{{ $warga->id }}" {{ $item->warga->id == $warga->id ? 'selected' : '' }}>{{ $warga->nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('nama_kepala_keluarga')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-md-5">
-                                        <div class="form-group ">
-                                            <label>Status</label>
-                                            <select class="form-control" id="status" name="status[]">
-                                                {{-- <option selected value="kepala-keluarga">Kepala Keluarga</option> --}}
-                                                @if ($index == 0)
-                                                <option value="kepala-keluarga">Kepala Keluarga</option>
+                                        {{-- <div class="col-md-5">
+                                            <div class="form-group ">
+                                                <label>Status</label>
+                                                <select class="form-control" id="status" name="status[]">
+                                                    @if ($index == 0)
+                                                    <option value="kepala-keluarga">Kepala Keluarga</option>
+                                                        @else
+                                                        <option value="ibu" >Ibu</option>
+                                                        <option value="anak" >Anak</option>
+                                                        @endif
+                                                </select>
+                                            </div>
+                                        </div> --}}
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Status</label>
+                                                <select class="form-control" name="status[]">
+                                                    @if ($index == 0)
+                                                        <option value="kepala-keluarga" selected>Kepala Keluarga</option>
                                                     @else
-                                                    <option  value="ibu" >Ibu</option>
-                                                    <option  value="anak"  >Anak</option>
+                                                        {{-- <option value="kepala-keluarga">Kepala Keluarga</option> --}}
+                                                        <option value="ibu" {{ $item->status == 'ibu' ? 'selected' : '' }}>Ibu</option>
+                                                        <option value="anak" {{ $item->status == 'anak' ? 'selected' : '' }}>Anak</option>
                                                     @endif
-                                            </select>
+                                                </select>
+                                            </div>
                                         </div>
 
-                                    </div>
-
-                                    <div class="col-md-1 d-flex align-items-center">
-                                        <a href="{{route('keluarga-delete-warga',['id' =>$item->id ])}}" class="btn btn-danger btn-sm mt-2">delete</a>
+                                        <div class="col-md-1 d-flex align-items-center">
+                                            <a href="{{route('keluarga-delete-warga',['id' =>$item->id ])}}" class="btn btn-danger btn-sm mt-2">delete</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
                         </div>
+
+                        {{-- <div class="row" id="container">
+                            @foreach ($data_keluarga->anggota as $index => $item)
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nama</label>
+                                                <select name="warga[]" class="form-control js-example-basic-single">
+                                                    <option value="" disabled selected>Pilih Nama Warga</option>
+                                                    @foreach ($data_warga as $warga)
+                                                        <option value="{{ $warga->id }}" {{ $item->warga->id == $warga->id ? 'selected' : '' }}>{{ $warga->nama }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('nama_kepala_keluarga')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>Status</label>
+                                                <select class="form-control" name="status[]">
+                                                    <option value="" disabled selected>Pilih Status</option>
+                                                    <option value="kepala-keluarga" {{ $item->status == 'kepala-keluarga' ? 'selected' : '' }}>Kepala Keluarga</option>
+                                                    <option value="ibu" {{ $item->status == 'ibu' ? 'selected' : '' }}>Ibu</option>
+                                                    <option value="anak" {{ $item->status == 'anak' ? 'selected' : '' }}>Anak</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1 d-flex align-items-center">
+                                            <a href="{{ route('keluarga-delete-warga', ['id' => $item->id]) }}" class="btn btn-danger btn-sm mt-2">delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div> --}}
 
                         <div class="d-flex justify-content-end">
                             <button id="addRow" type="button" class="btn btn-primary">ADD</button>
@@ -252,7 +313,7 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="tab-pane fade" id="kondisi-keluarga" role="tabpanel" aria-labelledby="kondisi-keluarga-tab">
+            <div class="tab-pane fade" id="kondisi-keluarga" role="tabpanel" aria-labelledby="kondisi-keluarga-tab">
                 <div class="card">
                     <div class="card-body">
                         <div class="row justify-content-end mb-4">
@@ -306,7 +367,7 @@
                         </a>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
         </div>
     </form>
@@ -348,37 +409,53 @@
 </script>
 <script>
     $(document).ready(function() {
-    $('#id_kecamatan').on('change', function() {
-       var categoryID = $(this).val();
-       console.log('cek data kecamatan');
-       if(categoryID) {
-        console.log('cek get data desa');
+        $('#id_kecamatan').on('change', function() {
+        var categoryID = $(this).val();
+        console.log('cek data kecamatan');
+        if(categoryID) {
+            console.log('cek get data desa');
 
-           $.ajax({
-               url: '/getDesa/'+categoryID,
-               type: "GET",
-               data : {"_token":"{{ csrf_token() }}"},
-               dataType: "json",
-               success:function(data)
-               {
-                console.log('sukses cek data desa');
+            $.ajax({
+                url: '/getDesa/'+categoryID,
+                type: "GET",
+                data : {"_token":"{{ csrf_token() }}"},
+                dataType: "json",
+                success:function(data)
+                {
+                    console.log('sukses cek data desa');
 
-                 if(data){
-                    $('#id_desa').empty();
-                    $('#id_desa').append('<option hidden>Pilih Desa</option>');
-                    $.each(data, function(key, desas){
-                        $('select[name="id_desa"]').append('<option value="'+ key +'">' + desas.nama_desa+ '</option>');
-                    });
-                }else{
-                    $('#id_desa').empty();
+                    if(data){
+                        $('#id_desa').empty();
+                        $('#id_desa').append('<option hidden>Pilih Desa</option>');
+                        $.each(data, function(key, desas){
+                            $('select[name="id_desa"]').append('<option value="'+ key +'">' + desas.nama_desa+ '</option>');
+                        });
+                    }else{
+                        $('#id_desa').empty();
+                    }
                 }
-             }
-           });
-       }else{
-         $('#id_desa').empty();
-       }
+            });
+        }else{
+            $('#id_desa').empty();
+        }
+        });
     });
-    });
+
+    $(document).on('click', '[data-action="next"]', function(e) {
+                var $active = $('#dataKeluargaTabs .active');
+                var hasError = false;
+
+                $($active.attr('href')).find('[name]').each(function() {
+                    if ((!$(this).prop('disabled') || !$(this).prop('readonly')) && !$(this)
+                        .val()) {
+                        $(this).addClass('is-invalid');
+                        hasError = true;
+                    }
+                });
+                if (!hasError) {
+                    $active.parent().next().find('a').click();
+                }
+            });
 </script>
 
 <script>
@@ -401,6 +478,62 @@
     });
 
     // Fungsi untuk menambahkan row saat tombol diklik
+    // $('#addRow').on('click', function() {
+    //     var container = $('#container');
+    //     var rownew = $('<div class="row w-100"></div>');
+    //     rownew.html(`
+    //         <div class="col-md-12">
+    //             <div class="row">
+    //                 <div class="col-md-6">
+    //                     <div class="form-group">
+    //                         <label>Nama</label>
+    //                         <select id="warga${warga}" class="form-control js-example-basic-single" name="warga[]">
+    //                             <option selected disabled value="AL">Type to search</option>
+    //                         </select>
+    //                     </div>
+    //                 </div>
+    //                 <div class="col-md-5">
+    //                     <div class="form-group">
+    //                         <label>Status</label>
+    //                         <select class="form-control status-select" name="status[]">
+    //                         </select>
+    //                     </div>
+    //                 </div>
+    //                 <div class="col-md-1 d-flex align-items-center">
+    //                     <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     `);
+    //     container.append(rownew);
+
+    //     var selectElement = $(`#warga${warga}`);
+    //     // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
+    //     console.log('aul',data)
+    //     if (data) {
+    //         data.forEach(function(item) {
+    //             var option = $('<option></option>');
+    //             option.val(item.id);
+    //             option.text(item.nama);
+    //             selectElement.append(option);
+    //         });
+    //     }
+
+    //     // Mengecek apakah ini adalah baris pertama atau bukan
+    //     if (warga === 1) {
+    //         // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
+    //         rownew.find('.status-select').append('<option value="kepala">Kepala Keluarga</option>');
+    //     } else {
+    //         // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
+    //         var statusSelect = rownew.find('.status-select');
+    //         statusSelect.append('<option value="ibu">Ibu</option>');
+    //         statusSelect.append('<option value="anak">Anak</option>');
+    //         statusSelect.append('<option value="lainnya">Lainnya</option>');
+    //     }
+
+    //     warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
+    // });
+
     $('#addRow').on('click', function() {
         var container = $('#container');
         var rownew = $('<div class="row w-100"></div>');
@@ -443,19 +576,22 @@
         }
 
         // Mengecek apakah ini adalah baris pertama atau bukan
-        if (warga === 1) {
+        if ($('#container .status-select').length === 0) {
             // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
-            rownew.find('.status-select').append('<option value="kepala">Kepala Keluarga</option>');
+            rownew.find('.status-select').append('<option value="kepala-keluarga">Kepala Keluarga</option>');
         } else {
             // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
             var statusSelect = rownew.find('.status-select');
             statusSelect.append('<option value="ibu">Ibu</option>');
             statusSelect.append('<option value="anak">Anak</option>');
-            statusSelect.append('<option value="lainnya">Lainnya</option>');
+            // statusSelect.append('<option value="lainnya">Lainnya</option>');
         }
 
         warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
     });
+
+
+
 
     function onDelete(id){
         $(`#warga${id}`).closest('.row').remove();

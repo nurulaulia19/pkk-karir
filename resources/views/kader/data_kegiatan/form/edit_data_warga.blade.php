@@ -65,7 +65,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">RT</label>
-                                            <input type="hidden" disabled class="form-control" name="rw_id" id="rw_id"  value="{{ $kader->dasawisma->rt_id }}">
+                                            <input type="hidden" disabled class="form-control" name="rt_id" id="rt_id"  value="{{ $kader->dasawisma->rt_id }}">
                                             <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rt->name }}">
                                         </div>
                                         @error('rt')
