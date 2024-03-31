@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 
+
+
+function isUnique($arr) {
+    return count($arr) === count(array_unique($arr));
+}
+
 class DataKeluargaController extends Controller
 {
     /**
@@ -335,7 +341,13 @@ $data_keluarga->anggota = $data_keluarga->anggota->sortByDesc(function ($anggota
     // }
 
     public function update(Request $request, DataKeluarga $data_keluarga)
+
 {
+
+    // dd($request->all());
+    if(!isUnique($request->warga)){
+        dd('harus usernya beda');
+    }
     $request->validate([
         'punya_jamban' => 'required',
         'status.*' => 'required', // Validasi untuk setiap status
