@@ -273,16 +273,18 @@ class DataKeluargaController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
     public function edit(DataKeluarga $data_keluarga)
     {
         // $data_keluarga->load('anggota.warga');
         $data_keluarga = DataKeluarga::with('anggota.warga')->first();
+
+$data_keluarga->anggota = $data_keluarga->anggota->sortByDesc(function ($anggota) {
+    return $anggota->status === 'kepala-keluarga' ? 1 : 0;
+})->values()->all();
+
+// Sekarang anggota keluarga sudah diurutkan, dengan kepala keluarga di bagian atas
+
+        // dd($data_keluarga);
         $desas = DB::table('data_desa')
         ->where('id', auth()->user()->id_desa)
         ->get();
@@ -333,93 +335,88 @@ class DataKeluargaController extends Controller
     // }
 
     public function update(Request $request, DataKeluarga $data_keluarga)
-    {
-        $request->validate([
-            'punya_jamban' => 'required',
-            'status.*' => 'required', // Validasi untuk setiap status
-        ], [
-            'punya_jamban.required' => 'Pilih Mempunyai Jamban dan Jumlah Yang Mempunyai Jamban',
-            'status.*.required' => 'Lengkapi setiap status',
-        ]);
+{
+    $request->validate([
+        'punya_jamban' => 'required',
+        'status.*' => 'required', // Validasi untuk setiap status
+    ], [
+        'punya_jamban.required' => 'Pilih Mempunyai Jamban dan Jumlah Yang Mempunyai Jamban',
+        'status.*.required' => 'Lengkapi setiap status',
+    ]);
 
-        // Mengupdate data keluarga
-        $data_keluarga->update([
-            'punya_jamban' => $request->punya_jamban,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
-            'dusun' => $request->dusun,
-            'provinsi' => $request->provinsi,
-            'id_dasawisma' => $request->id_dasawisma
-            // tambahkan atribut lainnya sesuai kebutuhan
-        ]);
+    $kepalaKeluarga = DataWarga::find($request->warga[0]);
+    $kepalaKeluarga->is_keluarga = true;
+    $kepalaKeluarga->save();
 
-        // Mengatur is_keluarga menjadi true untuk kepala keluarga
-        $kepalaKeluarga = DataWarga::find($request->warga[0]);
-        $kepalaKeluarga->is_keluarga = true;
-        $kepalaKeluarga->save();
+    // Mengupdate data keluarga
+    $data_keluarga->update([
+        'punya_jamban' => $request->punya_jamban,
+        'rt' => $request->rt,
+        'rw' => $request->rw,
+        'dusun' => $request->dusun,
+        'provinsi' => $request->provinsi,
+        'id_dasawisma' => $request->id_dasawisma,
+        'nama_kepala_keluarga' => $kepalaKeluarga->nama,
+        // tambahkan atribut lainnya sesuai kebutuhan
+    ]);
 
-        // Memperbarui status is_keluarga untuk anggota keluarga yang terkait
-        foreach ($request->warga as $key => $wargaId) {
-            if ($key == 0) continue; // Skip kepala keluarga
-            $datawarga = DataWarga::find($wargaId);
-            $datawarga->is_keluarga = true;
-            $datawarga->save();
-
-            // Mencari status dari request
-            $status = $request->status[$key] ?? null;
-
-            // Mencari entry Keluargahaswarga yang sudah ada untuk warga ini
-            $keluargaHasWarga = Keluargahaswarga::where('keluarga_id', $data_keluarga->id)
-                                                ->where('warga_id', $wargaId)
-                                                ->first();
-
-            if ($keluargaHasWarga) {
-                // Update status jika entry sudah ada
-                $keluargaHasWarga->update(['status' => $status]);
-            } else {
-                // Buat entry baru jika belum ada
-                Keluargahaswarga::create([
-                    'keluarga_id' =>  $data_keluarga->id,
-                    'warga_id' =>  $wargaId,
-                    'status' =>  $status,
-                ]);
-            }
-        }
-
-        // Pernyataan akhir setelah update berhasil
-        return redirect('/data_keluarga')->with('success', 'Data berhasil diubah');
+    // Memperbarui status is_keluarga untuk anggota keluarga yang terkait
+    foreach ($request->warga as $key => $wargaId) {
+    if ($key == 0) {
+        $kepalaBaru = Keluargahaswarga::where('keluarga_id', $data_keluarga->id)
+                                        ->where('warga_id', $wargaId)
+                                        ->first();
+        $kepalaBaru->status = 'kepala-keluarga';
+        $kepalaBaru->save();
+        continue; // Skip kepala keluarga
     }
 
+    $datawarga = DataWarga::find($wargaId);
+    $datawarga->is_keluarga = true;
+    $datawarga->save();
+
+    // Mencari status dari request
+    $status = $request->status[$key] ?? null;
+
+    // Mencari entry Keluargahaswarga yang sudah ada untuk warga ini
+    $keluargaHasWarga = Keluargahaswarga::where('keluarga_id', $data_keluarga->id)
+                                        ->where('warga_id', $wargaId)
+                                        ->first();
+
+    if ($keluargaHasWarga) {
+        $keluargaHasWarga->update(['status' => $status]);
+    } else {
+        // Buat entry baru jika belum ada
+        Keluargahaswarga::create([
+            'keluarga_id' =>  $data_keluarga->id,
+            'warga_id' =>  $wargaId,
+            'status' =>  $status,
+        ]);
+    }
+}
+
+
+    // Pernyataan akhir setelah update berhasil
+    return redirect('/data_keluarga')->with('success', 'Data berhasil diubah');
+}
 
 
 
 
-    public function destroy($data_keluarga, DataKeluarga $kel)
+
+
+
+    public function destroy($id)
     {
-        $kel = $kel::find($data_keluarga);
-        // dd( $kel);
-
-        DB::beginTransaction();
-
-        try {
-            //temukan id data keluarga
-
-            $kel->delete();
-            // $kel->warga()->delete();
-            // // dd( $kel->warga);
-            // $kel->pemanfaatan()->delete();
-            // $kel->industri()->delete();
-            // $kel->delete();
-            DB::commit();
-            Alert::success('Berhasil', 'Data berhasil di Hapus');
-
-            return redirect('/data_keluarga');
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            Log::error($e);
-
-            return redirect()->back();
+        $kel = DataKeluarga::with('anggota.warga')->find($id);
+        foreach($kel->anggota as $anggota){
+            $warga = DataWarga::find($anggota->warga_id);
+            $warga->is_keluarga = 0;
+            $warga->save();
         }
+        $kel->delete();
+        return redirect()->back();
+
     }
 
 
@@ -449,6 +446,7 @@ class DataKeluargaController extends Controller
     public function deleteWargaInKeluarga($id)
     {
         $hasWarga = Keluargahaswarga::with('warga')->find($id);
+        $dataKeluarga = DataKeluarga::find($hasWarga->keluarga_id);
 
         if (!$hasWarga) {
             abort(404, 'Not Found');
@@ -471,8 +469,10 @@ class DataKeluargaController extends Controller
             DataKeluarga::find($hasWarga->keluarga_id)->delete();
         }
 
-        dd('berhasil');
-        return redirect()->back();
+        return response()->json([
+            'message' => 'success',
+            'data' => $dataKeluarga
+        ]);
     }
 
 

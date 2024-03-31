@@ -215,8 +215,8 @@
                                                 <label>Nama</label>
                                                 <select name="warga[]" class="form-control js-example-basic-single">
                                                     <option value="" disabled selected>Pilih Nama Warga</option>
-                                                    @foreach ($data_warga as $warga)
-                                                        <option value="{{ $warga->id }}" {{ $item->warga->id == $warga->id ? 'selected' : '' }}>{{ $warga->nama }}</option>
+                                                    @foreach ($data_keluarga->anggota as $warga)
+                                                        <option value="{{ $warga->warga->id }}" {{ $item->warga->id == $warga->warga->id ? 'selected' : '' }}>{{ $warga->warga->nama }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('nama_kepala_keluarga')
