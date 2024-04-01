@@ -284,9 +284,9 @@ class DataKeluargaController extends Controller
         // $data_keluarga->load('anggota.warga');
         $data_keluarga = DataKeluarga::with('anggota.warga')->first();
 
-$data_keluarga->anggota = $data_keluarga->anggota->sortByDesc(function ($anggota) {
-    return $anggota->status === 'kepala-keluarga' ? 1 : 0;
-})->values()->all();
+        $data_keluarga->anggota = $data_keluarga->anggota->sortByDesc(function ($anggota) {
+            return $anggota->status === 'kepala-keluarga' ? 1 : 0;
+        })->values()->all();
 
 // Sekarang anggota keluarga sudah diurutkan, dengan kepala keluarga di bagian atas
 

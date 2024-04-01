@@ -60,80 +60,155 @@ class DataWargaController extends Controller
      $kad = DB::table('users')
         ->where('id', auth()->user()->id)
         ->get();
-        $kader = User::with('dasawisma.rt.rw')
+     $kader = User::with('dasawisma.rt.rw')
         ->where('id', auth()->user()->id)
         ->first();
 
-// dd($kader);
-
      $kel = DataKeluarga::all();
      $dasawisma = DataKelompokDasawisma::all();
-    //  dd($dasawisma);
 
      return view('kader.data_kegiatan.form.create_data_warga', compact('desas', 'kader', 'kec', 'kel', 'kad', 'dasawisma'));
 
  }
 
+    // public function store(Request $request)
+    // {
+    //     // Validasi data
+    //     $request->validate([
+    //         // Kolom lainnya...
+    //         'aktivitas_UP2K' => 'required|boolean',
+    //         'aktivitas_kesehatan_lingkungan' => 'required|boolean',
+    //     ], [
+    //         // Pesan error validasi disesuaikan dengan kebutuhan
+    //     ]);
+
+
+
+    //     // Proses penyimpanan data
+    //     $data = $request->only([
+    //         'id_desa',
+    //         'id_kecamatan',
+    //         'id_dasawisma',
+    //         'no_registrasi',
+    //         'no_ktp',
+    //         'nama',
+    //         'jabatan',
+    //         'jenis_kelamin',
+    //         'tempat_lahir',
+    //         'tgl_lahir',
+    //         'status_perkawinan',
+    //         'agama',
+    //         'alamat',
+    //         'kabupaten',
+    //         'provinsi',
+    //         'pendidikan',
+    //         'pekerjaan',
+    //         'akseptor_kb',
+    //         'aktif_posyandu',
+    //         'ikut_bkb',
+    //         'memiliki_tabungan',
+    //         'ikut_kelompok_belajar',
+    //         'ikut_paud_sejenis',
+    //         'ikut_koperasi',
+    //         'periode',
+    //         'berkebutuhan_khusus',
+    //         'makan_beras',
+    //         'provinsi',
+    //         'aktivitas_UP2K',
+    //         'aktivitas_kesehatan_lingkungan',
+    //     ]);
+
+    //     // Menambahkan kolom yang baru
+    //     $data['pasangan_usia_subur'] = $request->pasangan_usia_subur === '1' ? true : false;
+    //     // $data['tiga_buta'] = $request->tiga_buta === '1' ? true : false;
+    //     $data['ibu_hamil'] = $request->ibu_hamil === '1' ? true : false;
+    //     $data['ibu_menyusui'] = $request->ibu_menyusui === '1' ? true : false;
+    //     $data['aktivitas_UP2K'] = $request->aktivitas_UP2K === '1' ? true : false;;
+    //     $data['aktivitas_kesehatan_lingkungan'] = $request->aktivitas_kesehatan_lingkungan === '1' ? true : false;;
+
+    //     // Simpan data
+    //     $warga = DataWarga::create($data);
+
+    //     return redirect('/data_warga')->with('success', 'Data berhasil ditambahkan.');
+    // }
+
     public function store(Request $request)
     {
         // Validasi data
-        $request->validate([
-            // Kolom lainnya...
+        $validatedData = $request->validate([
+            // Definisi validasi disesuaikan dengan kebutuhan
+            'id_desa' => 'required',
+            'id_kecamatan' => 'required',
+            'id_dasawisma' => 'required',
+            'no_registrasi' => 'required',
+            'no_ktp' => 'required',
+            'nama' => 'required',
+            'jabatan' => 'required',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'status_perkawinan' => 'required',
+            'agama' => 'required',
+            'alamat' => 'required',
+            'kabupaten' => 'required',
+            'provinsi' => 'required',
+            'pendidikan' => 'required',
+            'pekerjaan' => 'required',
+            'akseptor_kb' => 'required',
+            'aktif_posyandu' => 'required',
+            'ikut_bkb' => 'required',
+            'memiliki_tabungan' => 'required',
+            'ikut_kelompok_belajar' => 'required',
+            'ikut_paud_sejenis' => 'required',
+            'ikut_koperasi' => 'required',
+            'periode' => 'required',
+            'berkebutuhan_khusus' => 'required',
+            'makan_beras' => 'required',
+            'provinsi' => 'required',
             'aktivitas_UP2K' => 'required|boolean',
             'aktivitas_kesehatan_lingkungan' => 'required|boolean',
-        ], [
-            // Pesan error validasi disesuaikan dengan kebutuhan
         ]);
 
+        // Buat array data
+        $data = [
+            'id_desa' => $request->id_desa,
+            'id_kecamatan' => $request->id_kecamatan,
+            'id_dasawisma' => $request->id_dasawisma,
+            'no_registrasi' => $request->no_registrasi,
+            'no_ktp' => $request->no_ktp,
+            'nama' => $request->nama,
+            'jabatan' => $request->jabatan,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tgl_lahir' => $request->tgl_lahir,
+            'status_perkawinan' => $request->status_perkawinan,
+            'agama' => $request->agama,
+            'alamat' => $request->alamat,
+            'kabupaten' => $request->kabupaten,
+            'provinsi' => $request->provinsi,
+            'pendidikan' => $request->pendidikan,
+            'pekerjaan' => $request->pekerjaan,
+            'akseptor_kb' => $request->akseptor_kb,
+            'aktif_posyandu' => $request->aktif_posyandu,
+            'ikut_bkb' => $request->ikut_bkb,
+            'memiliki_tabungan' => $request->memiliki_tabungan,
+            'ikut_kelompok_belajar' => $request->ikut_kelompok_belajar,
+            'ikut_paud_sejenis' => $request->ikut_paud_sejenis,
+            'ikut_koperasi' => $request->ikut_koperasi,
+            'periode' => $request->periode,
+            'berkebutuhan_khusus' => $request->berkebutuhan_khusus,
+            'makan_beras' => $request->makan_beras,
+            'provinsi' => $request->provinsi,
+            'aktivitas_UP2K' => $request->aktivitas_UP2K,
+            'aktivitas_kesehatan_lingkungan' => $request->aktivitas_kesehatan_lingkungan,
+        ];
 
-
-        // Proses penyimpanan data
-        $data = $request->only([
-            'id_desa',
-            'id_kecamatan',
-            'id_dasawisma',
-            'no_registrasi',
-            'no_ktp',
-            'nama',
-            'jabatan',
-            'jenis_kelamin',
-            'tempat_lahir',
-            'tgl_lahir',
-            'status_perkawinan',
-            'agama',
-            'alamat',
-            'kabupaten',
-            'provinsi',
-            'pendidikan',
-            'pekerjaan',
-            'akseptor_kb',
-            'aktif_posyandu',
-            'ikut_bkb',
-            'memiliki_tabungan',
-            'ikut_kelompok_belajar',
-            'ikut_paud_sejenis',
-            'ikut_koperasi',
-            'periode',
-            'berkebutuhan_khusus',
-            'makan_beras',
-            'provinsi',
-            'aktivitas_UP2K',
-            'aktivitas_kesehatan_lingkungan',
-        ]);
-
-        // Menambahkan kolom yang baru
-        $data['pasangan_usia_subur'] = $request->pasangan_usia_subur === '1' ? true : false;
-        // $data['tiga_buta'] = $request->tiga_buta === '1' ? true : false;
-        $data['ibu_hamil'] = $request->ibu_hamil === '1' ? true : false;
-        $data['ibu_menyusui'] = $request->ibu_menyusui === '1' ? true : false;
-        $data['aktivitas_UP2K'] = $request->aktivitas_UP2K === '1' ? true : false;;
-        $data['aktivitas_kesehatan_lingkungan'] = $request->aktivitas_kesehatan_lingkungan === '1' ? true : false;;
-
-        // Simpan data
+        // Simpan data menggunakan model
         $warga = DataWarga::create($data);
 
         return redirect('/data_warga')->with('success', 'Data berhasil ditambahkan.');
     }
+
 
 
     public function show(DataWarga $data_warga)
@@ -150,6 +225,7 @@ class DataWargaController extends Controller
     {
         // halaman form edit data warga
         $desa = DataWarga::with('desa')->first(); // pemanggilan tabel data warga
+        
         $desas = DB::table('data_desa')
         ->where('id', auth()->user()->id_desa)
         ->get();

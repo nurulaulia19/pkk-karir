@@ -28,17 +28,17 @@ class UserSeeder extends Seeder
         // ]);
         // $super_admin->assignRole(Role::ROLE_ADMIN);
 
-        // $admin_kabupaten = User::create([
-        //     'name' => 'Admin PKK Kabupaten',
-        //     'foto' => null,
-        //     'id_kecamatan' => null,
-        //     'email' => 'adminkabupaten@gmail.com',
-        //     'password' => Hash::make('adminkabupaten'),
-        //     'user_type' => 'admin_kabupaten',
-        //     'id_desa' => null,
+        $admin_kabupaten = User::create([
+            'name' => 'Admin PKK Kabupaten',
+            'foto' => null,
+            'id_kecamatan' => null,
+            'email' => 'adminkabupaten@gmail.com',
+            'password' => Hash::make('adminkabupaten'),
+            'user_type' => 'admin_kabupaten',
+            'id_desa' => null,
 
-        // ]);
-        // $admin_kabupaten->assignRole(Role::ROLE_ADMIN);
+        ]);
+        $admin_kabupaten->assignRole(Role::ROLE_ADMIN);
 
         // // admin desa anjatan
         $admin_desa = User::create([

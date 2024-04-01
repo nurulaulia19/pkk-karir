@@ -12,6 +12,8 @@ use App\Http\Controllers\AdminKab\DataAgendaKegiatanController;
 use App\Http\Controllers\AdminKab\DataDesaController;
 use App\Http\Controllers\AdminKab\DataGaleriController;
 use App\Http\Controllers\AdminKab\DataKecamatanController;
+use App\Http\Controllers\AdminKab\DataKabupatenController;
+use App\Http\Controllers\AdminKab\DataProvinsiController;
 use App\Http\Controllers\AdminKab\UserController;
 use App\Http\Controllers\AdminKabController;
 use App\Http\Controllers\AdminKec\DesaController;
@@ -209,6 +211,11 @@ Route::middleware(['user_type:admin_kabupaten'])->group(function(){
     Route::get('/profil_admin_kabupaten', [AdminKabController::class, 'profilAdminKabupaten'])->name('profil_adminKabupaten');
     Route::post('/profil_admin_kabupaten/update/{id}', [AdminKabController::class, 'update_profilAdminKabupaten'])->name('update_profil_admin_kabupaten');
     Route::post('/profil_admin_kabupaten/update/{id}/password', [AdminKabController::class, 'update_passwordAdminKabupaten'])->name('update_password_admin_kabupaten');
+
+    // Route untuk menampilkan data kabupaten
+    // Route::get('/data_kabupaten', [DataKabupatenController::class, 'index'])->name('kabupaten.index');
+    Route::resource('/data_kabupaten', DataKabupatenController::class);
+    Route::resource('/data_provinsi', DataProvinsiController::class);
 });
 
 // halaman admin kecamatan

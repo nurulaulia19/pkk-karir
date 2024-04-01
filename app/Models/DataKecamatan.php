@@ -37,4 +37,8 @@ class DataKecamatan extends Model
     public function anggota_kader(){
         return $this->hasMany(DataAnggotaKader::class);
     }
+
+    public function kabupaten(){
+        return $this->belongsTo(DataKabupaten::class, 'kabupaten_id');
+    }
 }

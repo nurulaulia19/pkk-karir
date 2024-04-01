@@ -102,7 +102,6 @@
                                             @foreach ($desas as $c)
                                                 <input type="hidden" class="form-control" name="id_desa" id="id_desa" placeholder="Masukkan Nama Desa" value="{{$c->id}}">
                                                 <input type="text" disabled class="form-control" name="id_desa" id="id_desa" placeholder="Masukkan Nama Desa" value="{{ $c->nama_desa }}">
-
                                             @endforeach
                                         </div>
                                         @error('id_desa')
@@ -147,7 +146,7 @@
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Provinsi</label>
                                             {{-- nama provinsi --}}
-                                                <input type="text" readonly class="form-control @error('provinsi') is-invalid @enderror" name="provinsi" id="provinsi" placeholder="Masukkan Provisni" value="Jawa Barat">
+                                                <input type="text" readonly class="form-control @error('provinsi') is-invalid @enderror" name="provinsi" id="provinsi" placeholder="Masukkan Provinsi" value="Jawa Barat">
                                                 @error('provinsi')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -234,21 +233,6 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-6">
-                                        <div class="form-group @error('jenis_kelamin') is-invalid @enderror">
-                                            <label class="form-label">Jenis Kelamin </label><br>
-                                            <select class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin">
-                                                <option hidden>Pilih Jenis Kelamin</option>
-                                                <option value="laki-laki">Laki-laki</option>
-                                                <option value="perempuan">Perempuan</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    @error('jenis_kelamin')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror --}}
                                     <div class="col-md-6">
                                         <div class="form-group @error('jenis_kelamin') is-invalid @enderror">
                                             <label class="form-label">Jenis Kelamin </label><br>

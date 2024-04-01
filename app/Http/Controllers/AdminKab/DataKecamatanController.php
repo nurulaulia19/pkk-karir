@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminKab;
 use App\Http\Controllers\Controller;
+use App\Models\DataKabupaten;
 use App\Models\DataKecamatan;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -17,7 +18,7 @@ class DataKecamatanController extends Controller
     {
         // halaman data Kecamatan
         $kecamatan = DataKecamatan::all();
-        return view('admin_kab.data_kecamatan', compact('kecamatan'));
+        return view('admin_kab.data_kecamatan.index', compact('kecamatan'));
 
     }
 
@@ -28,8 +29,9 @@ class DataKecamatanController extends Controller
      */
     public function create()
     {
-        //halaman tambah data
-        return view('admin_kab.form.create_kecamatan');
+        $kecamatan = DataKecamatan::all();
+        $kabupaten = DataKabupaten::all();
+        return view('admin_kab.data_kecamatan.create', compact('kecamatan', 'kabupaten'));
 
     }
 
@@ -43,20 +45,23 @@ class DataKecamatanController extends Controller
     {
         // proses penyimpanan untuk tambah data kecamatan
         $request->validate([
+            'kabupaten_id' => 'required',
             'kode_kecamatan' => 'required',
             'nama_kecamatan' => 'required',
 
         ], [
+                'kabupaten_id.required' => 'Lengkapi Nama Kabupaten',
                 'kode_kecamatan.required' => 'Lengkapi Kode Kecamatan',
                 'nama_kecamatan.required' => 'Lengkapi Nama Kecamatan',
 
         ]);
 
         // cara 1
-        $desa = new DataKecamatan();
-        $desa->kode_kecamatan = $request->kode_kecamatan;
-        $desa->nama_kecamatan = $request->nama_kecamatan;
-        $desa->save();
+        $kecamatan = new DataKecamatan();
+        $kecamatan->kabupaten_id = $request->kabupaten_id;
+        $kecamatan->kode_kecamatan = $request->kode_kecamatan;
+        $kecamatan->nama_kecamatan = $request->nama_kecamatan;
+        $kecamatan->save();
 
 
         Alert::success('Berhasil', 'Data berhasil di tambahkan');
@@ -81,10 +86,12 @@ class DataKecamatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(DataKecamatan $data_kecamatan)
+    public function edit($id)
     {
-        //halaman edit data
-        return view('admin_kab.form.edit_kecamatan', compact('data_kecamatan'));
+        $kecamatan = DataKecamatan::findOrFail($id);
+        // dd($kabupaten);
+        $kabupaten = DataKabupaten::all();
+        return view('admin_kab.data_kecamatan.edit', compact('kecamatan','kabupaten'));
 
     }
 
@@ -95,18 +102,23 @@ class DataKecamatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DataKecamatan $data_kecamatan)
+    public function update(Request $request, $id)
     {
         //halaman proses edit data
         $request->validate([
+            'kabupaten_id' => 'required',
             'kode_kecamatan' => 'required',
             'nama_kecamatan' => 'required',
         ]);
-        // $kec = DB::table('data_kecamatan')->get();
-        $data_kecamatan->kode_kecamatan = $request->kode_kecamatan;
-        $data_kecamatan->nama_kecamatan = $request->nama_kecamatan;
 
-        $data_kecamatan->update($request->all());
+        // Mengambil data kecamatan berdasarkan ID
+        $kecamatan = DataKecamatan::findOrFail($id);
+
+        // Update data kecamatan
+        $kecamatan->kabupaten_id = $request->kabupaten_id;
+        $kecamatan->kode_kecamatan = $request->kode_kecamatan;
+        $kecamatan->nama_kecamatan = $request->nama_kecamatan;
+        $kecamatan->save();
         Alert::success('Berhasil', 'Data berhasil di ubah');
 
         return redirect('/data_kecamatan');
@@ -120,13 +132,14 @@ class DataKecamatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($data_kecamatan, DataKecamatan $kecamatan)
+    public function destroy($id)
     {
-        //hapus dengan temukan id kecamatan
-        $kecamatan::find($data_kecamatan)->delete();
-        Alert::success('Berhasil', 'Data berhasil di hapus');
+        // Menghapus data provinsi berdasarkan ID
+        $kecamatan = DataKecamatan::findOrFail($id);
+        $kecamatan->delete();
 
-        return redirect('/data_kecamatan')->with('status', 'sukses');
+        Alert::success('Berhasil', 'Data berhasil dihapus');
 
+        return redirect('/data_kecamatan');
     }
 }

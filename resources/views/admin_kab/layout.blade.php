@@ -188,6 +188,18 @@
                         <p>Data Kecamatan</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/data_kabupaten" class="nav-link {{ Request::is('data_kabupaten') ? 'active':'' }}" >
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Data Kabupaten</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/data_provinsi" class="nav-link {{ Request::is('data_provinsi') ? 'active':'' }}" >
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Data Provinsi</p>
+                        </a>
+                    </li>
                 </ul>
               </li>
 
