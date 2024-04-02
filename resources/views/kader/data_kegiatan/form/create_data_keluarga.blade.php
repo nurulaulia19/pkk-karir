@@ -214,7 +214,7 @@
                                                     class="form-control js-example-basic-single" name="user_id[]">
                                                     <option selected disabled>Type to search</option>
                                                     @foreach ($warga as $warga)
-                                                        <option value="{{ $warga->id }}">{{ $warga->nama }}</option>
+                                                        <option value="{{ $warga->id }}">{{ $warga->nama }} - {{$warga->no_ktp}}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('nama_kepala_keluarga')
@@ -540,7 +540,7 @@
             data.forEach(function(item) {
                 var option = document.createElement('option');
                 option.value = item.id;
-                option.textContent = item.nama;
+                option.text(`${item.nama} - ${item.no_ktp}`)
                 selectElement.appendChild(option);
             });
         }

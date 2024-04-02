@@ -216,7 +216,7 @@
                                                 <select name="warga[]" class="form-control js-example-basic-single">
                                                     <option value="" disabled selected>Pilih Nama Warga</option>
                                                     @foreach ($data_keluarga->anggota as $warga)
-                                                        <option value="{{ $warga->warga->id }}" {{ $item->warga->id == $warga->warga->id ? 'selected' : '' }}>{{ $warga->warga->nama }}</option>
+                                                        <option value="{{ $warga->warga->id }}" {{ $item->warga->id == $warga->warga->id ? 'selected' : '' }}>{{ $warga->warga->nama }} - {{ $warga->warga->no_ktp }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('nama_kepala_keluarga')
@@ -570,7 +570,7 @@
             data.forEach(function(item) {
                 var option = $('<option></option>');
                 option.val(item.id);
-                option.text(item.nama);
+                option.text(`${item.nama} - ${item.no_ktp}`)
                 selectElement.append(option);
             });
         }
