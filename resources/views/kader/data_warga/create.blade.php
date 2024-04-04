@@ -938,26 +938,5 @@
         });
     });
 </script>
-{{-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Mendapatkan elemen pasangan_usia_subur
-        var statusPerkawinan = document.getElementById('status_perkawinan');
-
-        // Mendapatkan elemen pasangan_usia_subur
-        var pasangan_usia_subur = document.querySelector('.pasangan_usia_subur');
-
-        // Tambahkan event listener untuk perubahan pada pasangan_usia_subur
-        statusPerkawinan.addEventListener('change', function() {
-            // alert('ayam geprek')
-            // Jika jenis kelamin yang dipilih adalah menikah, tampilkan pasangan_usia_subur
-            if (statusPerkawinan.value === 'menikah') {
-                pasangan_usia_subur.style.display = 'block';
-            } else {
-                // Jika jenis kelamin yang dipilih bukan menikah, sembunyikan pasangan_usia_subur
-                pasangan_usia_subur.style.display = 'none';
-            }
-        });
-    });
-</script> --}}
 @endpush
 

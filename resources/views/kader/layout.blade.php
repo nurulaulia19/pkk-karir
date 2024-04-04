@@ -186,7 +186,7 @@
                       </li>
 
                       <li class="nav-item">
-                        <a href="/data-rumah-tangga" class="nav-link {{ Request::is('data_warga') ? 'active':'' }}">
+                        <a href="/data_rumah_tangga" class="nav-link {{ Request::is('data_warga') ? 'active':'' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Rumah Tangga</p>
                         </a>

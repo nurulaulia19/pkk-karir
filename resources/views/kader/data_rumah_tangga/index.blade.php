@@ -19,7 +19,7 @@
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row">
                                         <div class="col-md-1">
-                                            <a href="{{ url('data-rumah-tangga/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                            <a href="{{ url('data_rumah_tangga/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
                                         </div>
                                     </div>
 

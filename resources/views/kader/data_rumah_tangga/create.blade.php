@@ -18,7 +18,7 @@
                 <a class="nav-link" id="kondisi-keluarga-tab" data-toggle="tab" href="#kondisi-keluarga" role="tab" aria-controls="kondisi-keluarga" aria-selected="false">Kriteria Rumah</a>
             </li>
         </ul>
-        <form action="{{ route('data-rumah-tangga.store') }}" method="POST">
+        <form action="{{ route('data_rumah_tangga.store') }}" method="POST">
             @csrf
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="dasawisma" role="tabpanel" aria-labelledby="dasawisma-tab">
@@ -68,35 +68,21 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="exampleFormControlSelect1">RT</label>
-                                                <input type="number" min="1"
-                                                    class="form-control @error('rt') is-invalid @enderror" name="rt"
-                                                    id="rt" placeholder="Masukkan No. RT"
-                                                    value="{{ old('rt') }}">
+                                                <label>RW</label>
+                                                <input type="hidden" disabled class="form-control" name="rw_id" id="rw_id"  value="{{ $kader->dasawisma->rw_id }}">
+                                                <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rw->name }}">
                                             </div>
-                                            @error('rt')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group @error('rw') is-invalid @enderror">
-                                                <label for="exampleFormControlSelect1">RW</label>
-                                                <input type="number" min="1"
-                                                    class="form-control @error('rw') is-invalid @enderror" name="rw"
-                                                    id="rw" placeholder="Masukkan No. RW"
-                                                    value="{{ old('rw') }}">
+                                            <div class="form-group">
+                                                <label>RT</label>
+                                                <input type="hidden" disabled class="form-control" name="rt_id" id="rt_id"  value="{{ $kader->dasawisma->rt_id }}">
+                                                <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rt->name }}">
                                             </div>
-                                            @error('rw')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group @error('rw') is-invalid @enderror">
@@ -164,26 +150,24 @@
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Kabupaten</label>
                                                 {{-- nama kabupaten --}}
-                                                <input type="text" readonly
-                                                    class="form-control @error('kabupaten') is-invalid @enderror"
-                                                    name="kabupaten" id="kabupaten" placeholder="Masukkan kabupaten"
-                                                    value="Indramayu">
-                                                @error('kabupaten')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="exampleFormControlSelect1">Kepala</label>
-                                                    <input type="text" readonly class="form-control @error('provinsi') is-invalid @enderror" name="provinsi" id="provinsi" placeholder="Masukkan Provisni" value="Jawa Barat">
-                                                    @error('provinsi')
+                                                <input type="text" readonly class="form-control @error('kabupaten') is-invalid @enderror" name="kabupaten" id="kabupaten" placeholder="Masukkan Kabupaten" value="{{ $kabupaten->name }}">
+                                                    @error('kabupaten')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Provinsi</label>
+                                                {{-- nama provinsi --}}
+                                                <input type="text" readonly class="form-control @error('provinsi') is-invalid @enderror" name="provinsi" id="provinsi" placeholder="Masukkan Provinsi" value="{{ $provinsi->name }}">
+                                                @error('provinsi')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -221,15 +205,31 @@
                             <div class="row" id="container">
                                 <div class="col-md-12">
                                     <div class="row">
+                                        {{-- <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nama</label>
+                                                <select name="nama_kepala_rumah_tangga" id="js-example-basic-multiple"
+                                                    class="form-control js-example-basic-single" >
+                                                    <option selected disabled>Type to search</option>
+                                                    @foreach ($kk as $kepala)
+                                                        <option value="{{ $kepala->id }}">{{ $kepala->nama_kepala_keluarga }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('nama_kepala_rumah_tangga')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nama</label>
-                                                {{-- <input type="text" class="form-control @error('nama_kepala_rumah_tangga') is-invalid @enderror" name="nama_kepala_rumah_tangga" id="nama_kepala_rumah_tangga" placeholder="Masukkan Nama Kepala Rumah Tangga" value="{{ old('nama_kepala_rumah_tangga') }}"> --}}
                                                 <select name="keluarga[]" id="js-example-basic-multiple"
                                                     class="form-control js-example-basic-single" >
-                                                    <option selected disabled>Type to search</option>
-                                                    @foreach ($keg as $warga)
-                                                        <option value="{{ $warga->id }}">{{ $warga->nama_kepala_rumah_tangga }}</option>
+                                                    <option selected disabled>Pilih Nama Kepala Rumah Tangga</option>
+                                                    @foreach ($kk as $kepala)
+                                                        <option value="{{ $kepala->id }}">{{ $kepala->nama_kepala_keluarga }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('nama_kepala_rumah_tangga')
@@ -239,6 +239,7 @@
                                                 @enderror
                                             </div>
                                         </div>
+
 
                                         <div class="col-md-6">
                                             <div class="form-group ">
@@ -381,7 +382,7 @@
                         </div>
                         <div class="card-footer">
                             {{-- <button type="button" data-action="next" class="btn btn-primary">Next</button> --}}
-                            <button type="submit" class="ml-2 btn btn-success">submit</button>
+                            <button type="submit" class="ml-2 btn btn-success">Submit</button>
 
                         </div>
                     </div>
@@ -584,46 +585,88 @@
     });
 
     // Fungsi untuk menambahkan row saat tombol diklik
+    // document.getElementById('addRow').addEventListener('click', function() {
+    //     var container = document.getElementById('container');
+    //     var rownew = document.createElement('div');
+    //     rownew.className = 'row w-100';
+    //     rownew.innerHTML = `
+    //         <div class="col-md-12">
+    //             <div class="row">
+    //                 <div class="col-md-6">
+    //                     <div class="form-group">
+    //                         <label>Nama</label>
+    //                         <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
+    //                             <option selected disabled value="AL">Type to search</option>
+    //                         </select>
+    //                     </div>
+    //                 </div>
+    //                 <div class="col-md-6">
+    //                     <div class="form-group">
+    //                         <label>Dasawisma</label>
+    //                         <select class="form-control" name="status[]">
+    //                             <option value="kepala-keluarga">Kepala Keluarga</option>
+    //                         </select>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     `;
+    //     container.appendChild(rownew);
+
+    //     var selectElement = document.getElementById(`warga${warga}`);
+    //     // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
+    //     if (data) {
+    //         data.forEach(function(item) {
+    //             var option = document.createElement('option');
+    //             option.value = item.id;
+    //             option.textContent = item.nama_kepala_rumah_tangga;
+    //             selectElement.appendChild(option);
+    //         });
+    //     }
+    //     warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
+    // });
+
     document.getElementById('addRow').addEventListener('click', function() {
-        var container = document.getElementById('container');
-        var rownew = document.createElement('div');
-        rownew.className = 'row w-100';
-        rownew.innerHTML = `
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Nama</label>
-                            <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
-                                <option selected disabled value="AL">Type to search</option>
-                            </select>
-                        </div>
+    var container = document.getElementById('container');
+    var rownew = document.createElement('div');
+    rownew.className = 'row w-100';
+    rownew.innerHTML = `
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Nama</label>
+                        <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
+                            <option selected disabled value="AL">Type to search</option>
+                        </select>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Dasawisma</label>
-                            <select class="form-control" name="status[]">
-                                <option value="kepala-keluarga">Kepala Keluarga</option>
-                            </select>
-                        </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Dasawisma</label>
+                        <select class="form-control" name="status[]">
+                            <option value="kepala-keluarga">Kepala Keluarga</option>
+                        </select>
                     </div>
                 </div>
             </div>
-        `;
-        container.appendChild(rownew);
+        </div>
+    `;
+    container.appendChild(rownew);
 
-        var selectElement = document.getElementById(`warga${warga}`);
-        // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
-        if (data) {
-            data.forEach(function(item) {
-                var option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = item.nama_kepala_rumah_tangga;
-                selectElement.appendChild(option);
-            });
-        }
-        warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
-    });
+    var selectElement = document.getElementById(`warga${warga}`);
+    // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
+    if (data) {
+        data.forEach(function(item) {
+            var option = document.createElement('option');
+            option.value = item.id;
+            option.textContent = item.nama_kepala_keluarga; // Mengambil nama kepala keluarga
+            selectElement.appendChild(option);
+        });
+    }
+    warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
+});
+
 </script>
 
 

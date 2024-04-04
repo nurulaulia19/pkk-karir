@@ -15,7 +15,7 @@ class DataKeluarga extends Model
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
 
-    
+
     public function getDasaWismaIdAttribute()
     {
         return join('-', [
@@ -119,4 +119,6 @@ class DataKeluarga extends Model
     public function dasawisma(){
         return $this->belongsTo(DataKelompokDasawisma::class, 'id_dasawisma');
     }
+
+
 }

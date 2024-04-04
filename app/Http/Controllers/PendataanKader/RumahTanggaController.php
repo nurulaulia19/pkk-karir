@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\PendataanKader;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataKabupaten;
 use App\Models\DataKelompokDasawisma;
 use App\Models\DataKeluarga;
+use App\Models\DataProvinsi;
 use App\Models\DataWarga;
 use App\Models\RumahTangga;
 use App\Models\RumahTanggaHasKeluarga;
 use App\Models\RumahTanggaHasWarga;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RumahTanggaController extends Controller
 {
@@ -35,27 +39,30 @@ class RumahTanggaController extends Controller
 
     public function create()
     {
-    // nama desa yang login
-    $desas = DB::table('data_desa')
-    ->where('id', auth()->user()->id_desa)
-    ->get();
+        // nama desa yang login
+        $desas = DB::table('data_desa')
+        ->where('id', auth()->user()->id_desa)
+        ->get();
 
-    $kec = DB::table('data_kecamatan')
-    ->where('id', auth()->user()->id_kecamatan)
-    ->get();
+        $kec = DB::table('data_kecamatan')
+        ->where('id', auth()->user()->id_kecamatan)
+        ->get();
 
-    $kad = DB::table('users')
-    ->where('id', auth()->user()->id)
-    ->get();
-    $kader = DB::table('users')
-    ->where('id', auth()->user()->id)
-    ->first();
+        $kad = DB::table('users')
+        ->where('id', auth()->user()->id)
+        ->get();
+        $kader = User::with('dasawisma.rt.rw')
+        ->where('id', auth()->user()->id)
+        ->first();
 
-     $keg = DataKeluarga::where('is_rumah_tangga', false)->get();;
-    //  dd($keg);
-     $warga = DataWarga::all();
-     $dasawisma = DataKelompokDasawisma::all();
-     return view('kader.data_rumah_tangga.create', compact('warga','keg', 'kec', 'desas', 'kad', 'dasawisma', 'kader'));
+        $kk = DataKeluarga::where('is_rumah_tangga', false)->get();;
+        //  dd($kk);
+        $warga = DataWarga::all();
+        $dasawisma = DataKelompokDasawisma::all();
+
+        $kabupaten = DataKabupaten::first();
+        $provinsi = DataProvinsi::first();
+        return view('kader.data_rumah_tangga.create', compact('warga','kk', 'kec', 'desas', 'kad', 'dasawisma', 'kader', 'kabupaten', 'provinsi'));
 
     }
 
@@ -66,16 +73,15 @@ class RumahTanggaController extends Controller
         $keluargaKetua = DataKeluarga::find($request->keluarga[0]);
         // dd($keluargaKetua);
         $keluarga = RumahTangga::create([
-            'name' => $keluargaKetua->nama_kepala_rumah_tangga,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
+            'nama_kepala_rumah_tangga' => $keluargaKetua->nama_kepala_keluarga,
+            'id_dasawisma' => $request->id_dasawisma,
             'dusun' => $request->dusun,
-            'provinsi' => $request->provinsi,
             'punya_tempat_sampah' => $request->punya_tempat_sampah,
             'kriteria_rumah_sehat'=>  $request->kriteria_rumah_sehat,
             'tempel_stiker'=>  $request->tempel_stiker,
             'saluran_pembuangan_air_limbah'=>  $request->saluran_pembuangan_air_limbah,
         ]);
+        // dd($keluarga->nama_kepala_rumah_tangga);
         // dd($keluarga);
         for ($i = 0; $i < count($request->keluarga); $i++) {
             $updateKeluarga = DataKeluarga::find($request->keluarga[$i]);
@@ -93,7 +99,8 @@ class RumahTanggaController extends Controller
             // Lakukan sesuatu dengan setiap ID warga
         }
 
-        dd('berhasil');
+        Alert::success('Berhasil', 'Data berhasil ditambahkan');
+        return redirect('/data_rumah_tangga');
     }
 
     /**
@@ -115,7 +122,9 @@ class RumahTanggaController extends Controller
      */
     public function edit($id)
     {
-        $krt = RumahTangga::get();
+        // $krt = RumahTangga::get();
+        $krt = RumahTangga::with('anggotaRT')->findOrFail($id);
+        // dd($krt);
         $desas = DB::table('data_desa')
         ->where('id', auth()->user()->id_desa)
         ->get();
@@ -127,17 +136,20 @@ class RumahTanggaController extends Controller
         $kad = DB::table('users')
         ->where('id', auth()->user()->id)
         ->get();
-        $kader = DB::table('users')
+        $kader = User::with('dasawisma.rt.rw')
         ->where('id', auth()->user()->id)
         ->first();
 
-         $keg = DataKeluarga::where('is_rumah_tangga', false)->get();;
-        //  dd($keg);
+         $kk = DataKeluarga::where('is_rumah_tangga', true)->get();
+        //  dd($kk);
          $warga = DataWarga::all();
          $dasawisma = DataKelompokDasawisma::all();
          $data_rumah_tangga = RumahTangga::findOrFail($id);
-         dd($data_rumah_tangga);
-         return view('kader.data_rumah_tangga.edit', compact('data_rumah_tangga','warga','keg', 'kec', 'desas', 'kad', 'dasawisma', 'kader','krt'));
+        //  dd($data_rumah_tangga);
+
+         $kabupaten = DataKabupaten::first();
+         $provinsi = DataProvinsi::first();
+         return view('kader.data_rumah_tangga.edit', compact('data_rumah_tangga','warga','kk', 'kec', 'desas', 'kad', 'dasawisma', 'kader','krt', 'kabupaten', 'provinsi'));
     }
 
     /**

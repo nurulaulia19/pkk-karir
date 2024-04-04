@@ -15,11 +15,10 @@ return new class extends Migration
     {
         Schema::create('rumah_tanggas', function (Blueprint $table) {
             $table->id();
-            $table->integer('rt');
-            $table->integer('rw');
-            $table->string('dusun');
-            $table->string('provinsi');
-            $table->string('name');
+            $table->bigInteger('id_dasawisma')->unsigned()->nullable();
+            $table->string('dusun')->nullable();
+            $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma');
+            $table->string('nama_kepala_rumah_tangga');
             $table->boolean('punya_tempat_sampah')->default(false);
             $table->boolean('kriteria_rumah_sehat')->default(false);
             $table->boolean('tempel_stiker')->default(false);

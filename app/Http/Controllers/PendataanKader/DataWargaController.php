@@ -4,8 +4,10 @@ namespace App\Http\Controllers\PendataanKader;
 use App\Http\Controllers\Controller;
 use App\Models\Data_Desa;
 use App\Models\DataDasaWisma;
+use App\Models\DataKabupaten;
 use App\Models\DataKelompokDasawisma;
 use App\Models\DataKeluarga;
+use App\Models\DataProvinsi;
 use App\Models\DataWarga;
 use App\Models\Rw;
 use App\Models\User;
@@ -28,7 +30,7 @@ class DataWargaController extends Controller
 
         $dasawisma = DataKelompokDasawisma::all();
 
-        return view('kader.data_kegiatan.data_warga', compact('warga', 'dasawisma'));
+        return view('kader.data_warga.index', compact('warga', 'dasawisma'));
     }
 
     /**
@@ -38,16 +40,6 @@ class DataWargaController extends Controller
      */
     public function create()
     {
-     // nama desa yang login
-    //  $user = Auth::user();
-    //  dd($user);
-    // $rt = [];
-    // $rw = [];
-    // for ($i=1; $i < 30; $i++) {
-    //     $rt[] =  $i;
-    //     $rw[] = $i;
-    // }
-     $rws = Rw::all();
      $desas = DB::table('data_desa')
      ->where('id', auth()->user()->id_desa)
      ->get();
@@ -66,8 +58,10 @@ class DataWargaController extends Controller
 
      $kel = DataKeluarga::all();
      $dasawisma = DataKelompokDasawisma::all();
+     $kabupaten = DataKabupaten::first();
+     $provinsi = DataProvinsi::first();
 
-     return view('kader.data_kegiatan.form.create_data_warga', compact('desas', 'kader', 'kec', 'kel', 'kad', 'dasawisma'));
+     return view('kader.data_warga.create', compact('desas', 'kader', 'kec', 'kel', 'kad', 'dasawisma','kabupaten','provinsi'));
 
  }
 
@@ -206,7 +200,8 @@ class DataWargaController extends Controller
         // Simpan data menggunakan model
         $warga = DataWarga::create($data);
 
-        return redirect('/data_warga')->with('success', 'Data berhasil ditambahkan.');
+        Alert::success('Berhasil', 'Data berhasil ditambahkan');
+        return redirect('/data_warga');
     }
 
 
@@ -225,7 +220,7 @@ class DataWargaController extends Controller
     {
         // halaman form edit data warga
         $desa = DataWarga::with('desa')->first(); // pemanggilan tabel data warga
-        
+
         $desas = DB::table('data_desa')
         ->where('id', auth()->user()->id_desa)
         ->get();
@@ -244,7 +239,10 @@ class DataWargaController extends Controller
         ->where('id', auth()->user()->id)
         ->first();
 
-        return view('kader.data_kegiatan.form.edit_data_warga', compact('data_warga','desa','desas','kec', 'kel', 'kad', 'dasawisma','kader'));
+        $kabupaten = DataKabupaten::first();
+        $provinsi = DataProvinsi::first();
+
+        return view('kader.data_warga.edit', compact('data_warga','desa','desas','kec', 'kel', 'kad', 'dasawisma','kader','kabupaten','provinsi'));
 
     }
 
