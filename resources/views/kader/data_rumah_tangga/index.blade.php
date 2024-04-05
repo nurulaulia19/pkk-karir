@@ -40,9 +40,9 @@
                                         </td>
 
                                         {{-- nama desa yang login --}}
-                                        <td style="vertical-align: middle;">{{ucfirst($c->name) }}</td>
+                                        <td style="vertical-align: middle;">{{ $c->nama_kepala_rumah_tangga}} </td>
                                         <td class="text-center">
-                                            <form action="{{ route('data_keluarga.destroy',$c->id) }}" method="POST">
+                                            <form action="{{ route('data_rumah_tangga.destroy',$c->id) }}" method="POST">
 
                                             {{-- <a class="btn btn-info btn-sm" href="{{ url('data_keluarga.show',$c->id) }}">Show</a> --}}
                                             <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">

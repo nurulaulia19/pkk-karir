@@ -18,8 +18,9 @@
                 <a class="nav-link" id="kondisi-keluarga-tab" data-toggle="tab" href="#kondisi-keluarga" role="tab" aria-controls="kondisi-keluarga" aria-selected="false">Kriteria Rumah</a>
             </li>
         </ul>
-        <form action="{{ route('data_rumah_tangga.store') }}" method="POST">
+        <form action="{{ route('data_rumah_tangga.update', $krt->id, ['id' => $krt->id]) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="dasawisma" role="tabpanel" aria-labelledby="dasawisma-tab">
                     <div class="card">
@@ -207,12 +208,14 @@
                                                 <div class="form-group">
                                                     <label>Nama</label>
                                                     <select name="keluarga[]" id="js-example-basic-multiple" class="form-control js-example-basic-single">
-                                                        <option selected disabled>Type to search</option>
-                                                        @foreach ($krt->anggotaRT as $kepala)
-                                                            <option value="{{ $kepala->id }}" {{ $krt->id == $kepala->id ? 'selected' : '' }}>
-                                                                {{ $kepala->nama_kepala_rumah_tangga }}
+
+                                                        @foreach ($krt->anggotaRT as $hasKeluarga)
+                                                            <option value="{{ $hasKeluarga->keluarga->id }}" {{ $item->keluarga->id == $hasKeluarga->keluarga->id ? 'selected' : '' }}>
+                                                                {{ $hasKeluarga->keluarga->nama_kepala_keluarga }}
                                                             </option>
                                                         @endforeach
+
+
                                                         {{-- @foreach ($item->keluarga as $keluarga)
                                                             <option value="{{ $keluarga->id }}" {{ $item->keluarga->id == $keluarga->id ? 'selected' : '' }}>
                                                                 {{ $keluarga->warga->nama }} - {{ $keluarga->warga->no_ktp }}
@@ -226,13 +229,21 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
                                                 <div class="form-group ">
                                                     <label>Status</label>
                                                     <select class="form-control" id="id_dasawisma" name="status[]">
-                                                        <option selected value="kepala-rumah-tangga">Kepala Rumah Tangga</option>
+                                                        @if ($index == 0)
+                                                            <option selected value="kepala-rumah-tangga">Kepala Rumah Tangga</option>
+                                                        @else
+                                                        <option selected value="kepala-keluarga">Kepala Keluarga</option>
+
+                                                        @endif
                                                     </select>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-1 d-flex align-items-center">
+                                                <a href="{{route('rumah-delete-keluarga',['id' =>$item->id ])}}" class="btn btn-danger btn-sm mt-2">delete</a>
                                             </div>
                                         </div>
                                     </div>
@@ -283,8 +294,8 @@
                                                 <label>Kriteria Rumah</label><br>
                                                 <select class="form-control @error('kriteria_rumah_sehat') is-invalid @enderror" id="kriteria_rumah_sehat" name="kriteria_rumah_sehat">
                                                     <option value="" hidden>Pilih Kriteria Rumah</option>
-                                                    <option value=1>Sehat</option>
-                                                    <option value=0>Kurang Sehat</option>
+                                                    <option value=1 {{ old('kriteria_rumah_sehat', $krt->kriteria_rumah_sehat) == 1 ? 'selected' : '' }}>Sehat</option>
+                                                    <option value=0 {{ old('kriteria_rumah_sehat', $krt->kriteria_rumah_sehat) == 0 ? 'selected' : '' }}>Kurang Sehat</option>
                                                 </select>
                                             </div>
                                             @error('kriteria_rumah_sehat')
@@ -297,16 +308,16 @@
                                             <div class="form-group @error('punya_tempat_sampah') is-invalid @enderror">
                                                 {{-- pilih punya tempat pembuangan sampah --}}
                                                 <label>Memiliki Tempat Pembuangan Sampah</label><br>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="punya_tempat_sampah" value=1 class="form-check-input">Ya
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="punya_tempat_sampah" value=0 class="form-check-input">Tidak
-                                                        </label>
-                                                    </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="punya_tempat_sampah" value=1 class="form-check-input" {{ old('punya_tempat_sampah', $krt->punya_tempat_sampah) == 1 ? 'checked' : '' }}>Ya
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="punya_tempat_sampah" value=0 class="form-check-input" {{ old('punya_tempat_sampah', $krt->punya_tempat_sampah) == 0 ? 'checked' : '' }}>Tidak
+                                                    </label>
+                                                </div>
                                             </div>
                                             @error('punya_tempat_sampah')
                                                 <span class="invalid-feedback" role="alert">
@@ -318,16 +329,16 @@
                                             <div class="form-group @error('saluran_pembuangan_air_limbah') is-invalid @enderror">
                                                 {{-- pilih punya saluran pembuangan air limbah --}}
                                                 <label>Mempunyai Saluran Pembuangan Air Limbah</label><br>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="saluran_pembuangan_air_limbah" value=1 class="form-check-input">Ya
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="saluran_pembuangan_air_limbah" value=0 class="form-check-input">Tidak
-                                                        </label>
-                                                    </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="saluran_pembuangan_air_limbah" value=1 class="form-check-input" {{ old('saluran_pembuangan_air_limbah', $krt->saluran_pembuangan_air_limbah) == 1 ? 'checked' : '' }}>Ya
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="saluran_pembuangan_air_limbah" value=0 class="form-check-input" {{ old('saluran_pembuangan_air_limbah', $krt->saluran_pembuangan_air_limbah) == 0 ? 'checked' : '' }}>Tidak
+                                                    </label>
+                                                </div>
                                             </div>
                                             @error('saluran_pembuangan_air_limbah')
                                                 <span class="invalid-feedback" role="alert">
@@ -335,6 +346,7 @@
                                                 </span>
                                             @enderror
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -343,16 +355,16 @@
                                             <div class="form-group @error('tempel_stiker') is-invalid @enderror">
                                                 {{-- pilih stiker --}}
                                                 <label>Menempel Stiker P4K</label><br>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="tempel_stiker" value=1 class="form-check-input">Ya
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="tempel_stiker" value=0 class="form-check-input">Tidak
-                                                        </label>
-                                                    </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="tempel_stiker" value=1 class="form-check-input" {{ old('tempel_stiker', $krt->tempel_stiker) ? 'checked' : '' }}>Ya
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="tempel_stiker" value=0 class="form-check-input" {{ !old('tempel_stiker', $krt->tempel_stiker) ? 'checked' : '' }}>Tidak
+                                                    </label>
+                                                </div>
                                             </div>
                                             @error('tempel_stiker')
                                                 <span class="invalid-feedback" role="alert">
@@ -360,6 +372,7 @@
                                                 </span>
                                             @enderror
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -584,13 +597,16 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label>Dasawisma</label>
                             <select class="form-control" name="status[]">
                                 <option value="kepala-keluarga">Kepala Keluarga</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-center">
+                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
                     </div>
                 </div>
             </div>
@@ -603,12 +619,17 @@
             data.forEach(function(item) {
                 var option = document.createElement('option');
                 option.value = item.id;
-                option.textContent = item.nama_kepala_rumah_tangga;
+                option.textContent = item.nama_kepala_keluarga;
                 selectElement.appendChild(option);
             });
         }
         warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
     });
+    function onDelete(id) {
+        var elementToRemove = document.getElementById(`warga${id}`).closest('.row');
+        elementToRemove.parentNode.removeChild(elementToRemove);
+    }
+
 </script>
 
 @endpush

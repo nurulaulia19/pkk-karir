@@ -17,13 +17,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
+
+function isUnique($arr)
+{
+    return count($arr) === count(array_unique($arr));
+}
 class RumahTanggaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $keluarga = DataKeluarga::with('anggota.warga')->get();
@@ -34,36 +34,35 @@ class RumahTanggaController extends Controller
         //halaman form data keluarga
         // $keluarga = DataKeluarga::all()->where('id_user', $user->id);
         // $dasawisma = DataKelompokDasawisma::all();
-        return view('kader.data_rumah_tangga.index', compact('krt','keluarga'));
+        return view('kader.data_rumah_tangga.index', compact('krt', 'keluarga'));
     }
 
     public function create()
     {
         // nama desa yang login
         $desas = DB::table('data_desa')
-        ->where('id', auth()->user()->id_desa)
-        ->get();
+            ->where('id', auth()->user()->id_desa)
+            ->get();
 
         $kec = DB::table('data_kecamatan')
-        ->where('id', auth()->user()->id_kecamatan)
-        ->get();
+            ->where('id', auth()->user()->id_kecamatan)
+            ->get();
 
         $kad = DB::table('users')
-        ->where('id', auth()->user()->id)
-        ->get();
+            ->where('id', auth()->user()->id)
+            ->get();
         $kader = User::with('dasawisma.rt.rw')
-        ->where('id', auth()->user()->id)
-        ->first();
+            ->where('id', auth()->user()->id)
+            ->first();
 
-        $kk = DataKeluarga::where('is_rumah_tangga', false)->get();;
+        $kk = DataKeluarga::where('is_rumah_tangga', false)->get();
         //  dd($kk);
         $warga = DataWarga::all();
         $dasawisma = DataKelompokDasawisma::all();
 
         $kabupaten = DataKabupaten::first();
         $provinsi = DataProvinsi::first();
-        return view('kader.data_rumah_tangga.create', compact('warga','kk', 'kec', 'desas', 'kad', 'dasawisma', 'kader', 'kabupaten', 'provinsi'));
-
+        return view('kader.data_rumah_tangga.create', compact('warga', 'kk', 'kec', 'desas', 'kad', 'dasawisma', 'kader', 'kabupaten', 'provinsi'));
     }
 
     public function store(Request $request)
@@ -77,9 +76,9 @@ class RumahTanggaController extends Controller
             'id_dasawisma' => $request->id_dasawisma,
             'dusun' => $request->dusun,
             'punya_tempat_sampah' => $request->punya_tempat_sampah,
-            'kriteria_rumah_sehat'=>  $request->kriteria_rumah_sehat,
-            'tempel_stiker'=>  $request->tempel_stiker,
-            'saluran_pembuangan_air_limbah'=>  $request->saluran_pembuangan_air_limbah,
+            'kriteria_rumah_sehat' => $request->kriteria_rumah_sehat,
+            'tempel_stiker' => $request->tempel_stiker,
+            'saluran_pembuangan_air_limbah' => $request->saluran_pembuangan_air_limbah,
         ]);
         // dd($keluarga->nama_kepala_rumah_tangga);
         // dd($keluarga);
@@ -89,11 +88,9 @@ class RumahTanggaController extends Controller
             $updateKeluarga->save();
 
             RumahTanggaHasKeluarga::create([
-                'rumahtangga_id' =>  $keluarga->id,
-                'keluarga_id' =>  $request->keluarga[$i],
-                'status' =>  $request->status[$i],
-
-
+                'rumahtangga_id' => $keluarga->id,
+                'keluarga_id' => $request->keluarga[$i],
+                'status' => $request->status[$i],
             ]);
             // $wargaId =
             // Lakukan sesuatu dengan setiap ID warga
@@ -103,81 +100,152 @@ class RumahTanggaController extends Controller
         return redirect('/data_rumah_tangga');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         // $krt = RumahTangga::get();
-        $krt = RumahTangga::with('anggotaRT')->findOrFail($id);
-        // dd($krt);
+        $krt = RumahTangga::with('anggotaRT.keluarga')->findOrFail($id);
+        $krt->anggotaRT = $krt->anggotaRT
+            ->sortByDesc(function ($anggota) {
+                return $anggota->status === 'kepala-rumah-tangga' ? 1 : 0;
+            })
+            ->values()
+            ->all();
+        $dataKepalaKeluarga = $krt->anggotaRT;
+        // dd($dataKepalaKeluarga);
+
         $desas = DB::table('data_desa')
-        ->where('id', auth()->user()->id_desa)
-        ->get();
+            ->where('id', auth()->user()->id_desa)
+            ->get();
 
         $kec = DB::table('data_kecamatan')
-        ->where('id', auth()->user()->id_kecamatan)
-        ->get();
+            ->where('id', auth()->user()->id_kecamatan)
+            ->get();
 
         $kad = DB::table('users')
-        ->where('id', auth()->user()->id)
-        ->get();
+            ->where('id', auth()->user()->id)
+            ->get();
         $kader = User::with('dasawisma.rt.rw')
-        ->where('id', auth()->user()->id)
-        ->first();
+            ->where('id', auth()->user()->id)
+            ->first();
 
-         $kk = DataKeluarga::where('is_rumah_tangga', true)->get();
+        $kk = DataKeluarga::where('is_rumah_tangga', true)->get();
         //  dd($kk);
-         $warga = DataWarga::all();
-         $dasawisma = DataKelompokDasawisma::all();
-         $data_rumah_tangga = RumahTangga::findOrFail($id);
+        $warga = DataWarga::all();
+        $dasawisma = DataKelompokDasawisma::all();
+        $data_rumah_tangga = RumahTangga::findOrFail($id);
         //  dd($data_rumah_tangga);
 
-         $kabupaten = DataKabupaten::first();
-         $provinsi = DataProvinsi::first();
-         return view('kader.data_rumah_tangga.edit', compact('data_rumah_tangga','warga','kk', 'kec', 'desas', 'kad', 'dasawisma', 'kader','krt', 'kabupaten', 'provinsi'));
+        $kabupaten = DataKabupaten::first();
+        $provinsi = DataProvinsi::first();
+        return view('kader.data_rumah_tangga.edit', compact('data_rumah_tangga', 'warga', 'kk', 'kec', 'desas', 'kad', 'dasawisma', 'kader', 'krt', 'kabupaten', 'provinsi'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        if (!isUnique($request->keluarga)) {
+            return redirect()
+                ->back()
+                ->withErrors(['keluarga' => 'Keluarga tidak boleh sama']);
+        }
+        // dd($request->all());
+
+        $rumahTangga = RumahTangga::with('anggotaRT.keluarga')->findOrFail($id);
+
+        $kepalaRumah = DataKeluarga::find($request->keluarga[0]);
+
+        $rumahTangga->update([
+            'nama_kepala_rumah_tangga' => $kepalaRumah->nama_kepala_keluarga,
+            'id_dasawisma' => $request->id_dasawisma,
+            'dusun' => $request->dusun,
+            'punya_tempat_sampah' => $request->punya_tempat_sampah,
+            'kriteria_rumah_sehat' => $request->kriteria_rumah_sehat,
+            'tempel_stiker' => $request->tempel_stiker,
+            'saluran_pembuangan_air_limbah' => $request->saluran_pembuangan_air_limbah,
+        ]);
+
+        foreach ($request->keluarga as $key => $keluargaId) {
+            if ($key == 0) {
+                $kepalaBaru = RumahTanggaHasKeluarga::where('rumahtangga_id', $rumahTangga->id)
+                    ->where('keluarga_id', $keluargaId)
+                    ->first();
+                $kepalaBaru->status = 'kepala-rumah-tangga';
+                $kepalaBaru->save();
+                // dd($keluargaId);
+                continue; // Skip kepala keluarga
+            }
+
+            $datawarga = DataKeluarga::find($keluargaId);
+            $datawarga->is_rumah_tangga = true;
+            $datawarga->save();
+
+            // Mencari status dari request
+            $status = $request->status[$key] ?? null;
+
+            // Mencari entry Keluargahaswarga yang sudah ada untuk warga ini
+            $keluargaHasWarga = RumahTanggaHasKeluarga::where('rumahtangga_id', $rumahTangga->id)
+            ->where('keluarga_id', $keluargaId)
+            ->first();
+
+            if ($keluargaHasWarga) {
+                $keluargaHasWarga->update(['status' => $status]);
+            } else {
+                // Buat entry baru jika belum ada
+                RumahTanggaHasKeluarga::create([
+                    'rumahtangga_id' => $rumahTangga->id,
+                    'keluarga_id' => $keluargaId,
+                    'status' => $status,
+                ]);
+            }
+        }
+
+        dd('berhasil');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function deleteKeluargaInRT($id){
+
+        $hasKeluarga = RumahTanggaHasKeluarga::find($id);
+        $dataKeluarga = DataKeluarga::find($hasKeluarga->keluarga_id);
+        // dd($dataKeluarga);
+
+        if (!$hasKeluarga) {
+            abort(404, 'Not Found');
+        }
+
+        $dataKeluarga->is_rumah_tangga = false;
+        $dataKeluarga->update();
+
+        // Hapus data keluarga has warga
+        $hasKeluarga->delete();
+
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $dataKeluarga,
+        ]);
+    }
+
     public function destroy($id)
     {
-        //
+        $krt = RumahTangga::with('anggotaRT.keluarga')->findOrFail($id);
+        foreach ($krt->anggotaRT as $anggota) {
+            $kepala = DataKeluarga::find($anggota->keluarga_id);
+            $kepala->is_rumah_tangga = 0;
+            $kepala->save();
+        }
+        // dd($krt);
+        $krt->delete();
+
+        Alert::success('Berhasil', 'Data berhasil di Hapus');
+        return redirect()->back();
     }
-    public function keluarga(){
-        $warga = DataKeluarga::all();
+
+    public function keluarga()
+    {
+        $warga = DataKeluarga::where('is_rumah_tangga', 0)->get();
         return response()->json([
-            'keluarga' => $warga
+            'keluarga' => $warga,
         ]);
     }
 }

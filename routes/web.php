@@ -264,6 +264,8 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
 
     Route::resource('/data_keluarga', DataKeluargaController::class);
     Route::resource('/data_rumah_tangga', RumahTanggaController::class);
+    Route::get('/data_rumah_tangga/{id}/data_keluarga', [RumahTanggaController::class,'deleteKeluargaInRT'])->name('rumah-delete-keluarga');
+
     Route::get('/keluarga', [RumahTanggaController::class,'keluarga']);
 
     Route::resource('/data_pemanfaatan', DataPemanfaatanPekaranganController::class);
