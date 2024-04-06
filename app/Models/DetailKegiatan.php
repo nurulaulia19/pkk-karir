@@ -5,21 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KeteranganKegiatan extends Model
+class DetailKegiatan extends Model
 {
     use HasFactory;
-    protected $table = "keterangan_kegiatan";
+    protected $table = "detail_kegiatan";
     protected $primaryKey = 'id';
 
-    protected $fillable = [
-       'id_kegiatan', 'nama_keterangan'
-    ];
+    protected $guarded = ['id'];
 
-    public function kategori_kegiatan(){
-        return $this->belongsTo(KategoriKegiatan::class, 'id_kegiatan');
-    }
 
     public function kegiatan(){
+        return $this->belongsTo(DataKegiatan::class, 'id_kegiatan');
+    }
+
+    public function data_kegiatan_warga(){
         return $this->hasMany(DataKegiatanWarga::class);
     }
 

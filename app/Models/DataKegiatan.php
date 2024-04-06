@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataKegiatanWarga extends Model
+class DataKegiatan extends Model
 {
     use HasFactory;
-    protected $table = "data_kegiatan_warga";
+    protected $table = "data_kegiatan";
     protected $primaryKey = 'id';
 
     protected $guarded = ['id'];
@@ -16,7 +16,7 @@ class DataKegiatanWarga extends Model
 
 
     public function detail_kegiatan(){
-        return $this->belongsTo(DetailKegiatan::class, 'detail_kegiatan_id');
+        return $this->hasMany(DetailKegiatan::class, 'kegiatan_id');
     }
 
 }

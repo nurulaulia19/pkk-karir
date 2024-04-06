@@ -59,6 +59,7 @@ return new class extends Migration
             $table->boolean('aktivitas_kesehatan_lingkungan')->default(false);
             $table->boolean('aktivitas_UP2K')->default(false);
             $table->boolean('is_keluarga')->default(false);
+            $table->boolean('is_kegiatan')->default(false);
             $table->timestamps();
         });
     }

@@ -247,8 +247,9 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
         Route::get('/dashboard_kader', [KaderFormController::class, 'dashboard_kader'])->name('kader_dasawisma.dashboard');
 
         Route::get('getKeterangan/{id}', function ($id) {
-            $keterangan = KeteranganKegiatan::where('id_kegiatan',$id)->get();
+            // $keterangan = KeteranganKegiatan::where('id_kegiatan',$id)->get();
             // dd($keterangan);
+            $keterangan = "masgatgntng";
             return response()->json($keterangan);
         });
 
@@ -257,6 +258,11 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
     Route::resource('/data_warga', DataWargaController::class);
     Route::get('/warga', [DataWargaController::class,'warga']);
     Route::resource('/data_kegiatan', DataKegiatanWargaController::class);
+    Route::get('/data_kegiatan/{id}/desa', [DataKegiatanWargaController::class, 'kegiatanDesa'])->name('kegiatanInDesa');
+
+    Route::get('/kegiatan/{id}/details', [DataKegiatanWargaController::class, 'detailKegiatan'])->name('detailKegiatanInDesa');
+
+
     Route::get('/data_keluarga/{id}/detail', [DataKeluargaController::class,'detail'])->name('keluarga-detail');
     Route::get('/data_keluarga/{id}/delete-warga', [DataKeluargaController::class,'deleteWargaInKeluarga'])->name('keluarga-delete-warga');
 

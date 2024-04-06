@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('keluarga_id');
             $table->enum('status',['kepala-rumah-tangga','kepala-keluarga']);
             $table->timestamps();
-            $table->foreign('keluarga_id')->references('id')->on('data_keluarga');
-            $table->foreign('rumahtangga_id')->references('id')->on('rumah_tanggas');
+            $table->foreign('keluarga_id')->references('id')->on('data_keluarga')->onDelete('cascade');
+            $table->foreign('rumahtangga_id')->references('id')->on('rumah_tanggas')->onDelete('cascade');
         });
     }
 

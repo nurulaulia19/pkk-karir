@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\PendataanKader;
 use App\Http\Controllers\Controller;
 use App\Models\Data_Desa;
+use App\Models\DataKegiatan;
 use App\Models\DataKegiatanWarga;
 use App\Models\DataKeluarga;
 use App\Models\DataWarga;
+use App\Models\DetailKegiatan;
 use App\Models\KategoriKegiatan;
 use App\Models\KeteranganKegiatan;
 use Illuminate\Http\Request;
@@ -15,11 +17,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class DataKegiatanWargaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $user = Auth::user();
@@ -28,21 +25,14 @@ class DataKegiatanWargaController extends Controller
         $kegiatan=DataKegiatanWarga::all()->where('id_user', $user->id);
         return view('kader.data_kegiatan.data_kegiatan', compact('kegiatan'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        
-        // halaman form tambah data kegiatan
-        // nama desa yang login
+        $kegiatan = DataKegiatan::with('detail_kegiatan')->get();
+        // dd($kegiatan);
+        $keg = $kegiatan;
         $desas = DB::table('data_desa')
         ->where('id', auth()->user()->id_desa)
         ->get();
-        // $kec = DB::table('data_kecamatan')->get();
         $kec = DB::table('data_kecamatan')
         ->where('id', auth()->user()->id_kecamatan)
         ->get();
@@ -52,53 +42,11 @@ class DataKegiatanWargaController extends Controller
         ->get();
 
         $kel = DataKeluarga::all();
-        $warga = DataWarga::all(); // pemanggilan tabel data warga
-        $keg = KategoriKegiatan::all(); // pemanggilan tabel data kategori kegiatan
-        // $data['kategori'] = [
-        //     'Penghayatan dan Pengamalan Pancasila' => 'Penghayatan dan Pengamalan Pancasila',
-        //     'Kerja Bakti' => 'Kerja Bakti',
-        //     'Rukun Kematian' => 'Rukun Kematian',
-        //     'Kegiatan Keagamaan' => 'Kegiatan Keagamaan',
-        //     'Jimpitan' => 'Jimpitan',
-        //     'Arisan' => 'Arisan',
-        //     'Lain-lain' => 'Lain-lain',
-        // ];
-
-        // $data['keterangan'] = [
-        //     'Keagamaan' => 'Keagamaan',
-        //     'Pola Asuh' => 'Pola Asuh',
-        //     'PKBN' => ' PKBN',
-        //     'Pencegahan KDRT' => 'Pencegahan KDRT',
-        //     'Pencegahan Traffocking' => 'Pencegahan Traffocking',
-        //     'Narkoba' => 'Narkoba',
-        //     'Pencegahan Kejahatan Seksual' => 'Pencegahan Kejahatan Seksual',
-        //     'Kerja Bakti' => 'Kerja Bakti',
-        //     'Jimpitan' => 'Jimpitan',
-        //     'Arisan' => 'Arisan',
-        //     'Rukun Kematian' => 'Rukun Kematian',
-        //     'Bakti Sosial ' => 'Bakti Sosial',
-        //     'BKB (Bina Keluarga Balita)' => 'BKB (Bina Keluarga Balita)',
-        //     'PAUD Sejenis' => 'PAUD Sejenis',
-        //     'Paket A' => 'Paket A',
-        //     'Paket B' => 'Paket B',
-        //     'Paket C' => 'Paket C',
-        //     'KF (Keaksaraan Fungsinal) ' => 'KF (Keaksaraan Fungsional) ',
-        //     'UP2K (Usaha Peningkatan Pendapatan Keluarga)' => 'UP2K (Usaha Peningkatan Pendapatan Keluarga)',
-        //     'Koperasi' => 'Koperasi',
-
-        // ];
-        //  dd($keg);
-        // return view('kader.data_kegiatan.form.create_data_kegiatan', $data, compact('kec', 'warga', 'desas'));
+        $warga = DataWarga::all();
+        // $keg = KategoriKegiatan::all();
         return view('kader.data_kegiatan.form.create_data_kegiatan', compact('keg', 'warga', 'desas', 'kec', 'kad', 'kel'));
 
     }
-
- /**
-  * Store a newly created resource in storage.
-  *
-  * @param  \Illuminate\Http\Request  $request
-  * @return \Illuminate\Http\Response
-  */
     public function store(Request $request)
     {
         // proses penyimpanan untuk tambah data data kegiatan warga
@@ -107,13 +55,9 @@ class DataKegiatanWargaController extends Controller
         $request->validate([
             'id_desa' => 'required',
             'id_kecamatan' => 'required',
-            // 'id_keluarga' => 'required',
             'id_warga' => 'required',
-
-            // 'nama_kegiatan' => 'required',
             'id_kategori' => 'required',
             'aktivitas' => 'required',
-            // 'keterangan' => 'required',
             'id_keterangan' => 'required',
             'periode' => 'required',
 
@@ -152,23 +96,13 @@ class DataKegiatanWargaController extends Controller
             return redirect('/data_kegiatan');
     }
 
-    /**
-     * Display the specified resource.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+
     public function show($id)
     {
-        //
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
+
     public function edit(DataKegiatanWarga $data_kegiatan)
     {
         //halaman form edit data kegiatan
@@ -189,8 +123,8 @@ class DataKegiatanWargaController extends Controller
 
         $kel = DataKeluarga::all();
         $warga = DataWarga::all(); // pemanggilan tabel data warga
-        $keg = KategoriKegiatan::all(); // pemanggilan tabel data kategori kegiatan
-        $ket = KeteranganKegiatan::all(); // pemanggilan tabel data kategori kegiatan
+        // $keg = KategoriKegiatan::all(); // pemanggilan tabel data kategori kegiatan
+        // $ket = KeteranganKegiatan::all(); // pemanggilan tabel data kategori kegiatan
 
         // $data['kategori'] = [
         //     'Penghayatan dan Pengamalan Pancasila' => 'Penghayatan dan Pengamalan Pancasila',
@@ -232,13 +166,6 @@ class DataKegiatanWargaController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
     public function update(Request $request, DataKegiatanWarga $data_kegiatan)
     {
         // proses mengubah untuk tambah data pendidikan
@@ -261,12 +188,6 @@ class DataKegiatanWargaController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-    *
-    * @param  int  $id
-    * @return \Illuminate\Http\Response
-    */
     public function destroy($data_kegiatan, DataKegiatanWarga $warg)
     {
         //temukan id data kegiatan warga
@@ -277,5 +198,23 @@ class DataKegiatanWargaController extends Controller
 
 
 
+    }
+
+
+    public function kegiatanDesa($id){
+        $kegiatan = DataKegiatan::where('desa_id', $id)->get();
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $kegiatan
+        ]);
+    }
+    public function detailKegiatan($id){
+        $kegiatan = DetailKegiatan::where('kegiatan_id', $id)->get();
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $kegiatan
+        ]);
     }
 }
