@@ -29,8 +29,8 @@
                                             <th>No</th>
                                             <th>Nama Warga</th>
                                             <th>Nama Kegiatan</th>
-                                            <th>Aktivitas</th>
-                                            <th>Keterangan (Jenis Kegiatan Yang Diikuti)</th>
+                                            {{-- <th>Aktivitas</th> --}}
+                                            {{-- <th>Keterangan (Jenis Kegiatan Yang Diikuti)</th> --}}
                                             <th>Periode</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -43,16 +43,16 @@
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         {{-- nama desa yang login --}}
                                         <td style="vertical-align: middle;">{{ucfirst($c->warga->nama) }}</td>
-                                        <td style="vertical-align: middle;">{{ucfirst($c->kategori_kegiatan->nama_kegiatan)}}</td>
-                                        <td style="vertical-align: middle;">{{ucfirst($c->aktivitas)}}</td>
-                                        <td style="vertical-align: middle;">{{ucfirst($c->keterangan_kegiatan->nama_keterangan)}}</td>
+                                        <td style="vertical-align: middle;"> {{ $c->kegiatan->name }}</td>
+                                        {{-- <td style="vertical-align: middle;">x</td> --}}
+                                        {{-- <td style="vertical-align: middle;">x</td> --}}
                                         <td style="vertical-align: middle;">{{ucfirst($c->periode)}}</td>
                                         <td class="text-center">
                                             <form action="{{ route('data_kegiatan.destroy',$c->id) }}" method="POST">
 
                                             {{-- <a class="btn btn-info btn-sm" href="{{ route('sisw.show',$siswa->id) }}">Show</a> --}}
 
-                                                <a class="btn btn-primary btn-sm" href="{{ url('data_kegiatan/'.$c->id.'/edit') }}">Edit</a>
+                                                <a class="btn btn-primary btn-sm" href="{{ url('data_kegiatan/'.$c->warga->id.'/edit') }}">Edit</a>
 
                                                 @csrf
                                                 @method('DELETE')

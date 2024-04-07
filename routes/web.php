@@ -257,11 +257,16 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
     // form data pendataan kader
     Route::resource('/data_warga', DataWargaController::class);
     Route::get('/warga', [DataWargaController::class,'warga']);
-    Route::resource('/data_kegiatan', DataKegiatanWargaController::class);
+    Route::resource('/data_kegiatan', DataKegiatanWargaController::class)->except([
+        'update'
+    ]);
+    Route::put('data_kegiatan/{id}/update', [DataKegiatanWargaController::class, 'update'])->name('data_kegiatan.updated');
+
     Route::get('/data_kegiatan/{id}/desa', [DataKegiatanWargaController::class, 'kegiatanDesa'])->name('kegiatanInDesa');
 
     Route::get('/kegiatan/{id}/details', [DataKegiatanWargaController::class, 'detailKegiatan'])->name('detailKegiatanInDesa');
 
+    Route::get('/data_kegiatan_warga/{id}/data_kegiatan', [DataKegiatanWargaController::class,'deleteKegiatanWarga'])->name('data-kegiatan-warga-delete');
 
     Route::get('/data_keluarga/{id}/detail', [DataKeluargaController::class,'detail'])->name('keluarga-detail');
     Route::get('/data_keluarga/{id}/delete-warga', [DataKeluargaController::class,'deleteWargaInKeluarga'])->name('keluarga-delete-warga');

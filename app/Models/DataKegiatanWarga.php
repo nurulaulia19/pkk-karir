@@ -15,8 +15,11 @@ class DataKegiatanWarga extends Model
 
 
 
-    public function detail_kegiatan(){
-        return $this->belongsTo(DetailKegiatan::class, 'detail_kegiatan_id');
+    public function kegiatan(){
+        return $this->belongsTo(DataKegiatan::class, 'data_kegiatan_id');
+    }
+    public function warga(){
+        return $this->belongsTo(DataWarga::class, 'warga_id');
     }
 
 }

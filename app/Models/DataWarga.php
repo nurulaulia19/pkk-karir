@@ -27,7 +27,7 @@ class DataWarga extends Model
 
     // data_kegiatan_warga
     public function kegiatan(){
-        return $this->hasOne(DataKegiatanWarga::class, 'warga_id');
+        return $this->hasMany(DataKegiatanWarga::class, 'warga_id');
     }
 
 

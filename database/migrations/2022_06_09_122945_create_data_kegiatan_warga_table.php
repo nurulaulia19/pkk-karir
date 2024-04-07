@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('warga_id')->unsigned();
             $table->foreign('warga_id')->references('id')->on('data_warga');
-            $table->bigInteger('detail_kegiatan_id')->unsigned();
-            $table->foreign('detail_kegiatan_id')->references('id')->on('detail_kegiatan');
+            $table->bigInteger('data_kegiatan_id')->unsigned();
+            $table->foreign('data_kegiatan_id')->references('id')->on('data_kegiatan');
             $table->integer('periode');
             $table->timestamps();
-            
+
             // $table->bigInteger('id_desa')->unsigned();
             // // $table->foreignID('id_desa');
             // $table->foreign('id_desa')->references('id')->on('data_desa');

@@ -1,22 +1,21 @@
 @extends('kader.layout')
 
-@section('title', 'Edit Data Kegiatan Warga | Kader Dasawisma PKK Kab. Indramayu')
+@section('title', 'Tambah Data Kegiatan Warga | Kader Dasawisma PKK Kab. Indramayu')
 
-@section('bread', 'Edit Data Kegiatan Warga')
+@section('bread', 'Tambah Data Kegiatan Warga')
 @section('container')
 
     <div class="col-md-10">
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Edit Data Kegiatan Warga</h3>
+                <h3 class="card-title">Tambah Data Kegiatan Warga</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
 
-            <form action="{{ route('data_kegiatan.updated',['id' => 1]) }}" method="POST">
+            <form action="{{ route('data_kegiatan.store') }}" method="POST">
                 @csrf
-                @method('PUT')
 
                 <div class="card-body">
                     <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
@@ -82,8 +81,12 @@
                                 <label for="exampleFormControlSelect1">Nama Warga</label>
                                 <select class="form-control @error('id_warga') is-invalid @enderror" id="id_warga"
                                     name="id_warga">
-                                        <option selected value="{{ $warga->id }}"> {{ $warga->id }}-{{ $warga->nama }}
+                                    {{-- nama warga --}}
+                                    <option hidden> Pilih Nama Warga</option>
+                                    @foreach ($warga as $c)
+                                        <option value="{{ $c->id }}"> {{ $c->id }}-{{ $c->nama }}
                                         </option>
+                                    @endforeach
                                 </select>
                                 @error('id_warga')
                                     <span class="invalid-feedback" role="alert">
@@ -105,19 +108,17 @@
 
                     {{-- tingting --}}
                     <div class="form-group" id="formContainer">
-                        @foreach ($warga->kegiatan as $wargaKeg)
                         <div class="row">
                             <div class="col-md-12">
                                 <label for="nama_kegiatan">Nama Kegiatan</label>
                                 <select class="form-control selectNamaKegiatan"  name="nama_kegiatan[]">
                                     <option value="">Pilih Kegiatan</option>
                                     @foreach ($keg as $item)
-                                        <option {{ $wargaKeg->data_kegiatan_id == $item->id ? 'selected' : "" }} value="{{ $item->id }}">{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        @endforeach
                     </div>
 
                     <div class="row d-flex justify-content-end mr-1">
@@ -184,73 +185,78 @@
 
 
     <script>
-       $(document).ready(function() {
-    let data; // Variabel untuk menyimpan data kegiatan
+        $(document).ready(function() {
+            let data;
+            $.ajax({
+                url: "{{ route('kegiatanInDesa', ['id' => 1]) }}",
+                type: "GET",
+                success: function(response) {
+                    console.log('Data Kegiatan:', response);
+                    data = response.data; // Simpan data kegiatan ke dalam variabel
+                    populateNamaKegiatanSelect(); // Panggil fungsi untuk mengisi opsi nama kegiatan
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                }
+            });
 
-    // Fungsi untuk mengambil data kegiatan saat halaman dimuat
-    $.ajax({
-        url: "{{ route('kegiatanInDesa', ['id' => 1]) }}",
-        type: "GET",
-        success: function(response) {
-            console.log('Data Kegiatan:', response);
-            data = response.data; // Simpan data kegiatan ke dalam variabel
-            populateNamaKegiatanSelect(); // Panggil fungsi untuk mengisi opsi nama kegiatan
-        },
-        error: function(xhr) {
-            console.error(xhr.responseText);
-        }
-    });
+            // Fungsi untuk mengisi opsi "Nama Kegiatan" pada elemen select
+            function populateNamaKegiatanSelect() {
+                const namaKegiatanSelects = document.querySelectorAll('.selectNamaKegiatan');
 
-    // Event listener untuk tombol "Add"
-    const addButton = document.querySelector('#addButton');
-    const formContainer = document.querySelector('#formContainer');
-    let totalClick = 1;
+                namaKegiatanSelects.forEach(function(select) {
+                    // Kosongkan opsi yang ada sebelumnya pada setiap select
+                    select.innerHTML = '';
 
-    addButton.addEventListener('click', function() {
-        if (totalClick <= data.length) {
-            const newRow = document.createElement('div');
-            newRow.className = 'row';
+                    const defaultOptionNamaKegiatan = document.createElement('option');
+                    defaultOptionNamaKegiatan.value = '';
+                    defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kegiatan';
+                    select.appendChild(defaultOptionNamaKegiatan);
 
-            const namaKegiatanCol = document.createElement('div');
-            namaKegiatanCol.className = 'col-md-12';
-
-            const namaKegiatanLabel = document.createElement('label');
-            namaKegiatanLabel.textContent = 'Nama Kegiatan';
-
-            const namaKegiatanSelect = document.createElement('select');
-            namaKegiatanSelect.className = 'form-control selectNamaKegiatan'; // Gunakan kelas sebagai selector
-            namaKegiatanSelect.name = 'nama_kegiatan[]';
-            namaKegiatanCol.appendChild(namaKegiatanLabel);
-            namaKegiatanCol.appendChild(namaKegiatanSelect);
-            newRow.appendChild(namaKegiatanCol);
-            formContainer.appendChild(newRow);
-
-            // Kosongkan opsi yang ada sebelumnya pada select terakhir
-            const newSelect = formContainer.lastChild.querySelector('select');
-            newSelect.innerHTML = '';
-
-            // Tambahkan opsi "Pilih Nama Kegiatan" pada select terakhir
-            const defaultOptionNamaKegiatan = document.createElement('option');
-            defaultOptionNamaKegiatan.value = '';
-            defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kegiatan';
-            newSelect.appendChild(defaultOptionNamaKegiatan);
-
-            // Tambahkan opsi nama kegiatan berdasarkan data yang tersedia
-            if (data) {
-                data.forEach(function(item) {
-                    const option = document.createElement('option');
-                    option.value = item.id;
-                    option.textContent = item.name;
-                    newSelect.appendChild(option);
+                    // Tambahkan opsi nama kegiatan berdasarkan data yang tersedia
+                    if (data) {
+                        data.forEach(function(item) {
+                            const option = document.createElement('option');
+                            option.value = item.id;
+                            option.textContent = item.name;
+                            select.appendChild(option);
+                        });
+                    }
                 });
             }
 
-            totalClick++; // Tambahkan hitungan total klik
-        } else {
-            alert('Semua data kegiatan sudah ditambahkan.');
-        }
-    });
-});
+            // Event listener untuk tombol "Add"
+            const addButton = document.querySelector('#addButton');
+            const formContainer = document.querySelector('#formContainer');
+            let totalClick = 1;
+            addButton.addEventListener('click', function() {
+                totalClick++;
+                if (totalClick <= data.length) {
 
+                    const newRow = document.createElement('div');
+                    newRow.className = 'row';
+
+                    const namaKegiatanCol = document.createElement('div');
+                    namaKegiatanCol.className = 'col-md-12';
+
+                    const namaKegiatanLabel = document.createElement('label');
+                    namaKegiatanLabel.textContent = 'Nama Kegiatan';
+
+                    const namaKegiatanSelect = document.createElement('select');
+                    namaKegiatanSelect.className =
+                    'form-control selectNamaKegiatan'; // Gunakan kelas sebagai selector
+                    namaKegiatanSelect.name = 'nama_kegiatan[]';
+                    namaKegiatanCol.appendChild(namaKegiatanLabel);
+                    namaKegiatanCol.appendChild(namaKegiatanSelect);
+                    newRow.appendChild(namaKegiatanCol);
+                    formContainer.appendChild(newRow);
+
+                    populateNamaKegiatanSelect
+                (); // Isi ulang opsi nama kegiatan setelah menambahkan select baru
+                } else {
+                    alert('Semua data kegiatan sudah ditambahkan.');
+                }
+            });
+        });
     </script>
 @endpush

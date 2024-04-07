@@ -51,10 +51,7 @@ class DataKegiatanSeeder extends Seeder
                 'name'=>'Kesehatan',
                 'desa_id'=>1,
             ],
-            [
-                'name'=>'Lain-lain',
-                 'desa_id'=>1,
-            ]
+
          ]);
     }
 }
