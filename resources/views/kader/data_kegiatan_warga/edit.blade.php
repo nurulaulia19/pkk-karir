@@ -213,69 +213,70 @@
             let totalClick = 1;
 
             addButton.addEventListener('click', function() {
-    if (totalClick <= data.length) {
-        const newRow = document.createElement('div');
-        newRow.className = 'row mb-2 align-items-center'; // Add alignment classes
+                if (totalClick <= data.length) {
+                    const newRow = document.createElement('div');
+                    newRow.className = 'row mb-2 align-items-center'; // Add alignment classes
 
-        const namaKegiatanCol = document.createElement('div');
-        namaKegiatanCol.className = 'col-md-11'; // Adjusted column width for select
+                    const namaKegiatanCol = document.createElement('div');
+                    namaKegiatanCol.className = 'col-md-11'; // Adjusted column width for select
 
-        const namaKegiatanLabel = document.createElement('label');
-        namaKegiatanLabel.textContent = 'Nama Kegiatan';
-        namaKegiatanLabel.htmlFor = 'nama_kegiatan'; // Set 'for' attribute for label
+                    const namaKegiatanLabel = document.createElement('label');
+                    namaKegiatanLabel.textContent = 'Nama Kegiatan';
+                    namaKegiatanLabel.htmlFor = 'nama_kegiatan'; // Set 'for' attribute for label
 
-        const namaKegiatanSelect = document.createElement('select');
-        namaKegiatanSelect.className = 'form-control selectNamaKegiatan';
-        namaKegiatanSelect.name = 'nama_kegiatan[]';
+                    const namaKegiatanSelect = document.createElement('select');
+                    namaKegiatanSelect.className = 'form-control selectNamaKegiatan';
+                    namaKegiatanSelect.name = 'nama_kegiatan[]';
 
-        const deleteButtonDiv = document.createElement('div');
-        deleteButtonDiv.className = 'col-md-1 d-flex align-items-center mt-4'; // Adjusted column width for delete button
+                    const deleteButtonDiv = document.createElement('div');
+                    deleteButtonDiv.className =
+                    'col-md-1 d-flex align-items-center mt-4'; // Adjusted column width for delete button
 
-        const deleteButton = document.createElement('a');
-        deleteButton.href = '#'; // Set href attribute for delete button
-        deleteButton.className = 'btn btn-danger btn-sm mt-2';
-        deleteButton.textContent = 'Delete';
-        deleteButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default link behavior
-            newRow.remove();
-            totalClick--; // Decrease totalClick when row is removed
-        });
+                    const deleteButton = document.createElement('a');
+                    deleteButton.href = '#'; // Set href attribute for delete button
+                    deleteButton.className = 'btn btn-danger btn-sm mt-2';
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.addEventListener('click', function(event) {
+                        event.preventDefault(); // Prevent default link behavior
+                        newRow.remove();
+                        totalClick--; // Decrease totalClick when row is removed
+                    });
 
-        // Append elements to their respective containers
-        namaKegiatanCol.appendChild(namaKegiatanLabel);
-        namaKegiatanCol.appendChild(namaKegiatanSelect);
+                    // Append elements to their respective containers
+                    namaKegiatanCol.appendChild(namaKegiatanLabel);
+                    namaKegiatanCol.appendChild(namaKegiatanSelect);
 
-        deleteButtonDiv.appendChild(deleteButton);
+                    deleteButtonDiv.appendChild(deleteButton);
 
-        newRow.appendChild(namaKegiatanCol);
-        newRow.appendChild(deleteButtonDiv);
+                    newRow.appendChild(namaKegiatanCol);
+                    newRow.appendChild(deleteButtonDiv);
 
-        formContainer.appendChild(newRow);
+                    formContainer.appendChild(newRow);
 
-        // Populate select options
-        const newSelect = newRow.querySelector('select');
-        newSelect.innerHTML = '';
+                    // Populate select options
+                    const newSelect = newRow.querySelector('select');
+                    newSelect.innerHTML = '';
 
-        const defaultOptionNamaKegiatan = document.createElement('option');
-        defaultOptionNamaKegiatan.value = '';
-        defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kegiatan';
-        newSelect.appendChild(defaultOptionNamaKegiatan);
+                    const defaultOptionNamaKegiatan = document.createElement('option');
+                    defaultOptionNamaKegiatan.value = '';
+                    defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kegiatan';
+                    newSelect.appendChild(defaultOptionNamaKegiatan);
 
-        // Add options based on data
-        if (data) {
-            data.forEach(function(item) {
-                const option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = item.name;
-                newSelect.appendChild(option);
+                    // Add options based on data
+                    if (data) {
+                        data.forEach(function(item) {
+                            const option = document.createElement('option');
+                            option.value = item.id;
+                            option.textContent = item.name;
+                            newSelect.appendChild(option);
+                        });
+                    }
+
+                    totalClick++; // Increment totalClick counter
+                } else {
+                    alert('Semua data kegiatan sudah ditambahkan.');
+                }
             });
-        }
-
-        totalClick++; // Increment totalClick counter
-    } else {
-        alert('Semua data kegiatan sudah ditambahkan.');
-    }
-});
 
 
         });

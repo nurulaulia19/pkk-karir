@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DasaWisma;
 use App\Models\DataIndustriRumah;
+use App\Models\DataKegiatan;
 use App\Models\DataKegiatanWarga;
 use App\Models\DataKeluarga;
 use App\Models\DataPelatihanKader;
@@ -276,30 +278,21 @@ class KaderFormController extends Controller
 
      // print halaman data rekap data warga pkk
      public function print_pdf_cakel($id){
-        // $kepala_keluarga = DataWarga::find($id)->first();
+        $userKader = Auth::user();
+        $keluarga = DataKeluarga::with('anggota.warga.kegiatan', 'dasawisma')->find($id);
+        // dd($keluarga);
+        $warga = $keluarga->anggota->first();
+        $dasawismaId = $warga->warga->id_dasawisma;
+        $dasawisma = DasaWisma::find($dasawismaId);
 
-        // // $keluarga = DataKeluarga::where('id_warga', $kepala_keluarga->id)->first();
-        // $keluarga = DataKeluarga::first();
-        // $catatan_keluarga = DataWarga::query()
-        //     ->with(['kegiatan', 'kegiatan.kategori_kegiatan',
-        //         'kegiatan.keterangan_kegiatan', 'keluarga', 'dasawisma'])
-        //     ->where('id_keluarga', $id)
-        //     ->get();
-        // dump($catatan_keluarga);
-        $kepala_keluarga = DataWarga::find($id);
-        // dd( $kepala_keluarga );
+        $dataKegiatan = DataKegiatan::where('desa_id',$userKader->id_desa)->get();
+        // dd($dasawisma);
+        // dd($warga);
+        // dd($keluarga);
+        // dd($keluarga);
 
-        $keluarga = DataKeluarga::where('id', $kepala_keluarga->id_keluarga)->first();
 
-        $catatan_keluarga = DataWarga::query()
-            ->with(['kegiatan', 'kegiatan.kategori_kegiatan',
-                'kegiatan.keterangan_kegiatan', 'keluarga', 'dasawisma'])
-            ->where('id_keluarga', $kepala_keluarga->id_keluarga)
-            ->get();
-
-        $kategori_kegiatans = KategoriKegiatan::query()->where('id', '<=', 8)->get();
-
-        $html= view('kader.print_pdf_cakel', compact('catatan_keluarga', 'keluarga', 'kepala_keluarga', 'kategori_kegiatans'));
+        $html= view('kader.data_kegiatan_warga.pdf', compact(['keluarga','dasawisma','dataKegiatan']));
         // // instantiate and use the dompdf class
         $dompdf = new Dompdf();
         $dompdf->loadHtml($html);

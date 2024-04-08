@@ -1,8 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\PendataanKader;
+
 use App\Http\Controllers\Controller;
+use App\Models\DasaWisma;
+use App\Models\DataDasaWisma;
 use App\Models\DataKabupaten;
+use App\Models\DataKegiatan;
 use App\Models\DataKelompokDasawisma;
 use App\Models\DataKeluarga;
 use App\Models\DataProvinsi;
@@ -442,9 +446,19 @@ class DataKeluargaController extends Controller
 
     public function detail($id)
     {
-        $keluarga = DataKeluarga::with('anggota.warga', 'dasawisma')->find($id);
+        $userKader = Auth::user();
+        $keluarga = DataKeluarga::with('anggota.warga.kegiatan', 'dasawisma')->find($id);
         // dd($keluarga);
-        return view('kader.catatan_keluarga', compact('keluarga'));
+        $warga = $keluarga->anggota->first();
+        $dasawismaId = $warga->warga->id_dasawisma;
+        $dasawisma = DasaWisma::find($dasawismaId);
+
+        $dataKegiatan = DataKegiatan::where('desa_id',$userKader->id_desa)->get();
+        // dd($dasawisma);
+        // dd($warga);
+        // dd($keluarga);
+        // dd($keluarga);
+        return view('kader.catatan_keluarga', compact(['keluarga','dasawisma','dataKegiatan']));
     }
 
     // public function deleteWargaInKeluarga($id)

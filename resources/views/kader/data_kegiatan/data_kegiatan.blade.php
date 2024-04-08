@@ -42,17 +42,25 @@
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         {{-- nama desa yang login --}}
-                                        <td style="vertical-align: middle;">{{ucfirst($c->warga->nama) }}</td>
-                                        <td style="vertical-align: middle;"> {{ $c->kegiatan->name }}</td>
+                                        <td style="vertical-align: middle;">{{ $c->nama }}</td>
+                                        <td style="vertical-align: middle;">
+                                            <ul>
+                                                @foreach ($c->kegiatan as $item)
+                                                    <li>
+                                                        {{ $item->kegiatan->name }}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
                                         {{-- <td style="vertical-align: middle;">x</td> --}}
                                         {{-- <td style="vertical-align: middle;">x</td> --}}
-                                        <td style="vertical-align: middle;">{{ucfirst($c->periode)}}</td>
+                                        <td style="vertical-align: middle;">{{ $c->periode }}</td>
                                         <td class="text-center">
-                                            <form action="{{ route('data_kegiatan.destroy',$c->id) }}" method="POST">
+                                            <form action="{{ route('data_kegiatan.destroyed',[ 'id' => $c->id]) }}" method="POST">
 
                                             {{-- <a class="btn btn-info btn-sm" href="{{ route('sisw.show',$siswa->id) }}">Show</a> --}}
 
-                                                <a class="btn btn-primary btn-sm" href="{{ url('data_kegiatan/'.$c->warga->id.'/edit') }}">Edit</a>
+                                                <a class="btn btn-primary btn-sm" href="{{ url('data_kegiatan/'.$c->id.'/edit') }}">Edit</a>
 
                                                 @csrf
                                                 @method('DELETE')

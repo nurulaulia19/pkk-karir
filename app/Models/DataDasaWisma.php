@@ -7,13 +7,7 @@ use Illuminate\Support\Collection;
 
 class DataDasaWisma
 {
-    /**
-     * @param int $id_desa
-     * @param int $rw
-     * @param int $rt
-     * @param int $periode
-     * @return Collection<DasaWisma> $dasaWismas
-     */
+
     public static function getDasaWismas($id_desa, $rw, $rt, $periode)
     {
         /** @var Collection<DasaWisma> */

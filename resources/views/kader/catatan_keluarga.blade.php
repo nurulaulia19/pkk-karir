@@ -21,7 +21,7 @@
                                 <div class="row">
                                     <div class="col-sm-8">
                                         <h6>Catatan Keluarga dari : {{ $keluarga->nama_kepala_keluarga }}</h6>
-                                        <h6>Anggota Kelompok Dasawisma : {{ $keluarga->dasawisma->nama_dasawisma }}</h6>
+                                        <h6>Anggota Kelompok Dasawisma : {{ $dasawisma->nama_dasawisma }}</h6>
                                         <h6>Tahun : 2024</h6>
                                     </div>
                                     <div class="col-sm-4">
@@ -72,9 +72,30 @@
                                                 <th rowspan="2">Pendidikan</th>
                                                 <th rowspan="2">Pekerjaan</th>
                                                 <th rowspan="2">Berkebutuhan Khusus</th>
-                                                <th colspan="8">
+                                                <th colspan="{{ count($dataKegiatan) }}" style="padding: 0; margin: 0;">
                                                     <center>Kegiatan Yang diikuti</center>
+                                                    <table style="width: 100%; table-layout: fixed;">
+                                                        <colgroup>
+                                                            @php
+                                                                $columnWidth = 130; // Atur lebar setiap kolom menjadi 200px
+                                                            @endphp
+                                                            @for ($i = 0; $i < count($dataKegiatan); $i++)
+                                                                <col style="width: {{ $columnWidth }}px;">
+                                                            @endfor
+                                                        </colgroup>
+                                                        <tr style="background-color: white">
+                                                            @foreach ($dataKegiatan as $item)
+                                                                <th style="vertical-align: middle; text-align: center; padding: 5px;">
+                                                                    {{ $item->name }}
+                                                                </th>
+                                                            @endforeach
+                                                        </tr>
+                                                    </table>
                                                 </th>
+
+
+
+
                                                 {{-- <th rowspan="2">Ket</th> --}}
                                             </tr>
 
@@ -118,6 +139,26 @@
                                                     <td style="vertical-align: middle;">
                                                         {{ $data_warga->warga->berkebutuhan_khusus }}
                                                     </td>
+                                                    @foreach ($dataKegiatan as $item)
+
+                                                        @php
+                                                            $ada = false;
+                                                        @endphp
+                                                        @foreach ($data_warga->warga->kegiatan as $kegiatan)
+                                                            @if ($item->id == $kegiatan->data_kegiatan_id )
+                                                                @php
+                                                                $ada = true;
+                                                            @endphp
+                                                            @endif
+
+                                                        @endforeach
+                                                        <td style="vertical-align: middle; width:130px;">
+                                                            {{ $ada ? '1' : '' }}
+                                                        </td>
+                                                        @php
+                                                            $ada = false;
+                                                        @endphp
+                                                    @endforeach
                                                     {{--
                                                     @foreach ($kategori_kegiatans as $kategori_kegiatan)
 
@@ -139,7 +180,7 @@
                                         </tbody>
                                     </table>
 
-                                    <a href="" target="_blank" class="btn btn-success" type="button" role="button">
+                                    <a href="{{ url('print_pdf_cakel', $keluarga->id) }}" target="_blank" class="btn btn-success" type="button" role="button">
                                         <i class="fas fa-print"></i> Cetak ke PDF </a><br>
                                 </div>
                             </div>

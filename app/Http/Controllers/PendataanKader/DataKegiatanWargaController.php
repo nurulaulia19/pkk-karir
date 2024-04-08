@@ -23,7 +23,9 @@ class DataKegiatanWargaController extends Controller
 
         // halaman data kegiatan
         // $kegiatan=DataKegiatanWarga::all()->where('id_user', $user->id);
-        $kegiatan = DataKegiatanWarga::with(['warga','kegiatan'])->get();
+        $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->get();
+        // dd($kegiatan);
+        // $kegiatan = DataKegiatanWarga::with(['warga','kegiatan'])->get();
         // dd($kegiatan);
 
         return view('kader.data_kegiatan.data_kegiatan', compact('kegiatan'));
@@ -170,10 +172,15 @@ class DataKegiatanWargaController extends Controller
 
     }
 
-    public function destroy($data_kegiatan, DataKegiatanWarga $warg)
+    public function destroy($id)
     {
+        // dd($id);
         //temukan id data kegiatan warga
-        $warg::find($data_kegiatan)->delete();
+        // $warg::find($data_kegiatan)->delete();
+        $warga =  DataWarga::find($id);
+        foreach($warga->kegiatan as $kegiatan){
+            $kegiatan->delete();
+        }
         Alert::success('Berhasil', 'Data berhasil di Hapus');
 
         return redirect('/data_kegiatan');

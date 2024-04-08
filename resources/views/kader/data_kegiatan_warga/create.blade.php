@@ -108,17 +108,22 @@
 
                     {{-- tingting --}}
                     <div class="form-group" id="formContainer">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="nama_kegiatan">Nama Kegiatan</label>
-                                <select class="form-control selectNamaKegiatan"  name="nama_kegiatan[]">
-                                    <option value="">Pilih Kegiatan</option>
-                                    @foreach ($keg as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <label for="nama_kegiatan">Nama Kegiatan</label>
+                                    <select class="form-control selectNamaKegiatan" name="nama_kegiatan[]">
+                                        <option value="">Pilih Kegiatan</option>
+                                        @foreach ($keg as $item)
+                                            <option
+                                                value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-1 d-flex align-items-center mt-4">
+                                    {{-- <a href="{{ route('data-kegiatan-warga-delete', ['id' => $wargaKeg->id]) }}"
+                                        class="btn btn-danger btn-sm mt-2">Delete</a> --}}
+                                </div>
                             </div>
-                        </div>
                     </div>
 
                     <div class="row d-flex justify-content-end mr-1">
@@ -184,79 +189,96 @@
 
 
 
-    <script>
-        $(document).ready(function() {
-            let data;
-            $.ajax({
-                url: "{{ route('kegiatanInDesa', ['id' => 1]) }}",
-                type: "GET",
-                success: function(response) {
-                    console.log('Data Kegiatan:', response);
-                    data = response.data; // Simpan data kegiatan ke dalam variabel
-                    populateNamaKegiatanSelect(); // Panggil fungsi untuk mengisi opsi nama kegiatan
-                },
-                error: function(xhr) {
-                    console.error(xhr.responseText);
-                }
-            });
+<script>
+    $(document).ready(function() {
+        let data; // Variabel untuk menyimpan data kegiatan
 
-            // Fungsi untuk mengisi opsi "Nama Kegiatan" pada elemen select
-            function populateNamaKegiatanSelect() {
-                const namaKegiatanSelects = document.querySelectorAll('.selectNamaKegiatan');
-
-                namaKegiatanSelects.forEach(function(select) {
-                    // Kosongkan opsi yang ada sebelumnya pada setiap select
-                    select.innerHTML = '';
-
-                    const defaultOptionNamaKegiatan = document.createElement('option');
-                    defaultOptionNamaKegiatan.value = '';
-                    defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kegiatan';
-                    select.appendChild(defaultOptionNamaKegiatan);
-
-                    // Tambahkan opsi nama kegiatan berdasarkan data yang tersedia
-                    if (data) {
-                        data.forEach(function(item) {
-                            const option = document.createElement('option');
-                            option.value = item.id;
-                            option.textContent = item.name;
-                            select.appendChild(option);
-                        });
-                    }
-                });
+        // Fungsi untuk mengambil data kegiatan saat halaman dimuat
+        $.ajax({
+            url: "{{ route('kegiatanInDesa', ['id' => 1]) }}",
+            type: "GET",
+            success: function(response) {
+                console.log('Data Kegiatan:', response);
+                data = response.data; // Simpan data kegiatan ke dalam variabel
+                populateNamaKegiatanSelect(); // Panggil fungsi untuk mengisi opsi nama kegiatan
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
             }
-
-            // Event listener untuk tombol "Add"
-            const addButton = document.querySelector('#addButton');
-            const formContainer = document.querySelector('#formContainer');
-            let totalClick = 1;
-            addButton.addEventListener('click', function() {
-                totalClick++;
-                if (totalClick <= data.length) {
-
-                    const newRow = document.createElement('div');
-                    newRow.className = 'row';
-
-                    const namaKegiatanCol = document.createElement('div');
-                    namaKegiatanCol.className = 'col-md-12';
-
-                    const namaKegiatanLabel = document.createElement('label');
-                    namaKegiatanLabel.textContent = 'Nama Kegiatan';
-
-                    const namaKegiatanSelect = document.createElement('select');
-                    namaKegiatanSelect.className =
-                    'form-control selectNamaKegiatan'; // Gunakan kelas sebagai selector
-                    namaKegiatanSelect.name = 'nama_kegiatan[]';
-                    namaKegiatanCol.appendChild(namaKegiatanLabel);
-                    namaKegiatanCol.appendChild(namaKegiatanSelect);
-                    newRow.appendChild(namaKegiatanCol);
-                    formContainer.appendChild(newRow);
-
-                    populateNamaKegiatanSelect
-                (); // Isi ulang opsi nama kegiatan setelah menambahkan select baru
-                } else {
-                    alert('Semua data kegiatan sudah ditambahkan.');
-                }
-            });
         });
-    </script>
+
+        // Event listener untuk tombol "Add"
+        const addButton = document.querySelector('#addButton');
+        const formContainer = document.querySelector('#formContainer');
+        let totalClick = 1;
+
+        addButton.addEventListener('click', function() {
+            if (totalClick <= data.length) {
+                const newRow = document.createElement('div');
+                newRow.className = 'row mb-2 align-items-center'; // Add alignment classes
+
+                const namaKegiatanCol = document.createElement('div');
+                namaKegiatanCol.className = 'col-md-11'; // Adjusted column width for select
+
+                const namaKegiatanLabel = document.createElement('label');
+                namaKegiatanLabel.textContent = 'Nama Kegiatan';
+                namaKegiatanLabel.htmlFor = 'nama_kegiatan'; // Set 'for' attribute for label
+
+                const namaKegiatanSelect = document.createElement('select');
+                namaKegiatanSelect.className = 'form-control selectNamaKegiatan';
+                namaKegiatanSelect.name = 'nama_kegiatan[]';
+
+                const deleteButtonDiv = document.createElement('div');
+                deleteButtonDiv.className =
+                'col-md-1 d-flex align-items-center mt-4'; // Adjusted column width for delete button
+
+                const deleteButton = document.createElement('a');
+                deleteButton.href = '#'; // Set href attribute for delete button
+                deleteButton.className = 'btn btn-danger btn-sm mt-2';
+                deleteButton.textContent = 'Delete';
+                deleteButton.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default link behavior
+                    newRow.remove();
+                    totalClick--; // Decrease totalClick when row is removed
+                });
+
+                // Append elements to their respective containers
+                namaKegiatanCol.appendChild(namaKegiatanLabel);
+                namaKegiatanCol.appendChild(namaKegiatanSelect);
+
+                deleteButtonDiv.appendChild(deleteButton);
+
+                newRow.appendChild(namaKegiatanCol);
+                newRow.appendChild(deleteButtonDiv);
+
+                formContainer.appendChild(newRow);
+
+                // Populate select options
+                const newSelect = newRow.querySelector('select');
+                newSelect.innerHTML = '';
+
+                const defaultOptionNamaKegiatan = document.createElement('option');
+                defaultOptionNamaKegiatan.value = '';
+                defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kegiatan';
+                newSelect.appendChild(defaultOptionNamaKegiatan);
+
+                // Add options based on data
+                if (data) {
+                    data.forEach(function(item) {
+                        const option = document.createElement('option');
+                        option.value = item.id;
+                        option.textContent = item.name;
+                        newSelect.appendChild(option);
+                    });
+                }
+
+                totalClick++; // Increment totalClick counter
+            } else {
+                alert('Semua data kegiatan sudah ditambahkan.');
+            }
+        });
+
+
+    });
+</script>
 @endpush
