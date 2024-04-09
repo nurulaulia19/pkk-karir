@@ -164,11 +164,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    {{-- <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Edit</button>
                         <a href="/data_warga" class="btn btn-outline-primary">
                             <span>Batalkan</span>
                         </a>
+                    </div> --}}
+                    <div class="card-footer">
+                        <button type="button" data-action="next" class="btn btn-primary">Next</button>
                     </div>
                 </div>
             </div>
@@ -538,11 +541,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    {{-- <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Edit</button>
                         <a href="/data_warga" class="btn btn-outline-primary">
                             <span>Batalkan</span>
                         </a>
+                    </div> --}}
+                    <div class="card-footer">
+                        <button type="button" data-action="next" class="btn btn-primary">Next</button>
                     </div>
                 </div>
             </div>
@@ -917,6 +923,7 @@
 
 </script>
 
+
 <script>
     $(document).ready(function() {
     $('#id_kecamatan').on('change', function() {
@@ -1034,6 +1041,28 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '[data-action="next"]', function (e) {
+            var $activeTab = $('#dataWargaTabs .nav-link.active');
+            var hasError = false;
 
+            $($activeTab.attr('href')).find('[name]').each(function () {
+                if ((!$(this).prop('disabled') && !$(this).prop('readonly')) && !$(this).val()) {
+                    $(this).addClass('is-invalid');
+                    hasError = true;
+                }
+            });
+
+            if (!hasError) {
+                // Temukan dan klik tab berikutnya
+                var $nextTabLink = $activeTab.parent().next().find('a.nav-link');
+                if ($nextTabLink.length > 0) {
+                    $nextTabLink.tab('show'); // Aktifkan tab berikutnya
+                }
+            }
+        });
+    });
+</script>
 
 @endpush

@@ -918,6 +918,22 @@
     });
 </script> --}}
 <script>
+    $(document).on('click', '[data-action="next"]', function (e) {
+            var $active = $('#dataWargaTabs .active');
+            var hasError = false;
+
+            $($active.attr('href')).find('[name]').each(function () {
+                if ((!$(this).prop('disabled') || !$(this).prop('readonly')) && !$(this).val()) {
+                    $(this).addClass('is-invalid');
+                    hasError = true;
+                }
+            });
+            if (!hasError) {
+                $active.parent().next().find('a').click();
+            }
+        });
+</script>
+<script>
     document.addEventListener("DOMContentLoaded", function() {
         // Mendapatkan elemen jenis_kelamin
         var jenisKelaminSelect = document.getElementById('jenis_kelamin');

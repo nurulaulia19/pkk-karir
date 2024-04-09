@@ -312,10 +312,25 @@ class DataWargaController extends Controller
         ]);
 
         // update data
-            $data_warga->update($request->all());
-            Alert::success('Berhasil', 'Data berhasil di ubah');
-            // dd($jml_kader);
-            return redirect('/data_warga');
+        $data_warga->update($request->all());
+            // Temukan ID keluarga terkait dengan DataWarga
+            $id_keluarga = DB::table('keluarga_has_warga')
+            ->where('warga_id', $data_warga->id)
+            ->value('keluarga_id');
+
+            // Periksa apakah ID keluarga ditemukan
+            if ($id_keluarga) {
+            // Update kolom nama_kepala_keluarga dengan nama yang baru
+            DB::table('data_keluarga')
+            ->where('id', $id_keluarga)
+            ->update([
+            'nama_kepala_keluarga' => $request->nama, // Menggunakan nama baru dari DataWarga
+            ]);
+        }
+
+        Alert::success('Berhasil', 'Data berhasil di ubah');
+        // dd($jml_kader);
+        return redirect('/data_warga');
 
     }
 

@@ -298,6 +298,7 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
     //print rekap anggota keluarga
     // Route::get('/print_cakel/{id}', [KaderFormController::class, 'print_cakel']);
     Route::get('/print_pdf_cakel/{id}', [KaderFormController::class, 'print_pdf_cakel']);
+    Route::get('/print_excel_cakel/{id}', [KaderFormController::class, 'print_excel_cakel'])->name('print.excel');
 
 
     // rekap catatan keluarga

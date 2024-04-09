@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Exports\CatatanKeluargaExport;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KaderFormController extends Controller
 {
@@ -206,48 +209,48 @@ class KaderFormController extends Controller
 
 
     // halaman data catatan keluarga pkk
-     public function catatan_keluarga($id)
-     {
-        // $kepala_keluarga = DataWarga::find($id);
-        // // dd($kepala_keluarga);
+    //  public function catatan_keluarga($id)
+    //  {
+    //     // $kepala_keluarga = DataWarga::find($id);
+    //     // // dd($kepala_keluarga);
 
-        // $keluarga = DataKeluarga::first();
-        // // dd($keluarga);
-        // $catatan_keluarga = DataWarga::query()
-        //     ->with(['kegiatan', 'kegiatan.kategori_kegiatan',
-        //         'kegiatan.keterangan_kegiatan', 'keluarga', 'dasawisma'])
-        //     ->where('id_keluarga', $id)
-        //     ->get();
+    //     // $keluarga = DataKeluarga::first();
+    //     // // dd($keluarga);
+    //     // $catatan_keluarga = DataWarga::query()
+    //     //     ->with(['kegiatan', 'kegiatan.kategori_kegiatan',
+    //     //         'kegiatan.keterangan_kegiatan', 'keluarga', 'dasawisma'])
+    //     //     ->where('id_keluarga', $id)
+    //     //     ->get();
 
-        $kepala_keluarga = DataWarga::find($id);
+    //     $kepala_keluarga = DataWarga::find($id);
 
-        $keluarga = DataKeluarga::where('id', $kepala_keluarga->id_keluarga)->first();
+    //     $keluarga = DataKeluarga::where('id', $kepala_keluarga->id_keluarga)->first();
 
-        $catatan_keluarga = DataWarga::query()
-            ->with(['kegiatan', 'kegiatan.kategori_kegiatan',
-                'kegiatan.keterangan_kegiatan', 'keluarga', 'dasawisma'])
-            ->where('id_keluarga', $kepala_keluarga->id_keluarga)
-            ->get();
+    //     $catatan_keluarga = DataWarga::query()
+    //         ->with(['kegiatan', 'kegiatan.kategori_kegiatan',
+    //             'kegiatan.keterangan_kegiatan', 'keluarga', 'dasawisma'])
+    //         ->where('id_keluarga', $kepala_keluarga->id_keluarga)
+    //         ->get();
 
-            // dd($catatan_keluarga);
+    //         // dd($catatan_keluarga);
 
 
-        $kategori_kegiatans = KategoriKegiatan::query()->where('id', '<=', 8)->get();
-        // dd($kategori_kegiatans);
+    //     $kategori_kegiatans = KategoriKegiatan::query()->where('id', '<=', 8)->get();
+    //     // dd($kategori_kegiatans);
 
-        // $print_cakel = DataWarga::where('id_keluarga', $id)
-        // ->first();
-        // dd($print_cakel);
+    //     // $print_cakel = DataWarga::where('id_keluarga', $id)
+    //     // ->first();
+    //     // dd($print_cakel);
 
-        // $print_pdf_cakel = DataWarga::where('id_keluarga', $id)
-        // ->first();
-        $print_cakel = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
-        // dd($print_cakel);
-        // Mengambil data print kedua untuk keluarga yang sesuai dengan $id_kepala_keluarga
-        $print_pdf_cakel = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
-        // dd($print_cakel);
-        return view('kader.catatan_keluarga', compact('catatan_keluarga', 'keluarga', 'kepala_keluarga', 'kategori_kegiatans', 'print_cakel', 'print_pdf_cakel'));
-    }
+    //     // $print_pdf_cakel = DataWarga::where('id_keluarga', $id)
+    //     // ->first();
+    //     $print_cakel = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
+    //     // dd($print_cakel);
+    //     // Mengambil data print kedua untuk keluarga yang sesuai dengan $id_kepala_keluarga
+    //     $print_pdf_cakel = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
+    //     // dd($print_cakel);
+    //     return view('kader.catatan_keluarga', compact('catatan_keluarga', 'keluarga', 'kepala_keluarga', 'kategori_kegiatans', 'print_cakel', 'print_pdf_cakel'));
+    // }
 
     // print halaman data rekap catatan data keluarga pkk
     // public function print_cakel($id){
@@ -309,6 +312,51 @@ class KaderFormController extends Controller
         return $pdf->stream();
 
     }
+
+    // public function print_excel_cakel($id)
+    // {
+    //     $keluarga = DataKeluarga::with('anggota.warga')->find($id);
+
+    //     if (!$keluarga) {
+    //         return redirect()->back()->with('error', 'Keluarga tidak ditemukan');
+    //     }
+
+    //     // Export data ke file Excel
+    //     return Excel::download(new CatatanKeluargaExport($keluarga), 'data_keluarga.xlsx');
+    // }
+
+    public function show($id)
+    {
+        $keluarga = DataKeluarga::findOrFail($id);
+
+        return view('kader.data_catatan_keluarga.export', [
+            'keluarga' => $keluarga,
+        ]);
+    }
+
+//     public function print_excel_cakel($id)
+// {
+//     $keluarga = DataKeluarga::findOrFail($id);
+
+//     return Excel::download(new CatatanKeluargaExport($keluarga), 'catatan_keluarga.xlsx');
+// }
+
+    public function print_excel_cakel($id)
+{
+    $userKader = Auth::user();
+    $keluarga = DataKeluarga::with('anggota.warga.kegiatan', 'dasawisma')->find($id);
+    // dd($keluarga);
+    $warga = $keluarga->anggota->first();
+    $dasawismaId = $warga->warga->id_dasawisma;
+    $dasawisma = DasaWisma::find($dasawismaId);
+
+    $dataKegiatan = DataKegiatan::where('desa_id',$userKader->id_desa)->get();
+    // dd($keluarga);
+
+    return Excel::download(new CatatanKeluargaExport($keluarga, $dasawisma, $dataKegiatan), 'catatan_keluarga.xlsx');
+}
+
+
 
     public function profil(){
         $data_kader = Auth::user();

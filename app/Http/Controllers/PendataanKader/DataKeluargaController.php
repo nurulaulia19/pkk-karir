@@ -248,6 +248,7 @@ class DataKeluargaController extends Controller
 
         $kepalaKeluarga = DataWarga::find($request->warga[0]);
 
+
         $keluarga = DataKeluarga::create([
             'nama_kepala_keluarga' => $kepalaKeluarga->nama,
             'punya_jamban' => $request->punya_jamban,
@@ -458,7 +459,7 @@ class DataKeluargaController extends Controller
         // dd($warga);
         // dd($keluarga);
         // dd($keluarga);
-        return view('kader.catatan_keluarga', compact(['keluarga','dasawisma','dataKegiatan']));
+        return view('kader.data_catatan_keluarga.index', compact(['keluarga','dasawisma','dataKegiatan']));
     }
 
     // public function deleteWargaInKeluarga($id)

@@ -194,7 +194,7 @@
                     <li class="nav-item">
                         <a href="/data_kegiatan" class="nav-link {{ Request::is('data_kegiatan') ? 'active':'' }}">
                           <i class="far fa-circle nav-icon"></i>
-                          <p>Data Kegiatan Keluarga</p>
+                          <p>Data Kegiatan Warga</p>
                         </a>
                     </li>
                     <li class="nav-item">
