@@ -14,6 +14,8 @@ use App\Models\DataWarga;
 use App\Models\User;
 use App\Models\Keluargahaswarga;
 use App\Models\NotifDataKeluarga;
+use App\Models\RumahTangga;
+use App\Models\RumahTanggaHasKeluarga;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -251,12 +253,13 @@ class DataKeluargaController extends Controller
 
         $keluarga = DataKeluarga::create([
             'nama_kepala_keluarga' => $kepalaKeluarga->nama,
-            'punya_jamban' => $request->punya_jamban,
+            // 'punya_jamban' => $request->punya_jamban,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'dusun' => $request->dusun,
             'provinsi' => $request->provinsi,
             'id_dasawisma' => $request->id_dasawisma,
+            'periode' => $request->periode,
         ]);
 
         // Mengatur is_keluarga menjadi true untuk kepala keluarga
@@ -367,11 +370,11 @@ class DataKeluargaController extends Controller
 
         $request->validate(
             [
-                'punya_jamban' => 'required',
+                // 'punya_jamban' => 'required',
                 'status.*' => 'required', // Validasi untuk setiap status
             ],
             [
-                'punya_jamban.required' => 'Pilih Mempunyai Jamban dan Jumlah Yang Mempunyai Jamban',
+                // 'punya_jamban.required' => 'Pilih Mempunyai Jamban dan Jumlah Yang Mempunyai Jamban',
                 'status.*.required' => 'Lengkapi setiap status',
             ],
         );
@@ -382,13 +385,14 @@ class DataKeluargaController extends Controller
 
         // Mengupdate data keluarga
         $data_keluarga->update([
-            'punya_jamban' => $request->punya_jamban,
+            // 'punya_jamban' => $request->punya_jamban,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'dusun' => $request->dusun,
             'provinsi' => $request->provinsi,
             'id_dasawisma' => $request->id_dasawisma,
             'nama_kepala_keluarga' => $kepalaKeluarga->nama,
+            'periode' => $request->periode,
             // tambahkan atribut lainnya sesuai kebutuhan
         ]);
 
@@ -445,22 +449,54 @@ class DataKeluargaController extends Controller
         return redirect()->back();
     }
 
+    // public function detail($id)
+    // {
+    //     $userKader = Auth::user();
+    //     $keluarga = DataKeluarga::with('anggota.warga.kegiatan', 'dasawisma')->find($id);
+    //     $rumahTangga = RumahTangga::with('rumahtangga')->find($id);
+    //     dd($rumahTangga);
+    //     $warga = $keluarga->anggota->first();
+    //     $dasawismaId = $warga->warga->id_dasawisma;
+    //     $dasawisma = DasaWisma::find($dasawismaId);
+
+    //     $dataKegiatan = DataKegiatan::where('desa_id',$userKader->id_desa)->get();
+    //     // dd($dasawisma);
+    //     // dd($warga);
+    //     // dd($keluarga);
+    //     // dd($keluarga);
+    //     return view('kader.data_catatan_keluarga.index', compact(['keluarga','dasawisma','dataKegiatan']));
+    // }
+
     public function detail($id)
     {
         $userKader = Auth::user();
-        $keluarga = DataKeluarga::with('anggota.warga.kegiatan', 'dasawisma')->find($id);
-        // dd($keluarga);
-        $warga = $keluarga->anggota->first();
-        $dasawismaId = $warga->warga->id_dasawisma;
-        $dasawisma = DasaWisma::find($dasawismaId);
 
-        $dataKegiatan = DataKegiatan::where('desa_id',$userKader->id_desa)->get();
-        // dd($dasawisma);
-        // dd($warga);
-        // dd($keluarga);
-        // dd($keluarga);
-        return view('kader.data_catatan_keluarga.index', compact(['keluarga','dasawisma','dataKegiatan']));
+         // Ambil data keluarga berdasarkan ID
+        $keluarga = DataKeluarga::findOrFail($id);
+
+        // Cari RumahTanggaHasKeluarga berdasarkan ID keluarga
+        $rumahTanggaHasKeluarga = RumahTanggaHasKeluarga::where('keluarga_id', $keluarga->id)->first();
+        //  dd($rumahTanggaHasKeluarga);
+        // Jika tidak ditemukan, tangani sesuai kebutuhan aplikasi Anda
+        if (!$rumahTanggaHasKeluarga) {
+            return abort(404); // Contoh: Tangani jika data tidak ditemukan
+        }
+
+        // Lakukan operasi pada data rumah tangga has keluarga jika ditemukan
+        // Contoh: Mendapatkan informasi tambahan dari rumah tangga
+        $idRumahTangga = $rumahTanggaHasKeluarga->rumahtangga_id;
+        $rumahTangga = RumahTangga::findOrFail($idRumahTangga);
+        // dd($rumahTangga);
+
+        // Lakukan operasi lain sesuai kebutuhan
+        $dasawismaId = $keluarga->anggota->first()->warga->id_dasawisma;
+        $dasawisma = DasaWisma::find($dasawismaId);
+        $dataKegiatan = DataKegiatan::where('desa_id', $userKader->id_desa)->get();
+
+        // Kirim data ke view 'kader.data_catatan_keluarga.index'
+        return view('kader.data_catatan_keluarga.index', compact('keluarga', 'rumahTangga', 'dasawisma', 'dataKegiatan'));
     }
+
 
     // public function deleteWargaInKeluarga($id)
     // {

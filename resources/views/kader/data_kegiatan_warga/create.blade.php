@@ -31,22 +31,30 @@
                             </ul>
                         </div>
                     @endif
-
-
                     <div class="row">
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="form-group @error('id_desa') is-invalid @enderror">
-                                {{-- nama desa --}}
                                 <label for="exampleFormControlSelect1">Desa</label>
                                 <input type="text" disabled class="form-control" name="id_desa" id="id_desa"
                                     placeholder="Masukkan Nama Desa" required value="curut">
-
-                                {{-- @foreach ($desas as $c)
-                        <input type="hidden" class="form-control" name="id_desa" id="id_desa" placeholder="Masukkan Nama Desa" required value="{{$c->id}}">
-
-                        <input type="text" disabled class="form-control" name="id_desa" id="id_desa" placeholder="Masukkan Nama Desa" required value="{{ $c->nama_desa }}">
-
-                        @endforeach --}}
+                            </div>
+                            @error('id_desa')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div> --}}
+                        <div class="col-md-6">
+                            <div class="form-group @error('id_desa') is-invalid @enderror">
+                                <label for="exampleFormControlSelect1">Desa</label>
+                                @foreach ($desas as $c)
+                                    <input type="hidden" class="form-control" name="id_desa"
+                                        id="id_desa" placeholder="Masukkan Nama Desa"
+                                        value="{{ $c->id }}">
+                                    <input type="text" disabled class="form-control" name="id_desa"
+                                        id="id_desa" placeholder="Masukkan Nama Desa"
+                                        value="{{ $c->nama_desa }}">
+                                @endforeach
                             </div>
                             @error('id_desa')
                                 <span class="invalid-feedback" role="alert">
@@ -57,13 +65,15 @@
 
                         <div class="col-md-6">
                             <div class="form-group @error('id_kecamatan') is-invalid @enderror">
-                                {{-- nama kecamatan --}}
                                 <label for="exampleFormControlSelect1">Kecamatan</label>
+                                {{-- nama kecamatan --}}
                                 @foreach ($kec as $c)
-                                    <input type="hidden" class="form-control" name="id_kecamatan" id="id_kecamatan"
-                                        placeholder="Masukkan Nama Desa" required value="{{ $c->id }}">
-                                    <input type="text" disabled class="form-control" name="id_kecamatan"
-                                        id="id_kecamatan" placeholder="Masukkan Nama Desa" required
+                                    <input type="hidden" class="form-control" name="id_kecamatan"
+                                        id="id_kecamatan" placeholder="Masukkan Nama Desa"
+                                        value="{{ $c->id }}">
+                                    <input type="text" disabled class="form-control"
+                                        name="id_kecamatan" id="id_kecamatan"
+                                        placeholder="Masukkan Nama Desa"
                                         value="{{ $c->nama_kecamatan }}">
                                 @endforeach
                             </div>

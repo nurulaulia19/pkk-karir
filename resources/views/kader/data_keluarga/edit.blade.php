@@ -13,9 +13,9 @@
         <li class="nav-item">
             <a class="nav-link" id="keluarga-tab" data-toggle="tab" href="#keluarga" role="tab" aria-controls="keluarga" aria-selected="false">Data Keluarga</a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" id="kondisi-keluarga-tab" data-toggle="tab" href="#kondisi-keluarga" role="tab" aria-controls="kondisi-keluarga" aria-selected="false">Data Kondisi Keluarga</a>
-        </li>
+        </li> --}}
     </ul>
 
     <form action="{{ url('data_keluarga', $data_keluarga->id) }}" method="POST">
@@ -122,7 +122,6 @@
                                         @enderror
 
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group @error('id_kecamatan') is-invalid @enderror">
                                             <label for="exampleFormControlSelect1">Kecamatan</label>
@@ -163,6 +162,19 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-12">
+                               <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Periode</label>
+                                            <select class="form-control" id="periode" name="periode" readonly>
+                                                {{-- Tampilkan opsi select dengan nilai default dari properti periode --}}
+                                                <option value="{{ $data_keluarga->periode }}" selected>{{ $data_keluarga->periode }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                               </div>
                             </div>
                         </div>
                     </div>
@@ -308,12 +320,14 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="button" data-action="next" class="btn btn-primary">Next</button>
-
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <a href="/data_keluarga" class="btn btn-outline-primary">
+                            <span>Batalkan</span>
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="kondisi-keluarga" role="tabpanel" aria-labelledby="kondisi-keluarga-tab">
+            {{-- <div class="tab-pane fade" id="kondisi-keluarga" role="tabpanel" aria-labelledby="kondisi-keluarga-tab">
                 <div class="card">
                     <div class="card-body">
                         <div class="row justify-content-end mb-4">
@@ -367,7 +381,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
     </form>

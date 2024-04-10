@@ -170,6 +170,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                         <div class="col-md-6">
+                                             <div class="form-group">
+                                                 <label>Periode</label>
+                                                 <select class="form-control" id="periode" name="periode" readonly>
+                                                     {{-- Tampilkan opsi select dengan nilai default dari properti periode --}}
+                                                     <option value="{{ $krt->periode }}" selected>{{ $krt->periode }}</option>
+                                                 </select>
+                                             </div>
+                                         </div>
+                                    </div>
+                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -288,9 +301,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        {{-- <div class="col-md-4">
                                             <div class="form-group @error('kriteria_rumah_sehat') is-invalid @enderror">
-                                                {{-- pilih kriteria rumah --}}
                                                 <label>Kriteria Rumah</label><br>
                                                 <select class="form-control @error('kriteria_rumah_sehat') is-invalid @enderror" id="kriteria_rumah_sehat" name="kriteria_rumah_sehat">
                                                     <option value="" hidden>Pilih Kriteria Rumah</option>
@@ -303,7 +315,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-4">
                                             <div class="form-group @error('punya_tempat_sampah') is-invalid @enderror">
                                                 {{-- pilih punya tempat pembuangan sampah --}}
@@ -346,11 +358,6 @@
                                                 </span>
                                             @enderror
                                         </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="row">
                                         <div class="col-md-2">
                                             <div class="form-group @error('tempel_stiker') is-invalid @enderror">
                                                 {{-- pilih stiker --}}
@@ -372,6 +379,51 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group @error('punya_jamban') is-invalid @enderror">
+                                                <label>Punya Jamban?</label>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="punya_jamban" id="punya_jamban_ya" value="1" @if(old('punya_jamban', $krt->punya_jamban) == 1) checked @endif>
+                                                            <label class="form-check-label" for="punya_jamban_ya">Ya</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="punya_jamban" id="punya_jamban_tidak" value="0" @if(old('punya_jamban', $krt->punya_jamban) == 0) checked @endif>
+                                                            <label class="form-check-label" for="punya_jamban_tidak">Tidak</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @error('punya_jamban')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Sumber Air:</label><br>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_pdam" name="sumber_air_pdam" value="1" @if(old('sumber_air_pdam', $krt->sumber_air_pdam) == 1) checked @endif>
+                                                    <label class="form-check-label" for="sumber_air_pdam">PDAM</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_sumur" name="sumber_air_sumur" value="1" @if(old('sumber_air_sumur', $krt->sumber_air_sumur) == 1) checked @endif>
+                                                    <label class="form-check-label" for="sumber_air_sumur">Sumur</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_lainnya" name="sumber_air_lainnya" value="1" @if(old('sumber_air_lainnya', $krt->sumber_air_lainnya) == 1) checked @endif>
+                                                    <label class="form-check-label" for="sumber_air_lainnya">Lainnya</label>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -379,7 +431,7 @@
                         </div>
                         <div class="card-footer">
                             {{-- <button type="button" data-action="next" class="btn btn-primary">Next</button> --}}
-                            <button type="submit" class="ml-2 btn btn-success">submit</button>
+                            <button type="submit" class="ml-2 btn btn-success">Edit</button>
 
                         </div>
                     </div>

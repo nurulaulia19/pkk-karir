@@ -23,12 +23,12 @@ class DataKegiatanWargaController extends Controller
 
         // halaman data kegiatan
         // $kegiatan=DataKegiatanWarga::all()->where('id_user', $user->id);
-        $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->get();
+        $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->where('is_kegiatan', true)->get();
         // dd($kegiatan);
         // $kegiatan = DataKegiatanWarga::with(['warga','kegiatan'])->get();
         // dd($kegiatan);
 
-        return view('kader.data_kegiatan.data_kegiatan', compact('kegiatan'));
+        return view('kader.data_kegiatan_warga.index', compact('kegiatan'));
     }
     public function create()
     {
@@ -52,6 +52,7 @@ class DataKegiatanWargaController extends Controller
         return view('kader.data_kegiatan_warga.create', compact('keg', 'warga', 'desas', 'kec', 'kad', 'kel'));
 
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -77,7 +78,16 @@ class DataKegiatanWargaController extends Controller
                 ]);
             }
          }
-         dd(' berhasil er');
+
+         // Set is_kegiatan menjadi true untuk data warga yang terkait
+            $dataWarga = DataWarga::find($request->id_warga);
+            if ($dataWarga) {
+                $dataWarga->is_kegiatan = true;
+                $dataWarga->save();
+            }
+
+         Alert::success('Berhasil', 'Data berhasil di tambahkan');
+         return redirect('/data_kegiatan');
 
 
 
@@ -168,26 +178,65 @@ class DataKegiatanWargaController extends Controller
 
             }
          }
-         dd(' berhasil er');
+
+         $dataWarga = DataWarga::find($request->id_warga);
+         if ($dataWarga) {
+             $dataWarga->is_kegiatan = true;
+             $dataWarga->save();
+         }
+
+         Alert::success('Berhasil', 'Data berhasil di tambahkan');
+         return redirect('/data_kegiatan');
 
     }
+
+    // public function destroy($id)
+    // {
+    //     // dd($id);
+    //     //temukan id data kegiatan warga
+    //     // $warg::find($data_kegiatan)->delete();
+    //     $warga =  DataWarga::find($id);
+    //     foreach($warga->kegiatan as $kegiatan){
+    //         $kegiatan->delete();
+    //     }
+    //     Alert::success('Berhasil', 'Data berhasil di Hapus');
+
+    //     return redirect('/data_kegiatan');
 
     public function destroy($id)
     {
-        // dd($id);
-        //temukan id data kegiatan warga
-        // $warg::find($data_kegiatan)->delete();
-        $warga =  DataWarga::find($id);
-        foreach($warga->kegiatan as $kegiatan){
+        // Temukan DataWarga berdasarkan ID
+        $warga = DataWarga::find($id);
+
+        // Periksa apakah DataWarga ditemukan
+        if (!$warga) {
+            return redirect()->back()->with('error', 'Data warga not found');
+        }
+
+        // Loop melalui semua kegiatan yang terkait dengan DataWarga
+        foreach ($warga->kegiatan as $kegiatan) {
             $kegiatan->delete();
         }
-        Alert::success('Berhasil', 'Data berhasil di Hapus');
 
-        return redirect('/data_kegiatan');
+        // Periksa apakah DataWarga masih memiliki kegiatan terkait setelah penghapusan
+        $isKegiatan = $warga->kegiatan()->exists();
 
+        // Jika tidak ada lagi kegiatan terkait, atur is_kegiatan pada DataWarga menjadi false
+        if (!$isKegiatan) {
+            $warga->is_kegiatan = false;
+            $warga->save();
+        }
 
+        // Hapus DataWarga jika perlu
+        // $warga->delete(); // Uncomment ini jika Anda ingin menghapus DataWarga setelah semua kegiatannya dihapus
 
+        // Redirect kembali dengan pesan sukses
+        return redirect('/data_kegiatan')->with('success', 'Data kegiatan berhasil dihapus');
     }
+
+
+
+    // }
 
 
     public function kegiatanDesa($id){
@@ -218,4 +267,7 @@ class DataKegiatanWargaController extends Controller
         $kegiatan->delete();
         return redirect()->back()->with('success', 'Kegiatan deleted successfully');
     }
+
+
+
 }

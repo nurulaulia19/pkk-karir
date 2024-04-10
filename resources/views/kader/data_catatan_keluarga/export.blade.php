@@ -53,11 +53,61 @@
                                 <h5><strong>Catatan Keluarga</strong></h5>
                             </center>
 
-                            <div>
+                            {{-- <div>
                                 <p><strong>Catatan Keluarga dari:</strong> {{ $keluarga->nama_kepala_keluarga }}</p>
                                 <p><strong>Anggota Kelompok Dasawisma:</strong> matahari</p>
                                 <p><strong>Tahun:</strong> 2024</p>
-                            </div>
+                            </div> --}}
+                            <div class="row">
+                                    <div class="col-sm-8">
+                                        <h6>CATATAN KELUARGA DARI : {{ $keluarga->nama_kepala_keluarga }}</h6>
+                                        <h6>ANGGOTA KELOMPOK DASAWISMA : {{ $dasawisma->nama_dasawisma }}</h6>
+                                        <h6>TAHUN : {{ $keluarga->periode }}</h6>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        {{-- Kriteria Rumah --}}
+                                        {{-- @if ($rumahTangga->punya_jamban && $rumahTangga->punya_tempat_sampah)
+                                        <h6>KRITERIA RUMAH : LAYAK HUNI</h6>
+                                        @else
+                                        <h6>KRITERIA RUMAH : TIDAK LAYAK HUNI</h6>
+                                        @endif --}}
+                                        @if ($rumahTangga->kriteria_rumah_sehat)
+                                        <h6>KRITERIA RUMAH : LAYAK HUNI</h6>
+                                        @else
+                                        <h6>KRITERIA RUMAH : TIDAK LAYAK HUNI</h6>
+                                        @endif
+
+                                        {{-- Jamban keluarga --}}
+                                        @if ($rumahTangga->punya_jamban)
+                                        <h6>JAMBAN KELUARGA : ADA / {{ $rumahTangga->punya_jamban }} buah</h6>
+                                        @else
+                                        <h6>JAMBAN KELUARGA : TIDAK</h6>
+                                        @endif
+
+                                        {{-- sumber air --}}
+                                        <div style="display: flex; align-items: center;">
+                                            <h6 style="margin-right: 10px;">SUMBER AIR :</h6>
+                                            <div style="display: flex; flex-wrap: wrap; align-items: flex-start;">
+                                                @if ($rumahTangga->sumber_air_pdam)
+                                                    <span style="margin-right: 5px; margin-bottom: 7px;">PDAM</span>
+                                                @endif
+                                                @if ($rumahTangga->sumber_air_sumur)
+                                                    <span style="margin-right: 5px; margin-bottom: 7px;">SUMUR</span>
+                                                @endif
+                                                @if ($rumahTangga->sumber_air_lainnya)
+                                                    <span style="margin-right: 5px; margin-bottom: 7px;">LAINNYA</span>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        {{-- tempat sampah --}}
+                                        @if ($rumahTangga->punya_tempat_sampah == 1)
+                                            <h6>TEMPAT SAMPAH : ADA</h6>
+                                        @else
+                                            <h6>TEMPAT SAMPAH : TIDAK</h6>
+                                        @endif
+                                    </div>
+                                </div>
 
                             <table class="table table-striped table-bordered">
                                 <thead>
@@ -101,7 +151,13 @@
                                                         @endphp
                                                     @endif
                                                 @endforeach
-                                                <td>{{ $ada ? '1' : '' }}</td>
+                                                <td style="vertical-align: middle; width: 130px;">
+                                                    @if ($ada)
+                                                        ✓
+                                                    @else
+                                                        0
+                                                    @endif
+                                                </td>
                                             @endforeach
                                         </tr>
                                     @endforeach

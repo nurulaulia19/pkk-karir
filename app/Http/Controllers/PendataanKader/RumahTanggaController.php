@@ -67,18 +67,41 @@ class RumahTanggaController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->keluarga[0]);
+        $validatedData = $request->validate([
+            'punya_jamban' => 'required|boolean',
+            'punya_tempat_sampah' => 'required|boolean',
+            'saluran_pembuangan_air_limbah' => 'required|boolean',
+        ]);
 
         $keluargaKetua = DataKeluarga::find($request->keluarga[0]);
         // dd($keluargaKetua);
+
+        $kriteria_rumah_sehat = true;
+
+        // Periksa kondisi untuk menentukan kriteria rumah sehat
+        if (!$validatedData['punya_jamban'] || !$validatedData['punya_tempat_sampah'] || !$validatedData['saluran_pembuangan_air_limbah']) {
+            $kriteria_rumah_sehat = false;
+        }
+
+
         $keluarga = RumahTangga::create([
             'nama_kepala_rumah_tangga' => $keluargaKetua->nama_kepala_keluarga,
             'id_dasawisma' => $request->id_dasawisma,
             'dusun' => $request->dusun,
-            'punya_tempat_sampah' => $request->punya_tempat_sampah,
-            'kriteria_rumah_sehat' => $request->kriteria_rumah_sehat,
+            // 'punya_jamban' => $request->punya_jamban,
+            // 'punya_tempat_sampah' => $request->punya_tempat_sampah,
+            // // 'kriteria_rumah_sehat' => $request->kriteria_rumah_sehat,
+            'punya_jamban' => $validatedData['punya_jamban'],
+            'punya_tempat_sampah' => $validatedData['punya_tempat_sampah'],
+            'saluran_pembuangan_air_limbah' => $validatedData['saluran_pembuangan_air_limbah'],
+            'kriteria_rumah_sehat' => $kriteria_rumah_sehat,
             'tempel_stiker' => $request->tempel_stiker,
-            'saluran_pembuangan_air_limbah' => $request->saluran_pembuangan_air_limbah,
+            // 'saluran_pembuangan_air_limbah' => $request->saluran_pembuangan_air_limbah,
+            'periode' => $request->periode,
+            'sumber_air_pdam' => $request->has('sumber_air_pdam') ? 1 : 0,
+            'sumber_air_sumur' => $request->has('sumber_air_sumur') ? 1 : 0,
+            'sumber_air_lainnya' => $request->has('sumber_air_lainnya') ? 1 : 0,
+
         ]);
         // dd($keluarga->nama_kepala_rumah_tangga);
         // dd($keluarga);
@@ -144,6 +167,19 @@ class RumahTanggaController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'punya_jamban' => 'required|boolean',
+            'punya_tempat_sampah' => 'required|boolean',
+            'saluran_pembuangan_air_limbah' => 'required|boolean',
+        ]);
+
+        // Tentukan nilai kriteria rumah sehat berdasarkan kondisi
+        $kriteria_rumah_sehat = true;
+
+        if (!$validatedData['punya_jamban'] || !$validatedData['punya_tempat_sampah'] || !$validatedData['saluran_pembuangan_air_limbah']) {
+            $kriteria_rumah_sehat = false;
+        }
+
         if (!isUnique($request->keluarga)) {
             return redirect()
                 ->back()
@@ -159,10 +195,19 @@ class RumahTanggaController extends Controller
             'nama_kepala_rumah_tangga' => $kepalaRumah->nama_kepala_keluarga,
             'id_dasawisma' => $request->id_dasawisma,
             'dusun' => $request->dusun,
-            'punya_tempat_sampah' => $request->punya_tempat_sampah,
-            'kriteria_rumah_sehat' => $request->kriteria_rumah_sehat,
+            'punya_jamban' => $validatedData['punya_jamban'],
+            'punya_tempat_sampah' => $validatedData['punya_tempat_sampah'],
+            'saluran_pembuangan_air_limbah' => $validatedData['saluran_pembuangan_air_limbah'],
+            'kriteria_rumah_sehat' => $kriteria_rumah_sehat,
+            // 'punya_jamban' => $request->punya_jamban,
+            // 'punya_tempat_sampah' => $request->punya_tempat_sampah,
+            // 'kriteria_rumah_sehat' => $request->kriteria_rumah_sehat,
             'tempel_stiker' => $request->tempel_stiker,
-            'saluran_pembuangan_air_limbah' => $request->saluran_pembuangan_air_limbah,
+            // 'saluran_pembuangan_air_limbah' => $request->saluran_pembuangan_air_limbah,
+            'periode' => $request->periode,
+            'sumber_air_pdam' => $request->has('sumber_air_pdam') ? 1 : 0,
+            'sumber_air_sumur' => $request->has('sumber_air_sumur') ? 1 : 0,
+            'sumber_air_lainnya' => $request->has('sumber_air_lainnya') ? 1 : 0,
         ]);
 
         foreach ($request->keluarga as $key => $keluargaId) {
@@ -200,7 +245,8 @@ class RumahTanggaController extends Controller
             }
         }
 
-        dd('berhasil');
+        Alert::success('Berhasil', 'Data berhasil ditambahkan');
+        return redirect('/data_rumah_tangga');
     }
 
     public function deleteKeluargaInRT($id){

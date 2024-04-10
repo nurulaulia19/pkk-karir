@@ -32,40 +32,30 @@
                             </ul>
                         </div>
                     @endif
-
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group @error('id_desa') is-invalid @enderror">
-                                {{-- nama desa --}}
                                 <label for="exampleFormControlSelect1">Desa</label>
-                                <input type="text" disabled class="form-control" name="id_desa" id="id_desa"
-                                    placeholder="Masukkan Nama Desa" required value="curut">
+                                @foreach ($desas as $c)
+                                    <input type="hidden" class="form-control" name="id_desa" id="id_desa" placeholder="Masukkan Nama Desa" value="{{$c->id}}">
+                                    <input type="text" disabled class="form-control" name="id_desa" id="id_desa" placeholder="Masukkan Nama Desa" value="{{ $c->nama_desa }}">
 
-                                {{-- @foreach ($desas as $c)
-                        <input type="hidden" class="form-control" name="id_desa" id="id_desa" placeholder="Masukkan Nama Desa" required value="{{$c->id}}">
-
-                        <input type="text" disabled class="form-control" name="id_desa" id="id_desa" placeholder="Masukkan Nama Desa" required value="{{ $c->nama_desa }}">
-
-                        @endforeach --}}
+                                @endforeach
                             </div>
                             @error('id_desa')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
 
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group @error('id_kecamatan') is-invalid @enderror">
-                                {{-- nama kecamatan --}}
                                 <label for="exampleFormControlSelect1">Kecamatan</label>
                                 @foreach ($kec as $c)
-                                    <input type="hidden" class="form-control" name="id_kecamatan" id="id_kecamatan"
-                                        placeholder="Masukkan Nama Desa" required value="{{ $c->id }}">
-                                    <input type="text" disabled class="form-control" name="id_kecamatan"
-                                        id="id_kecamatan" placeholder="Masukkan Nama Desa" required
-                                        value="{{ $c->nama_kecamatan }}">
+                                <input type="hidden" class="form-control" name="id_kecamatan" id="id_kecamatan" placeholder="Masukkan Nama Kecamatan" value="{{$c->id}}">
+                                <input type="text" disabled class="form-control" name="id_kecamatan" id="id_kecamatan" placeholder="Masukkan Nama Kecamatan" value="{{ $c->nama_kecamatan }}">
+
                                 @endforeach
                             </div>
                             @error('id_kecamatan')
@@ -94,10 +84,10 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{-- pilih periode --}}
                                 <label>Periode</label>
                                 <select class="form-control" id="periode" name="periode" readonly>
-                                    <option value="{{ date('Y') }}">{{ date('Y') }}</option>
+                                    {{-- Tampilkan opsi select dengan nilai default dari properti periode --}}
+                                    <option value="{{ $warga->periode }}" selected>{{ $warga->periode }}</option>
                                 </select>
                             </div>
                         </div>

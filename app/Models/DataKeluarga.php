@@ -120,5 +120,9 @@ class DataKeluarga extends Model
         return $this->belongsTo(DataKelompokDasawisma::class, 'id_dasawisma');
     }
 
+    public function rumah_tangga()
+    {
+        return $this->hasMany(RumahTanggaHasKeluarga::class, 'keluarga_id');
+    }
 
 }

@@ -20,42 +20,52 @@
 
                                 <div class="row">
                                     <div class="col-sm-8">
-                                        <h6>Catatan Keluarga dari : {{ $keluarga->nama_kepala_keluarga }}</h6>
-                                        <h6>Anggota Kelompok Dasawisma : {{ $dasawisma->nama_dasawisma }}</h6>
-                                        <h6>Tahun : 2024</h6>
+                                        <h6>CATATAN KELUARGA DARI : {{ $keluarga->nama_kepala_keluarga }}</h6>
+                                        <h6>ANGGOTA KELOMPOK DASAWISMA : {{ $dasawisma->nama_dasawisma }}</h6>
+                                        <h6>TAHUN : {{ $keluarga->periode }}</h6>
                                     </div>
                                     <div class="col-sm-4">
-                                        {{-- kriteria rumah --}}
-                                        {{-- @if (x) --}}
-                                        <h6>Kriteria Rumah : Sehat</h6>
-                                        {{-- @else
-                                        <h6>Kriteria Rumah : Kurang Sehat</h6>
-                                    @endif --}}
+                                        {{-- Kriteria Rumah --}}
+                                        {{-- @if ($rumahTangga->punya_jamban && $rumahTangga->punya_tempat_sampah)
+                                        <h6>KRITERIA RUMAH : LAYAK HUNI</h6>
+                                        @else
+                                        <h6>KRITERIA RUMAH : TIDAK LAYAK HUNI</h6>
+                                        @endif --}}
+                                        @if ($rumahTangga->kriteria_rumah_sehat)
+                                        <h6>KRITERIA RUMAH : LAYAK HUNI</h6>
+                                        @else
+                                        <h6>KRITERIA RUMAH : TIDAK LAYAK HUNI</h6>
+                                        @endif
 
-                                        {{-- jamban keluarga --}}
-                                        {{-- @if (x) --}}
-                                        <h6>Jamban Keluarga : Ya/  {{ $keluarga->punya_jamban }} buah</h6>
-                                        {{-- @else
-                                        <h6>Jamban Keluarga : Tidak</h6>
-                                    @endif --}}
+                                        {{-- Jamban keluarga --}}
+                                        @if ($rumahTangga->punya_jamban)
+                                        <h6>JAMBAN KELUARGA : ADA / {{ $rumahTangga->punya_jamban }} buah</h6>
+                                        @else
+                                        <h6>JAMBAN KELUARGA : TIDAK</h6>
+                                        @endif
 
                                         {{-- sumber air --}}
-                                        {{-- @if ($keluarga->sumber_air == 1) --}}
-                                        <h6>Sumber Air : PDAM</h6>
-                                        {{-- @elseif ($keluarga->sumber_air == 2)
-                                        <h6>Sumber Air : Sumur</h6>
-                                    @elseif ($keluarga->sumber_air == 3)
-                                        <h6>Sumber Air : Sungai</h6>
-                                    @elseif ($keluarga->sumber_air == 4)
-                                        <h6>Sumber Air : Lainnya</h6>
-                                    @endif --}}
+                                        <div style="display: flex; align-items: center;">
+                                            <h6 style="margin-right: 10px;">SUMBER AIR :</h6>
+                                            <div style="display: flex; flex-wrap: wrap; align-items: flex-start;">
+                                                @if ($rumahTangga->sumber_air_pdam)
+                                                    <span style="margin-right: 5px; margin-bottom: 7px;">PDAM</span>
+                                                @endif
+                                                @if ($rumahTangga->sumber_air_sumur)
+                                                    <span style="margin-right: 5px; margin-bottom: 7px;">SUMUR</span>
+                                                @endif
+                                                @if ($rumahTangga->sumber_air_lainnya)
+                                                    <span style="margin-right: 5px; margin-bottom: 7px;">LAINNYA</span>
+                                                @endif
+                                            </div>
+                                        </div>
 
                                         {{-- tempat sampah --}}
-                                        {{-- @if ($keluarga->punya_tempat_sampah == 1) --}}
-                                        <h6>Tempat Sampah : Ya</h6>
-                                        {{-- @else
-                                        <h6>Tempat Sampah : Tidak</h6>
-                                    @endif --}}
+                                        @if ($rumahTangga->punya_tempat_sampah == 1)
+                                            <h6>TEMPAT SAMPAH : ADA</h6>
+                                        @else
+                                            <h6>TEMPAT SAMPAH : TIDAK</h6>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="table-responsive">
@@ -92,10 +102,6 @@
                                                         </tr>
                                                     </table>
                                                 </th>
-
-
-
-
                                                 {{-- <th rowspan="2">Ket</th> --}}
                                             </tr>
 
@@ -139,7 +145,7 @@
                                                     <td style="vertical-align: middle;">
                                                         {{ $data_warga->warga->berkebutuhan_khusus }}
                                                     </td>
-                                                    @foreach ($dataKegiatan as $item)
+                                                    {{-- @foreach ($dataKegiatan as $item)
 
                                                         @php
                                                             $ada = false;
@@ -158,18 +164,46 @@
                                                         @php
                                                             $ada = false;
                                                         @endphp
+                                                    @endforeach --}}
+                                                    @foreach ($dataKegiatan as $item)
+                                                        @php
+                                                            $ada = false;
+                                                        @endphp
+                                                        @foreach ($data_warga->warga->kegiatan as $kegiatan)
+                                                            @if ($item->id == $kegiatan->data_kegiatan_id)
+                                                                @php
+                                                                    $ada = true;
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                        <td style="vertical-align: middle; width: 130px;">
+                                                            @if ($ada)
+                                                                ✓
+                                                            @else
+                                                                0
+                                                            @endif
+                                                        </td>
                                                     @endforeach
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
 
-                                    {{-- <a href="{{ url('print_pdf_cakel', $keluarga->id) }}" target="_blank" class="btn btn-success" type="button" role="button">
+                                    <a href="{{ url('print_pdf_cakel', $keluarga->id) }}" target="_blank" class="btn btn-success" type="button" role="button">
                                         <i class="fas fa-print"></i> Cetak ke PDF
-                                    </a> --}}
-                                    <a href="{{ url('print_excel_cakel', $keluarga->id) }}" target="_blank" class="btn btn-success" role="button">
+                                    </a>
+                                    {{-- <a href="{{ url('print_excel_cakel', $keluarga->id) }}" target="_blank" class="btn btn-success" role="button">
                                         <i class="fas fa-print"></i> Cetak ke Excel
-                                    </a><br>
+                                    </a><br> --}}
+                                    <td class="text-center">
+                                        <a class="btn btn-success btn-sm" href="{{ url('print_excel_cakel', $keluarga->id).'?'.http_build_query([
+                                            'nama_dasawisma' => $dasawisma->nama, // Menggunakan nama dasawisma dari objek $dasawisma
+                                            'rt' => $keluarga->rt, // Menggunakan RT dari objek $keluarga
+                                            'rw' => $keluarga->rw, // Menggunakan RW dari objek $keluarga
+                                            'periode' => $keluarga->periode, // Menggunakan periode dari objek $keluarga
+                                        ]) }}">Rekap</a>
+                                    </td>
+
                                 </div>
                             </div>
 

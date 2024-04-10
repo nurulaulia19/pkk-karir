@@ -172,11 +172,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                {{-- pilih periode --}}
+                                                <label>Periode</label>
+                                                <select class="form-control" id="periode" name="periode" readonly>
+                                                    <option value="{{ date('Y') }}">{{ date('Y') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">
                             <button type="button" data-action="next" class="btn btn-primary">Next</button>
                         </div>
+
                     </div>
                 </div>
                 <div class="tab-pane fade" id="keluarga" role="tabpanel" aria-labelledby="keluarga-tab">
@@ -293,9 +307,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        {{-- <div class="col-md-4">
                                             <div class="form-group @error('kriteria_rumah_sehat') is-invalid @enderror">
-                                                {{-- pilih kriteria rumah --}}
                                                 <label>Kriteria Rumah</label><br>
                                                 <select class="form-control @error('kriteria_rumah_sehat') is-invalid @enderror" id="kriteria_rumah_sehat" name="kriteria_rumah_sehat">
                                                     <option value="" hidden>Pilih Kriteria Rumah</option>
@@ -308,7 +321,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
+                                        </div> --}}
                                         <div class="col-md-4">
                                             <div class="form-group @error('punya_tempat_sampah') is-invalid @enderror">
                                                 {{-- pilih punya tempat pembuangan sampah --}}
@@ -351,10 +364,6 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="row">
                                         <div class="col-md-2">
                                             <div class="form-group @error('tempel_stiker') is-invalid @enderror">
                                                 {{-- pilih stiker --}}
@@ -375,6 +384,51 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group @error('punya_jamban') is-invalid @enderror">
+                                                <label>Punya Jamban?</label>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="punya_jamban" id="punya_jamban_ya" value=1>
+                                                            <label class="form-check-label" for="punya_jamban_ya">Ya</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="punya_jamban" id="punya_jamban_tidak" value=0>
+                                                            <label class="form-check-label" for="punya_jamban_tidak">Tidak</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @error('punya_jamban')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Sumber Air:</label><br>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_pdam" name="sumber_air_pdam" value=1>
+                                                    <label class="form-check-label" for="sumber_air_pdam">PDAM</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_sumur" name="sumber_air_sumur" value=1>
+                                                    <label class="form-check-label" for="sumber_air_sumur">Sumur</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_lainnya" name="sumber_air_lainnya" value=1>
+                                                    <label class="form-check-label" for="sumber_air_lainnya">Lainnya</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -509,7 +563,7 @@
         }
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#id_kecamatan').on('change', function() {
                 var categoryID = $(this).val();
@@ -562,112 +616,99 @@
                 }
             });
         });
+    </script> --}}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '[data-action="next"]', function(e) {
+                e.preventDefault(); // Menghentikan aksi default dari tombol
+
+                var $active = $('#dataKeluargaTabs .active');
+                var hasError = false;
+
+                // Periksa setiap input di dalam tab aktif
+                $($active.attr('href')).find('[name]').each(function() {
+                    if ((!$(this).prop('disabled') && !$(this).prop('readonly')) && !$(this).val()) {
+                        $(this).addClass('is-invalid');
+                        hasError = true;
+                    } else {
+                        $(this).removeClass('is-invalid'); // Hapus kelas 'is-invalid' jika input sudah terisi
+                    }
+                });
+
+                if (!hasError) {
+                    var $nextTab = $active.parent().next().find('a'); // Temukan tab berikutnya
+                    if ($nextTab.length > 0) {
+                        $nextTab.tab('show'); // Tampilkan tab berikutnya
+                    }
+                }
+            });
+        });
     </script>
 
 
-<script>
-    let data; // Variabel untuk menyimpan data warga
-    let warga = 1; // Variabel untuk menyimpan nomor select
+    <script>
+        let data; // Variabel untuk menyimpan data warga
+        let warga = 1; // Variabel untuk menyimpan nomor select
 
-    // Fungsi untuk melakukan permintaan API sekali saja di awal
-    $(document).ready(function() {
-        $.ajax({
-            url: "/keluarga",
-            type: "GET",
-            success: function(response) {
-                console.log(response);
-                data = response.keluarga; // Simpan data warga dalam variabel
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-            }
+        // Fungsi untuk melakukan permintaan API sekali saja di awal
+        $(document).ready(function() {
+            $.ajax({
+                url: "/keluarga",
+                type: "GET",
+                success: function(response) {
+                    console.log(response);
+                    data = response.keluarga; // Simpan data warga dalam variabel
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                }
+            });
         });
-    });
 
-    // Fungsi untuk menambahkan row saat tombol diklik
-    // document.getElementById('addRow').addEventListener('click', function() {
-    //     var container = document.getElementById('container');
-    //     var rownew = document.createElement('div');
-    //     rownew.className = 'row w-100';
-    //     rownew.innerHTML = `
-    //         <div class="col-md-12">
-    //             <div class="row">
-    //                 <div class="col-md-6">
-    //                     <div class="form-group">
-    //                         <label>Nama</label>
-    //                         <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
-    //                             <option selected disabled value="AL">Type to search</option>
-    //                         </select>
-    //                     </div>
-    //                 </div>
-    //                 <div class="col-md-6">
-    //                     <div class="form-group">
-    //                         <label>Dasawisma</label>
-    //                         <select class="form-control" name="status[]">
-    //                             <option value="kepala-keluarga">Kepala Keluarga</option>
-    //                         </select>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     `;
-    //     container.appendChild(rownew);
-
-    //     var selectElement = document.getElementById(`warga${warga}`);
-    //     // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
-    //     if (data) {
-    //         data.forEach(function(item) {
-    //             var option = document.createElement('option');
-    //             option.value = item.id;
-    //             option.textContent = item.nama_kepala_rumah_tangga;
-    //             selectElement.appendChild(option);
-    //         });
-    //     }
-    //     warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
-    // });
-
-    document.getElementById('addRow').addEventListener('click', function() {
-    var container = document.getElementById('container');
-    var rownew = document.createElement('div');
-    rownew.className = 'row w-100';
-    rownew.innerHTML = `
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
-                            <option selected disabled value="AL">Type to search</option>
-                        </select>
+        document.getElementById('addRow').addEventListener('click', function() {
+        var container = document.getElementById('container');
+        var rownew = document.createElement('div');
+        rownew.className = 'row w-100';
+        rownew.innerHTML = `
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
+                                <option selected disabled value="AL">Type to search</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Dasawisma</label>
-                        <select class="form-control" name="status[]">
-                            <option value="kepala-keluarga">Kepala Keluarga</option>
-                        </select>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Dasawisma</label>
+                            <select class="form-control" name="status[]">
+                                <option value="kepala-keluarga">Kepala Keluarga</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    `;
-    container.appendChild(rownew);
+        `;
+        container.appendChild(rownew);
 
-    var selectElement = document.getElementById(`warga${warga}`);
-    // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
-    if (data) {
-        data.forEach(function(item) {
-            var option = document.createElement('option');
-            option.value = item.id;
-            option.textContent = item.nama_kepala_keluarga; // Mengambil nama kepala keluarga
-            selectElement.appendChild(option);
-        });
-    }
-    warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
-});
+        var selectElement = document.getElementById(`warga${warga}`);
+        // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
+        if (data) {
+            data.forEach(function(item) {
+                var option = document.createElement('option');
+                option.value = item.id;
+                option.textContent = item.nama_kepala_keluarga; // Mengambil nama kepala keluarga
+                selectElement.appendChild(option);
+            });
+        }
+        warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
+    });
 
-</script>
+    </script>
 
 
 
