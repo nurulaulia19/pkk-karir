@@ -255,7 +255,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Edit</button>
+                            <button type="submit" class="btn btn-primary">Tambah</button>
                             <a href="/data_keluarga" class="btn btn-outline-primary">
                                 <span>Batalkan</span>
                             </a>
@@ -558,47 +558,68 @@
     //     warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
     // });
 
-    document.getElementById('addRow').addEventListener('click', function(event) {
-    var container = document.getElementById('container');
-    var rownew = document.createElement('div');
-    rownew.className = 'row w-100';
-    rownew.innerHTML = `
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <select class="form-control js-example-basic-single" name="warga[]">
-                            <option selected disabled value="AL">Type to search</option>
-                        </select>
+    $('#addRow').on('click', function() {
+        var container = $('#container');
+        var rownew = $('<div class="row w-100"></div>');
+        rownew.html(`
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nama</label>
+                            <select id="warga${warga}" class="form-control js-example-basic-single" name="warga[]">
+                                <option selected disabled value="AL">Type to search</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Status</label>
-                        <select class="form-control" name="status[]">
-                            <option disabled selected> -- pilih status -- </option>
-                            <option value="ibu">Ibu</option>
-                            <option value="anak">Anak</option>
-                        </select>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="form-control status-select" name="status[]">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-center">
+                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
                     </div>
                 </div>
             </div>
-        </div>
-    `;
-    container.appendChild(rownew);
+        `);
+        container.append(rownew);
 
-    var selectElement = rownew.querySelector('select');
-    // Loop through the data that has been previously saved and add options to the select
-    if (data) {
-        data.forEach(function(item) {
-            var option = document.createElement('option');
-            option.value = item.id;
-            option.text = `${item.nama} - ${item.no_ktp}`;
-            selectElement.appendChild(option);
-        });
+        var selectElement = $(`#warga${warga}`);
+        // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
+        console.log('aul',data)
+        if (data) {
+            data.forEach(function(item) {
+                var option = $('<option></option>');
+                option.val(item.id);
+                option.text(`${item.nama} - ${item.no_ktp}`)
+                selectElement.append(option);
+            });
+        }
+
+        // Mengecek apakah ini adalah baris pertama atau bukan
+        if ($('#container .status-select').length === 0) {
+            // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
+            rownew.find('.status-select').append('<option value="kepala-keluarga">Kepala Keluarga</option>');
+        } else {
+            // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
+            var statusSelect = rownew.find('.status-select');
+            statusSelect.append('<option value="ibu">Ibu</option>');
+            statusSelect.append('<option value="anak">Anak</option>');
+            // statusSelect.append('<option value="lainnya">Lainnya</option>');
+        }
+
+        warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
+    });
+
+
+
+
+    function onDelete(id){
+        $(`#warga${id}`).closest('.row').remove();
     }
-});
 
 </script>
 

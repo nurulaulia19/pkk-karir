@@ -141,7 +141,12 @@ class DataKegiatanWargaController extends Controller
         ->get();
 
         $kel = DataKeluarga::all();
-        $warga = DataWarga::with('kegiatan')->where('id', $id)->first();
+        $warga = DataWarga::with('kegiatan')->where('id', $id)
+        ->where('is_kegiatan', true)
+        ->first();
+        if(!$warga){
+            abort(404,'not_found');
+        }
         // $keg = KategoriKegiatan::all();
         return view('kader.data_kegiatan_warga.edit', compact('keg', 'warga', 'desas', 'kec', 'kad', 'kel'));
 
@@ -264,7 +269,16 @@ class DataKegiatanWargaController extends Controller
                 'message' => 'nyasar'
             ]);
         }
+        $wargaId = $kegiatan->warga_id;
         $kegiatan->delete();
+
+        $kegiatanKu = DataKegiatanWarga::where('warga_id',$wargaId)->first();
+        if(!$kegiatanKu){
+            $warga = DataWarga::find($wargaId);
+            $warga->is_kegiatan = false;
+            $warga->save();
+        }
+
         return redirect()->back()->with('success', 'Kegiatan deleted successfully');
     }
 

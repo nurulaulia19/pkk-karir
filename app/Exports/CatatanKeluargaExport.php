@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\DataKeluarga;
 use App\Models\DasaWisma;
+use App\Models\RumahTangga;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Carbon\Carbon;
@@ -24,43 +25,32 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings
     public function collection()
     {
         $data = [];
+        $keluargaFirst = $this->keluarga->rumah_tangga->first();
+        // dd($keluargaFirst);
+        $rumahTangga = RumahTangga::find($keluargaFirst->rumahtangga_id);
+        // dd($rumahTangga);
+
+        $pdam = $rumahTangga->sumber_air_pdam ? 'PDAM':'';
+        $sumur = $rumahTangga->sumber_air_sumur ? 'SUMUR':'';
+        $lainnya = $rumahTangga->sumber_air_lainnya ? 'SUMUR':'';
+        $air = $pdam . ' ' . $sumur . ' ' . $lainnya;
+
 
         // Loop untuk setiap anggota keluarga
         foreach ($this->keluarga->anggota as $index => $data_warga) {
-            // Mendapatkan nilai kriteria rumah
-            $kriteria_rumah = $this->keluarga->kriteria_rumah == 1 ? 'Sehat' : 'Kurang Sehat';
 
-            // Mendapatkan nilai jamban keluarga
-            $jamban_keluarga = $this->keluarga->punya_jamban ? 'Ya/' . $this->keluarga->punya_jamban . ' buah' : 'Tidak';
-
-            // Mendapatkan nilai sumber air
-            $sumber_air = '';
-            switch ($this->keluarga->sumber_air) {
-                case 1:
-                    $sumber_air = 'PDAM';
-                    break;
-                case 2:
-                    $sumber_air = 'Sumur';
-                    break;
-                case 3:
-                    $sumber_air = 'Sungai';
-                    break;
-                case 4:
-                    $sumber_air = 'Lainnya';
-                    break;
-                default:
-                    $sumber_air = 'Tidak diketahui';
-            }
-
-            // Mendapatkan nilai tempat sampah
-            $tempat_sampah = $this->keluarga->punya_tempat_sampah == 1 ? 'Ya' : 'Tidak';
 
             // Membuat baris data untuk setiap anggota keluarga
             $row = [
-                $kriteria_rumah, // Kriteria Rumah
-                $jamban_keluarga, // Jamban Keluarga
-                $sumber_air, // Sumber Air
-                $tempat_sampah, // Tempat Sampah
+                $this->keluarga->nama_kepala_keluarga,
+                $this->dasawisma->nama_dasawisma,
+                $this->keluarga->periode,
+                $rumahTangga->kriteria_rumah_sehat ? 'LAYAK HUNI' : 'TIDAK LAYAK HUNI', // Kriteria Rumah
+                $rumahTangga->punya_jamban ? 'ADA 1 BUAH' : 'TIDAK ADA',
+                $air,
+                $rumahTangga->	punya_tempat_sampah ? 'ADA' : 'TIDAK ADA',
+                // $sumber_air, // Sumber Air
+                // $tempat_sampah, // Tempat Sampah
                 $index + 1, // Nomor urut
                 $data_warga->warga->nama,
                 $data_warga->warga->status_perkawinan,
@@ -91,11 +81,33 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings
         return collect($data);
     }
 
-
-
     public function headings(): array
     {
+        // 'CATATAN KELUARGA DARI' = 'Agat' ,
+        // 'ANGGOTA KELOMPOK DASAWISMA' = ' mas ',
+        // 'TAHUN' = 2023,
+        $firstRow = [
+            'NAMA, AGAT', // Nama dan Agat (pojok kiri)
+            '', // Kolom kosong
+            'KAMPUS, POLINDRA', // Kampus Polindra (pojok kanan)
+            '', // Kolom kosong
+            'KELAS, RPL31', // Kelas RPL31 (pojok kanan)
+            '', // Kolom kosong
+            'ALAMAT, CELENG', // Alamat Celeng (pojok kanan)
+            '', // Kolom kosong
+            '', // Kolom kosong
+            '', // Kolom kosong
+            '', // Kolom kosong
+            '', // Kolom kosong
+            '', // Kolom kosong
+            '', // Kolom kosong
+        ];
+
+        // newline
         $headings = [
+            'CATATAN KELUARGA DARI',
+            'ANGGOTA KELOMPOK DASAWISMA',
+            'TAHUN',
             'Kriteria Rumah', // Judul kolom untuk kriteria rumah
             'Jamban Keluarga', // Judul kolom untuk jamban keluarga
             'Sumber Air', // Judul kolom untuk sumber air
@@ -119,6 +131,4 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings
 
         return $headings;
     }
-
-
 }

@@ -344,7 +344,8 @@ class KaderFormController extends Controller
     public function print_excel_cakel($id)
 {
     $userKader = Auth::user();
-    $keluarga = DataKeluarga::with('anggota.warga.kegiatan', 'dasawisma')->find($id);
+
+    $keluarga = DataKeluarga::with(['anggota.warga.kegiatan', 'dasawisma','rumah_tangga.rumah_tangga'])->find($id);
     // dd($keluarga);
     $warga = $keluarga->anggota->first();
     $dasawismaId = $warga->warga->id_dasawisma;

@@ -119,7 +119,7 @@
                     {{-- tingting --}}
                     <div class="form-group" id="formContainer">
                             <div class="row">
-                                <div class="col-md-11">
+                                <div class="col-md-12">
                                     <label for="nama_kegiatan">Nama Kegiatan</label>
                                     <select class="form-control selectNamaKegiatan" name="nama_kegiatan[]">
                                         <option value="">Pilih Kegiatan</option>

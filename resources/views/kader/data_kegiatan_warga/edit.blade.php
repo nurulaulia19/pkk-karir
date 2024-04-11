@@ -136,7 +136,8 @@
 @endsection
 
 @push('script-addon')
-    <script>
+
+
         $(document).ready(function() {
             $('#id_kategori').on('change', function() {
                 var categoryID = $(this).val();

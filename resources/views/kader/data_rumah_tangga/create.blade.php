@@ -216,7 +216,7 @@
                                 </div>
                             @endif
 
-                            <div class="row" id="container">
+                            <div class="row" id="containerz">
                                 <div class="col-md-12">
                                     <div class="row">
                                         {{-- <div class="col-md-6">
@@ -667,8 +667,9 @@
             });
         });
 
-        document.getElementById('addRow').addEventListener('click', function() {
-        var container = document.getElementById('container');
+// Fungsi untuk menambahkan row saat tombol diklik
+document.getElementById('addRow').addEventListener('click', function() {
+        var container = document.getElementById('containerz');
         var rownew = document.createElement('div');
         rownew.className = 'row w-100';
         rownew.innerHTML = `
@@ -682,13 +683,16 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label>Dasawisma</label>
                             <select class="form-control" name="status[]">
                                 <option value="kepala-keluarga">Kepala Keluarga</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-center">
+                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
                     </div>
                 </div>
             </div>
@@ -701,12 +705,16 @@
             data.forEach(function(item) {
                 var option = document.createElement('option');
                 option.value = item.id;
-                option.textContent = item.nama_kepala_keluarga; // Mengambil nama kepala keluarga
+                option.textContent = item.nama_kepala_keluarga;
                 selectElement.appendChild(option);
             });
         }
         warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
     });
+    function onDelete(id) {
+        var elementToRemove = document.getElementById(`warga${id}`).closest('.row');
+        elementToRemove.parentNode.removeChild(elementToRemove);
+    }
 
     </script>
 

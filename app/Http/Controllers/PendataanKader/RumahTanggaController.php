@@ -253,6 +253,7 @@ class RumahTanggaController extends Controller
 
         $hasKeluarga = RumahTanggaHasKeluarga::find($id);
         $dataKeluarga = DataKeluarga::find($hasKeluarga->keluarga_id);
+        $rumahTanggaId = $hasKeluarga->rumahtangga_id;
         // dd($dataKeluarga);
 
         if (!$hasKeluarga) {
@@ -263,7 +264,14 @@ class RumahTanggaController extends Controller
         $dataKeluarga->update();
 
         // Hapus data keluarga has warga
+
         $hasKeluarga->delete();
+
+        $anyKeluargaInRumah = RumahTanggaHasKeluarga::where('rumahtangga_id',$rumahTanggaId)->first();
+        if(!$anyKeluargaInRumah){
+            $rumahTangga = RumahTangga::find($rumahTanggaId);
+            $rumahTangga->delete();
+        }
 
 
         return response()->json([
