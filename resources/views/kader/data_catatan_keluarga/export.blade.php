@@ -59,53 +59,41 @@
                                 <p><strong>Tahun:</strong> 2024</p>
                             </div> --}}
                             <div class="row">
+                                <div class="row">
                                     <div class="col-sm-8">
-                                        <h6>CATATAN KELUARGA DARI : {{ $keluarga->nama_kepala_keluarga }}</h6>
-                                        <h6>ANGGOTA KELOMPOK DASAWISMA : {{ $dasawisma->nama_dasawisma }}</h6>
-                                        <h6>TAHUN : {{ $keluarga->periode }}</h6>
+                                        <h6>CATATAN KELUARGA DARI : {{ $nama_kepala_keluarga }}</h6>
+                                        <h6>ANGGOTA KELOMPOK DASAWISMA : {{ $nama_dasawisma }}</h6>
+                                        <h6>TAHUN : {{ $periode }}</h6>
                                     </div>
                                     <div class="col-sm-4">
-                                        {{-- Kriteria Rumah --}}
-                                        {{-- @if ($rumahTangga->punya_jamban && $rumahTangga->punya_tempat_sampah)
-                                        <h6>KRITERIA RUMAH : LAYAK HUNI</h6>
+                                        @if ($kriteria_rumah == 'LAYAK HUNI')
+                                            <h6>KRITERIA RUMAH : LAYAK HUNI</h6>
                                         @else
-                                        <h6>KRITERIA RUMAH : TIDAK LAYAK HUNI</h6>
-                                        @endif --}}
-                                        @if ($rumahTangga->kriteria_rumah_sehat)
-                                        <h6>KRITERIA RUMAH : LAYAK HUNI</h6>
-                                        @else
-                                        <h6>KRITERIA RUMAH : TIDAK LAYAK HUNI</h6>
+                                            <h6>KRITERIA RUMAH : TIDAK LAYAK HUNI</h6>
                                         @endif
 
                                         {{-- Jamban keluarga --}}
-                                        @if ($rumahTangga->punya_jamban)
-                                        <h6>JAMBAN KELUARGA : ADA / {{ $rumahTangga->punya_jamban }} buah</h6>
+                                        @if ($jamban_keluarga)
+                                            <h6>JAMBAN KELUARGA : ADA / {{ $jamban_keluarga }} buah</h6>
                                         @else
-                                        <h6>JAMBAN KELUARGA : TIDAK</h6>
+                                            <h6>JAMBAN KELUARGA : TIDAK</h6>
                                         @endif
 
-                                        {{-- sumber air --}}
+                                        {{-- Sumber air --}}
                                         <div style="display: flex; align-items: center;">
                                             <h6 style="margin-right: 10px;">SUMBER AIR :</h6>
                                             <div style="display: flex; flex-wrap: wrap; align-items: flex-start;">
-                                                @if ($rumahTangga->sumber_air_pdam)
+                                                @if ($sumber_air_pdam)
                                                     <span style="margin-right: 5px; margin-bottom: 7px;">PDAM</span>
                                                 @endif
-                                                @if ($rumahTangga->sumber_air_sumur)
+                                                @if ($sumber_air_sumur)
                                                     <span style="margin-right: 5px; margin-bottom: 7px;">SUMUR</span>
                                                 @endif
-                                                @if ($rumahTangga->sumber_air_lainnya)
+                                                @if ($sumber_air_lainnya)
                                                     <span style="margin-right: 5px; margin-bottom: 7px;">LAINNYA</span>
                                                 @endif
                                             </div>
                                         </div>
-
-                                        {{-- tempat sampah --}}
-                                        @if ($rumahTangga->punya_tempat_sampah == 1)
-                                            <h6>TEMPAT SAMPAH : ADA</h6>
-                                        @else
-                                            <h6>TEMPAT SAMPAH : TIDAK</h6>
-                                        @endif
                                     </div>
                                 </div>
 

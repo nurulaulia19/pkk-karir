@@ -196,11 +196,11 @@
                                         <i class="fas fa-print"></i> Cetak ke Excel
                                     </a><br> --}}
                                     <td class="text-center">
-                                        <a class="btn btn-success btn-sm" href="{{ url('print_excel_cakel', $keluarga->id).'?'.http_build_query([
-                                            'nama_dasawisma' => $dasawisma->nama, // Menggunakan nama dasawisma dari objek $dasawisma
-                                            'rt' => $keluarga->rt, // Menggunakan RT dari objek $keluarga
-                                            'rw' => $keluarga->rw, // Menggunakan RW dari objek $keluarga
-                                            'periode' => $keluarga->periode, // Menggunakan periode dari objek $keluarga
+                                        <a class="btn btn-success btn-sm" href="{{ url('print_excel_cakel', $keluarga->id) }}?{{ http_build_query([
+                                            'nama_dasawisma' => $dasawisma->nama_dasawisma, // Use the correct attribute name
+                                            'rt' => $keluarga->rt,
+                                            'rw' => $keluarga->rw,
+                                            'periode' => $keluarga->periode,
                                         ]) }}">Rekap</a>
                                     </td>
 
