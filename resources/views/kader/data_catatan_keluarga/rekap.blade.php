@@ -27,70 +27,22 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Kepala Keluarga</th>
-                                            <th>Jumlah Anggota Keluarga</th>
-                                            <th>Jumlah Anggota Keluarga Laki-laki</th>
-                                            <th>Jumlah Anggota Keluarga Perempuan</th>
-                                            {{-- <th>Jumlah Kepala Keluarga (KK)</th>
-                                            <th>Periode</th> --}}
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
-
                                         @foreach ($keluarga as $c)
                                     <tr>
                                         <td style="vertical-align: middle; position: relative;">
                                             {{ $loop->iteration }}
                                         </td>
-
-                                        {{-- nama desa yang login --}}
                                         <td style="vertical-align: middle;">
                                             {{ucfirst($c->nama_kepala_keluarga) }}
                                         </td>
-                                        <td style="vertical-align: middle;">
-                                            {{ ucfirst($c->anggota->count()) }} Orang
-                                        </td>
-                                        <td style="vertical-align: middle;">
-                                            {{-- {{ ucfirst($c->anggota->warga->where('jenis_kelamin', 'laki-laki')->count()) }}
-                                            Orang --}}
-                                            @php
-                                                $countLakiLaki = 0;
-                                            @endphp
-                                            @foreach ($c->anggota as $anggota)
-                                                @if ($anggota->warga->jenis_kelamin === 'laki-laki')
-                                                    @php
-                                                        $countLakiLaki++;
-                                                    @endphp
-                                                @endif
-                                            @endforeach
-                                            {{ ucfirst($countLakiLaki) }} Orang
-                                        </td>
-                                        <td style="vertical-align: middle;">
-                                            @php
-                                                $countPerempuan = 0;
-                                            @endphp
-                                            @foreach ($c->anggota as $anggota)
-                                                @if ($anggota->warga->jenis_kelamin === 'perempuan')
-                                                    @php
-                                                        $countPerempuan++;
-                                                    @endphp
-                                                @endif
-                                            @endforeach
-                                            {{ ucfirst($countPerempuan) }} Orang
                                         <td class="text-center">
-
-                                            <form action="{{ route('data_keluarga.destroy', $c->id) }}" method="POST">
-                                                {{-- {{dd($c->id)}} --}}
-                                                <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >
-                                                    Detail
-                                                  </a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <a class="btn btn-primary btn-sm" href="{{ route('data_keluarga.edit', $c->id) }}">Edit</a>
-                                                <button type="submit" class="btn btn-danger btn-sm delete">Hapus</button>
-                                            </form>
-
+                                            <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >
+                                                Detail
+                                            </a>
                                         </td>
 
                                     </tr>
@@ -178,6 +130,7 @@
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Oke</button>
                                                         {{-- <button type="button" class="btn btn-primary">Oke</button> --}}
                                                     </div>
+
                                         </div>
                                     </div>
                                 </div>

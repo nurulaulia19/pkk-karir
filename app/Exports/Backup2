@@ -12,8 +12,6 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
-
 
 class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
 {
@@ -108,18 +106,18 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             '',
             '',
             '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
             'KRITERIA RUMAH: ' . ($rumahTangga->kriteria_rumah_sehat ? 'LAYAK HUNI' : 'TIDAK LAYAK HUNI'),
         ];
         $headings2 = [
@@ -128,18 +126,18 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             '',
             '',
             '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
             'JAMBAN KELUARGA: ' . ($rumahTangga->punya_jamban ? 'ADA 1 BUAH' : 'TIDAK ADA'),
         ];
 
@@ -149,18 +147,18 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             '',
             '',
             '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
             'SUMBER AIR: ' . ($air),
         ];
 
@@ -170,21 +168,20 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             '',
             '',
             '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
             'TEMPAT SAMPAH: ' . ($rumahTangga->punya_tempat_sampah ? 'ADA' : 'TIDAK ADA'),
         ];
-
 
         $memberHeadings = [
             'No',
@@ -204,12 +201,12 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             $memberHeadings[] = $item->name;
         }
 
-        $endHeadings = [
-            'KETERANGAN'
-        ];
-
-         // Gabungkan array judul kolom
-        $allHeadings = array_merge($memberHeadings, $endHeadings);
+        $keluargaFirst = $this->keluarga->rumah_tangga->first();
+        $rumahTangga = RumahTangga::find($keluargaFirst->rumahtangga_id);
+        $pdam = $rumahTangga->sumber_air_pdam ? 'PDAM' : '';
+        $sumur = $rumahTangga->sumber_air_sumur ? 'SUMUR' : '';
+        $lainnya = $rumahTangga->sumber_air_lainnya ? 'LAINNYA' : '';
+        $air = trim($pdam . ' ' . $sumur . ' ' . $lainnya);
 
         return [
             ['CATATAN KELUARGA ' . strtoupper($this->keluarga->nama_kepala_keluarga)],
@@ -218,10 +215,8 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             $headings3,
             $headings4,
             [''],
-            $allHeadings
-            // ['KETERANGAN']
+            $memberHeadings,
         ];
-
 
     }
 
@@ -254,40 +249,20 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
     }
 
     public function styles(Worksheet $sheet){
-        // Menggabungkan semua sel pada baris 1 (dari kolom A sampai kolom terakhir yang berisi data)
-        $lastColumn = $sheet->getHighestColumn(); // Mendapatkan kolom terakhir yang berisi data
-        $sheet->mergeCells('A1:' . $lastColumn . '1'); // Menggabungkan sel dari A1 sampai sel terakhir pada baris 1
-
-        // Mengatur horizontal alignment (penyelarasan horizontal) pada sel A1 ke tengah
+        $sheet->mergeCells('A1:R1');
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-
-        // Mengatur teks pada baris 1 hingga 7 menjadi tebal (bold)
         $sheet->getStyle('1:7')->getFont()->setBold(true);
-
-        // Menentukan rentang kolom untuk gaya (dari A7 sampai kolom terakhir yang berisi data)
-        $dataRange = 'A7:' . $lastColumn . $sheet->getHighestRow();
-
-        // Mengaplikasikan gaya pada rentang kolom yang telah ditentukan
-        $sheet->getStyle($dataRange)->applyFromArray([
+        $sheet->getStyle('A7:R' . ($sheet->getHighestRow()))->applyFromArray([
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => Border::BORDER_THIN,
-                    'color' => ['argb' => 'FF000000'], // Warna hitam untuk border
+                    'color' => ['argb' => 'FF000000'],
                 ],
             ],
         ]);
 
-        // Mengatur Lebar kolom
-        $lastColumn = $sheet->getHighestColumn();
-
-        // Mendapatkan indeks numerik dari kolom terakhir (misalnya 18 untuk kolom 'R')
-        $lastColumnIndex = Coordinate::columnIndexFromString($lastColumn);
-
-        // Loop through each column from 'B' (indeks 2) to the last column (dynamically determined)
-        for ($colIndex = 2; $colIndex <= $lastColumnIndex; $colIndex++) {
-            // Konversi indeks numerik kolom kembali ke format huruf (misalnya 'B' untuk indeks 2)
-            $col = Coordinate::stringFromColumnIndex($colIndex);
-
+         // Loop through each column from 'A' to 'R'
+        for ($col = 'B'; $col <= 'R'; $col++) {
             $maxLength = 0;
 
             // Find the maximum length of text in the current column
@@ -301,33 +276,19 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             }
 
             // Set the column width to accommodate the longest text plus some padding
-            $sheet->getColumnDimension($col)->setWidth($maxLength + 3);
+            $sheet->getColumnDimension($col)->setWidth($maxLength + 2);
         }
 
-        // Mengatur Posisi Nomor di Tengah
         $sheet->getStyle('A7:A' . ($sheet->getHighestRow()))->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
         $sheet->getStyle('A7:A' . ($sheet->getHighestRow()))->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-        // Mengatur Posisi Nilai Kegiatan di Tengah
-        // Mendapatkan kolom terakhir yang berisi data (dalam format huruf, misalnya 'R')
-        $lastColumn = $sheet->getHighestColumn();
-
-        // Mendapatkan indeks numerik dari kolom terakhir (misalnya 18 untuk kolom 'R')
-        $lastColumnIndex = Coordinate::columnIndexFromString($lastColumn);
-
-        // Loop through each column from 'K' (indeks 11) hingga kolom terakhir yang berisi data
-        for ($colIndex = 11; $colIndex <= $lastColumnIndex; $colIndex++) {
-            // Konversi indeks numerik kolom kembali ke format huruf (misalnya 'K' untuk indeks 11)
-            $col = Coordinate::stringFromColumnIndex($colIndex);
-
+        for ($col = 'K'; $col <= 'R'; $col++) {
             // Tentukan rentang kolom yang ingin diubah gaya (style)nya
-            $columnRange = $col . '7:' . $col . $sheet->getHighestRow();
+            $columnRange = $col . '7:' . $col . ($sheet->getHighestRow());
 
             // Set alignment (penyelarasan) teks ke tengah horizontal dan vertikal untuk rentang kolom
             $sheet->getStyle($columnRange)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($columnRange)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
         }
-
-
     }
 }

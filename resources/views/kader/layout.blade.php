@@ -164,7 +164,7 @@
               </li>
 
               <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link {{ Request::is('data_warga*') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-edit"></i>
                   <p>
                     Pendataan Keluarga <br> dan Kegiatan Warga
@@ -173,7 +173,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="/data_warga" class="nav-link {{ Request::is('data_warga') ? 'active':'' }}">
+                        <a href="/data_warga" class="nav-link {{ Request::is('data_warga*') ? 'active':'' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Data Warga</p>
                         </a>
@@ -212,36 +212,10 @@
 
                   </ul>
                 </li>
-
-                {{-- <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-user-cog"></i>
-                        <p>
-                            <p>Data Kader TP PKK</p>
-                            <i class="fas fa-angle-left right"></i>
-                      </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="/data_gabung" class="nav-link {{ Request::is('data_gabung') ? 'active':'' }}">
-                              <i class="far fa-circle nav-icon"></i>
-                              <p>Data Gabung Kader <br>Pelatihan</p>
-                            </a>
-                          </li>
-
-                        <li class="nav-item">
-                            <a href="/data_pelatihan" class="nav-link {{ Request::is('data_pelatihan') ? 'active':'' }}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Pelatihan Kader</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
-
                     <li class="nav-item">
-                        <a href="/rekap" class="nav-link {{ Request::is('rekap') ? 'active':'' }}">
+                        <a href="/catatan_keluarga" class="nav-link {{ Request::is('catatan_keluarga') ? 'active':'' }}">
                             <i class="nav-icon fas fa-archive"></i>
-                            <p>Data Rekapitulasi Warga <br>dan Catatan Keluarga</p>
+                            <p>Rekap Catatan Keluarga</p>
                         </a>
                       </li>
 
@@ -354,6 +328,7 @@
     <script type="text/javascript">
 
     </script>
+
 
     @stack('script-addon')
     @include('sweetalert::alert')

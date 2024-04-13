@@ -284,7 +284,8 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
     Route::resource('/data_industri', DataIndustriRumahController::class);
     Route::resource('/data_pelatihan', DataPelatihanKaderController::class);
     Route::resource('/data_gabung', DataKaderGabungController::class);
-    Route::get('/rekap', [KaderFormController::class, 'rekap']);
+    // Route::get('/rekap', [KaderFormController::class, 'rekap']);
+    Route::get('/catatan_keluarga', [KaderFormController::class, 'catatan_keluarga']);
 
     // rekap anggota keluarga
     Route::get('/rekap_data_warga/{id}/rekap_data_warga', [KaderFormController::class, 'rekap_data_warga']);

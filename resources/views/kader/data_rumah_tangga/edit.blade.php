@@ -558,7 +558,7 @@
         }
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#id_kecamatan').on('change', function() {
                 var categoryID = $(this).val();
@@ -611,77 +611,100 @@
                 }
             });
         });
+    </script> --}}
+    <script>
+        $(document).ready(function() {
+            // Tangkap klik pada tombol "Next" dengan data-action="next"
+            $(document).on('click', '[data-action="next"]', function (e) {
+                e.preventDefault(); // Menghentikan perilaku default dari tombol
+
+                // Cari tab yang sedang aktif
+                var $activeTab = $('.nav-link.active');
+
+                // Ambil tab berikutnya dalam daftar tab
+                var $nextTab = $activeTab.parent().next().find('.nav-link');
+
+                // Periksa apakah masih ada tab berikutnya
+                if ($nextTab.length > 0) {
+                    // Aktifkan tab berikutnya
+                    $nextTab.tab('show');
+                } else {
+                    // Jika tidak ada tab berikutnya, kembalikan ke tab pertama (opsional)
+                    var $firstTab = $('.nav-link').first();
+                    $firstTab.tab('show');
+                }
+            });
+        });
     </script>
 
+    <script>
+        let data; // Variabel untuk menyimpan data warga
+        let warga = 1; // Variabel untuk menyimpan nomor select
 
-<script>
-    let data; // Variabel untuk menyimpan data warga
-    let warga = 1; // Variabel untuk menyimpan nomor select
-
-    // Fungsi untuk melakukan permintaan API sekali saja di awal
-    $(document).ready(function() {
-        $.ajax({
-            url: "/keluarga",
-            type: "GET",
-            success: function(response) {
-                console.log(response);
-                data = response.keluarga; // Simpan data warga dalam variabel
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
-            }
+        // Fungsi untuk melakukan permintaan API sekali saja di awal
+        $(document).ready(function() {
+            $.ajax({
+                url: "/keluarga",
+                type: "GET",
+                success: function(response) {
+                    console.log(response);
+                    data = response.keluarga; // Simpan data warga dalam variabel
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                }
+            });
         });
-    });
 
-    // Fungsi untuk menambahkan row saat tombol diklik
-    document.getElementById('addRow').addEventListener('click', function() {
-        var container = document.getElementById('container');
-        var rownew = document.createElement('div');
-        rownew.className = 'row w-100';
-        rownew.innerHTML = `
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Nama</label>
-                            <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
-                                <option selected disabled value="AL">Type to search</option>
-                            </select>
+        // Fungsi untuk menambahkan row saat tombol diklik
+        document.getElementById('addRow').addEventListener('click', function() {
+            var container = document.getElementById('container');
+            var rownew = document.createElement('div');
+            rownew.className = 'row w-100';
+            rownew.innerHTML = `
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nama</label>
+                                <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
+                                    <option selected disabled value="AL">Type to search</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label>Dasawisma</label>
-                            <select class="form-control" name="status[]">
-                                <option value="kepala-keluarga">Kepala Keluarga</option>
-                            </select>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Dasawisma</label>
+                                <select class="form-control" name="status[]">
+                                    <option value="kepala-keluarga">Kepala Keluarga</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-1 d-flex align-items-center">
-                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+                        <div class="col-md-1 d-flex align-items-center">
+                            <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
-        container.appendChild(rownew);
+            `;
+            container.appendChild(rownew);
 
-        var selectElement = document.getElementById(`warga${warga}`);
-        // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
-        if (data) {
-            data.forEach(function(item) {
-                var option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = item.nama_kepala_keluarga;
-                selectElement.appendChild(option);
-            });
+            var selectElement = document.getElementById(`warga${warga}`);
+            // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
+            if (data) {
+                data.forEach(function(item) {
+                    var option = document.createElement('option');
+                    option.value = item.id;
+                    option.textContent = item.nama_kepala_keluarga;
+                    selectElement.appendChild(option);
+                });
+            }
+            warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
+        });
+        function onDelete(id) {
+            var elementToRemove = document.getElementById(`warga${id}`).closest('.row');
+            elementToRemove.parentNode.removeChild(elementToRemove);
         }
-        warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
-    });
-    function onDelete(id) {
-        var elementToRemove = document.getElementById(`warga${id}`).closest('.row');
-        elementToRemove.parentNode.removeChild(elementToRemove);
-    }
 
-</script>
+    </script>
 
 @endpush

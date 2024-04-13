@@ -27,7 +27,7 @@ class RumahTanggaController extends Controller
     public function index()
     {
         $keluarga = DataKeluarga::with('anggota.warga')->get();
-        $krt = RumahTangga::get();
+        $krt = RumahTangga::with('dasawisma.rw.rt')->get();
         // dd($keluarga);
         $user = Auth::user();
 

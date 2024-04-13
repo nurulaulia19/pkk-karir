@@ -78,182 +78,79 @@ class DataKeluargaController extends Controller
         return view('kader.data_keluarga.create', compact('warga', 'kec', 'desas', 'kad', 'dasawisma', 'kader', 'kabupaten', 'provinsi'));
     }
 
+
+
     // public function store(Request $request)
     // {
-    //     // dd('ayam geprek');
-    //     // proses penyimpanan untuk tambah data keluarga
-    //     // dd($request->all());
+    //     if (!isUnique($request->warga)) {
+    //         return redirect()
+    //             ->back()
+    //             ->withErrors(['warga' => 'Nama warga tidak boleh sama']);
+    //     }
+
     //     $kepalaKeluarga = DataWarga::find($request->warga[0]);
 
-    //     // dd($kepalaKeluarga);
+
     //     $keluarga = DataKeluarga::create([
     //         'nama_kepala_keluarga' => $kepalaKeluarga->nama,
-    //         'punya_jamban' => $request->punya_jamban,
+    //         // 'punya_jamban' => $request->punya_jamban,
     //         'rt' => $request->rt,
     //         'rw' => $request->rw,
     //         'dusun' => $request->dusun,
     //         'provinsi' => $request->provinsi,
-    //         'id_dasawisma' => $request->id_dasawisma
+    //         'id_dasawisma' => $request->id_dasawisma,
+    //         'periode' => $request->periode,
     //     ]);
-    //     // dd($keluarga);
+
+    //     // Mengatur is_keluarga menjadi true untuk kepala keluarga
+    //     $kepalaKeluarga->is_keluarga = true;
+    //     $kepalaKeluarga->save();
+
     //     for ($i = 0; $i < count($request->warga); $i++) {
     //         $datawarga = DataWarga::find($request->warga[$i]);
-    //         // dd($datawarga);
     //         $datawarga->is_keluarga = true;
-    //         Keluargahaswarga::create([
-    //             'keluarga_id' =>  $keluarga->id,
-    //             'warga_id' =>  $request->warga[$i],
-    //             'status' =>  $request->status[$i],
+    //         $datawarga->save();
 
+    //         Keluargahaswarga::create([
+    //             'keluarga_id' => $keluarga->id,
+    //             'warga_id' => $request->warga[$i],
+    //             'status' => $request->status[$i],
     //         ]);
-    //         // $wargaId =
-    //         // Lakukan sesuatu dengan setiap ID warga
     //     }
 
-    //     dd('berhasil');
-
-    //     // $request->validate([
-    //     //     'id_desa' => 'required',
-    //     //     'id_kecamatan' => 'required',
-    //     //     'nama_kepala_rumah_tangga' => 'required',
-    //     //     // 'dasa_wisma' => 'required',
-    //     //     'id_dasawisma' => 'required',
-    //     //     'nik_kepala_keluarga' => 'required|min:16',
-    //     //     'rt' => 'required',
-    //     //     'rw' => 'required',
-    //     //     'kabupaten' => 'required',
-    //     //     'provinsi' => 'required',
-    //     //     'dusun' => 'required',
-    //     //     // 'perempuan' => 'required',
-    //     //     'jumlah_KK' => 'required',
-    //     //     // 'jumlah_balita' => 'required',
-    //     //     'jumlah_anggota_keluarga' => 'required',
-    //     //     // 'jumlah_WUS' => 'required',
-    //     //     // 'jumlah_3_buta' => 'required',
-    //     //     // 'jumlah_ibu_hamil' => 'required',
-    //     //     // 'jumlah_ibu_menyusui' => 'required',
-    //     //     // 'jumlah_lansia' => 'required',
-    //     //     // 'jumlah_kebutuhan' => 'required',
-    //     //     'makanan_pokok' => 'required',
-    //     //     'punya_jamban' => 'required',
-    //     //     // 'jumlah_PUS' => 'required',
-    //     //     'sumber_air' => 'required',
-    //     //     'punya_tempat_sampah' => 'required',
-    //     //     'punya_saluran_air' => 'required',
-    //     //     'tempel_stiker' => 'required',
-    //     //     'kriteria_rumah' => 'required',
-    //     //     'aktivitas_UP2K' => 'required',
-    //     //     'aktivitas_kegiatan_usaha' => 'required',
-    //     //     'periode' => 'required',
-
-    //     // ], [
-    //     //     'id_desa.required' => 'Lengkapi Alamat Desa Kegiatan Warga',
-    //     //     'id_kecamatan' => 'Lengkapi Alamat Kecamatan Kegiatan Warga',
-    //     //     'nama_kepala_rumah_tangga.required' => 'Lengkapi Nama Warga Kepala Rumah Tangga',
-    //     //     'id_dasawisma.required' => 'Lengkapi Nama Dasawisma Yang Diikuti',
-    //     //     'nik_kepala_keluarga.required' => 'Lengkapi NIK Kepala Rumah Tangga',
-    //     //     'jumlah_anggota_keluarga.required' => 'Lengkapi Jumlah Anggota Keluarga',
-    //     //     'rt.required' => 'Lengkapi RT',
-    //     //     'rw.required' => 'Lengkapi RW',
-    //     //     'dusun.required' => 'Lengkapi Nama Dusun',
-    //     //     // 'perempuan.required' => 'Lengkapi Jumlah Perempuan',
-    //     //     'jumlah_KK.required' => 'Lengkapi Jumlah KK',
-    //     //     // 'jumlah_PUS.required' => 'Lengkapi Jumlah PUS (Pasangan Usia Subur) dalam Keluarga',
-    //     //     // 'jumlah_WUS.required' => 'Lengkapi Jumlah WUS (Wanita Usia Subur) dalam Keluarga',
-    //     //     // 'jumlah_3_buta.required' => 'Lengkapi Jumlah 3 Buta (Buta Tulis, Buta Baca, Buta Hitung) dalam Keluarga',
-    //     //     // 'jumlah_ibu_hamil.required' => 'Lengkapi Jumlah Ibu Hamil dalam Keluarga',
-    //     //     // 'jumlah_ibu_menyusui.required' => 'Lengkapi Jumlah Ibu Menyusui dalam Keluarga',
-    //     //     // 'jumlah_lansia.required' => 'Lengkapi Jumlah Lansia dalam Keluarga',
-    //     //     // 'jumlah_kebutuhan.required' => 'Lengkapi Jumlah Berkebutuhan Khusus dalam Keluarga',
-    //     //     'makanan_pokok.required' => 'Lengkapi Makanan Pokok',
-    //     //     // 'jumlah_balita.required' => 'Lengkapi Jumlah Balita dalam Keluarga',
-    //     //     'punya_jamban.required' => 'Pilih Mempunyai Jamban dan Jumlah Yang Mempunyai Jamban',
-    //     //     'sumber_air.required' => 'Pilih Sumber Air dalam Keluarga',
-    //     //     'punya_tempat_sampah.required' => 'Pilih Yang Mempunyai Tempat Sampah',
-    //     //     'punya_saluran_air.required' => 'Pilih Yang Mempunyai Saluran Air',
-    //     //     'tempel_stiker.required' => 'Pilih Rumah Yang Mempunyai Stiker P4K',
-    //     //     'kriteria_rumah.required' => 'Pilih Kriteria Rumah',
-    //     //     'aktivitas_UP2K.required' => 'Pilih Aktivitas UP2K',
-    //     //     'aktivitas_kegiatan_usaha.required' => 'Pilih Aktivitas Kegiatan Usaha',
-    //     //     'periode.required' => 'Pilih Periode',
-
-    //     // ]);
-    //     // $insert=DB::table('data_keluarga')->where('nik_kepala_keluarga', $request->nik_kepala_keluarga)->first();
-    //     // if ($insert != null) {
-    //     //     Alert::error('Gagal', 'Data Tidak Berhasil Di Tambah. No.KTP Sudah Ada ');
-
-    //     //     return redirect('/data_keluarga');
-    //     // }
-    //     // else {
-    //     // //cara 1
-
-    //     //     $wargas = new DataKeluarga;
-    //     //     $wargas->id_desa = $request->id_desa;
-    //     //     $wargas->id_kecamatan = $request->id_kecamatan;
-    //     //     $wargas->nama_kepala_rumah_tangga = $request->nama_kepala_rumah_tangga;
-    //     //     $wargas->id_dasawisma = $request->id_dasawisma;
-    //     //     $wargas->nik_kepala_keluarga = $request->nik_kepala_keluarga;
-    //     //     $wargas->kabupaten = $request->kabupaten;
-    //     //     $wargas->provinsi = $request->provinsi;
-    //     //     $wargas->id_user = $request->id_user;
-    //     //     $wargas->dusun = $request->dusun;
-
-    //     //     $wargas->jumlah_anggota_keluarga = $request->jumlah_anggota_keluarga;
-    //     //     $wargas->rt = $request->rt;
-    //     //     $wargas->rw = $request->rw;
-    //     //     $wargas->jumlah_laki = $request->jumlah_laki;
-    //     //     $wargas->jumlah_perempuan = $request->jumlah_perempuan;
-    //     //     $wargas->jumlah_KK = $request->jumlah_KK;
-    //     //     $wargas->jumlah_balita = $request->jumlah_balita;
-    //     //     $wargas->jumlah_balita_laki = $request->jumlah_balita_laki;
-    //     //     $wargas->jumlah_balita_perempuan = $request->jumlah_balita_perempuan;
-    //     //     $wargas->jumlah_PUS = $request->jumlah_PUS;
-    //     //     $wargas->jumlah_WUS = $request->jumlah_WUS;
-    //     //     $wargas->jumlah_3_buta = $request->jumlah_3_buta;
-    //     //     $wargas->jumlah_3_buta_laki = $request->jumlah_3_buta_laki;
-    //     //     $wargas->jumlah_3_buta_perempuan = $request->jumlah_3_buta_perempuan;
-    //     //     $wargas->jumlah_ibu_hamil = $request->jumlah_ibu_hamil;
-    //     //     $wargas->jumlah_ibu_menyusui = $request->jumlah_ibu_menyusui;
-    //     //     $wargas->jumlah_lansia = $request->jumlah_lansia;
-    //     //     $wargas->jumlah_kebutuhan_khusus = $request->jumlah_kebutuhan_khusus;
-    //     //     $wargas->makanan_pokok = $request->makanan_pokok;
-    //     //     $wargas->punya_jamban = $request->punya_jamban;
-    //     //     $wargas->jumlah_jamban = $request->jumlah_jamban;
-    //     //     $wargas->sumber_air = $request->sumber_air;
-    //     //     $wargas->punya_tempat_sampah = $request->punya_tempat_sampah;
-    //     //     $wargas->punya_saluran_air = $request->punya_saluran_air;
-    //     //     $wargas->tempel_stiker = $request->tempel_stiker;
-    //     //     $wargas->kriteria_rumah = $request->kriteria_rumah;
-    //     //     $wargas->aktivitas_UP2K = $request->aktivitas_UP2K;
-    //     //     $wargas->aktivitas_kegiatan_usaha = $request->aktivitas_kegiatan_usaha;
-    //     //     $wargas->periode = $request->periode;
-    //     //     $wargas->save();
-    //     //     // desa
-
-    //     //     // $notifDesa = NotifDataKeluarga::create([
-    //     //     //     'dilihat' => false,
-
-    //     //     // ]);
-    //     //     Alert::success('Berhasil', 'Data berhasil di tambahkan');
-
-    //     //     return redirect('/data_keluarga');
-    //     // }
+    //     // Pernyataan akhir setelah penyimpanan berhasil
+    //     Alert::success('Berhasil', 'Data berhasil di tambahkan');
+    //     return redirect('/data_keluarga');
     // }
 
     public function store(Request $request)
     {
+        // Mendapatkan kepala keluarga dari data warga pertama
+        $kepalaKeluarga = DataWarga::find($request->warga[0]);
+        // dd($kepalaKeluarga);
+
+        $existingKeluargaCount = DataKeluarga::count();
+
+        // Batas maksimal jumlah data keluarga yang diperbolehkan adalah 2
+        $maxAllowed = 20;
+
+        // Jika sudah mencapai atau melebihi batas maksimal, tampilkan pesan error
+        if ($existingKeluargaCount >= $maxAllowed) {
+            return redirect()
+                ->back()
+                ->withErrors(['warga' => "Data keluarga sudah berjumlah $existingKeluargaCount keluarga. Maksimal penambahan data keluarga adalah $maxAllowed"]);
+        }
+
+        // Validasi keunikan nama warga sebelum menyimpan data
         if (!isUnique($request->warga)) {
             return redirect()
                 ->back()
                 ->withErrors(['warga' => 'Nama warga tidak boleh sama']);
         }
 
-        $kepalaKeluarga = DataWarga::find($request->warga[0]);
-
-
+        // Buat data keluarga baru
         $keluarga = DataKeluarga::create([
             'nama_kepala_keluarga' => $kepalaKeluarga->nama,
-            // 'punya_jamban' => $request->punya_jamban,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'dusun' => $request->dusun,
@@ -266,11 +163,13 @@ class DataKeluargaController extends Controller
         $kepalaKeluarga->is_keluarga = true;
         $kepalaKeluarga->save();
 
+        // Simpan data untuk setiap warga yang ditambahkan ke keluarga baru
         for ($i = 0; $i < count($request->warga); $i++) {
             $datawarga = DataWarga::find($request->warga[$i]);
             $datawarga->is_keluarga = true;
             $datawarga->save();
 
+            // Buat relasi antara keluarga dan warga
             Keluargahaswarga::create([
                 'keluarga_id' => $keluarga->id,
                 'warga_id' => $request->warga[$i],
@@ -279,7 +178,7 @@ class DataKeluargaController extends Controller
         }
 
         // Pernyataan akhir setelah penyimpanan berhasil
-        Alert::success('Berhasil', 'Data berhasil di tambahkan');
+        Alert::success('Berhasil', 'Data berhasil ditambahkan');
         return redirect('/data_keluarga');
     }
 
@@ -449,23 +348,6 @@ class DataKeluargaController extends Controller
         return redirect()->back();
     }
 
-    // public function detail($id)
-    // {
-    //     $userKader = Auth::user();
-    //     $keluarga = DataKeluarga::with('anggota.warga.kegiatan', 'dasawisma')->find($id);
-    //     $rumahTangga = RumahTangga::with('rumahtangga')->find($id);
-    //     dd($rumahTangga);
-    //     $warga = $keluarga->anggota->first();
-    //     $dasawismaId = $warga->warga->id_dasawisma;
-    //     $dasawisma = DasaWisma::find($dasawismaId);
-
-    //     $dataKegiatan = DataKegiatan::where('desa_id',$userKader->id_desa)->get();
-    //     // dd($dasawisma);
-    //     // dd($warga);
-    //     // dd($keluarga);
-    //     // dd($keluarga);
-    //     return view('kader.data_catatan_keluarga.index', compact(['keluarga','dasawisma','dataKegiatan']));
-    // }
 
     public function detail($id)
     {
@@ -479,7 +361,11 @@ class DataKeluargaController extends Controller
         //  dd($rumahTanggaHasKeluarga);
         // Jika tidak ditemukan, tangani sesuai kebutuhan aplikasi Anda
         if (!$rumahTanggaHasKeluarga) {
-            return abort(404); // Contoh: Tangani jika data tidak ditemukan
+            // return abort(404)->with('alert', 'Isi keluarga pada data rumah tangga terlebih dahulu.');
+            Alert::error('Gagal', 'Isi keluarga pada data rumah tangga terlebih dahulu.');
+            return redirect()->back();
+            // return redirect()->back()->with('alert', 'Isi keluarga pada data rumah tangga terlebih dahulu.');
+
         }
 
         // Lakukan operasi pada data rumah tangga has keluarga jika ditemukan
@@ -497,21 +383,6 @@ class DataKeluargaController extends Controller
         return view('kader.data_catatan_keluarga.index', compact('keluarga', 'rumahTangga', 'dasawisma', 'dataKegiatan'));
     }
 
-
-    // public function deleteWargaInKeluarga($id)
-    // {
-    //     $HasWarga = Keluargahaswarga::with('warga')->find($id);
-    //     if(!$HasWarga){
-    //         abort(404, 'Not Found');
-    //     }
-    //     $warga = DataWarga::find($HasWarga->warga_id);
-    //     // dd($HasWarga);
-    //     $warga->is_keluarga = false;
-    //     $warga->update();
-
-    //     $HasWarga->delete();
-    //     dd('berhasil');
-    // }
     public function deleteWargaInKeluarga($id)
     {
         $hasWarga = Keluargahaswarga::with('warga')->find($id);
@@ -538,9 +409,7 @@ class DataKeluargaController extends Controller
             DataKeluarga::find($hasWarga->keluarga_id)->delete();
         }
 
-        return response()->json([
-            'message' => 'success',
-            'data' => $dataKeluarga,
-        ]);
+        Alert::success('Berhasil', 'Anggota keluarga berhasil dihapus');
+        return redirect()->back();
     }
 }

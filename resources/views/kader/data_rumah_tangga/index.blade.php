@@ -27,6 +27,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Kepala Rumah Tangga</th>
+                                            <th>Dasawisma</th>
+                                            <th>RT</th>
+                                            <th>RW</th>
+                                            <th>Tahun</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -41,6 +45,28 @@
 
                                         {{-- nama desa yang login --}}
                                         <td style="vertical-align: middle;">{{ $c->nama_kepala_rumah_tangga}} </td>
+                                        <td style="vertical-align: middle;">
+                                            @if ($c->dasawisma)
+                                                {{ ucfirst($c->dasawisma->nama_dasawisma) }}
+                                            @else
+                                                N/A <!-- Tampilkan pesan alternatif jika dasawisma tidak tersedia -->
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($c->dasawisma)
+                                                {{ ucfirst($c->dasawisma->rw->name) }}
+                                            @else
+                                                N/A <!-- Tampilkan pesan alternatif jika dasawisma tidak tersedia -->
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($c->dasawisma)
+                                                {{ ucfirst($c->dasawisma->rt->name) }}
+                                            @else
+                                                N/A <!-- Tampilkan pesan alternatif jika dasawisma tidak tersedia -->
+                                            @endif
+                                        </td>
+                                        <td style="vertical-align: middle;">{{ $c->periode}}</td>
                                         <td class="text-center">
                                             <form action="{{ route('data_rumah_tangga.destroy',$c->id) }}" method="POST">
 

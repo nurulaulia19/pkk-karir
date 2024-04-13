@@ -26,11 +26,13 @@ class DataWargaController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $warga=DataWarga::where('id_dasawisma', $user->id_dasawisma)->get();
+        // $warga=DataWarga::with('kepalaKeluarga')->where('id_dasawisma', $user->id_dasawisma)->get();
+        $warga = DataWarga::with('kepalaKeluarga.keluarga')->where('id_dasawisma', $user->id_dasawisma)->get();
+        // $keluarga = DataKeluarga::with(['anggota.warga.kegiatan', 'dasawisma','rumah_tangga.rumah_tangga'])->find($id);
+        // dd($warga);
+        // $dasawisma = DataKelompokDasawisma::all();
 
-        $dasawisma = DataKelompokDasawisma::all();
-
-        return view('kader.data_warga.index', compact('warga', 'dasawisma'));
+        return view('kader.data_warga.index', compact('warga', 'user'));
     }
 
     /**

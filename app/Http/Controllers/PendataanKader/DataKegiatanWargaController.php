@@ -47,8 +47,11 @@ class DataKegiatanWargaController extends Controller
         ->get();
 
         $kel = DataKeluarga::all();
-        $warga = DataWarga::all();
-        // $keg = KategoriKegiatan::all();
+        // $warga = DataWarga::all();
+        $user = Auth::user();
+        $warga = DataWarga::where('id_dasawisma', $user->id_dasawisma)
+            ->where('is_kegiatan', false)
+            ->get();
         return view('kader.data_kegiatan_warga.create', compact('keg', 'warga', 'desas', 'kec', 'kad', 'kel'));
 
     }

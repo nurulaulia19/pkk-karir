@@ -88,7 +88,6 @@ class KaderFormController extends Controller
         $remember = $request->get('remember');
 
         $attempt = Auth::attempt($credentials, $remember);
-// dd($attempt);
 
         if ($attempt) {
             return redirect('/dashboard_kader');
@@ -106,14 +105,22 @@ class KaderFormController extends Controller
     }
 
     // ngambil nama kepala keluarga
-    public function rekap(){
-        $user = Auth::user();
+    // public function rekap(){
+    //     $user = Auth::user();
 
-        $warga = DataWarga::with('keluarga')
-        ->where('id_user', $user->id)
-        ->get();
+    //     $warga = DataWarga::with('keluarga')
+    //     ->where('id_user', $user->id)
+    //     ->get();
+    //     // dd($warga);
+    //     return view('kader.rekap', compact('warga'));
+    // }
+
+    public function catatan_keluarga(){
+        $keluarga = DataKeluarga::with('anggota.warga')->get();
+        // dd($keluarga);
+        $user = Auth::user();
         // dd($warga);
-        return view('kader.rekap', compact('warga'));
+        return view('kader.data_catatan_keluarga.rekap', compact('keluarga'));
     }
 
      // halaman data rekap data warga pkk

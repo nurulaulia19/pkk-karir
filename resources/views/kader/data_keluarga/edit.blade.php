@@ -268,7 +268,7 @@
                                         </div>
 
                                         <div class="col-md-1 d-flex align-items-center">
-                                            <a href="{{route('keluarga-delete-warga',['id' =>$item->id ])}}" class="btn btn-danger btn-sm mt-2">delete</a>
+                                            <a href="{{route('keluarga-delete-warga',['id' =>$item->id ])}}" class="btn btn-danger btn-sm mt-2">Delete</a>
                                         </div>
                                     </div>
                                 </div>
@@ -421,7 +421,7 @@
        }
 
 </script>
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('#id_kecamatan').on('change', function() {
         var categoryID = $(this).val();
@@ -470,6 +470,31 @@
                     $active.parent().next().find('a').click();
                 }
             });
+</script> --}}
+
+<script>
+    $(document).ready(function() {
+        // Tangkap klik pada tombol "Next" dengan data-action="next"
+        $(document).on('click', '[data-action="next"]', function (e) {
+            e.preventDefault(); // Menghentikan perilaku default dari tombol
+
+            // Cari tab yang sedang aktif
+            var $activeTab = $('.nav-link.active');
+
+            // Ambil tab berikutnya dalam daftar tab
+            var $nextTab = $activeTab.parent().next().find('.nav-link');
+
+            // Periksa apakah masih ada tab berikutnya
+            if ($nextTab.length > 0) {
+                // Aktifkan tab berikutnya
+                $nextTab.tab('show');
+            } else {
+                // Jika tidak ada tab berikutnya, kembalikan ke tab pertama (opsional)
+                var $firstTab = $('.nav-link').first();
+                $firstTab.tab('show');
+            }
+        });
+    });
 </script>
 
 <script>
@@ -570,7 +595,7 @@
                         </div>
                     </div>
                     <div class="col-md-1 d-flex align-items-center">
-                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">Delete</button>
                     </div>
                 </div>
             </div>

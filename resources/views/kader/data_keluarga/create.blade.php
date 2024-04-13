@@ -438,7 +438,7 @@
         }
     </script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $('#id_kecamatan').on('change', function() {
                 var categoryID = $(this).val();
@@ -488,6 +488,32 @@
                 });
                 if (!hasError) {
                     $active.parent().next().find('a').click();
+                }
+            });
+        });
+    </script> --}}
+
+    <!-- Skrip JavaScript untuk menangani tombol "Next" -->
+    <script>
+        $(document).ready(function() {
+            // Tangkap klik pada tombol "Next" dengan data-action="next"
+            $(document).on('click', '[data-action="next"]', function (e) {
+                e.preventDefault(); // Menghentikan perilaku default dari tombol
+
+                // Cari tab yang sedang aktif
+                var $activeTab = $('.nav-link.active');
+
+                // Ambil tab berikutnya dalam daftar tab
+                var $nextTab = $activeTab.parent().next().find('.nav-link');
+
+                // Periksa apakah masih ada tab berikutnya
+                if ($nextTab.length > 0) {
+                    // Aktifkan tab berikutnya
+                    $nextTab.tab('show');
+                } else {
+                    // Jika tidak ada tab berikutnya, kembalikan ke tab pertama (opsional)
+                    var $firstTab = $('.nav-link').first();
+                    $firstTab.tab('show');
                 }
             });
         });

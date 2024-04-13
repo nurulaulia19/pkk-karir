@@ -23,4 +23,10 @@ class Keluargahaswarga extends Model
         return $this->belongsTo(DataWarga::class,'warga_id');
 
     }
+
+    public function keluarga()
+    {
+        return $this->belongsTo(DataKeluarga::class,'keluarga_id');
+
+    }
 }

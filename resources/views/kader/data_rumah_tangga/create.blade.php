@@ -618,36 +618,31 @@
         });
     </script> --}}
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script>
         $(document).ready(function() {
-            $(document).on('click', '[data-action="next"]', function(e) {
-                e.preventDefault(); // Menghentikan aksi default dari tombol
+            // Tangkap klik pada tombol "Next" dengan data-action="next"
+            $(document).on('click', '[data-action="next"]', function (e) {
+                e.preventDefault(); // Menghentikan perilaku default dari tombol
 
-                var $active = $('#dataKeluargaTabs .active');
-                var hasError = false;
+                // Cari tab yang sedang aktif
+                var $activeTab = $('.nav-link.active');
 
-                // Periksa setiap input di dalam tab aktif
-                $($active.attr('href')).find('[name]').each(function() {
-                    if ((!$(this).prop('disabled') && !$(this).prop('readonly')) && !$(this).val()) {
-                        $(this).addClass('is-invalid');
-                        hasError = true;
-                    } else {
-                        $(this).removeClass('is-invalid'); // Hapus kelas 'is-invalid' jika input sudah terisi
-                    }
-                });
+                // Ambil tab berikutnya dalam daftar tab
+                var $nextTab = $activeTab.parent().next().find('.nav-link');
 
-                if (!hasError) {
-                    var $nextTab = $active.parent().next().find('a'); // Temukan tab berikutnya
-                    if ($nextTab.length > 0) {
-                        $nextTab.tab('show'); // Tampilkan tab berikutnya
-                    }
+                // Periksa apakah masih ada tab berikutnya
+                if ($nextTab.length > 0) {
+                    // Aktifkan tab berikutnya
+                    $nextTab.tab('show');
+                } else {
+                    // Jika tidak ada tab berikutnya, kembalikan ke tab pertama (opsional)
+                    var $firstTab = $('.nav-link').first();
+                    $firstTab.tab('show');
                 }
             });
         });
     </script>
-
-
     <script>
         let data; // Variabel untuk menyimpan data warga
         let warga = 1; // Variabel untuk menyimpan nomor select
@@ -667,8 +662,8 @@
             });
         });
 
-// Fungsi untuk menambahkan row saat tombol diklik
-document.getElementById('addRow').addEventListener('click', function() {
+    // Fungsi untuk menambahkan row saat tombol diklik
+    document.getElementById('addRow').addEventListener('click', function() {
         var container = document.getElementById('containerz');
         var rownew = document.createElement('div');
         rownew.className = 'row w-100';

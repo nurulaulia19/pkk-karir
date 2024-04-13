@@ -8,7 +8,6 @@
     <!-- Main content -->
     <div class="main-content">
         <section class="section">
-
             <div class="section-body">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-12">
@@ -186,22 +185,23 @@
                                                     @endforeach
                                                 </tr>
                                             @endforeach
+
                                         </tbody>
                                     </table>
 
-                                    <a href="{{ url('print_pdf_cakel', $keluarga->id) }}" target="_blank" class="btn btn-success" type="button" role="button">
+                                    {{-- <a href="{{ url('print_pdf_cakel', $keluarga->id) }}" target="_blank" class="btn btn-success" type="button" role="button">
                                         <i class="fas fa-print"></i> Cetak ke PDF
-                                    </a>
+                                    </a> --}}
                                     {{-- <a href="{{ url('print_excel_cakel', $keluarga->id) }}" target="_blank" class="btn btn-success" role="button">
                                         <i class="fas fa-print"></i> Cetak ke Excel
                                     </a><br> --}}
                                     <td class="text-center">
-                                        <a class="btn btn-success btn-sm" href="{{ url('print_excel_cakel', $keluarga->id) }}?{{ http_build_query([
+                                        <a class="btn btn-success" href="{{ url('print_excel_cakel', $keluarga->id) }}?{{ http_build_query([
                                             'nama_dasawisma' => $dasawisma->nama_dasawisma, // Use the correct attribute name
                                             'rt' => $keluarga->rt,
                                             'rw' => $keluarga->rw,
                                             'periode' => $keluarga->periode,
-                                        ]) }}">Rekap</a>
+                                        ]) }}"><i class="fas fa-print"></i> Cetak ke Excel</a>
                                     </td>
 
                                 </div>

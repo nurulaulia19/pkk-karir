@@ -491,8 +491,6 @@
                                             </select>
                                         </div>
                                     </div>
-
-
                                     <div class="col-md-6">
                                         <div class="form-group @error('id_user') is-invalid @enderror">
                                             {{-- nama kader --}}
@@ -919,20 +917,27 @@
 </script> --}}
 <script>
     $(document).on('click', '[data-action="next"]', function (e) {
-            var $active = $('#dataWargaTabs .active');
-            var hasError = false;
+        var $active = $('#dataWargaTabs .active');
+        var hasError = false;
 
-            $($active.attr('href')).find('[name]').each(function () {
-                if ((!$(this).prop('disabled') || !$(this).prop('readonly')) && !$(this).val()) {
-                    $(this).addClass('is-invalid');
-                    hasError = true;
-                }
-            });
-            if (!hasError) {
-                $active.parent().next().find('a').click();
+        $($active.attr('href')).find('[name]').each(function () {
+            // Periksa input yang tidak disabled atau readonly
+            if (!$(this).prop('disabled') && !$(this).prop('readonly') && !$(this).val()) {
+                $(this).addClass('is-invalid');
+                hasError = true;
             }
         });
+
+        if (!hasError) {
+            // Temukan tab berikutnya dan aktifkan
+            var $nextTab = $active.parent().next().find('a');
+            if ($nextTab.length > 0) {
+                $nextTab.tab('show');
+            }
+        }
+    });
 </script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Mendapatkan elemen jenis_kelamin

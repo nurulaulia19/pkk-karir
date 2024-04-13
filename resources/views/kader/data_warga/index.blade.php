@@ -28,9 +28,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama</th>
-                                            <th>Nama Kepala Rumah Tangga</th>
-
-                                            {{-- <th>Dasa Wisma</th> --}}
+                                            <th>Nama Kepala Keluarga</th>
                                             <th>No. Registrasi</th>
                                             <th>No. KTP/NIK</th>
                                             <th>Jabatan</th>
@@ -48,19 +46,15 @@
                                         {{-- nama desa yang login --}}
                                         <td style="vertical-align: middle;">{{ucfirst($c->nama)}}</td>
 
-                                        {{-- <td style="vertical-align: middle;"> --}}
-                                            {{-- {{ucfirst($c->keluarga->nama_kepala_rumah_tangga)}} --}}
-                                        {{-- </td> --}}
-
                                         <td style="vertical-align: middle;">
-                                            {{-- {{ucfirst($c->dasawisma->nama_dasawisma) }} --}}
-                                        </td>
-
-                                            {{-- @if ($warga = $c->nik_kepala_keluarga)
-                                                {{ $warga }}
+                                            @if ($c->kepalaKeluarga->isNotEmpty())
+                                                @foreach ($c->kepalaKeluarga as $keluarga)
+                                                    {{ $keluarga->keluarga->nama_kepala_keluarga }}<br>
+                                                @endforeach
                                             @else
-                                            @endif <br> --}}
-                                            </td>
+                                                Belum ada kepala keluarga terkait<br>
+                                            @endif
+                                        </td>
                                         <td style="vertical-align: middle;">{{ucfirst($c->no_registrasi)}}</td>
                                         <td style="vertical-align: middle;">{{ucfirst($c->no_ktp)}}</td>
                                         <td style="vertical-align: middle;">{{ucfirst($c->jabatan)}}</td>
@@ -68,17 +62,12 @@
                                         <td style="vertical-align: middle;">{{ucfirst($c->periode)}}</td>
 
                                         <td class="text-center">
-
-                                            {{-- <a class="btn btn-info btn-sm" href="{{ url('data_warga/'.$c->id) }}">Show</a> --}}
-
-                                            {{-- <a class="btn btn-info btn-sm" href="{{ route('data_warga.show',$c->id) }}">Show</a> --}}
-                                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">
-                                                Detail
-                                              </button>
-
-                                            <a class="btn btn-primary btn-sm" href="{{ url('data_warga/'.$c->id.'/edit') }}">Edit</a>
-
                                             <form action="{{ route('data_warga.destroy',$c->id) }}" method="POST">
+                                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">
+                                                    Detail
+                                                  </button>
+
+                                                <a class="btn btn-primary btn-sm" href="{{ url('data_warga/'.$c->id.'/edit') }}">Edit</a>
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm delete">Hapus</button>
@@ -105,29 +94,47 @@
                                                         <div class="modal-body">
                                                         <h5>
                                                             Dasawisma : <strong>
-                                                                {{-- {{ucfirst($c->dasawisma->nama_dasawisma) }}  --}}
+                                                                {{ucfirst($c->dasawisma->nama_dasawisma) }}
                                                             </strong><br>
-                                                            Nama Kepala Rumah Tangga : <strong>
-                                                                {{-- {{ucfirst($c->keluarga->nama_kepala_rumah_tangga) }} --}}
-                                                            </strong><br>
+                                                            Nama Kepala Keluarga : <strong>
+                                                                @if ($c->kepalaKeluarga->isNotEmpty())
+                                                                    @foreach ($c->kepalaKeluarga as $keluarga)
+                                                                        <strong>{{ $keluarga->keluarga->nama_kepala_keluarga }}</strong><br>
+                                                                    @endforeach
+                                                                @else
+                                                                    <strong>Belum ada kepala keluarga terkait</strong><br>
+                                                                @endif
                                                             No. Registrasi : <strong> {{ucfirst($c->no_registrasi) }} </strong><br>
                                                             No. KTP/NIK : <strong>{{ucfirst($c->no_ktp) }}</strong><br>
                                                             Nama : <strong> {{ucfirst($c->nama) }} </strong><br>
                                                             Jabatan : <strong>{{ucfirst($c->jabatan) }}</strong><br>
                                                             Jenis Kelamin : <strong> {{ucfirst($c->jenis_kelamin) }} </strong><br>
                                                             Tempat Lahir : <strong> {{ucfirst($c->tempat_lahir) }} </strong><br>
-                                                            Tanggal Lahir : <strong>{{ \Carbon\Carbon::parse($c->tgl_lahir)->isoFormat('D MMMM Y') }}/{{ucfirst($c->umur) }} Tahun</strong><br>
-                                                            Status Perkawinan : <strong> {{ucfirst($c->status_perkawinan) }}</strong><br>
-                                                            @if ($c->status_keluarga=='kepala keluarga')
-                                                                Status dalam Keluarga :<strong> Kepala Keluarga</strong><br>
+                                                            Tanggal Lahir: <strong>{{ \Carbon\Carbon::parse($c->tgl_lahir)->isoFormat('D MMMM Y') }}/
+                                                                @if ($c->tgl_lahir)
+                                                                <?php
+                                                                // Menghitung umur berdasarkan tanggal lahir
+                                                                $tanggal_lahir = \Carbon\Carbon::parse($c->tgl_lahir);
+                                                                $umur = $tanggal_lahir->age;
+                                                                ?>
+                                                                <strong>{{ $umur }} Tahun</strong><br>
                                                             @else
-                                                                Status dalam Keluarga : <strong> {{ucfirst($c->status_keluarga) }} ({{ ucfirst($c->status_anggota_keluarga) }})</strong><br>
-
+                                                                <strong>Tidak Tersedia</strong><br>
                                                             @endif
 
+                                                            Status Perkawinan : <strong> {{ucfirst($c->status_perkawinan) }}</strong><br>
+                                                            Status Dalam Keluarga :
+                                                            @if ($c->kepalaKeluarga->isNotEmpty())
+                                                                @foreach ($c->kepalaKeluarga as $keluarga)
+                                                                    <strong>{{ $keluarga->status }}</strong><br>
+                                                                @endforeach
+                                                            @else
+                                                                <strong>Belum ada kepala keluarga terkait</strong><br>
+                                                            @endif
                                                             Agama : <strong> {{ucfirst($c->agama) }} </strong><br>
-                                                            Alamat : <strong> {{ucfirst($c->alamat) }},RT {{ ($c->rt) }}, RW {{ ($c->rt) }},Desa {{ucfirst($c->desa->nama_desa)}}, Kec. {{ucfirst($c->kecamatan->nama_kecamatan)}}
-                                                                Kabupaten {{ucfirst($c->kabupaten) }}, Provinsi {{ucfirst($c->provinsi) }}
+                                                            Alamat : <strong> {{ucfirst($c->alamat) }}
+                                                                {{-- RT {{ ($c->rt) }}, RW {{ ($c->rt) }},Desa {{ucfirst($c->desa->nama_desa)}}, Kec. {{ucfirst($c->kecamatan->nama_kecamatan)}}
+                                                                Kabupaten {{ucfirst($c->kabupaten) }}, Provinsi {{ucfirst($c->provinsi) }} --}}
                                                             </strong><br>
                                                               Pendidikan : <strong> {{ucfirst($c->pendidikan) }} </strong><br>
                                                               Pekerjaan : <strong> {{ucfirst($c->pekerjaan) }} </strong><br>
@@ -144,7 +151,6 @@
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Oke</button>
                                                             {{-- <button type="button" class="btn btn-primary">Oke</button> --}}
                                                         </div>
-
                                             </div>
                                         </div>
                                     </div>
