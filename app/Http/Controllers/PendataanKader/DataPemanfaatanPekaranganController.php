@@ -21,7 +21,7 @@ class DataPemanfaatanPekaranganController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        // $user = Auth::user();
         //halaman form data pemanfaatan tanah pekarangan
         $pemanfaatan = DataPemanfaatanPekarangan::with('warga')->get();
         // $pemanfaatan = DataPemanfaatanPekarangan::all()->where('id_user', $user->id);
@@ -56,15 +56,8 @@ class DataPemanfaatanPekaranganController extends Controller
      ->where('is_pemanfaatan_lahan_pekarangan', false)
      ->get();
     //  $kat = KategoriPemanfaatanLahan::all(); // pemanggilan tabel kategori pemanfaatan tanah
-    $data['kategori'] = [
-        'Peternakan' => 'Peternakan',
-        'Perikanan' => 'Perikanan',
-        'Warung Hidup' => 'Warung Hidup',
-        'TOGA (Tanaman Obat Keluarga)' => 'TOGA (Tanaman Obat Keluarga)',
-        'Tanaman Keras' => 'Tanaman Keras',
-        'Lainnya' => 'Lainnya',
-    ];
-    return view('kader.data_pemanfaatan_pekarangan.create', $data, compact('kec', 'kel', 'desas', 'kad', 'warga'));
+
+    return view('kader.data_pemanfaatan_pekarangan.create', compact('kec', 'kel', 'desas', 'kad', 'warga'));
 
  }
 

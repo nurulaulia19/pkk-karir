@@ -82,7 +82,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group @error('id_keluarga') is-invalid @enderror">
+                    <div class="form-group @error('warga_id') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Nama Warga</label>
                         <select class="form-control" id="warga_id" name="warga_id">
                           {{-- nama warga --}}

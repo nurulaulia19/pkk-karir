@@ -61,6 +61,7 @@ return new class extends Migration
             $table->boolean('is_keluarga')->default(false);
             $table->boolean('is_kegiatan')->default(false);
             $table->boolean('is_pemanfaatan_lahan_pekarangan')->default(false);
+            $table->boolean('is_industri_rumah_tangga')->default(false);
             $table->timestamps();
         });
     }
