@@ -32,4 +32,8 @@ class DataPemanfaatanPekarangan extends Model
     public function user(){
         return $this->belongsTo(User::class, 'id_user');
     }
+
+    public function warga(){
+        return $this->belongsTo(DataWarga::class, 'warga_id');
+    }
 }

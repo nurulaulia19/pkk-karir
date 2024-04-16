@@ -7,7 +7,7 @@ use App\Models\DataPemanfaatanPekarangan;
 use App\Models\DataWarga;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\KategoriPemanfaatanLahan;
-
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,8 +23,9 @@ class DataPemanfaatanPekaranganController extends Controller
     {
         $user = Auth::user();
         //halaman form data pemanfaatan tanah pekarangan
-        $pemanfaatan = DataPemanfaatanPekarangan::all()->where('id_user', $user->id);
-        return view('kader.data_kegiatan.data_pemanfaatan', compact('pemanfaatan'));
+        $pemanfaatan = DataPemanfaatanPekarangan::with('warga')->get();
+        // $pemanfaatan = DataPemanfaatanPekarangan::all()->where('id_user', $user->id);
+        return view('kader.data_pemanfaatan_pekarangan.index', compact('pemanfaatan'));
     }
 
     /**
@@ -49,6 +50,11 @@ class DataPemanfaatanPekaranganController extends Controller
     ->get();
 
      $kel = DataKeluarga::all(); // pemanggilan tabel data warga pekarangan
+    //  jika brdasarkan warga
+     $user = Auth::user();
+     $warga = DataWarga::where('id_dasawisma', $user->id_dasawisma)
+     ->where('is_pemanfaatan_lahan_pekarangan', false)
+     ->get();
     //  $kat = KategoriPemanfaatanLahan::all(); // pemanggilan tabel kategori pemanfaatan tanah
     $data['kategori'] = [
         'Peternakan' => 'Peternakan',
@@ -58,7 +64,7 @@ class DataPemanfaatanPekaranganController extends Controller
         'Tanaman Keras' => 'Tanaman Keras',
         'Lainnya' => 'Lainnya',
     ];
-    return view('kader.data_kegiatan.form.create_data_pemanfaatan', $data, compact('kec', 'kel', 'desas', 'kad'));
+    return view('kader.data_pemanfaatan_pekarangan.create', $data, compact('kec', 'kel', 'desas', 'kad', 'warga'));
 
  }
 
@@ -68,58 +74,110 @@ class DataPemanfaatanPekaranganController extends Controller
   * @param  \Illuminate\Http\Request  $request
   * @return \Illuminate\Http\Response
   */
+    // public function store(Request $request)
+    // {
+    //     // proses penyimpanan untuk tambah data pemanfaatan tanah
+    //     // dd($request->all());
+    //     // validasi data
+    //     $request->validate([
+    //         'id_desa' => 'required',
+    //         'id_kecamatan' => 'required',
+    //         'warga_id' => 'required',
+    //         'nama_kategori' => 'required',
+    //         'komoditi' => 'required',
+    //         'jumlah' => 'required',
+    //         'periode' => 'required',
+
+    //     ], [
+    //         'id_desa.required' => 'Pilih Alamat Desa Pemanfaatan Tanah Pekarangan Warga',
+    //         'id_kecamatan' => 'Pilih Alamat Kecamatan Pemanfaatan Tanah Pekarangan Warga',
+
+    //         'warga_id.required' => 'Pilih Nama Warga',
+    //         'nama_kategori.required' => 'Pilih Alamat Kategori Pemanfaatan Tanah Pekarangan',
+    //         'komoditi.required' => 'Lengkapi Komoditi Pemanfaatan Tanah Pekarangan',
+    //         'jumlah.required' => 'Lengkapi Jumlah Komoditi Tanah Pekarangan',
+    //         'periode.required' => 'Pilih Periode',
+
+    //     ]);
+
+    //     // pengkondisian tabel
+    //     $insert=DB::table('data_pemanfaatan_pekarangan')->where('warga_id', $request->warga_id)->first();
+    //     if ($insert != null) {
+    //         Alert::error('Gagal', 'Data Tidak Berhasil Di Tambah. Keluarga Sudah Ada ');
+
+    //         return redirect('/data_pemanfaatan');
+    //     }
+    //     else {
+
+    //         $kegiatans = new DataPemanfaatanPekarangan;
+    //         $kegiatans->id_desa = $request->id_desa;
+    //         $kegiatans->id_kecamatan = $request->id_kecamatan;
+    //         $kegiatans->warga_id = $request->warga_id;
+    //         // $kegiatans->id_user = $request->id_user;
+    //         $kegiatans->nama_kategori = $request->nama_kategori;
+    //         $kegiatans->komoditi = $request->komoditi;
+    //         $kegiatans->jumlah = $request->jumlah;
+    //         $kegiatans->periode = $request->periode;
+
+    //         // simpan data
+    //         $kegiatans->save();
+
+    //         Alert::success('Berhasil', 'Data berhasil di tambahkan');
+
+    //         return redirect('/data_pemanfaatan');
+    //         }
+    // }
+
     public function store(Request $request)
     {
-        // proses penyimpanan untuk tambah data pemanfaatan tanah
-        // dd($request->all());
-        // validasi data
+        // Validasi data input
         $request->validate([
             'id_desa' => 'required',
             'id_kecamatan' => 'required',
-            'id_keluarga' => 'required',
+            'warga_id' => 'required',
             'nama_kategori' => 'required',
             'komoditi' => 'required',
-            'jumlah' => 'required',
-            'periode' => 'required',
-
+            'jumlah' => 'required|numeric|min:1',
+            'periode' => 'required|integer|min:2000|max:3000',
         ], [
-            'id_desa.required' => 'Pilih Alamat Desa Pemanfaatan Tanah Pekarangan Warga',
-            'id_kecamatan' => 'Pilih Alamat Kecamatan Pemanfaatan Tanah Pekarangan Warga',
-
-            'id_keluarga.required' => 'Pilih Nama Warga',
-            'nama_kategori.required' => 'Pilih Alamat Kategori Pemanfaatan Tanah Pekarangan',
-            'komoditi.required' => 'Lengkapi Komoditi Pemanfaatan Tanah Pekarangan',
-            'jumlah.required' => 'Lengkapi Jumlah Komoditi Tanah Pekarangan',
-            'periode.required' => 'Pilih Periode',
-
+            'required' => 'Kolom :attribute harus diisi.',
+            'numeric' => 'Kolom :attribute harus berupa angka.',
+            'min' => 'Kolom :attribute minimal :min.',
+            'max' => 'Kolom :attribute maksimal :max.',
+            'integer' => 'Kolom :attribute harus berupa bilangan bulat.',
         ]);
 
-        // pengkondisian tabel
-        $insert=DB::table('data_pemanfaatan_pekarangan')->where('id_keluarga', $request->id_keluarga)->first();
-        if ($insert != null) {
-            Alert::error('Gagal', 'Data Tidak Berhasil Di Tambah. Keluarga Sudah Ada ');
+        // Cek apakah warga sudah memiliki pemanfaatan tanah pekarangan
+        // $jumlah_pemanfaatan = DataPemanfaatanPekarangan::where('warga_id', $request->warga_id)->count();
 
-            return redirect('/data_pemanfaatan');
+        // if ($jumlah_pemanfaatan > 0) {
+        //     Alert::error('Gagal', 'Data tidak berhasil ditambahkan. Warga sudah memiliki pemanfaatan tanah pekarangan.');
+        //     return redirect('/data_pemanfaatan');
+        // }
+
+        // Simpan data pemanfaatan tanah pekarangan
+        $pemanfaatan = new DataPemanfaatanPekarangan();
+        $pemanfaatan->id_desa = $request->id_desa;
+        $pemanfaatan->id_kecamatan = $request->id_kecamatan;
+        $pemanfaatan->warga_id = $request->warga_id;
+        $pemanfaatan->nama_kategori = $request->nama_kategori;
+        $pemanfaatan->komoditi = $request->komoditi;
+        $pemanfaatan->jumlah = $request->jumlah;
+        $pemanfaatan->periode = $request->periode;
+        $pemanfaatan->save();
+
+        // Update properti is_pemanfaatan_lahan_pekarangan pada DataWarga
+        $warga = DataWarga::find($request->warga_id);
+        if ($warga) {
+            $warga->is_pemanfaatan_lahan_pekarangan = true;
+            $warga->save();
         }
-        else {
 
-            $kegiatans = new DataPemanfaatanPekarangan;
-            $kegiatans->id_desa = $request->id_desa;
-            $kegiatans->id_kecamatan = $request->id_kecamatan;
-            $kegiatans->id_keluarga = $request->id_keluarga;
-            $kegiatans->id_user = $request->id_user;
-            $kegiatans->nama_kategori = $request->nama_kategori;
-            $kegiatans->komoditi = $request->komoditi;
-            $kegiatans->jumlah = $request->jumlah;
-            $kegiatans->periode = $request->periode;
+        // Tampilkan pesan sukses
+        Alert::success('Berhasil', 'Data berhasil ditambahkan.');
 
-            // simpan data
-            $kegiatans->save();
-
-            Alert::success('Berhasil', 'Data berhasil di tambahkan');
-
-            return redirect('/data_pemanfaatan');
-            }
+        // Redirect ke halaman data_pemanfaatan
+        return redirect('/data_pemanfaatan');
     }
 
     /**
@@ -139,11 +197,13 @@ class DataPemanfaatanPekaranganController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function edit(DataPemanfaatanPekarangan $data_pemanfaatan)
+    public function edit($id)
     {
         //halaman form edit data pemanfaatan tanah pekarangan
-        $kel = DataKeluarga::all();
-        // $kat = KategoriPemanfaatanLahan::all();
+        // $kel = DataKeluarga::all();
+        $data_pemanfaatan = DataPemanfaatanPekarangan::with('warga')->find($id);
+        // dd($data_pemanfaatan);
+
 
         $desas = DB::table('data_desa')
        ->where('id', auth()->user()->id_desa)
@@ -156,16 +216,16 @@ class DataPemanfaatanPekaranganController extends Controller
         $kad = DB::table('users')
             ->where('id', auth()->user()->id)
             ->get();
-       $data['kategori'] = [
-        'Peternakan' => 'Peternakan',
-        'Perikanan' => 'Perikanan',
-        'Warung Hidup' => 'Warung Hidup',
-        'TOGA (Tanaman Obat Keluarga)' => 'TOGA (Tanaman Obat Keluarga)',
-        'Tanaman Keras' => 'Tanaman Keras',
-        'Lainnya' => 'Lainnya',
-    ];
+    //    $data['kategori'] = [
+    //     'Peternakan' => 'Peternakan',
+    //     'Perikanan' => 'Perikanan',
+    //     'Warung Hidup' => 'Warung Hidup',
+    //     'TOGA (Tanaman Obat Keluarga)' => 'TOGA (Tanaman Obat Keluarga)',
+    //     'Tanaman Keras' => 'Tanaman Keras',
+    //     'Lainnya' => 'Lainnya',
+    // ];
 
-        return view('kader.data_kegiatan.form.edit_data_pemanfaatan',$data, compact('data_pemanfaatan','kel', 'desas', 'kec', 'kad'));
+        return view('kader.data_pemanfaatan_pekarangan.edit', compact('data_pemanfaatan', 'desas', 'kec', 'kad'));
 
     }
 
@@ -176,36 +236,41 @@ class DataPemanfaatanPekaranganController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function update(Request $request, DataPemanfaatanPekarangan $data_pemanfaatan)
+    public function update(Request $request, $id)
     {
-        // proses mengubah untuk tambah data pemanfaatan tanah pekarangan
-        // dd($request->all());
-        // validasi data
+        // Validasi data
         $request->validate([
             'id_desa' => 'required',
-            'id_kecamatan' => 'required',
-            'id_keluarga' => 'required',
+            'warga_id' => 'required',
             'nama_kategori' => 'required',
             'komoditi' => 'required',
-            'jumlah' => 'required',
-            'periode' => 'required',
-
+            'jumlah' => 'required|numeric|min:1', // Contoh validasi jumlah harus numeric dan minimal 1
+            'periode' => 'required|integer|min:2000|max:3000', // Contoh validasi periode harus integer antara 2000-3000
         ], [
-            'id_desa.required' => 'Pilih Alamat Desa Pemanfaatan Tanah Pekarangan Warga',
-            'id_kecamatan' => 'Pilih Alamat Kecamatan Pemanfaatan Tanah Pekarangan Warga',
-
-            'id_keluarga.required' => 'Pilih Nama Warga',
-            'nama_kategori.required' => 'Pilih Alamat Kategori Pemanfaatan Tanah Pekarangan',
-            'komoditi.required' => 'Lengkapi Komoditi Pemanfaatan Tanah Pekarangan',
-            'jumlah.required' => 'Lengkapi Jumlah Komoditi Tanah Pekarangan',
-            'periode.required' => 'Pilih Periode',
-
+            'required' => 'Kolom :attribute harus diisi.',
+            'numeric' => 'Kolom :attribute harus berupa angka.',
+            'min' => 'Kolom :attribute minimal :min.',
+            'max' => 'Kolom :attribute maksimal :max.',
+            'integer' => 'Kolom :attribute harus berupa bilangan bulat.',
         ]);
-        // update data
-            $data_pemanfaatan->update($request->all());
-            Alert::success('Berhasil', 'Data berhasil di ubah');
-            return redirect('/data_pemanfaatan');
 
+        // Mengambil data pemanfaatan berdasarkan ID
+        $data_pemanfaatan = DataPemanfaatanPekarangan::find($id);
+
+        if (!$data_pemanfaatan) {
+            // Jika data tidak ditemukan
+            Alert::error('Error', 'Data tidak ditemukan.');
+            return Redirect::back()->withInput();
+        }
+
+        // Memperbarui data pemanfaatan berdasarkan input request
+        $data_pemanfaatan->update($request->all());
+
+        // Menampilkan notifikasi sukses
+        Alert::success('Berhasil', 'Data berhasil diubah.');
+
+        // Redirect ke halaman data_pemanfaatan setelah berhasil diubah
+        return redirect()->route('data_pemanfaatan.index');
     }
 
     /**
@@ -214,12 +279,16 @@ class DataPemanfaatanPekaranganController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
-    public function destroy($data_pemanfaatan, DataPemanfaatanPekarangan $warg)
+    public function destroy($id)
     {
         //temukan id pemanfaatan tanah pekarangan
-        $warg::find($data_pemanfaatan)->delete();
-        Alert::success('Berhasil', 'Data berhasil di Hapus');
+        $pemanfaatan = DataPemanfaatanPekarangan::with('warga')->find($id);
+        $warga = DataWarga::find($pemanfaatan->warga->id);
+        $warga->is_pemanfaatan_lahan_pekarangan = 0;
+        $warga->save();
+        $pemanfaatan->delete();
 
+        Alert::success('Berhasil', 'Data berhasil di Hapus');
         return redirect('/data_pemanfaatan');
 
 

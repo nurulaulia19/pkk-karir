@@ -38,8 +38,8 @@ return new class extends Migration
             $table->string('alamat');
             // $table->integer('rt');
             // $table->integer('rw');
-            $table->string('kabupaten');
-            $table->string('provinsi');
+            // $table->string('kabupaten');
+            // $table->string('provinsi');
             $table->string('pendidikan');
             $table->string('pekerjaan');
             $table->boolean('pasangan_usia_subur')->default(false);
@@ -60,6 +60,7 @@ return new class extends Migration
             $table->boolean('aktivitas_UP2K')->default(false);
             $table->boolean('is_keluarga')->default(false);
             $table->boolean('is_kegiatan')->default(false);
+            $table->boolean('is_pemanfaatan_lahan_pekarangan')->default(false);
             $table->timestamps();
         });
     }
