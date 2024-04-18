@@ -13,7 +13,9 @@ class RwController extends Controller
 {
     public function index()
     {
-        $rw = Rw::all();
+        $user = Auth::user();
+        $rw = Rw::where('desa_id', $user->id_desa)->get();
+        // dd($rw);
 
         return view('admin_desa.rw.index', compact('rw'));
     }

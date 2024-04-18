@@ -27,6 +27,9 @@ class DataKelompokDasawisma extends Model
     public function keluarga(){
         return $this->hasMany(DataKeluarga::class, 'id');
     }
+    public function rumahtangga(){
+        return $this->hasMany(RumahTangga::class, 'id_dasawisma');
+    }
 
     public function warga(){
         return $this->hasMany(DataWarga::class, 'id');

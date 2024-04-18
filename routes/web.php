@@ -122,14 +122,16 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::get('/data_kelompok_dasa_wisma', [AdminController::class, 'data_kelompok_dasa_wisma']);
 
     // rekap kelompok dasa wisma
-    Route::get('/rekap_kelompok_dasa_wisma', [AdminController::class, 'rekap_kelompok_dasa_wisma']);
+    // excel
+    Route::get('/rekap_kelompok_dasa_wisma/{id}', [AdminController::class, 'rekap_kelompok_dasa_wisma']);
     Route::get('/export_rekap_dasawisma', [AdminController::class, 'export_rekap_dasawisma']);
 
     // data kelompok pkk rt
-    Route::get('/data_kelompok_pkk_rt', [AdminController::class, 'data_kelompok_pkk_rt']);
+    Route::get('/data_kelompok_pkk_rt', [AdminController::class, 'data_rw'])->name('data_rw');
 
     // rekap kelompok pkk rt
-    Route::get('/rekap_kelompok_pkk_rt', [AdminController::class, 'rekap_kelompok_pkk_rt']);
+    Route::get('/rekap_kelompok_pkk_rt/{id}', [AdminController::class, 'rekap_kelompok_pkk_rt']);
+    Route::get('/rekap_kelompok_pkk_rt/rw/{id}', [AdminController::class, 'data_rt']);
     Route::get('/export_rekap_rt', [AdminController::class, 'export_rekap_rt']);
 
     // data kelompok pkk rw

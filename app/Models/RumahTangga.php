@@ -11,9 +11,9 @@ class RumahTangga extends Model
     protected $primaryKey = 'id';
     protected $guarded = ['id'];
 
-    public function keluarga(){
-        return $this->belongsTo(DataKeluarga::class, 'id');
-    }
+    // public function keluarga(){
+    //     return $this->belongsTo(DataKeluarga::class, 'id');
+    // }
 
     public function anggotaRT()
     {

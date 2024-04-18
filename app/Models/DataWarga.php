@@ -43,4 +43,14 @@ class DataWarga extends Model
     {
         return $this->hasMany(Keluargahaswarga::class, 'warga_id');
     }
+
+    public function industri()
+    {
+        return $this->hasMany(DataIndustriRumah::class, 'warga_id');
+    }
+
+    public function pemanfaatan()
+    {
+        return $this->hasMany(DataPemanfaatanPekarangan::class, 'warga_id');
+    }
 }

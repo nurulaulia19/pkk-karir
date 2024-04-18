@@ -18,27 +18,19 @@
                                     <h6><strong>REKAPITULASI</strong></h6>
                                     <h6><strong>CATATAN DATA DAN KEGIATAN WARGA</strong> </h6>
                                     <h6><strong>KELOMPOK DASAWISMA</strong> </h6>
-                                    <h6>Dasa Wisma :
-                                        {{ $dasa_wisma->nama_dasawisma }}
-                                        {{-- {{ ucfirst($dasa_wisma->nama_dasawisma) }} --}}
-                                    </h6>
-                                    <h6>RT :
-                                        {{ $dasa_wisma->rt->name }}
 
-                                        {{-- {{ $rt }} --}}
+                                    <h6>RT :
+                                        {{ $dasa_wisma->first()->rt->name }}
                                     </h6>
                                     <h6>RW :
-                                        {{ $dasa_wisma->rw->name }}
-
-                                        {{-- {{ $rw }} --}}
+                                        {{ $dasa_wisma->first()->rw->name }}
                                     </h6>
                                     <h6>Desa/Kel :
-                                        {{-- {{ ucfirst($desa->nama_desa) }} --}}
-                                        {{ $dasa_wisma->desa->nama_desa }}
+                                        {{ $dasa_wisma->first()->desa->nama_desa }}
 
                                     </h6>
                                     <h6>Tahun :
-                                        {{ $dasa_wisma->periode }}
+                                        {{ $dasa_wisma->first()->periode }}
 
                                     </h6>
                                 </center>
@@ -48,7 +40,8 @@
                                         <thead>
                                             <tr>
                                                 <th rowspan="2" style="text-align: center;">No</th>
-                                                <th rowspan="2" style="text-align: center;">Nama Kepala Rumah Tangga</th>
+                                                <th rowspan="2" style="text-align: center;">Nama Dasawisma</th>
+                                                <th rowspan="2" style="text-align: center;">Jml. KRT</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KK</th>
                                                 <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
                                                 <th colspan="5" style="text-align:center;">Kriteria Rumah</th>
@@ -87,43 +80,43 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($rumahtangga as $keluarga)
+                                            @foreach ($dasa_wisma as $desa)
+                                            @php
+                                                $keluarga = $desa->keluarga;
+                                            @endphp
+
                                                 <tr>
                                                     <td style="vertical-align: middle;">
                                                         {{ $loop->iteration }}
                                                     </td>
                                                     <td style="vertical-align: middle;">
-                                                        {{ $keluarga->nama_kepala_rumah_tangga }}
-                                                    </td>
-                                                    <td>
-                                                        {{ count($keluarga->anggotaRT) }}
+                                                        {{ $desa->nama_dasawisma  }}
                                                     </td>
                                                     <td>
                                                         @php
                                                             $counts = app(
                                                                 'App\Http\Controllers\AdminController',
-                                                            )->countGenderMembers($keluarga);
+                                                            )->countRekapitulasiDasawismaInRt($desa->id);
                                                         @endphp
+                                                        {{ ucfirst($counts['countRumahTangga']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['countKK']) }}
+                                                    </td>
+                                                    <td>
+
 
                                                         {{ ucfirst($counts['laki_laki']) }}<br>
 
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['perempuan']) }}
-
-                                                        {{-- {{ ucfirst($countPerempuan) }} Orang --}}
-
-                                                        {{-- {{ $keluarga->jumlah_perempuan }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['balitaLaki']) }}
-
-                                                        {{-- {{ $keluarga->jumlah_balita_laki }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['balitaPerempuan']) }}
-
-                                                        {{-- {{ $keluarga->jumlah_balita_perempuan }} --}}
                                                     </td>
 
                                                     <td>
@@ -157,82 +150,103 @@
                                                         {{-- {{ $keluarga->jumlah_kebutuhan_khusus }} --}}
                                                     </td>
                                                     <td>
-                                                        @if ($keluarga->kriteria_rumah_sehat == '1')
+                                                        {{ ucfirst($counts['rumahSehat']) }}
+
+                                                        {{-- @if ($keluarga->kriteria_rumah_sehat == '1')
                                                             <i class="fas fa-check"></i>
                                                         @else
 0
-                                                        @endif
+                                                        @endif --}}
                                                     </td>
                                                     <td>
-                                                        @if ($keluarga->kriteria_rumah_sehat == '0')
+                                                        {{ ucfirst($counts['rumahNonSehat']) }}
+
+                                                        {{-- @if ($keluarga->kriteria_rumah_sehat == '0')
                                                             <i class="fas fa-check"></i>
                                                         @else
 0
-                                                        @endif
+                                                        @endif --}}
                                                     </td>
                                                     <td>
-                                                        @if ($keluarga->punya_tempat_sampah == '1')
+                                                        {{ ucfirst($counts['tempatSampah']) }}
+
+                                                        {{-- @if ($keluarga->punya_tempat_sampah == '1')
                                                             <i class="fas fa-check"></i>
                                                         @else
                                                             0
-                                                        @endif
+                                                        @endif --}}
                                                     </td>
                                                     <td>
-                                                        @if ($keluarga->saluran_pembuangan_air_limbah == '1')
+                                                        {{ ucfirst($counts['countSPAL']) }}
+
+                                                        {{-- @if ($keluarga->saluran_pembuangan_air_limbah == '1')
                                                             <i class="fas fa-check"></i>
                                                         @else
                                                             0
-                                                        @endif
+                                                        @endif --}}
                                                     </td>
                                                     <td>
-                                                        @if ($keluarga->punya_jamban == '1')
+                                                        {{ ucfirst($counts['countJamban']) }}
+
+                                                        {{-- @if ($keluarga->punya_jamban == '1')
                                                             <i class="fas fa-check"></i>
                                                         @else
                                                             0
-                                                        @endif
+                                                        @endif --}}
                                                     </td>
                                                     <td>
-                                                        @if ($keluarga->tempel_stiker == '1')
+                                                        {{ ucfirst($counts['countStiker']) }}
+
+                                                        {{-- @if ($keluarga->tempel_stiker == '1')
                                                             <i class="fas fa-check"></i>
                                                         @else
                                                             0
-                                                        @endif
+                                                        @endif --}}
                                                     </td>
                                                     <td>
-                                                        @if ($keluarga->sumber_air_pdam == '1')
+                                                        {{ ucfirst($counts['countAirPDAM']) }}
+
+                                                        {{-- @if ($keluarga->sumber_air_pdam == '1')
                                                             <i class="fas fa-check"></i>
                                                         @else
                                                         0
-                                                        @endif
+                                                        @endif --}}
                                                     </td>
                                                     <td>
-                                                        @if ($keluarga->sumber_air_sumur == '1')
+                                                        {{ ucfirst($counts['countAirSumur']) }}
+
+                                                        {{-- @if ($keluarga->sumber_air_sumur == '1')
                                                             <i class="fas fa-check"></i>
                                                         @else
                                                             0
-                                                        @endif
+                                                        @endif --}}
                                                     </td>
                                                     <td>
-                                                        @if ($keluarga->sumber_air_lainnya == '1')
+                                                        {{ ucfirst($counts['countAirLainya']) }}
+
+                                                        {{-- @if ($keluarga->sumber_air_lainnya == '1')
                                                             <i class="fas fa-check"></i>
                                                         @else
                                                             0
-                                                        @endif
+                                                        @endif --}}
                                                     </td>
 
                                                     <td>
+                                                        {{ ucfirst($counts['countBeras']) }}
+
                                                         {{-- @if ($keluarga->makanan_pokok == '1')
                                                             <i class="fas fa-check"></i>
                                                         @else
                                                             0
                                                         @endif --}}
-                                                        {{ ucfirst($counts['MakanBeras']) }}
+                                                        {{-- {{ ucfirst($counts['MakanBeras']) }} --}}
 
                                                     </td>
 
                                                     <td>
+                                                        {{ ucfirst($counts['countNonBeras']) }}
 
-                                                        {{ ucfirst($counts['MakanNonBeras']) }}
+                                                        {{-- {{ ucfirst($counts['MakanNonBeras']) }} --}}
                                                         {{-- @if ($keluarga->makanan_pokok == '0')
                                                             <i class="fas fa-check"></i>
                                                         @else

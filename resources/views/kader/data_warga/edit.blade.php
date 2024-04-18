@@ -321,7 +321,7 @@
                                         </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6 pasangan_usia_subur" style="display: none;">
+                                    {{-- <div class="col-md-6 pasangan_usia_subur" style="display: none;">
                                         <div class="form-group">
                                             <label class="form-label">Pasangan Usia Subur</label><br>
                                             <div class="d-flex">
@@ -339,7 +339,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-6">
                                         <div class="form-group @error('agama') is-invalid @enderror">
                                             <label>Agama</label><br>
