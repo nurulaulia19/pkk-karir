@@ -26,10 +26,10 @@ class RumahTanggaController extends Controller
 {
     public function index()
     {
-        $keluarga = DataKeluarga::with('anggota.warga')->get();
-        $krt = RumahTangga::with('dasawisma.rw.rt')->get();
-        // dd($keluarga);
         $user = Auth::user();
+        $keluarga = DataKeluarga::with('anggota.warga')->where('id_dasawisma', $user->id_dasawisma)->get();
+        $krt = RumahTangga::with('dasawisma.rw.rt')->where('id_dasawisma', $user->id_dasawisma)->get();
+
 
         //halaman form data keluarga
         // $keluarga = DataKeluarga::all()->where('id_user', $user->id);

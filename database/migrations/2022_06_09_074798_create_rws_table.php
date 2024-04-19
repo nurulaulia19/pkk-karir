@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->bigInteger('desa_id')->unsigned();
             $table->foreign('desa_id')->references('id')->on('data_desa');
+            $table->integer('periode');
             $table->timestamps();
         });
     }

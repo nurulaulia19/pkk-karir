@@ -138,7 +138,7 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::get('/data_kelompok_pkk_rw', [AdminController::class, 'data_kelompok_pkk_rw']);
 
     // rekap kelompok pkk rw
-    Route::get('/rekap_kelompok_pkk_rw', [AdminController::class, 'rekap_kelompok_pkk_rw']);
+    Route::get('/rekap_kelompok_pkk_rw/{id}', [AdminController::class, 'rekap_kelompok_pkk_rw']);
     Route::get('/export_rekap_rw', [AdminController::class, 'export_rekap_rw']);
 
     // data kelompok pkk dusun
@@ -152,7 +152,7 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::get('/data_kelompok_pkk_desa', [AdminController::class, 'data_kelompok_pkk_desa']);
 
     // rekap kelompok desa
-    Route::get('/rekap_pkk_desa', [AdminController::class, 'rekap_pkk_desa']);
+    Route::get('/rekap_pkk_desa/{id}', [AdminController::class, 'rekap_pkk_desa']);
     Route::get('/export_rekap_desa', [AdminController::class, 'export_rekap_desa']);
 
     // akun kader desa

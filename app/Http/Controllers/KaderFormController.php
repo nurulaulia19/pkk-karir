@@ -116,9 +116,10 @@ class KaderFormController extends Controller
     // }
 
     public function catatan_keluarga(){
-        $keluarga = DataKeluarga::with('anggota.warga')->get();
-        // dd($keluarga);
         $user = Auth::user();
+        $keluarga = DataKeluarga::with('anggota.warga')->where('id_dasawisma', $user->id_dasawisma)->get();
+        // dd($keluarga);
+
         // dd($warga);
         return view('kader.data_catatan_keluarga.rekap', compact('keluarga'));
     }

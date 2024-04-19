@@ -1,8 +1,8 @@
 @extends('admin_desa.layout')
 
-@section('title', 'Data Kelompok PKK RW | Admin Desa/Kelurahan PKK Kab. Indramayu')
+@section('title', 'Data Kelompok PKK Desa | Admin Desa/Kelurahan PKK Kab. Indramayu')
 
-@section('bread', 'Data Kelompok PKK RW')
+@section('bread', 'Data Kelompok PKK Desa')
 @section('container')
 
     <!-- Main content -->
@@ -18,29 +18,32 @@
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>RW</th>
-                                            <th>Periode</th>
-                                            <th>Aksi</th>
-                                        </tr>
+                                        <th>No</th>
+                                        <th>Desa</th>
+                                        <th>Periode</th>
+                                        <th>Aksi</th>
+                                    </tr>
                                     </thead>
 
                                     <tbody>
 
-                                        @foreach ($rw as $c)
+                                        @foreach ($desa as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                        <td style="vertical-align: middle;">{{ucfirst($c->name)}}</td>
+                                        <td style="vertical-align: middle;">{{ucfirst($c->nama_desa)}}</td>
                                         <td style="vertical-align: middle;">{{ucfirst($c->periode)}}</td>
 
                                         <td class="text-center">
-                                            <a class="btn btn-success btn-sm" href="{{ url('rekap_kelompok_pkk_rw',[
+                                            <a class="btn btn-success btn-sm" href="{{ url('rekap_pkk_desa',[
                                                 'id' => $c->id
                                             ]).'?'.http_build_query([
-                                                'rw' => $c->rw,
-                                                'periode' => $c->periode,
-                                            ])}}">Rekap</a>
+                                                'desa' => $c->id_desa,
+                                                'periode' => $c->periode
+
+                                            ]) }}">Rekap</a>
                                         </td>
+
+                                    </tr>
 
                                     @endforeach
                                     </tbody>

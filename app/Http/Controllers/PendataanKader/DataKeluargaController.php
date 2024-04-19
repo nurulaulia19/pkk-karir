@@ -36,9 +36,9 @@ class DataKeluargaController extends Controller
      */
     public function index()
     {
-        $keluarga = DataKeluarga::with('anggota.warga')->get();
-        // dd($keluarga);
         $user = Auth::user();
+        $keluarga = DataKeluarga::with('anggota.warga')->where('id_dasawisma', $user->id_dasawisma)->get();
+
 
         //halaman form data keluarga
         // $keluarga = DataKeluarga::all()->where('id_user', $user->id);
@@ -72,6 +72,7 @@ class DataKeluargaController extends Controller
 
         $keg = DataKeluarga::all();
         $warga = DataWarga::where('is_keluarga', false)->get();
+        
         $dasawisma = DataKelompokDasawisma::all();
         $kabupaten = DataKabupaten::first();
         $provinsi = DataProvinsi::first();

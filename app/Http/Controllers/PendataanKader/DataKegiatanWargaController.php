@@ -23,10 +23,8 @@ class DataKegiatanWargaController extends Controller
 
         // halaman data kegiatan
         // $kegiatan=DataKegiatanWarga::all()->where('id_user', $user->id);
-        $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->where('is_kegiatan', true)->get();
-        // dd($kegiatan);
-        // $kegiatan = DataKegiatanWarga::with(['warga','kegiatan'])->get();
-        // dd($kegiatan);
+        $user = Auth::user();
+        $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->where('is_kegiatan', true)->where('id_dasawisma', $user->id_dasawisma)->get();
 
         return view('kader.data_kegiatan_warga.index', compact('kegiatan'));
     }

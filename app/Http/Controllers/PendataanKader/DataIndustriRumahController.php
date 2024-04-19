@@ -22,10 +22,8 @@ class DataIndustriRumahController extends Controller
     public function index()
     {
        // halaman data industri rumah tangga
-    //    $user = Auth::user();
-
-    //     $industri = DataIndustriRumah::all()->where('id_user', $user->id);
-       $industri = DataIndustriRumah::with('warga')->get();
+       $user = Auth::user();
+       $industri = DataIndustriRumah::with('warga')->where('id', $user->id_dasawisma)->get();
        return view('kader.data_industri_rumah_tangga.index', compact('industri'));
    }
 

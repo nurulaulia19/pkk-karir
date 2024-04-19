@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Rw;
 use App\Models\User;
+use Carbon\Carbon;
 use FontLib\Table\Type\name;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,9 +46,13 @@ class RwController extends Controller
             'name.required' => 'Masukkan Nama RW',
         ]);
 
+
+        $tahun = Carbon::now()->year;
+
         Rw::create([
             'name' => $request->name,
-             'desa_id' => $user->id_desa
+             'desa_id' => $user->id_desa,
+             'periode' => $tahun,
         ]);
         // dd($kat);
         Alert::success('Berhasil', 'RW berhasil di tambahkan');
@@ -71,6 +76,7 @@ class RwController extends Controller
         ]);
 
         $rw->name = $request->name;
+        // $rw->periode = $request->periode;
         $rw->update();
         Alert::success('Berhasil', 'Data berhasil di Ubah');
 

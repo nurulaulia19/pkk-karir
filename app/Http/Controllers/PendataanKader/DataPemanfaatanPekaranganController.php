@@ -23,7 +23,8 @@ class DataPemanfaatanPekaranganController extends Controller
     {
         // $user = Auth::user();
         //halaman form data pemanfaatan tanah pekarangan
-        $pemanfaatan = DataPemanfaatanPekarangan::with('warga')->get();
+        $user = Auth::user();
+        $pemanfaatan = DataPemanfaatanPekarangan::with('warga')->where('id', $user->id_dasawisma)->get();
         // $pemanfaatan = DataPemanfaatanPekarangan::all()->where('id_user', $user->id);
         return view('kader.data_pemanfaatan_pekarangan.index', compact('pemanfaatan'));
     }

@@ -19,4 +19,7 @@ class DasaWisma extends Model
     public function rw(){
         return $this->belongsTo(Rw::class, 'id_rw');
     }
+    public function rumahtangga(){
+        return $this->hasMany(RumahTangga::class, 'id_dasawisma');
+    }
 }

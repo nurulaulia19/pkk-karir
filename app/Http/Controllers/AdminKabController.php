@@ -162,7 +162,7 @@ class AdminKabController extends Controller
         $user = Auth::user();
         $desa = $user->desa;
         $kecamatan = $request->query('nama_kecamatan');
-        $dasa_wisma = $request->query('dasa_wisma');
+        $dasa_wisma = $request->qucountRekapitulasiRWInDesaery('dasa_wisma');
         $rt = $request->query('rt');
         $rw = $request->query('rw');
         $dusun = $request->query('dusun');
