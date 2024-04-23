@@ -22,4 +22,10 @@ class DasaWisma extends Model
     public function rumahtangga(){
         return $this->hasMany(RumahTangga::class, 'id_dasawisma');
     }
+
+
+    public function desa(){
+        return $this->belongsTo(Data_Desa::class, 'id_desa');
+    }
+
 }

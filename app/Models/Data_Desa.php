@@ -50,6 +50,6 @@ class Data_Desa extends Model
         return $this->hasMany(DataAnggotaKader::class);
     }
 
-  
+
 
 }

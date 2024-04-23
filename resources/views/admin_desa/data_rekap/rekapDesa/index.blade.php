@@ -1,9 +1,9 @@
 @extends('admin_desa.layout')
 
-@section('title', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Dasa Wisma | Admin Desa/Kelurahan PKK Kab.
+@section('title', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Desa/Kelurahan | Admin Desa/Kelurahan PKK Kab.
     Indramayu')
 
-@section('bread', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Dasa Wisma')
+@section('bread', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Desa/Kelurahan')
 @section('container')
 
     <!-- Main content -->
@@ -14,26 +14,27 @@
                     <div class="col-12 col-md-6 col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <center>
-                                    <h6><strong>REKAPITULASI</strong></h6>
-                                    <h6><strong>CATATAN DATA DAN KEGIATAN WARGA</strong> </h6>
-                                    <h6><strong>KELOMPOK DASAWISMA</strong> </h6>
-
-                                    {{-- <h6>RT :
-                                        {{ $dasa_wisma->first()->rt->name }}
-                                    </h6> --}}
-                                    {{-- <h6>RW :
-                                        {{ $dasa_wisma->first()->rw->name }}
-                                    </h6> --}}
+                                <div>
+                                    <h6 class="d-flex justify-content-center"><strong>REKAPITULASI</strong></h6>
+                                    <h6 class="d-flex justify-content-center"><strong>CATATAN DATA DAN KEGIATAN WARGA</strong> </h6>
+                                    <h6 class="d-flex justify-content-center"><strong>KELOMPOK DESA/KELURAHAN</strong> </h6>
+                                    <h6 class="d-flex justify-content-center"><strong>TAHUN {{$dasa_wisma->first()->dasawisma->first()->periode}}</strong> </h6>
+                                </div>
+                                <div>
                                     <h6>Desa/Kel :
-                                        {{-- {{ $dasa_wisma->first()->desa->nama_desa }} --}}
-
+                                        {{ $dasa_wisma->first()->dasawisma->first()->desa->nama_desa }}
                                     </h6>
-                                    <h6>Tahun :
-                                        {{-- {{ $dasa_wisma->first()->periode }} --}}
-
+                                    <h6>Kecamatan :
+                                        {{ $dasa_wisma->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan }}
                                     </h6>
-                                </center>
+                                    <h6>Kabupaten :
+                                        {{ $dasa_wisma->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }}
+                                    </h6>
+                                    <h6>Provinsi :
+                                        {{ $dasa_wisma->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }}
+                                    </h6>
+                                </div>
+
 
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered data" id="add-row" width="6000px">
@@ -317,7 +318,7 @@
                                                     {{-- {{ $catatan_keluarga->sum('punya_jamban') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{$totalPemSampah}}
+                                                    {{$totalSPAL}}
                                                     {{-- {{ $catatan_keluarga->sum('tempel_stiker') }} --}}
                                                 </td>
                                                 <td>
@@ -367,8 +368,8 @@
                                     </table>
 
                                 </div>
-                                {{-- <a href="{{ url('export_rekap_dasawisma').'?'.http_build_query(compact('nama_dasawisma', 'rt', 'rw', 'periode'))  }}" target="_blank" class="btn btn-success" type="button" role="button">
-                                <i class="fas fa-print"></i> Cetak ke Excel </a><br> --}}
+                                <a href="{{ url('export_rekap_desa',['id' => $dasa_wisma->first()->dasawisma->first()->desa->id ]) }}" target="_blank" class="btn btn-success" type="button" role="button">
+                                <i class="fas fa-print"></i> Cetak ke Excel </a><br>
                             </div>
                         </div>
                     </div>

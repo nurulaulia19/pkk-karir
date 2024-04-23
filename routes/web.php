@@ -124,7 +124,7 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     // rekap kelompok dasa wisma
     // excel
     Route::get('/rekap_kelompok_dasa_wisma/{id}', [AdminController::class, 'rekap_kelompok_dasa_wisma']);
-    Route::get('/export_rekap_dasawisma', [AdminController::class, 'export_rekap_dasawisma']);
+    Route::get('/export_rekap_dasawisma/{id}', [AdminController::class, 'export_rekap_dasawisma']);
 
     // data kelompok pkk rt
     Route::get('/data_kelompok_pkk_rt', [AdminController::class, 'data_rw'])->name('data_rw');
@@ -132,14 +132,14 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     // rekap kelompok pkk rt
     Route::get('/rekap_kelompok_pkk_rt/{id}', [AdminController::class, 'rekap_kelompok_pkk_rt']);
     Route::get('/rekap_kelompok_pkk_rt/rw/{id}', [AdminController::class, 'data_rt']);
-    Route::get('/export_rekap_rt', [AdminController::class, 'export_rekap_rt']);
+    Route::get('/export_rekap_rt/{id}', [AdminController::class, 'export_rekap_rt']);
 
     // data kelompok pkk rw
     Route::get('/data_kelompok_pkk_rw', [AdminController::class, 'data_kelompok_pkk_rw']);
 
     // rekap kelompok pkk rw
     Route::get('/rekap_kelompok_pkk_rw/{id}', [AdminController::class, 'rekap_kelompok_pkk_rw']);
-    Route::get('/export_rekap_rw', [AdminController::class, 'export_rekap_rw']);
+    Route::get('/export_rekap_rw/{id}', [AdminController::class, 'export_rekap_rw']);
 
     // data kelompok pkk dusun
     Route::get('/data_kelompok_pkk_dusun', [AdminController::class, 'data_kelompok_pkk_dusun']);
@@ -153,7 +153,7 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
 
     // rekap kelompok desa
     Route::get('/rekap_pkk_desa/{id}', [AdminController::class, 'rekap_pkk_desa']);
-    Route::get('/export_rekap_desa', [AdminController::class, 'export_rekap_desa']);
+    Route::get('/export_rekap_desa/{id}', [AdminController::class, 'export_rekap_desa']);
 
     // akun kader desa
     Route::post('/data_kader/update/{id}/password', [KaderController::class, 'update_password']);

@@ -7,30 +7,75 @@ use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents
+class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, WithStyles
 {
     protected $dasa_wisma = [];
-    protected $rt;
-    protected $rw;
-    protected $periode;
-    protected $desa;
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    // public function collection()
-    // {
-    //     //
-    // }
+    protected $totalDasawisma;
+    protected $totalJmlKRT;
+    protected $totalJmlKK;
+    protected $totalAnggotaLansia;
+    protected $totalAnggotaIbuHamil;
+    protected $totalAnggotaIbuMenyusui;
+    protected $totalKegiatanUP2K;
+    protected $totalAnggotaBerkebutuhanKhusus;
+    protected $totalMakanBeras;
+    protected $totalMakanNonBeras;
+    protected $totalKegiatanLingkungan;
+    protected $totalAirPDAM;
+    protected $totalAirSumur;
+    protected $totalAirLainnya;
+    protected $totalPemSampah;
+    protected $totalSPAL;
+    protected $totalJamban;
+    protected $totalStiker;
+    protected $totalSheatLayakHuni;
+    protected $totalTidakSheatLayakHuni;
+    protected $totalKegiatanIndustri;
+    protected $totalKegiatanPemanfaatanPekarangan;
+    protected $totalAnggotaBalitaLaki;
+    protected $totalAnggotaLaki;
+    protected $totalAnggotaPerempuan;
+    protected $totalAnggotaWUS;
+    protected $totalAnggotaBalitaPerempuan;
+    protected $totalAnggotaPUS;
 
     public function __construct(array $data)
-    {
-        $this->dasa_wisma = $data['dasaWismas'] ?? [];
-        $this->rt = $data['rt'] ?? null;
-        $this->rw = $data['rw'] ?? null;
-        $this->periode = $data['periode'] ?? null;
-        $this->desa = $data['desa'] ?? null;
-    }
+{
+    $this->dasa_wisma = $data['dasa_wisma'] ?? null;
+    $this->totalDasawisma = $data['totalDasawisma'] ?? null;
+    $this->totalJmlKRT = $data['totalJmlKRT'] ?? null;
+    $this->totalJmlKK = $data['totalJmlKK'] ?? null;
+    $this->totalAnggotaLansia = $data['totalAnggotaLansia'] ?? null;
+    $this->totalAnggotaIbuHamil = $data['totalAnggotaIbuHamil'] ?? null;
+    $this->totalAnggotaIbuMenyusui = $data['totalAnggotaIbuMenyusui'] ?? null;
+    $this->totalKegiatanUP2K = $data['totalKegiatanUP2K'] ?? null;
+    $this->totalAnggotaBerkebutuhanKhusus = $data['totalAnggotaBerkebutuhanKhusus'] ?? null;
+    $this->totalMakanBeras = $data['totalMakanBeras'] ?? null;
+    $this->totalMakanNonBeras = $data['totalMakanNonBeras'] ?? null;
+    $this->totalKegiatanLingkungan = $data['totalKegiatanLingkungan'] ?? null;
+    $this->totalAirPDAM = $data['totalAirPDAM'] ?? null;
+    $this->totalAirSumur = $data['totalAirSumur'] ?? null;
+    $this->totalAirLainnya = $data['totalAirLainnya'] ?? null;
+    $this->totalPemSampah = $data['totalPemSampah'] ?? null;
+    $this->totalSPAL = $data['totalSPAL'] ?? null;
+    $this->totalJamban = $data['totalJamban'] ?? null;
+    $this->totalStiker = $data['totalStiker'] ?? null;
+    $this->totalSheatLayakHuni = $data['totalSheatLayakHuni'] ?? null;
+    $this->totalTidakSheatLayakHuni = $data['totalTidakSheatLayakHuni'] ?? null;
+    $this->totalKegiatanIndustri = $data['totalKegiatanIndustri'] ?? null;
+    $this->totalKegiatanPemanfaatanPekarangan = $data['totalKegiatanPemanfaatanPekarangan'] ?? null;
+    $this->totalAnggotaBalitaLaki = $data['totalAnggotaBalitaLaki'] ?? null;
+    $this->totalAnggotaLaki = $data['totalAnggotaLaki'] ?? null;
+    $this->totalAnggotaPerempuan = $data['totalAnggotaPerempuan'] ?? null;
+    $this->totalAnggotaWUS = $data['totalAnggotaWUS'] ?? null;
+    $this->totalAnggotaBalitaPerempuan = $data['totalAnggotaBalitaPerempuan'] ?? null;
+    $this->totalAnggotaPUS = $data['totalAnggotaPUS'] ?? null;
+}
+
 
     /**
     * @return array
@@ -41,38 +86,41 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents
         $i = 1;
         $dasa_wisma = $this->dasa_wisma;
 
-        foreach ($dasa_wisma as $keluarga) {
+        foreach ($dasa_wisma as $dasawisma) {
+            $counts = app(
+                'App\Http\Controllers\AdminController',
+            )->countRekapitulasiDasawismaInRt($dasawisma->id);
             $data = [
                 '_index' => $i,
-                'nama' => $keluarga->nama,
-                'jumlah_KRT' => $keluarga->jumlah_KRT ?: '0',
-                'jumlah_KK' => $keluarga->jumlah_KK ?: '0',
-                'jumlah_laki' => $keluarga->jumlah_laki_laki ?: '0',
-                'jumlah_perempuan' => $keluarga->jumlah_perempuan ?: '0',
-                'jumlah_balita_laki' => $keluarga->jumlah_balita_laki ?: '0',
-                'jumlah_balita_perempuan' => $keluarga->jumlah_balita_perempuan ?: '0',
-                'jumlah_3_buta' => $keluarga->jumlah_3_buta ?: '0',
-                'jumlah_PUS' => $keluarga->jumlah_PUS ?: '0',
-                'jumlah_WUS' => $keluarga->jumlah_WUS ?: '0',
-                'jumlah_ibu_hamil' => $keluarga->jumlah_ibu_hamil ?: '0',
-                'jumlah_ibu_menyusui' => $keluarga->jumlah_ibu_menyusui ?: '0',
-                'jumlah_lansia' => $keluarga->jumlah_lansia ?: '0',
-                'jumlah_kebutuhan_khusus' => $keluarga->jumlah_kebutuhan_khusus ?: '0',
-                'sehat_layak_huni' => $keluarga->jumlah_kriteria_rumah_sehat ?: '0',
-                'tidak_sehat_layak_huni' => $keluarga->jumlah_kriteria_rumah_tidak_sehat ?: '0',
-                'punya_tempat_sampah' => $keluarga->jumlah_punya_tempat_sampah ?: '0',
-                'punya_saluran_air' => $keluarga->jumlah_punya_saluran_air ?: '0',
-                'punya_jamban' => $keluarga->jumlah_punya_jamban ?: '0',
-                'tempel_stiker' => $keluarga->jumlah_tempel_stiker ?: '0',
-                'sumber_air' => $keluarga->jumlah_sumber_air_pdam ?: '0',
-                'sumber_air_2' => $keluarga->jumlah_sumber_air_sumur ?: '0',
-                'sumber_air_4' => $keluarga->jumlah_sumber_air_dll ?: '0',
-                'makanan_pokok' => $keluarga->jumlah_makanan_pokok_beras ?: '0',
-                'makanan_pokok_0' => $keluarga->jumlah_makanan_pokok_non_beras ?: '0',
-                'aktivitas_UP2K' => $keluarga->jumlah_aktivitas_UP2K ?: '0',
-                'pemanfaatan' => $keluarga->jumlah_have_pemanfaatan ?: '0',
-                'industri' => $keluarga->jumlah_have_industri ?: '0',
-                'kesehatan_lingkungan' => $keluarga->jumlah_have_kegiatan ?: '0',
+                'nama' => $dasawisma->nama_dasawisma,
+                'jumlah_KRT' => ucfirst($counts['countRumahTangga'])?: '0',
+                'jumlah_KK' =>  ucfirst($counts['countKK']) ?: '0',
+                'jumlah_laki' =>ucfirst($counts['laki_laki']) ?: '0',
+                'jumlah_perempuan' => ucfirst($counts['perempuan']) ?: '0',
+                'jumlah_balita_laki' => ucfirst($counts['balitaLaki']) ?: '0',
+                'jumlah_balita_perempuan' => ucfirst($counts['balitaPerempuan'])  ?: '0',
+                // 'jumlah_3_buta' => $dasawisma->jumlah_3_buta ?: '0',
+                'jumlah_PUS' =>ucfirst($counts['pus'])  ?: '0',
+                'jumlah_WUS' => ucfirst($counts['wus']) ?: '0',
+                'jumlah_ibu_hamil' =>  ucfirst($counts['ibuHamil']) ?: '0',
+                'jumlah_ibu_menyusui' => ucfirst($counts['ibuMenyusui']) ?: '0',
+                'jumlah_lansia' => ucfirst($counts['lansia'])  ?: '0',
+                'jumlah_kebutuhan_khusus' => ucfirst($counts['kebutuhanKhusus'])  ?: '0',
+                'sehat_layak_huni' => ucfirst($counts['rumahSehat']) ?: '0',
+                'tidak_sehat_layak_huni' => ucfirst($counts['rumahNonSehat']) ?: '0',
+                'punya_tempat_sampah' =>  ucfirst($counts['tempatSampah']) ?: '0',
+                'punya_saluran_air' =>ucfirst($counts['countSPAL'])  ?: '0',
+                'punya_jamban' => ucfirst($counts['countJamban']) ?: '0',
+                'tempel_stiker' => ucfirst($counts['countStiker']) ?: '0',
+                'sumber_air_pdam' => ucfirst($counts['countAirPDAM']) ?: '0',
+                'sumber_air_sumur' => ucfirst($counts['countAirSumur']) ?: '0',
+                'sumber_air_lainya' =>ucfirst($counts['countAirLainya']) ?: '0',
+                'makanan_pokok_beras' => ucfirst($counts['countBeras']) ?: '0',
+                'makanan_pokok_non_beras' => ucfirst($counts['countNonBeras']) ?: '0',
+                'aktivitas_UP2K' => ucfirst($counts['aktivitasUP2K']) ?: '0',
+                'pemanfaatan' => ucfirst($counts['pemanfaatanPekarangan']) ?: '0',
+                'industri' => ucfirst($counts['industriRumahTangga']) ?: '0',
+                'kesehatan_lingkungan' => ucfirst($counts['kesehatanLingkungan']) ?: '0',
             ];
 
             $result[] = $data;
@@ -82,34 +130,34 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents
         $result[] = [
             '_index' => 'Jumlah',
             'nama' => null,
-            'jumlah_KRT' => $dasa_wisma->sum('jumlah_KRT') ?: '0',
-            'jumlah_KK' => $dasa_wisma->sum('jumlah_KK') ?: '0',
-            'jumlah_laki' => $dasa_wisma->sum('jumlah_laki_laki') ?: '0',
-            'jumlah_perempuan' => $dasa_wisma->sum('jumlah_perempuan') ?: '0',
-            'jumlah_balita_laki' => $dasa_wisma->sum('jumlah_balita_laki') ?: '0',
-            'jumlah_balita_perempuan' => $dasa_wisma->sum('jumlah_balita_perempuan') ?: '0',
-            'jumlah_3_buta' => $dasa_wisma->sum('jumlah_3_buta') ?: '0',
-            'jumlah_PUS' => $dasa_wisma->sum('jumlah_PUS') ?: '0',
-            'jumlah_WUS' => $dasa_wisma->sum('jumlah_WUS') ?: '0',
-            'jumlah_ibu_hamil' => $dasa_wisma->sum('jumlah_ibu_hamil') ?: '0',
-            'jumlah_ibu_menyusui' => $dasa_wisma->sum('jumlah_ibu_menyusui') ?: '0',
-            'jumlah_lansia' => $dasa_wisma->sum('jumlah_lansia') ?: '0',
-            'jumlah_kebutuhan_khusus' => $dasa_wisma->sum('jumlah_kebutuhan_khusus') ?: '0',
-            'sehat_layak_huni' => $dasa_wisma->sum('jumlah_kriteria_rumah_sehat') ?: '0',
-            'tidak_sehat_layak_huni' => $dasa_wisma->sum('jumlah_kriteria_rumah_tidak_sehat') ?: '0',
-            'punya_tempat_sampah' => $dasa_wisma->sum('jumlah_punya_tempat_sampah') ?: '0',
-            'punya_saluran_air' => $dasa_wisma->sum('jumlah_punya_saluran_air') ?: '0',
-            'punya_jamban' => $dasa_wisma->sum('jumlah_punya_jamban') ?: '0',
-            'tempel_stiker' => $dasa_wisma->sum('jumlah_tempel_stiker') ?: '0',
-            'sumber_air' => $dasa_wisma->sum('jumlah_sumber_air_pdam') ?: '0',
-            'sumber_air_2' => $dasa_wisma->sum('jumlah_sumber_air_sungai') ?: '0',
-            'sumber_air_4' => $dasa_wisma->sum('jumlah_sumber_air_dll') ?: '0',
-            'makanan_pokok' => $dasa_wisma->sum('jumlah_makanan_pokok_beras') ?: '0',
-            'makanan_pokok_0' => $dasa_wisma->sum('jumlah_makanan_pokok_non_beras') ?: '0',
-            'aktivitas_UP2K' => $dasa_wisma->sum('jumlah_aktivitas_UP2K') ?: '0',
-            'pemanfaatan' => $dasa_wisma->sum('jumlah_have_pemanfaatan') ?: '0',
-            'industri' => $dasa_wisma->sum('jumlah_have_industri') ?: '0',
-            'kesehatan_lingkungan' => $dasa_wisma->sum('jumlah_have_kegiatan') ?: '0',
+            'jumlah_KRT' => $this->totalJmlKRT ?: '0',
+            'jumlah_KK' => $this->totalJmlKK ?: '0',
+            'jumlah_laki' => $this->totalAnggotaLaki ?: '0',
+            'jumlah_perempuan' => $this->totalAnggotaPerempuan ?: '0',
+            'jumlah_balita_laki' => $this->totalAnggotaBalitaLaki ?: '0',
+            'jumlah_balita_perempuan' => $this->totalAnggotaBalitaPerempuan ?: '0',
+            // 'jumlah_3_buta' => $dasa_wisma->sum('jumlah_3_buta') ?: '0',
+            'jumlah_PUS' => $this->totalAnggotaPUS ?: '0',
+            'jumlah_WUS' => $this->totalAnggotaWUS ?: '0',
+            'jumlah_ibu_hamil' => $this->totalAnggotaIbuHamil ?: '0',
+            'jumlah_ibu_menyusui' => $this->totalAnggotaIbuMenyusui ?: '0',
+            'jumlah_lansia' => $this->totalAnggotaLansia ?: '0',
+            'jumlah_kebutuhan_khusus' => $this->totalAnggotaBerkebutuhanKhusus ?: '0',
+            'sehat_layak_huni' => $this->totalSheatLayakHuni ?: '0',
+            'tidak_sehat_layak_huni' => $this->totalTidakSheatLayakHuni ?: '0',
+            'punya_tempat_sampah' => $this->totalPemSampah ?: '0',
+            'punya_saluran_air' => $this->totalSPAL ?: '0',
+            'punya_jamban' => $this->totalJamban ?: '0',
+            'tempel_stiker' => $this->totalStiker ?: '0',
+            'sumber_air_pdam' => $this->totalAirPDAM ?: '0',
+            'sumber_air_sumur' => $this->totalAirSumur ?: '0',
+            'sumber_air_lainya' => $this->totalAirLainnya ?: '0',
+            'makanan_pokok_beras' => $this->totalMakanBeras ?: '0',
+            'makanan_pokok_non_beras' => $this->totalMakanNonBeras ?: '0',
+            'aktivitas_UP2K' => $this->totalKegiatanUP2K ?: '0',
+            'pemanfaatan' => $this->totalKegiatanPemanfaatanPekarangan ?: '0',
+            'industri' => $this->totalKegiatanIndustri ?: '0',
+            'kesehatan_lingkungan' => $this->totalKegiatanLingkungan ?: '0',
         ];
 
         return $result;
@@ -117,44 +165,44 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents
 
     public function headings(): array
     {
-        $headings = [
-            'No',
-            'Nama Dasawisma',
-            'Jml. KRT',
-            'Jml. KK',
-            'Jumlah Anggota Keluarga',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            '',
-            'Kriteria Rumah',
-            '',
-            '',
-            '',
-            '',
-            '',
-            'Sumber Air Keluarga',
-            '',
-            '',
-            'Makanan Pokok',
-            '',
-            'Warga Mengikuti Kegiatan',
-            '',
-            '',
-            '',
-        ];
+        // $headings = [
+        //     'No',
+        //     'Nama Dasawisma',
+        //     'Jml. KRT',
+        //     'Jml. KK',
+        //     'Jumlah Anggota Keluarga',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     'Kriteria Rumah',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     'Sumber Air Keluarga',
+        //     '',
+        //     '',
+        //     'Makanan Pokok',
+        //     '',
+        //     'Warga Mengikuti Kegiatan',
+        //     '',
+        //     '',
+        //     '',
+        // ];
 
         $headings2 = [
-            '',
-            '',
-            '',
-            '',
+            'No',
+            'Nama Dasawisma',
+            'Jumlah KRT',
+            'Jumlah KK',
             'Total L',
             'Total P',
             'Balita L',
@@ -187,12 +235,12 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents
             ['REKAPITULASI'],
             ['CATATAN DATA DAN KEGIATAN WARGA'],
             ['KELOMPOK PKK RT'],
-            ['RT : ' . $this->rt],
-            ['RW : ' . $this->rw],
-            ['Desa/Kel : ' . $this->desa->nama_desa],
-            ['Tahun : ' . $this->periode],
+            ['RT : ' . $this->dasa_wisma->first()->rt->name],
+            ['RW : ' . $this->dasa_wisma->first()->rw->name],
+            ['Desa/Kel : ' . $this->dasa_wisma->first()->desa->nama_desa],
+            ['Tahun : ' . $this->dasa_wisma->first()->periode],
             [],
-            $headings,
+            // $headings,
             $headings2,
         ];
     }
@@ -201,32 +249,68 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->getDelegate()->mergeCells('A1:AD1');
-                $event->sheet->getDelegate()->mergeCells('A2:AD2');
-                $event->sheet->getDelegate()->mergeCells('A3:AD3');
-                $event->sheet->getDelegate()->mergeCells('A4:AD4');
-                $event->sheet->getDelegate()->mergeCells('A5:AD5');
-                $event->sheet->getDelegate()->mergeCells('A6:AD6');
-                $event->sheet->getDelegate()->mergeCells('A7:AD7');
+                // $event->sheet->getDelegate()->mergeCells('A1:AD1');
+                // $event->sheet->getDelegate()->mergeCells('A2:AD2');
+                // $event->sheet->getDelegate()->mergeCells('A3:AD3');
+                // $event->sheet->getDelegate()->mergeCells('A4:AD4');
+                // $event->sheet->getDelegate()->mergeCells('A5:AD5');
+                // $event->sheet->getDelegate()->mergeCells('A6:AD6');
+                // $event->sheet->getDelegate()->mergeCells('A7:AD7');
 
-                $event->sheet->getDelegate()->getStyle('A1:A7')->getAlignment()->setHorizontal('center');
+                // $event->sheet->getDelegate()->getStyle('A1:A7')->getAlignment()->setHorizontal('center');
 
-                $event->sheet->getDelegate()->mergeCells('A9:A10');
-                $event->sheet->getDelegate()->mergeCells('B9:B10');
-                $event->sheet->getDelegate()->mergeCells('C9:C10');
-                $event->sheet->getDelegate()->mergeCells('D9:D10');
+                // $event->sheet->getDelegate()->mergeCells('A9:A10');
+                // $event->sheet->getDelegate()->mergeCells('B9:B10');
+                // $event->sheet->getDelegate()->mergeCells('C9:C10');
+                // $event->sheet->getDelegate()->mergeCells('D9:D10');
 
-                $event->sheet->getDelegate()->mergeCells('E9:O9');
-                $event->sheet->getDelegate()->mergeCells('P9:U9');
-                $event->sheet->getDelegate()->mergeCells('V9:X9');
-                $event->sheet->getDelegate()->mergeCells('Y9:Z9');
-                $event->sheet->getDelegate()->mergeCells('AA9:AD9');
+                // $event->sheet->getDelegate()->mergeCells('E9:O9');
+                // $event->sheet->getDelegate()->mergeCells('P9:U9');
+                // $event->sheet->getDelegate()->mergeCells('V9:X9');
+                // $event->sheet->getDelegate()->mergeCells('Y9:Z9');
+                // $event->sheet->getDelegate()->mergeCells('AA9:AD9');
 
-                $event->sheet->getDelegate()->getStyle('E9:AD9')->getAlignment()->setHorizontal('center');
+                // $event->sheet->getDelegate()->getStyle('E9:AD9')->getAlignment()->setHorizontal('center');
 
                 $lastRow = count($this->dasa_wisma) + 11;
                 $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
             },
         ];
+    }
+
+    public function getStyles(): array
+    {
+        return [
+            1 => [
+                'font' => [
+                    'bold' => true,
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_CENTER,
+                ],
+            ],
+        ];
+    }
+
+    public function styles(Worksheet $sheet){
+        // Menggabungkan semua sel pada baris 1 (dari kolom A sampai kolom terakhir yang berisi data)
+        $lastColumn = $sheet->getHighestColumn();
+
+        // Menggabungkan sel dari A1 sampai A6 sampai dengan kolom terakhir yang berisi data
+        $sheet->mergeCells('A1:' . $lastColumn . '1');
+        $sheet->mergeCells('A2:' . $lastColumn . '2');
+        $sheet->mergeCells('A3:' . $lastColumn . '3');
+        $sheet->mergeCells('A4:' . $lastColumn . '4');
+        $sheet->mergeCells('A5:' . $lastColumn . '5');
+        $sheet->mergeCells('A6:' . $lastColumn . '6');
+        $sheet->mergeCells('A7:' . $lastColumn . '7');
+
+        // Mengatur horizontal alignment (penyelarasan horizontal) pada sel A1 sampai A6 ke tengah
+        $sheet->getStyle('A1:A7')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+        // Mengatur teks pada baris 1 hingga 7 menjadi tebal (bold)
+        $sheet->getStyle('1:9')->getFont()->setBold(true);
+
+
     }
 }
