@@ -185,7 +185,7 @@ Route::middleware(['user_type:admin_kabupaten'])->group(function(){
     Route::get('/dashboard_kab', [AdminKabController::class, 'dashboard_kab'])->name('admin_kabupaten.dashboard');
 
     Route::get('/data_kelompok_pkk_kec', [AdminKabController::class, 'data_kelompok_pkk_kec']);
-    Route::get('/rekap_pkk_kec', [AdminKabController::class, 'rekap_pkk_kec']);
+    Route::get('/rekap_pkk_kec/{id}', [AdminKabController::class, 'rekap_pkk_kec']);
     Route::get('/export_rekap_kec', [AdminKabController::class, 'export_rekap_kec']);
 
     Route::get('/data_kelompok_pkk_kab', [AdminKabController::class, 'data_kelompok_pkk_kab']);

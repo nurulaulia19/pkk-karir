@@ -42,12 +42,17 @@ class Data_Desa extends Model
 
     // data dasawisma
     public function dasawisma(){
-        return $this->hasMany(DataKelompokDasawisma::class);
+        return $this->hasMany(DasaWisma::class,'id_desa');
     }
 
     // bagian admin desa
     public function anggota_kader(){
         return $this->hasMany(DataAnggotaKader::class);
+    }
+
+    // bagian admin desa
+    public function rw(){
+        return $this->hasMany(Rw::class, 'desa_id');
     }
 
 
