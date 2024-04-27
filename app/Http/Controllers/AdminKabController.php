@@ -690,19 +690,208 @@ class AdminKabController extends Controller
     // export rekap kecamatan
     public function export_rekap_kab(Request $request)
     {
-        /** @var User */
         $user = Auth::user();
-        $desa = $user->desa;
-        $kecamatan = $request->query('nama_kecamatan');
-        $dasa_wisma = $request->query('dasa_wisma');
-        $rt = $request->query('rt');
-        $rw = $request->query('rw');
-        $dusun = $request->query('dusun');
-        $periode = $request->query('periode');
+        // woi
+        $kecamatans = DataKecamatan::with('desa')->get();
+        $totalDesa = 0;
+        $totalRw = 0;
+        $totalRt = 0;
+        $totalKK = 0;
+        $totalDasawisma = 0;
+        $totalRumahTangga = 0;
+        $totalTempatSampah = 0;
+        $totalSPAL = 0;
+        $totalJamban = 0;
+        $totalStiker = 0;
+        $totalAirPDAM = 0;
+        $totalAirSumur = 0;
+        $totalAirLainya = 0;
+        $totalKriteriaRumahSehat = 0;
+        $totalKriteriaRumahNonSehat = 0;
+        $totalIndustri = 0;
+        $totalPemanfaatanPekarangan = 0;
+        $totalBeras = 0;
+        $totalNonBeras = 0;
+        $totalLansia = 0;
+        $totalIbuHamil = 0;
+        $totalIbuMenyesui = 0;
+        $totalAktivitasKesehatanLingkungan = 0;
+        $totalAaktivitasUP2K = 0;
+        $totalKebutuhanKhusus = 0;
+        $totalLakiLaki = 0;
+        $totalBalitaLaki = 0;
+        $totalPerempuan = 0;
+        $totalBalitaLaki = 0;
+        $totalWUS = 0;
+        $totalbalitaPerempuan = 0;
+        $totalPUS = 0;
+        $today = Carbon::now();
 
-        $kecamatans = DataRekapKecamatan::getKecamatan($dusun, $rw, $rt, $periode);
+        $periode = 0 ;
 
-        $export = new RekapKelompokKabupatenExport(compact('kecamatans', 'kecamatan', 'rw', 'periode', 'desa'));
+
+        // dd($kecamatans);
+        // $kecamatan = DataKecamatan::with('desa')->find($id);
+        foreach ($kecamatans as $kecamatan){
+            if ($kecamatan->desa) {
+                foreach ($kecamatan->desa as $desa) {
+                    $totalDesa++;
+                    $dasawisma = DasaWisma::where('id_desa', $desa->id)->get();
+                    $rws = Rw::where('desa_id', $desa->id)->get();
+                    foreach($rws as $rw){
+                        $totalRw++;
+                        $totalRt += Rt::where('rw_id', $rw->id)->count();
+                    }
+                    // rt  belum
+                    foreach ($dasawisma as $item) {
+                        $periode = $item->periode;
+                        $totalKK += DataKeluarga::where('id_dasawisma', $item->id)->count();
+                        $totalDasawisma++;
+                        $rumah = RumahTangga::where('id_dasawisma', $item->id)->get();
+                        foreach ($rumah as $keluarga) {
+                            $totalRumahTangga++;
+                            if ($keluarga->punya_tempat_sampah) {
+                                $totalTempatSampah++;
+                            }
+                            if ($keluarga->saluran_pembuangan_air_limbah) {
+                                $totalSPAL++;
+                            }
+                            if ($keluarga->punya_jamban) {
+                                $totalJamban++;
+                            }
+                            if ($keluarga->tempel_stiker) {
+                                $totalStiker++;
+                            }
+                            //pdam
+                            if ($keluarga->sumber_air_pdam) {
+                                $totalAirPDAM++;
+                            }
+                            if ($keluarga->sumber_air_sumur) {
+                                $totalAirSumur++;
+                            }
+                            if ($keluarga->sumber_air_lainnya) {
+                                $totalAirLainya++;
+                            }
+                            //pdam
+                            if ($keluarga->punya_tempat_sampah && $keluarga->punya_jamban && $keluarga->saluran_pembuangan_air_limbah) {
+                                $totalKriteriaRumahSehat++;
+                            } else {
+                                $totalKriteriaRumahNonSehat++;
+                            }
+
+                            foreach ($keluarga->anggotaRT as $anggotaRumah) {
+                                // $countKK++;
+                                foreach ($anggotaRumah->keluarga->anggota as $anggota) {
+                                    foreach ($anggota->warga->industri as $industri) {
+                                        if ($industri) {
+                                            $totalIndustri++;
+                                        }
+                                    }
+                                    foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                                        if ($pemanfaatan) {
+                                            $totalPemanfaatanPekarangan++;
+                                        }
+                                    }
+                                    $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                                    $umurz = $tgl_lahir->diffInYears($today);
+
+                                    if ($anggota->warga->makan_beras) {
+                                        $totalBeras++;
+                                    } else {
+                                        $totalNonBeras++;
+                                    }
+                                    if ($umurz >= 45) {
+                                        $totalLansia++;
+                                    }
+                                    if ($anggota->warga->ibu_hamil) {
+                                        $totalIbuHamil++;
+                                    }
+                                    if ($anggota->warga->ibu_menyusui) {
+                                        $totalIbuMenyesui++;
+                                    }
+                                    if ($anggota->warga->aktivitas_kesehatan_lingkungan) {
+                                        $totalAktivitasKesehatanLingkungan++;
+                                    }
+                                    if ($anggota->warga->aktivitas_UP2K) {
+                                        $totalAaktivitasUP2K++;
+                                    }
+                                    if ($anggota->warga->berkebutuhan_khusus != null && $anggota->warga->berkebutuhan_khusus != 'Tidak') {
+                                        $totalKebutuhanKhusus++;
+                                    }
+
+
+                                    if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+                                        $totalLakiLaki++;
+                                        $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                                        $umur = $tgl_lahir->diffInYears($today);
+                                        if ($umur <= 5) {
+                                            $totalBalitaLaki++;
+                                        }
+                                    } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
+                                        $totalPerempuan++;
+                                        $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                                        $umur = $tgl_lahir->diffInYears($today);
+                                        if ($umur >= 15 && $umur <= 49) {
+                                            $totalWUS++;
+                                        }
+                                        if ($umur <= 5) {
+                                            $totalbalitaPerempuan++;
+                                        }
+                                    }
+                                    if ($anggota->warga->status_perkawinan === 'menikah') {
+                                        if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+                                            $totalPUS++;
+                                        } else {
+                                            $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                                            $umur = $tgl_lahir->diffInYears($today);
+                                            if ($umur >= 15 && $umur <= 49) {
+                                                $totalPUS++;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $export = new RekapKelompokKabupatenExport(compact(
+            'kecamatans',
+            'totalDesa',
+            'totalRw',
+            'totalRt',
+            'totalKK',
+            'totalDasawisma',
+            'totalRumahTangga',
+            'totalTempatSampah',
+            'totalSPAL',
+            'totalJamban',
+            'totalStiker',
+            'totalAirPDAM',
+            'totalAirSumur',
+            'totalAirLainya',
+            'totalKriteriaRumahSehat',
+            'totalKriteriaRumahNonSehat',
+            'totalIndustri',
+            'totalPemanfaatanPekarangan',
+            'totalBeras',
+            'totalNonBeras',
+            'totalLansia',
+            'totalIbuHamil',
+            'totalIbuMenyesui',
+            'totalAktivitasKesehatanLingkungan',
+            'totalAaktivitasUP2K',
+            'totalKebutuhanKhusus',
+            'totalLakiLaki',
+            'totalBalitaLaki',
+            'totalPerempuan',
+            'totalWUS',
+            'totalbalitaPerempuan',
+            'totalPUS',
+            'periode'
+        ));
 
         return Excel::download($export, 'rekap-kelompok-kabupaten.xlsx');
     }
