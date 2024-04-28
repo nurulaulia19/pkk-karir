@@ -10,6 +10,8 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, WithStyles
 {
@@ -128,7 +130,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
         }
 
         $result[] = [
-            '_index' => 'Jumlah',
+            '_index' => 'JUMLAH',
             'nama' => null,
             'jumlah_KRT' => $this->totalJmlKRT ?: '0',
             'jumlah_KK' => $this->totalJmlKK ?: '0',
@@ -157,7 +159,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
             'aktivitas_UP2K' => $this->totalKegiatanUP2K ?: '0',
             'pemanfaatan' => $this->totalKegiatanPemanfaatanPekarangan ?: '0',
             'industri' => $this->totalKegiatanIndustri ?: '0',
-            'kesehatan_lingkungan' => $this->totalKegiatanLingkungan ?: '0',
+            'aktivitas_kesehatan_lingkungan' => $this->totalKegiatanLingkungan ?: '0',
         ];
 
         return $result;
@@ -165,82 +167,89 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
 
     public function headings(): array
     {
-        // $headings = [
-        //     'No',
-        //     'Nama Dasawisma',
-        //     'Jml. KRT',
-        //     'Jml. KK',
-        //     'Jumlah Anggota Keluarga',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     'Kriteria Rumah',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     'Sumber Air Keluarga',
-        //     '',
-        //     '',
-        //     'Makanan Pokok',
-        //     '',
-        //     'Warga Mengikuti Kegiatan',
-        //     '',
-        //     '',
-        //     '',
-        // ];
+        $headings = [
+            '',
+            '',
+            '',
+            '',
+            'JUMLAH ANGGOTA KELUARGA',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'KRITERIA RUMAH',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'SUMBER AIR KELUARGA',
+            '',
+            '',
+            'MAKANAN POKOK',
+            '',
+            'WARGA MENGIKUTI KEGIATAN',
+            '',
+            '',
+            '',
+        ];
 
         $headings2 = [
-            'No',
-            'Nama Dasawisma',
-            'Jumlah KRT',
-            'Jumlah KK',
-            'Total L',
-            'Total P',
-            'Balita L',
-            'Balita P',
-            '3 Buta',
+            'NO',
+            'NAMA DASAWISMA',
+            'JUMLAH KRT',
+            'JUMLAH KK',
+            'TOTAL L',
+            'TOTAL P',
+            'BALITA L',
+            'BALITA P',
             'PUS',
             'WUS',
-            'Ibu Hamil',
-            'Ibu Menyusui',
-            'Lansia',
-            'Berkebutuhan Khusus',
-            'Sehat',
-            'Tidak Sehat',
-            'Memiliki Tmp. Pemb. Sampah',
-            'Memiliki SPAL',
-            'Memiliki Jamban Keluarga',
-            'Menempel Stiker P4K',
+            'IBU HAMIL',
+            'IBU MENYUSUI',
+            'LANSIA',
+            'BERKEBUTUHAN KHUSUS',
+            'SEHAT',
+            'KURANG SEHAT',
+            'MEMILIKI TMP. PEMB. SAMPAH',
+            'MEMILIKI SPAL',
+            'MEMILIKI JAMBAN KELUARGA',
+            'MENEMPEL STIKER P4K',
             'PDAM',
-            'Sumur',
+            'SUMUR',
             'DLL',
-            'Beras',
-            'Non Beras',
+            'BERAS',
+            'NON BERAS',
             'UP2K',
-            'Pemanfaatan dan Pekarangan',
-            'Industri Rumah Tangga',
-            'Kesehatan Lingkungan',
+            'PEMANFAATAN DAN PEKARANGAN',
+            'INDUSTRI RUMAH TANGGA',
+            'KESEHATAN LINGKUNGAN',
         ];
+
 
         return [
             ['REKAPITULASI'],
             ['CATATAN DATA DAN KEGIATAN WARGA'],
             ['KELOMPOK PKK RT'],
-            ['RT : ' . $this->dasa_wisma->first()->rt->name],
-            ['RW : ' . $this->dasa_wisma->first()->rw->name],
-            ['Desa/Kel : ' . $this->dasa_wisma->first()->desa->nama_desa],
-            ['Tahun : ' . $this->dasa_wisma->first()->periode],
+            [
+                'RT : ' . strtoupper($this->dasa_wisma->first()->rt->name),
+            ],
+            [
+                'RW : ' . strtoupper($this->dasa_wisma->first()->rw->name),
+            ],
+            [
+                'DESA/KELURAHAN : ' . strtoupper($this->dasa_wisma->first()->desa->nama_desa),
+            ],
+            [
+                'TAHUN : ' . strtoupper($this->dasa_wisma->first()->periode),
+            ],
             [],
-            // $headings,
+            $headings,
             $headings2,
         ];
     }
@@ -249,33 +258,42 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                // $event->sheet->getDelegate()->mergeCells('A1:AD1');
-                // $event->sheet->getDelegate()->mergeCells('A2:AD2');
-                // $event->sheet->getDelegate()->mergeCells('A3:AD3');
-                // $event->sheet->getDelegate()->mergeCells('A4:AD4');
-                // $event->sheet->getDelegate()->mergeCells('A5:AD5');
-                // $event->sheet->getDelegate()->mergeCells('A6:AD6');
-                // $event->sheet->getDelegate()->mergeCells('A7:AD7');
+                $lastRow = count($this->dasa_wisma) + 11; // Nomor baris terakhir data + 11 (sesuaikan dengan kebutuhan)
+                // Lakukan merge langsung pada objek lembar kerja (worksheet)
+                $event->sheet->mergeCells('A'.$lastRow.':B'.$lastRow);
 
-                // $event->sheet->getDelegate()->getStyle('A1:A7')->getAlignment()->setHorizontal('center');
+                // Atur style untuk judul "JUMLAH"
+                $event->sheet->getStyle('A'.$lastRow)->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    ],
+                ]);
 
-                // $event->sheet->getDelegate()->mergeCells('A9:A10');
-                // $event->sheet->getDelegate()->mergeCells('B9:B10');
-                // $event->sheet->getDelegate()->mergeCells('C9:C10');
-                // $event->sheet->getDelegate()->mergeCells('D9:D10');
-
-                // $event->sheet->getDelegate()->mergeCells('E9:O9');
-                // $event->sheet->getDelegate()->mergeCells('P9:U9');
-                // $event->sheet->getDelegate()->mergeCells('V9:X9');
-                // $event->sheet->getDelegate()->mergeCells('Y9:Z9');
-                // $event->sheet->getDelegate()->mergeCells('AA9:AD9');
-
-                // $event->sheet->getDelegate()->getStyle('E9:AD9')->getAlignment()->setHorizontal('center');
-
-                $lastRow = count($this->dasa_wisma) + 11;
-                $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
+                $event->sheet->getStyle('A')->applyFromArray([
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ],
+                ]);
             },
         ];
+    }
+
+    public function getBorderStyles()
+    {
+        return [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => 'FF000000'],
+                ],
+            ],
+        ];
+
+
     }
 
     public function getStyles(): array
@@ -293,8 +311,11 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
     }
 
     public function styles(Worksheet $sheet){
+        $sheet->getStyle('A9:' . $sheet->getHighestColumn() . $sheet->getHighestRow())->applyFromArray($this->getBorderStyles());
         // Menggabungkan semua sel pada baris 1 (dari kolom A sampai kolom terakhir yang berisi data)
         $lastColumn = $sheet->getHighestColumn();
+        // // Menggabungkan semua sel pada baris 1 (dari kolom A sampai kolom terakhir yang berisi data)
+        // $lastColumn = $sheet->getHighestColumn();
 
         // Menggabungkan sel dari A1 sampai A6 sampai dengan kolom terakhir yang berisi data
         $sheet->mergeCells('A1:' . $lastColumn . '1');
@@ -311,6 +332,57 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
         // Mengatur teks pada baris 1 hingga 7 menjadi tebal (bold)
         $sheet->getStyle('1:9')->getFont()->setBold(true);
 
+        $lastColumnIndex = Coordinate::columnIndexFromString($lastColumn);
+
+        // Loop through each column from 'B' (indeks 2) to the last column (dynamically determined)
+        for ($colIndex = 2; $colIndex <= $lastColumnIndex; $colIndex++) {
+            // Konversi indeks numerik kolom kembali ke format huruf (misalnya 'B' untuk indeks 2)
+            $col = Coordinate::stringFromColumnIndex($colIndex);
+
+            $maxLength = 0;
+
+            // Find the maximum length of text in the current column
+            for ($row = 1; $row <= $sheet->getHighestRow(); $row++) {
+                $cellValue = $sheet->getCell($col . $row)->getValue();
+                $cellLength = strlen($cellValue);
+
+                if ($cellLength > $maxLength) {
+                    $maxLength = $cellLength;
+                }
+            }
+
+            // Set the column width to accommodate the longest text plus some padding
+            $sheet->getColumnDimension($col)->setWidth($maxLength + 6);
+            $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+
+            // // Lakukan merge pada sel D10 ke L10
+            $sheet->mergeCells('E9:N9');
+            $sheet->mergeCells('O9:T9');
+            $sheet->mergeCells('U9:W9');
+            $sheet->mergeCells('X9:Y9');
+            $sheet->mergeCells('Z9:AC9');
+
+        }
+
+        $lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString('D');
+
+        for ($col = 'A'; $col <= 'D'; $col++) {
+            // Simpan nilai sel sebelum digabungkan
+            $value = $sheet->getCell($col . '10')->getValue();
+
+            // Pindahkan nilai sel ke sel atas
+            $sheet->setCellValue($col . '9', $value);
+
+            // Gabungkan sel secara vertikal
+            $sheet->mergeCells($col . '9:' . $col . '10');
+
+            // Atur penyelarasan vertikal ke tengah
+            $sheet->getStyle($col . '9:' . $col . '10')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        }
 
     }
+
+
 }

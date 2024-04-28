@@ -32,29 +32,6 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
     {
         $data = [];
 
-        // Informasi tentang keluarga
-        // $keluargaFirst = $this->keluarga->rumah_tangga->first();
-        // $rumahTangga = RumahTangga::find($keluargaFirst->rumahtangga_id);
-        // $pdam = $rumahTangga->sumber_air_pdam ? 'PDAM' : '';
-        // $sumur = $rumahTangga->sumber_air_sumur ? 'SUMUR' : '';
-        // $lainnya = $rumahTangga->sumber_air_lainnya ? 'LAINNYA' : '';
-        // $air = trim($pdam . ' ' . $sumur . ' ' . $lainnya);
-
-        // $familyInfo = [
-        //     'CATATAN KELUARGA DARI: ' => $this->keluarga->nama_kepala_keluarga,
-        //     'ANGGOTA KELOMPOK DASAWISMA: ' => $this->dasawisma->nama_dasawisma,
-        //     'TAHUN: ' => $this->keluarga->periode,
-        //     'Kriteria Rumah: ' => $rumahTangga->kriteria_rumah_sehat ? 'LAYAK HUNI' : 'TIDAK LAYAK HUNI',
-        //     'Jamban Keluarga: ' => $rumahTangga->punya_jamban ? 'ADA 1 BUAH' : 'TIDAK ADA',
-        //     'Sumber Air: ' => $air,
-        //     'Tempat Sampah: ' => $rumahTangga->punya_tempat_sampah ? 'ADA' : 'TIDAK ADA'
-        // ];
-
-        // // Tambahkan informasi keluarga ke koleksi data
-        // $data[] = $familyInfo;
-        // $data[] = []; // Baris kosong pertama
-        // $data[] = []; // Baris kosong kedua
-
         // Informasi tentang setiap anggota keluarga dan kegiatan
         foreach ($this->keluarga->anggota as $index => $data_warga) {
             $memberInfo = [
@@ -185,23 +162,36 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             'TEMPAT SAMPAH: ' . ($rumahTangga->punya_tempat_sampah ? 'ADA' : 'TIDAK ADA'),
         ];
 
+        // $memberHeadings = [
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     '',
+        //     'KEGIATAN PKK YANG DIIKUTI'
+        // ];
 
         $memberHeadings = [
-            'No',
-            'Nama Anggota Keluarga',
-            'Status Perkawinan',
-            'Jenis Kelamin',
-            'Tempat Lahir',
-            'Tanggal Lahir/Umur',
-            'Agama',
-            'Pendidikan',
-            'Pekerjaan',
-            'Berkebutuhan Khusus',
+            'NO',
+            'NAMA ANGGOTA KELUARGA',
+            'STATUS PERKAWINAN',
+            'JENIS KELAMIN',
+            'TEMPAT LAHIR',
+            'TANGGAL LAHIR/UMUR',
+            'AGAMA',
+            'PENDIDIKAN',
+            'PEKERJAAN',
+            'BERKEBUTUHAN KHUSUS',
         ];
 
         // Tambahkan judul kolom untuk setiap kegiatan
         foreach ($this->dataKegiatan as $item) {
-            $memberHeadings[] = $item->name;
+            $memberHeadings[] = strtoupper($item->name);
         }
 
         $endHeadings = [
@@ -218,6 +208,7 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             $headings3,
             $headings4,
             [''],
+            // $memberHeadings,
             $allHeadings
             // ['KETERANGAN']
         ];
@@ -327,6 +318,25 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             $sheet->getStyle($columnRange)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($columnRange)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
         }
+
+        // Mengatur cells merged secara vertikal
+        // $lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString('J');
+
+        // for ($col = 'A'; $col <= 'J'; $col++) {
+        //     // Simpan nilai sel sebelum digabungkan
+        //     $value = $sheet->getCell($col . '8')->getValue();
+
+        //     // Pindahkan nilai sel ke sel atas
+        //     $sheet->setCellValue($col . '7', $value);
+
+        //     // Gabungkan sel secara vertikal
+        //     $sheet->mergeCells($col . '7:' . $col . '8');
+
+        //     // Atur penyelarasan vertikal ke tengah
+        //     $sheet->getStyle($col . '7:' . $col . '8')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        // }
+
+
 
 
     }
