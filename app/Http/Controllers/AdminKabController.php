@@ -116,7 +116,8 @@ class AdminKabController extends Controller
         if ($desaa->isEmpty()) {
             dd('data rt masih belum ada jadi gada rekap');
         }
-        // dd($desa);
+
+        // dd($desaa);
 
         // Hitung Total
         $totalRW = 0;
@@ -281,6 +282,9 @@ class AdminKabController extends Controller
                     }
                 }
             }
+        }
+        if($totalDasawisma <= 0){
+                dd('dasawisma masih belum ada jadi gada rekap');
         }
         // dd($desaa);
 

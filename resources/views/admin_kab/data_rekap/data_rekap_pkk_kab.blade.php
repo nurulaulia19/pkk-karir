@@ -17,7 +17,7 @@
                             <center>
                                 <h6><strong>CATATAN DATA KEGIATAN WARGA</strong></h6>
                                 <h6>TP PKK KABUPATEN</h6>
-                                <h6>TAHUN xx</h6><br>
+                                <h6>TAHUN {{$kecamatans->first()->desa->first()->periode}}</h6><br>
                                 <h6><strong>KAB/KOTA : INDRAMAYU</strong> </h6>
                                 <h6><strong>PROVINSI : JAWA BARAT</strong> </h6>
                             </center>

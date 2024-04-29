@@ -17,21 +17,19 @@
                                 <div>
                                     <h6 class="d-flex justify-content-center"><strong>REKAPITULASI</strong></h6>
                                     <h6 class="d-flex justify-content-center"><strong>CATATAN DATA DAN KEGIATAN WARGA</strong> </h6>
-                                    <h6 class="d-flex justify-content-center"><strong>KELOMPOK DESA/KELURAHAN</strong> </h6>
+                                    <h6 class="d-flex justify-content-center"><strong>KELOMPOK KECAMATAN</strong> </h6>
                                     <h6 class="d-flex justify-content-center"><strong>TAHUN {{$desaa->first()->dasawisma->first()->periode}}</strong> </h6>
                                 </div>
                                 <div>
-                                    <h6>Desa/Kel :
-                                        {{-- {{ $dasa_wisma->first()->dasawisma->first()->desa->nama_desa }} --}}
-                                    </h6>
+
                                     <h6>Kecamatan :
-                                        {{-- {{ $dasa_wisma->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan }} --}}
+                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan }}
                                     </h6>
                                     <h6>Kabupaten :
-                                        {{-- {{ $dasa_wisma->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }} --}}
+                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }}
                                     </h6>
                                     <h6>Provinsi :
-                                        {{-- {{ $dasa_wisma->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }} --}}
+                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }}
                                     </h6>
                                 </div>
 
@@ -368,7 +366,9 @@
   <script src="{{url('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script> --}}
     <script>
         $(document).ready(function() {
-            $('.data').DataTable();
+            $('.data').DataTable({
+                "order": [[ 1, 'asc' ]]
+            });
         });
     </script>
 

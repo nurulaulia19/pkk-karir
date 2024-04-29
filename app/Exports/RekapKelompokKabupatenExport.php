@@ -7,8 +7,13 @@ use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
-class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvents
+class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvents, WithStyles
 {
     protected $kecamatans;
     protected $totalDesa;
@@ -132,7 +137,7 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
         }
 
         $result[] = [
-            '_index' => 'Jumlah',
+            '_index' => 'JUMLAH',
             'kecamatan' => null,
             'jumlah_desa' => $this->totalDesa ?: '0',
             'jumlah_rw' => $this->totalRw ?: '0',
@@ -173,55 +178,141 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
 
     public function headings(): array
     {
-        // $headings = ['No', 'Nama Kecamatan', 'Jml. Desa/Kelurahan', 'Jml. Dusun', 'Jml. RW', 'Jml. RT', 'Jml. Dasawisma', 'Jml. KRT', 'Jml. KK', 'Jumlah Anggota Keluarga', '', '', '', '', '', '', '', '', '', '', '', 'Kriteria Rumah', '', '', '', '', 'Sumber Air Keluarga', '', '', '', 'Jml. Jamban Keluarga', 'Makanan Pokok', '', 'Warga Mengikuti Kegiatan', '', '', ''];
+        $headings = ['', '', '', '', '', '', '', '', 'JUMLAH ANGGOTA KELUARGA', '', '', '', '', '', '', '', '', '', 'KRITERIA RUMAH', '', '', '', '', '', 'SUMBER AIR KELUARGA', '', '', 'MAKANAN POKOK', '', 'WARGA MENGIKUTI KEGIATAN', '', '', ''];
 
-        $headings2 = ['No', 'Nama Kecamatan', 'Jml. Desa/Kelurahan', 'Jml. RW', 'Jml. RT', 'Jml. Dasawisma', 'Jml. KRT', 'Jml. KK', 'Total L', 'Total P', 'Balita L', 'Balita P', 'PUS', 'WUS', 'Ibu Hamil', 'Ibu Menyusui', 'Lansia', 'Berkebutuhan Khusus', 'Sehat', 'Tidak Sehat', 'Memiliki Tmp. Pemb. Sampah', 'Memiliki SPAL', 'Memiliki jamban', 'Menempel Stiker P4K', 'PDAM', 'Sumur', 'DLL', 'Beras', 'Non Beras', 'UP2K', 'Pemanfaatan dan Pekarangan', 'Industri Rumah Tangga', 'Kesehatan Lingkungan'];
+        $headings2 = ['NO', 'NAMA KECAMATAN', 'JML. DESA/KELURAHAN', 'JML. RW', 'JML. RT', 'JML. DASAWISMA', 'JML. KRT', 'JML. KK', 'TOTAL L', 'TOTAL P', 'BALITA L', 'BALITA P', 'PUS', 'WUS', 'IBU HAMIL', 'IBU MENYUSUI', 'LANSIA', 'BERKEBUTUHAN KHUSUS', 'SEHAT', 'TIDAK SEHAT', 'MEMILIKI TMP. PEMB. SAMPAH', 'MEMILIKI SPAL', 'MEMILIKI JAMBAN', 'MENEMPEL STIKER P4K', 'PDAM', 'SUMUR', 'DLL', 'BERAS', 'NON BERAS', 'UP2K', 'PEMANFAATAN DAN PEKARANGAN', 'INDUSTRI RUMAH TANGGA', 'KESEHATAN LINGKUNGAN'];
 
         return [
             ['REKAPITULASI'],
             ['CATATAN DATA DAN KEGIATAN WARGA'],
             ['TP PKK KABUPATEN'],
-            ['Tahun : ' . $this->periode],
+            ['TAHUN : ' . $this->periode],
             ['KAB/KOTA : INDRAMAYU'],
-            ['PROVINSI : JAWA BARAT'], [], $headings2];
+            ['PROVINSI : JAWA BARAT'], [], $headings, $headings2];
     }
 
     public function registerEvents(): array
     {
         return [
-            AfterSheet::class => function (AfterSheet $event) {
-                // $event->sheet->getDelegate()->mergeCells('A1:AG1');
-                // $event->sheet->getDelegate()->mergeCells('A2:AG2');
-                // $event->sheet->getDelegate()->mergeCells('A3:AG3');
-                // $event->sheet->getDelegate()->mergeCells('A4:AG4');
-                // $event->sheet->getDelegate()->mergeCells('A5:AG5');
-                // $event->sheet->getDelegate()->mergeCells('A6:AG6');
-                // $event->sheet->getDelegate()->mergeCells('A7:AG7');
-
-                // $event->sheet->getDelegate()->getStyle('A1:A7')->getAlignment()->setHorizontal('center');
-
-                // $event->sheet->getDelegate()->mergeCells('A8:A9');
-                // $event->sheet->getDelegate()->mergeCells('B8:B9');
-                // $event->sheet->getDelegate()->mergeCells('C8:C9');
-                // $event->sheet->getDelegate()->mergeCells('D8:D9');
-                // $event->sheet->getDelegate()->mergeCells('E8:E9');
-                // $event->sheet->getDelegate()->mergeCells('F8:F9');
-                // $event->sheet->getDelegate()->mergeCells('G8:G9');
-                // $event->sheet->getDelegate()->mergeCells('H8:H9');
-                // $event->sheet->getDelegate()->mergeCells('I8:I9');
-
-                // $event->sheet->getDelegate()->mergeCells('J8:U8');
-                // $event->sheet->getDelegate()->mergeCells('V8:Z8');
-                // $event->sheet->getDelegate()->mergeCells('AA8:AD8');
-                // $event->sheet->getDelegate()->mergeCells('AE8:AE9');
-                // $event->sheet->getDelegate()->mergeCells('AF8:AG8');
-                // $event->sheet->getDelegate()->mergeCells('AH8:AK8');
-
-                // $event->sheet->getDelegate()->getStyle('J8:AK8')->getAlignment()->setHorizontal('center');
-
+            AfterSheet::class => function(AfterSheet $event) {
                 $lastRow = count($this->kecamatans) + 10;
-                $event->sheet->getDelegate()->mergeCells('A' . $lastRow . ':B' . $lastRow);
+                $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
+                // $highestRow = $event->sheet->getHighestRow();
+                $event->sheet->getStyle('A'.$lastRow)->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                    ],
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    ],
+                ]);
+                $event->sheet->getStyle('A')->applyFromArray([
+                    'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ],
+                ]);
+
             },
         ];
+    }
+
+    public function getBorderStyles()
+    {
+        return [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => 'FF000000'],
+                ],
+            ],
+        ];
+
+
+    }
+
+    public function getStyles(): array
+    {
+        return [
+            1 => [
+                'font' => [
+                    'bold' => true,
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_CENTER,
+                ],
+            ],
+        ];
+    }
+
+    public function styles(Worksheet $sheet){
+        $sheet->getStyle('A8:' . $sheet->getHighestColumn() . $sheet->getHighestRow())->applyFromArray($this->getBorderStyles());
+        // Menggabungkan semua sel pada baris 1 (dari kolom A sampai kolom terakhir yang berisi data)
+        $lastColumn = $sheet->getHighestColumn();
+        // // Menggabungkan semua sel pada baris 1 (dari kolom A sampai kolom terakhir yang berisi data)
+        // $lastColumn = $sheet->getHighestColumn();
+
+        // Menggabungkan sel dari A1 sampai A6 sampai dengan kolom terakhir yang berisi data
+        $sheet->mergeCells('A1:' . $lastColumn . '1');
+        $sheet->mergeCells('A2:' . $lastColumn . '2');
+        $sheet->mergeCells('A3:' . $lastColumn . '3');
+        $sheet->mergeCells('A4:' . $lastColumn . '4');
+        $sheet->mergeCells('A5:' . $lastColumn . '5');
+        $sheet->mergeCells('A6:' . $lastColumn . '6');
+
+        // Mengatur horizontal alignment (penyelarasan horizontal) pada sel A1 sampai A6 ke tengah
+        $sheet->getStyle('A1:A6')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+        // Mengatur teks pada baris 1 hingga 7 menjadi tebal (bold)
+        $sheet->getStyle('1:8')->getFont()->setBold(true);
+
+        $lastColumnIndex = Coordinate::columnIndexFromString($lastColumn);
+
+        // Loop through each column from 'B' (indeks 2) to the last column (dynamically determined)
+        for ($colIndex = 2; $colIndex <= $lastColumnIndex; $colIndex++) {
+            // Konversi indeks numerik kolom kembali ke format huruf (misalnya 'B' untuk indeks 2)
+            $col = Coordinate::stringFromColumnIndex($colIndex);
+
+            $maxLength = 0;
+
+            // Find the maximum length of text in the current column
+            for ($row = 1; $row <= $sheet->getHighestRow(); $row++) {
+                $cellValue = $sheet->getCell($col . $row)->getValue();
+                $cellLength = strlen($cellValue);
+
+                if ($cellLength > $maxLength) {
+                    $maxLength = $cellLength;
+                }
+            }
+
+            // Set the column width to accommodate the longest text plus some padding
+            $sheet->getColumnDimension($col)->setWidth($maxLength + 6);
+            $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+
+            $sheet->mergeCells('I8:R8');
+            $sheet->mergeCells('S8:X8');
+            $sheet->mergeCells('Y8:AA8');
+            $sheet->mergeCells('AB8:AC8');
+            $sheet->mergeCells('AD8:AG8');
+
+        }
+
+        $lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString('H');
+
+        for ($col = 'A'; $col <= 'H'; $col++) {
+            // Simpan nilai sel sebelum digabungkan
+            $value = $sheet->getCell($col . '9')->getValue();
+
+            // Pindahkan nilai sel ke sel atas
+            $sheet->setCellValue($col . '8', $value);
+
+            // Gabungkan sel secara vertikal
+            $sheet->mergeCells($col . '8:' . $col . '9');
+
+            // Atur penyelarasan vertikal ke tengah
+            $sheet->getStyle($col . '8:' . $col . '9')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        }
+
     }
 }

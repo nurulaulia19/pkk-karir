@@ -19,7 +19,7 @@
                                 <h6><strong>TP PKK KECAMATAN</strong></h6>
                                 <h6><strong>TAHUN : {{ $periode }}</strong></h6>
                                 <h6><strong>KECAMATAN : {{ $nama_kecamatan }}</strong> </h6>
-                                <h6><strong>KAB/KOTA : INDRAMAYU</strong> </h6>
+                                <h6><strong>KAB/KOTA : {{$desaa->first()->dasawisma->first()->periode}}</strong> </h6>
                                 <h6><strong>PROVINSI : JAWA BARAT</strong> </h6>
 
 
