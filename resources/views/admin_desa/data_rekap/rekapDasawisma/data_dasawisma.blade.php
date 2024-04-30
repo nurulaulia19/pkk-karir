@@ -8,23 +8,14 @@
     <!-- Main content -->
 <div class="main-content">
     <section class="section">
-        {{-- <h1 class="section-header">
-            <div>Kandidat</div>
-        </h1> --}}
-
         <div class="section-body">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-12">
+                <div class="col-12 col-lg-12">
                     <div class="card">
 
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
-                                    <div class="row">
-                                        <div class="col-md-1">
-                                            <a href="{{ url('data_dasawisma/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
-                                        </div>
-                                    </div>
                                     <thead>
                                         <tr>
                                         <th>No</th>

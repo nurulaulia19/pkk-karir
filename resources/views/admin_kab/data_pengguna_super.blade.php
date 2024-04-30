@@ -11,14 +11,10 @@
 
         <div class="section-body">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-12">
+                <div class="col-12 col-lg-12">
                     <div class="card">
-
-
                         <div class="card-body">
-
                             <div class="table-responsive">
-
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <a href="{{ url('data_pengguna_super/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
 
@@ -61,20 +57,15 @@
                                         @endif
                                         </td>
                                         <td class="text-center">
-                                            <form action="{{ route('data_pengguna_super.destroy',$c->id) }}" method="POST">
-
-                                            {{-- <a class="btn btn-info btn-sm" href="{{ route('sisw.show',$siswa->id) }}">Show</a> --}}
-
+                                            <div class="d-flex justify-content-center">
                                                 <a class="btn btn-primary btn-sm" href="{{ url('data_pengguna_super/'.$c->id.'/edit') }}">Edit</a>
-
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit" class="btn btn-danger btn-sm delete" >Delete</button>
-                                            </form>
+                                                <form action="{{ route('data_pengguna_super.destroy',$c->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1" >Delete</button>
+                                                </form>
+                                            </div>
                                         </td>
-
-
                                     </tr>
 
                                     @endforeach

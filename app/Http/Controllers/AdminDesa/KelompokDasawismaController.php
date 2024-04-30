@@ -48,7 +48,7 @@ class KelompokDasawismaController extends Controller
         // dd($dasawisma);
 
         // Pass the variables to the view
-        return view('admin_desa.data_kelompok_dasawisma', compact('dasawisma'));
+        return view('admin_desa.dasawisma.index', compact('dasawisma'));
     }
 
 
@@ -63,7 +63,7 @@ class KelompokDasawismaController extends Controller
         $desa = Data_Desa::all();
         $kec = DataKecamatan::all();
         $rws = Rw::all();
-        return view('admin_desa.form.create_dasawisma', compact('desa', 'kec','rws'));
+        return view('admin_desa.dasawisma.create', compact('desa', 'kec','rws'));
     }
 
     /**
@@ -219,7 +219,7 @@ class KelompokDasawismaController extends Controller
         $rws = Rw::all();
         $rts = Rt::all();
         // Kirim kedua data tersebut ke tampilan untuk diedit
-        return view('admin_desa.form.edit_dasawisma', compact('data_dasawisma', 'kader','rws','rts'));
+        return view('admin_desa.dasawisma.edit', compact('data_dasawisma', 'kader','rws','rts'));
     }
 
 

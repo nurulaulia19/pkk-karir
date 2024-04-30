@@ -8,12 +8,10 @@
     <!-- Main content -->
 <div class="main-content">
     <section class="section">
-
         <div class="section-body">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-12">
+                <div class="col-12 col-lg-12">
                     <div class="card">
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
@@ -21,16 +19,12 @@
                                         <div class="col-md-1">
                                             <a href="{{ url('data_kegiatan/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
                                         </div>
-
                                     </div>
-
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Warga</th>
                                             <th>Nama Kegiatan</th>
-                                            {{-- <th>Aktivitas</th> --}}
-                                            {{-- <th>Keterangan (Jenis Kegiatan Yang Diikuti)</th> --}}
                                             <th>Periode</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -41,7 +35,6 @@
                                         @foreach ($kegiatan as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                        {{-- nama desa yang login --}}
                                         <td style="vertical-align: middle;">{{ $c->nama }}</td>
                                         <td style="vertical-align: middle;">
                                             <ul>
@@ -55,18 +48,15 @@
                                         {{-- <td style="vertical-align: middle;">x</td> --}}
                                         {{-- <td style="vertical-align: middle;">x</td> --}}
                                         <td style="vertical-align: middle;">{{ $c->periode }}</td>
-                                        <td class="text-center">
+                                        <td class="text-center" width="100px" style="vertical-align: middle;">
+                                           <div class="d-flex">
+                                            <a class="btn btn-primary btn-sm" href="{{ url('data_kegiatan/'.$c->id.'/edit') }}">Edit</a>
                                             <form action="{{ route('data_kegiatan.destroyed',[ 'id' => $c->id]) }}" method="POST">
-
-                                            {{-- <a class="btn btn-info btn-sm" href="{{ route('sisw.show',$siswa->id) }}">Show</a> --}}
-
-                                                <a class="btn btn-primary btn-sm" href="{{ url('data_kegiatan/'.$c->id.'/edit') }}">Edit</a>
-
                                                 @csrf
                                                 @method('DELETE')
-
-                                                <button type="submit" class="btn btn-danger btn-sm delete">Hapus</button>
+                                                <button type="submit" class="btn btn-danger btn-sm delete ml-1">Hapus</button>
                                             </form>
+                                           </div>
                                         </td>
 
                                     </tr>

@@ -29,22 +29,22 @@
                                         <tr>
                                         <th>No</th>
                                         <th>Nama Kegiatan</th>
-                                        <th>Nama Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
 
-                                        @foreach ($keterangan as $c)
+                                        @foreach ($kegiatan as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                        <td style="vertical-align: middle;">{{$c->kategori_kegiatan->nama_kegiatan}}</td>
-                                        <td style="vertical-align: middle;">{{$c->nama_keterangan}}</td>
+                                        {{-- <td style="vertical-align: middle;">{{$c->kategori_kegiatan->nama_kegiatan}}</td> --}}
+                                        <td style="vertical-align: middle;">{{$c->name}}</td>
 
-                                        <td class="text-center">
+                                        <td width="100px" class="text-center d-flex">
+                                            <a class="btn btn-primary btn-sm" href="{{ url('keterangan_kegiatan/'.$c->id.'/edit') }}">Edit</a>
+
                                             <form action="{{ route('keterangan_kegiatan.destroy',$c->id) }}" method="POST">
-                                                <a class="btn btn-primary btn-sm" href="{{ url('keterangan_kegiatan/'.$c->id.'/edit') }}">Edit</a>
 
                                                 @csrf
                                                 @method('DELETE')

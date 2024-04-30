@@ -1,8 +1,8 @@
 @extends('admin_desa.layout')
 
-@section('title', 'Tambah Keterangan Kegiatan | Admin Desa PKK Kab. Indramayu')
+@section('title', 'Tambah Kegiatan | Admin Desa PKK Kab. Indramayu')
 
-@section('bread', 'Tambah Keterangan Kegiatan')
+@section('bread', 'Tambah Kegiatan')
 @section('container')
 
 <div class="col-md-4">
@@ -14,7 +14,7 @@
       <!-- /.card-header -->
       <!-- form start -->
 
-      <form action="{{ route('keterangan_kegiatan.store') }}" method="POST">
+      <form action="{{ route('kegiatan.store') }}" method="POST">
         @csrf
         @if (count($errors)>0)
             <div class="alert alert-danger">
@@ -56,7 +56,7 @@
 
         <div class="card-footer">
           <button type="submit" class="btn btn-primary">Tambah</button>
-          <a href="/keterangan_kegiatan" class="btn btn-outline-primary">
+          <a href="/kegiatan" class="btn btn-outline-primary">
             <span>Batalkan</span>
         </a>
         </div>

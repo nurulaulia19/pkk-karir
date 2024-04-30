@@ -1,9 +1,9 @@
-@extends('admin_kab.layout')
+@extends('admin_kec.layout')
 
-@section('title', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Kecamatan | Admin TP PKK Kab.
+@section('title', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Desa/Kelurahan | Admin Desa/Kelurahan PKK Kab.
     Indramayu')
 
-@section('bread', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Kecamatan')
+@section('bread', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Desa/Kelurahan')
 @section('container')
 
     <!-- Main content -->
@@ -17,19 +17,21 @@
                                 <div>
                                     <h6 class="d-flex justify-content-center"><strong>REKAPITULASI</strong></h6>
                                     <h6 class="d-flex justify-content-center"><strong>CATATAN DATA DAN KEGIATAN WARGA</strong> </h6>
-                                    <h6 class="d-flex justify-content-center"><strong>KELOMPOK KECAMATAN</strong> </h6>
-                                    <h6 class="d-flex justify-content-center"><strong>TAHUN {{$desaa->first()->dasawisma->first()->periode}}</strong> </h6>
+                                    <h6 class="d-flex justify-content-center"><strong>KELOMPOK DESA/KELURAHAN</strong> </h6>
+                                    <h6 class="d-flex justify-content-center"><strong>TAHUN {{$dasa_wisma->first()->dasawisma->first()->periode}}</strong> </h6>
                                 </div>
                                 <div>
-
+                                    <h6>Desa/Kel :
+                                        {{ $dasa_wisma->first()->dasawisma->first()->desa->nama_desa }}
+                                    </h6>
                                     <h6>Kecamatan :
-                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan }}
+                                        {{ $dasa_wisma->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan }}
                                     </h6>
                                     <h6>Kabupaten :
-                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }}
+                                        {{ $dasa_wisma->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }}
                                     </h6>
                                     <h6>Provinsi :
-                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }}
+                                        {{ $dasa_wisma->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }}
                                     </h6>
                                 </div>
 
@@ -39,8 +41,7 @@
                                         <thead>
                                             <tr>
                                                 <th rowspan="2" style="text-align: center;">No</th>
-                                                <th rowspan="2" style="text-align: center;">Nama desa</th>
-                                                <th rowspan="2" style="text-align: center;">Jml RW</th>
+                                                <th rowspan="2" style="text-align: center;">Kode RW</th>
                                                 <th rowspan="2" style="text-align: center;">Jml RT</th>
                                                 <th rowspan="2" style="text-align: center;">Jml Dasawisma</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KRT</th>
@@ -82,30 +83,33 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($desaa as $desa)
+                                            @foreach ($dasa_wisma as $desa)
+                                            @php
+                                                $keluarga = $desa->keluarga;
+                                            @endphp
 
                                                 <tr>
                                                     <td style="vertical-align: middle;">
                                                         {{ $loop->iteration }}
                                                     </td>
                                                     <td style="vertical-align: middle;">
-                                                        {{ $desa->nama_desa }}
-                                                    </td>
-                                                    <td style="vertical-align: middle;">
                                                         @php
                                                             $counts = app(
-                                                                'App\Http\Controllers\AdminKabController',
+                                                                'App\Http\Controllers\AdminController',
                                                             )->countRekapitulasiRWInDesa($desa->id);
                                                         @endphp
-                                                       {{ ucfirst($counts['countRW']) }}
+                                                        {{ $desa->name }}
                                                     </td>
                                                     <td style="vertical-align: middle;">
                                                         {{ ucfirst($counts['rt']) }}
+
+                                                        {{-- {{ $desa->rt->name }} --}}
                                                     </td>
                                                     <td style="vertical-align: middle;">
 
                                                         {{ ucfirst($counts['countDasawisma']) }}
 
+                                                        {{-- {{ $desa->nama_dasawisma  }} --}}
                                                     </td>
                                                     <td>
 
@@ -132,16 +136,23 @@
 
                                                     <td>
                                                         {{ ucfirst($counts['pus']) }}
+
+                                                        {{-- {{ $keluarga->jumlah_PUS }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['wus']) }}
+
+                                                        {{-- {{ $keluarga->jumlah_WUS }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['ibuHamil']) }}
+
+                                                        {{-- {{ $keluarga->jumlah_ibu_hamil }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['ibuMenyusui']) }}
 
+                                                        {{-- {{ $keluarga->jumlah_ibu_menyusui }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['lansia']) }}
@@ -149,20 +160,34 @@
                                                     <td>
                                                         {{ ucfirst($counts['kebutuhanKhusus']) }}
 
+                                                        {{-- {{ $keluarga->jumlah_kebutuhan_khusus }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['rumahSehat']) }}
 
-
+                                                        {{-- @if ($keluarga->kriteria_rumah_sehat == '1')
+                                                            <i class="fas fa-check"></i>
+                                                        @else
+0
+                                                        @endif --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['rumahNonSehat']) }}
 
+                                                        {{-- @if ($keluarga->kriteria_rumah_sehat == '0')
+                                                            <i class="fas fa-check"></i>
+                                                        @else
+0
+                                                        @endif --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['tempatSampah']) }}
 
-
+                                                        {{-- @if ($keluarga->punya_tempat_sampah == '1')
+                                                            <i class="fas fa-check"></i>
+                                                        @else
+                                                            0
+                                                        @endif --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['countSPAL']) }}
@@ -221,9 +246,6 @@
                                             @endforeach
                                             <tr>
                                                 <td><strong>Jumlah</strong> </td>
-                                                <td>
-                                                    {{$totalDesa}}
-                                                </td>
                                                 <td>
                                                     {{$totalRW}}
                                                 </td>
@@ -346,7 +368,7 @@
                                     </table>
 
                                 </div>
-                                <a href="{{ url('export_rekap_kec',['id' => $desaa->first()->id_kecamatan ]) }}" target="_blank" class="btn btn-success" type="button" role="button">
+                                <a href="{{ url('export_rekap_desa/kecamatan',['id' => $dasa_wisma->first()->dasawisma->first()->desa->id ]) }}" target="_blank" class="btn btn-success" type="button" role="button">
                                 <i class="fas fa-print"></i> Cetak ke Excel </a><br>
                             </div>
                         </div>
@@ -366,9 +388,7 @@
   <script src="{{url('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script> --}}
     <script>
         $(document).ready(function() {
-            $('.data').DataTable({
-                "order": [[ 1, 'asc' ]]
-            });
+            $('.data').DataTable();
         });
     </script>
 

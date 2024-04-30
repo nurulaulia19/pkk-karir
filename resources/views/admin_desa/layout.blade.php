@@ -169,15 +169,9 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="/kategori_kegiatan" class="nav-link {{ Request::is('kategori_kegiatan') ? 'active':'' }}">
+                    <a href="/kegiatan" class="nav-link {{ Request::is('kegiatan') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Kategori Kegiatan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/keterangan_kegiatan" class="nav-link {{ Request::is('keterangan_kegiatan') ? 'active':'' }}">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Keterangan Kegiatan</p>
+                      <p>Kegiatan</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -194,22 +188,6 @@
                   </li>
                 </ul>
               </li>
-
-              {{-- <li class="nav-item">
-                <a href="/data_dasawisma" class="nav-link {{ Request::is('data_dasawisma') ? 'active':'' }}">
-                <i class="nav-icon fas fa-folder-open"></i>
-                  <p>Data Dasawisma</p>
-                </a>
-              </li> --}}
-
-              {{-- <li class="nav-item">
-                <a href="/data_kader" class="nav-link {{ Request::is('data_kader') ? 'active':'' }}">
-                <i class="nav-icon fas fa-user"></i>
-                  <p>Data Kader Dasawisma</p>
-                </a>
-              </li> --}}
-
-
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-archive"></i>
@@ -237,12 +215,12 @@
                       <p>Data Kelompok PKK RW</p>
                     </a>
                   </li>
-                  <li class="nav-item">
+                  {{-- <li class="nav-item">
                     <a href="/data_kelompok_pkk_dusun" class="nav-link {{ Request::is('data_kelompok_pkk_dusun') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Data Kelompok PKK Dusun</p>
                     </a>
-                  </li>
+                  </li> --}}
                   <li class="nav-item">
                     <a href="/data_kelompok_pkk_desa" class="nav-link {{ Request::is('data_kelompok_pkk_desa') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>

@@ -11,7 +11,7 @@
 
         <div class="section-body">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-12">
+                <div class="col-12 col-lg-12">
                     <div class="card">
 
                         <div class="card-body">
@@ -40,6 +40,7 @@
                                             {{ucfirst($c->nama_kepala_keluarga) }}
                                         </td>
                                         <td class="text-center">
+                                            <a class="btn btn-success btn-sm" href="{{ url('rekap_data_warga/'.$c->id.'/rekap_data_warga') }}">Rekap Data Warga</a>
                                             <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >
                                                 Detail
                                             </a>

@@ -152,6 +152,7 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::get('/data_kelompok_pkk_desa', [AdminController::class, 'data_kelompok_pkk_desa']);
 
     // rekap kelompok desa
+    // mau di copy
     Route::get('/rekap_pkk_desa/{id}', [AdminController::class, 'rekap_pkk_desa']);
     Route::get('/export_rekap_desa/{id}', [AdminController::class, 'export_rekap_desa']);
 
@@ -160,9 +161,9 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::resource('/data_kader', KaderController::class);
     Route::resource('/data_dasawisma', KelompokDasawismaController::class);
 
-    // form kategori kegiatan
-    Route::resource('/kategori_kegiatan', KategoriKegiatanController::class);
-    Route::resource('/keterangan_kegiatan', KeteranganKegiatanController::class);
+    // form kegiatan
+    // Route::resource('/kategori_kegiatan', KategoriKegiatanController::class);
+    Route::resource('/kegiatan', KeteranganKegiatanController::class);
 
     // form data kategori pendataan kader
     // Route::resource('/kategori_industri', KategoriIndustriRumahController::class);
@@ -224,8 +225,10 @@ Route::middleware(['user_type:admin_kabupaten'])->group(function(){
 Route::middleware(['user_type:admin_kecamatan'])->group(function(){
     Route::get('/dashboard_kec', [DesaController::class, 'dashboard_kec'])->name('admin_kecamatan.dashboard');
     Route::get('/dashboard_kec/desa', [DesaController::class, 'desa'])->name('dashboard_kec.desa');
+    // paste
     Route::get('/dashboard_kec/rekapitulasi-desa/{id}', [DesaController::class, 'rekapitulasi'])->name('dashboard_kec.rekapitulasi');
     Route::get('/rekap_desa/{id}', [DesaController::class, 'rekap_desa'])->name('rekap_desa');
+    // mau di salin
     Route::get('/export_rekap_desa/kecamatan/{id}', [DesaController::class, 'export'])->name('export_rekap_desa_kecamatan');
      // profil admin kecamatan
     Route::get('/profil_admin_kecamatan', [DesaController::class, 'profilAdminKec'])->name('profil_adminKec');
@@ -286,7 +289,7 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
     Route::resource('/data_industri', DataIndustriRumahController::class);
     Route::resource('/data_pelatihan', DataPelatihanKaderController::class);
     Route::resource('/data_gabung', DataKaderGabungController::class);
-    // Route::get('/rekap', [KaderFormController::class, 'rekap']);
+    Route::get('/rekap', [KaderFormController::class, 'rekap']);
     Route::get('/catatan_keluarga', [KaderFormController::class, 'catatan_keluarga']);
 
     // rekap anggota keluarga
@@ -295,7 +298,9 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
     //print rekap anggota keluarga
     // Route::get('/print/{id}', [KaderFormController::class, 'print']);
     // Route::get('/print_pdf/{id}', [KaderFormController::class, 'print_pdf']);
-    Route::get('/print_pdf/{id}',  [KaderFormController::class, 'printPDF'])->name('print.pdf');
+    // Route::get('/print_pdf/{id}',  [KaderFormController::class, 'printPDF'])->name('print.pdf');
+    Route::get('/print_excel/{id}',  [KaderFormController::class, 'printExcel'])->name('print.excel.warga');
+
 
 
     //print rekap anggota keluarga

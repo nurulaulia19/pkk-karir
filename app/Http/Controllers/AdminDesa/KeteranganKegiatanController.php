@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\AdminDesa;
 use App\Http\Controllers\Controller;
-use App\Models\KategoriKegiatan;
+use App\Models\DataKegiatan;
 use App\Models\KeteranganKegiatan;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KeteranganKegiatanController extends Controller
 {
@@ -18,9 +19,9 @@ class KeteranganKegiatanController extends Controller
     public function index()
     {
         //halaman form keterangan kegiatan
-        $keterangan = KeteranganKegiatan::all();
-        $kategori_kegiatan = KategoriKegiatan::all();
-        return view('admin_desa.keterangan_kegiatan', compact('keterangan', 'kategori_kegiatan'));
+        $kegiatan = DataKegiatan::all();
+        // $kategori_kegiatan = KategoriKegiatan::all();
+        return view('admin_desa.kegiatan.index', compact('kegiatan'));
     }
 
     /**
@@ -31,9 +32,9 @@ class KeteranganKegiatanController extends Controller
     public function create(Request $request)
     {
         // halaman create keterangan kegiatan
-        $kategori_kegiatan = KategoriKegiatan::all();
+        $kegiatan = DataKegiatan::all();
 
-        return view('admin_desa.form.create_keterangan_kegiatan', compact('kategori_kegiatan'));
+        return view('admin_desa.kegiatan.create', compact('kegiatan'));
     }
 
     /**
@@ -45,23 +46,23 @@ class KeteranganKegiatanController extends Controller
     public function store(Request $request)
     {
         //
+        $user = Auth::user();
+        // dd($user);
         $request->validate([
-            'id_kegiatan' => 'required',
-            'nama_keterangan' => 'required',
+            'name' => 'required',
         ], [
-            'id_kegiatan.required' => 'required',
-            'nama_keterangan.required' => 'Masukkan Nama Keterangan',
+            'name.required' => 'Masukkan Nama Kegiatan',
         ]);
 
-        $kat = new KeteranganKegiatan;
-        $kat->id_kegiatan = $request->id_kegiatan;
-        $kat->nama_keterangan = $request->nama_keterangan;
+        $kegiatan = new DataKegiatan();
+        $kegiatan->desa_id = $user->id_desa;
+        $kegiatan->name = $request->name;
 
-        $kat->save();
+        $kegiatan->save();
         // dd($kat);
         Alert::success('Berhasil', 'Data berhasil di tambahkan');
 
-        return redirect('/keterangan_kegiatan');
+        return redirect('/kegiatan');
     }
 
     /**
@@ -81,12 +82,12 @@ class KeteranganKegiatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(KeteranganKegiatan $keterangan_kegiatan)
+    public function edit(Request $request, $id)
     {
         // halaman edit keterangan kegiatan
-        $kategori_kegiatan = KategoriKegiatan::all();
+        $kegiatan = DataKegiatan::find($id);
 
-        return view('admin_desa.form.edit_keterangan_kegiatan', compact('keterangan_kegiatan', 'kategori_kegiatan'));
+        return view('admin_desa.kegiatan.edit', compact('kegiatan'));
 
     }
 
@@ -97,21 +98,19 @@ class KeteranganKegiatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KeteranganKegiatan $keterangan_kegiatan)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'id_kegiatan' => 'required',
-            'nama_keterangan' => 'required',
+            'name' => 'required',
         ], [
-            'id_kegiatan.required' => 'required',
-            'nama_keterangan.required' => 'Masukkan Nama Keterangan',
+            'name.required' => 'Masukkan Nama Kegiatan',
         ]);
-
-        $keterangan_kegiatan->nama_keterangan = $request->nama_keterangan;
-        $keterangan_kegiatan->update();
+        $kegiatan = DataKegiatan::find($id);
+        $kegiatan->name = $request->name;
+        $kegiatan->update();
         Alert::success('Berhasil', 'Data berhasil di Ubah');
 
-        return redirect('/keterangan_kegiatan');
+        return redirect('/kegiatan');
     }
 
     /**
@@ -120,12 +119,13 @@ class KeteranganKegiatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($keterangan_kegiatan, KeteranganKegiatan $kat)
+    public function destroy($id)
     {
         //temukan id kat
-        $kat::find($keterangan_kegiatan)->delete();
+        // dd($id);
+        DataKegiatan::find($id)->delete();
         Alert::success('Berhasil', 'Data berhasil di Hapus');
 
-        return redirect('/keter$keterangan_kegiatan')->with('status', 'sukses');
+        return redirect('/kegiatan')->with('status', 'sukses');
     }
 }

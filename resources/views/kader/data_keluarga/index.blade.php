@@ -10,10 +10,9 @@
     <section class="section">
 
         <div class="section-body">
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-12">
+            <div class="row w-full">
+                <div class="col-12 col-md-12 col-lg-12">
                     <div class="card">
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
@@ -78,18 +77,18 @@
                                                 @endif
                                             @endforeach
                                             {{ ucfirst($countPerempuan) }} Orang
-                                        <td class="text-center">
-
-                                            <form action="{{ route('data_keluarga.destroy', $c->id) }}" method="POST">
-                                                {{-- {{dd($c->id)}} --}}
+                                        <td class="text-center" width="100px" style="vertical-align: middle;">
+                                            <div class="d-flex">
                                                 <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >
                                                     Detail
-                                                  </a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <a class="btn btn-primary btn-sm" href="{{ route('data_keluarga.edit', $c->id) }}">Edit</a>
-                                                <button type="submit" class="btn btn-danger btn-sm delete">Hapus</button>
-                                            </form>
+                                                </a>
+                                                <a class="btn btn-primary btn-sm ml-1" href="{{ route('data_keluarga.edit', $c->id) }}">Edit</a>
+                                                <form action="{{ route('data_keluarga.destroy', $c->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1">Hapus</button>
+                                                </form>
+                                            </div>
 
                                         </td>
 

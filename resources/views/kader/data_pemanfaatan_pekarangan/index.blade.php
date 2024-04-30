@@ -8,12 +8,10 @@
     <!-- Main content -->
 <div class="main-content">
     <section class="section">
-
         <div class="section-body">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-12">
+                <div class="col-12 col-lg-12">
                     <div class="card">
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
@@ -62,24 +60,18 @@
                                         <td style="vertical-align: middle;">{{ucfirst($c->komoditi)}}</td>
                                         <td style="vertical-align: middle;">{{ucfirst($c->jumlah)}}</td>
                                         <td style="vertical-align: middle;">{{ucfirst($c->periode)}}</td>
-                                        <td class="text-center">
-                                            <form action="{{ route('data_pemanfaatan.destroy',$c->id) }}" method="POST">
-
-                                            {{-- <a class="btn btn-info btn-sm" href="{{ route('sisw.show',$siswa->id) }}">Show</a> --}}
-
+                                        <td class="text-center" width="100px" style="vertical-align: middle;">
+                                            <div class="d-flex">
                                                 <a class="btn btn-primary btn-sm" href="{{ url('data_pemanfaatan/'.$c->id.'/edit') }}">Edit</a>
-
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit" class="btn btn-danger btn-sm delete">Hapus</button>
-                                            </form>
+                                                <form action="{{ route('data_pemanfaatan.destroy',$c->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1">Hapus</button>
+                                                </form>
+                                            </div>
                                         </td>
-
                                     </tr>
-
                                     @endforeach
-
                                     </tbody>
                                 </table>
 

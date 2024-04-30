@@ -1,199 +1,397 @@
 @extends('admin_kab.layout')
 
-@section('title', 'Catatan Data Dan Kegiatan Warga Kelompok PKK Kecamatan | Admin Kabupaten PKK Kab. Indramayu')
+@section('title', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Kecamatan | Admin TP PKK Kab.
+    Indramayu')
 
-@section('bread', 'Catatan Data Dan Kegiatan Warga Kelompok PKK Kecamatan')
+@section('bread', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Kecamatan')
 @section('container')
 
     <!-- Main content -->
     <div class="main-content">
-    <section class="section">
+        <section class="section">
+            <div class="section-body">
+                <div class="row">
+                    <div class="col-12 col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div>
+                                    <h6 class="d-flex justify-content-center"><strong>REKAPITULASI</strong></h6>
+                                    <h6 class="d-flex justify-content-center"><strong>CATATAN DATA DAN KEGIATAN WARGA</strong> </h6>
+                                    <h6 class="d-flex justify-content-center"><strong>KELOMPOK KECAMATAN</strong> </h6>
+                                    <h6 class="d-flex justify-content-center"><strong>TAHUN {{$desaa->first()->dasawisma->first()->periode}}</strong> </h6>
+                                </div>
+                                <div>
 
-        <div class="section-body">
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <center>
-                                <h6><strong>CATATAN DATA KEGIATAN WARGA</strong></h6>
-                                <h6><strong>TP PKK KECAMATAN</strong></h6>
-                                <h6><strong>TAHUN : {{ $periode }}</strong></h6>
-                                <h6><strong>KECAMATAN : {{ $nama_kecamatan }}</strong> </h6>
-                                <h6><strong>KAB/KOTA : {{$desaa->first()->dasawisma->first()->periode}}</strong> </h6>
-                                <h6><strong>PROVINSI : JAWA BARAT</strong> </h6>
+                                    <h6>Kecamatan :
+                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan }}
+                                    </h6>
+                                    <h6>Kabupaten :
+                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }}
+                                    </h6>
+                                    <h6>Provinsi :
+                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }}
+                                    </h6>
+                                </div>
 
 
-                            </center>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="6000px">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2" style="text-align: center;">No</th>
+                                                <th rowspan="2" style="text-align: center;">Nama desa</th>
+                                                <th rowspan="2" style="text-align: center;">Jml RW</th>
+                                                <th rowspan="2" style="text-align: center;">Jml RT</th>
+                                                <th rowspan="2" style="text-align: center;">Jml Dasawisma</th>
+                                                <th rowspan="2" style="text-align: center;">Jml. KRT</th>
+                                                <th rowspan="2" style="text-align: center;">Jml. KK</th>
+                                                <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
+                                                <th colspan="5" style="text-align:center;">Kriteria Rumah</th>
+                                                <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
+                                                <th colspan="2" style="text-align:center;">Makanan Pokok</th>
+                                                <th colspan="4" style="text-align:center;">Warga Mengikuti Kegiatan</th>
+                                                {{-- <th rowspan="2" style="text-align: center;">Ket</th> --}}
+                                            </tr>
+                                            <tr>
+                                                <th>Total L</th>
+                                                <th>Total P</th>
+                                                <th>Balita L</th>
+                                                <th>Balita P</th>
 
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered data" id="add-row" width="6000px">
-                                    <thead>
-                                        <tr>
-                                        <th rowspan="2" style="text-align: center;">No</th>
-                                        <th rowspan="2" style="text-align: center;">Nama Desa/Kelurahan</th>
-                                        <th rowspan="2" style="text-align: center;">Jml. Dusun/Ling</th>
-                                        <th rowspan="2" style="text-align: center;">Jml. RW</th>
-                                        <th rowspan="2" style="text-align: center;">Jml. RT</th>
-                                        <th rowspan="2" style="text-align: center;">Jml. Dasa Wisma</th>
-                                        <th rowspan="2" style="text-align: center;">Jml. KRT</th>
-                                        <th rowspan="2" style="text-align: center;">Jml. KK</th>
-                                        <th colspan="12" style="text-align:center;">Jumlah Anggota Keluarga</th>
-                                        <th colspan="5" style="text-align:center;">Kriteria Rumah</th>
-                                        <th colspan="4" style="text-align:center;">Sumber Air Keluarga</th>
-                                        <th rowspan="2" style="text-align: center;">Jml. Jamban Keluarga</th>
-                                        <th colspan="2" style="text-align:center;">Makanan Pokok</th>
-                                        <th colspan="4" style="text-align:center;">Warga Mengikuti Kegiatan</th>
-                                        {{-- <th rowspan="2" style="text-align: center;">Ket</th> --}}
-                                    </tr>
-                                    <tr>
-                                        <th>Total L</th>
-                                        <th>Total P</th>
-                                        <th>Balita L</th>
-                                        <th>Balita P</th>
-                                        <th>3 Buta L</th>
-                                        <th>3 Buta P</th>
-                                        <th>PUS</th>
-                                        <th>WUS</th>
-                                        <th>Ibu Hamil</th>
-                                        <th>Ibu Menyusui</th>
-                                        <th>Lansia</th>
-                                        <th>Berkebutuhan Khusus</th>
-                                        <th>Sehat</th>
-                                        <th>Tidak Sehat</th>
-                                        <th>Memiliki Tmp. Pemb. Sampah</th>
-                                        <th>Memiliki SPAL</th>
-                                        <th>Menempel Stiker P4K</th>
-                                        <th>PDAM</th>
-                                        <th>Sumur</th>
-                                        <th>Sungai</th>
-                                        <th>DLL</th>
-                                        <th>Beras</th>
-                                        <th>Non Beras</th>
-                                        <th>UP2K</th>
-                                        <th>Pemanfaatan dan Pekarangan</th>
-                                        <th>Industri Rumah Tangga</th>
-                                        <th>Kesehatan Lingkungan</th>
-                                    </tr>
+                                                <th>PUS</th>
+                                                <th>WUS</th>
+                                                <th>Ibu Hamil</th>
+                                                <th>Ibu Menyusui</th>
+                                                <th>Lansia</th>
+                                                <th>Berkebutuhan Khusus</th>
+                                                <th>Sehat Layak Huni</th>
+                                                <th>Tidak Sehat Layak Huni</th>
+                                                <th>Memiliki Tmp. Pemb. Sampah</th>
+                                                <th>Memiliki SPAL</th>
+                                                <th>Memiliki Jamban Keluarga</th>
+                                                <th>Menempel Stiker P4K</th>
+                                                <th>PDAM</th>
+                                                <th>Sumur</th>
+                                                <th>DLL</th>
+                                                <th>Beras</th>
+                                                <th>Non Beras</th>
+                                                <th>UP2K</th>
+                                                <th>Pemanfaatan dan Pekarangan</th>
+                                                <th>Industri Rumah Tangga</th>
+                                                <th>Kesehatan Lingkungan</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($desaa as $desa)
 
-                                    {{-- <tr>
-                                        <th>L</th>
-                                        <th>P</th>
-                                        <th>L</th>
-                                        <th>P</th>
-                                    </tr> --}}
-                                    </thead>
+                                                <tr>
+                                                    <td style="vertical-align: middle;">
+                                                        {{ $loop->iteration }}
+                                                    </td>
+                                                    <td style="vertical-align: middle;">
+                                                        {{ $desa->nama_desa }}
+                                                    </td>
+                                                    <td style="vertical-align: middle;">
+                                                        @php
+                                                            $counts = app(
+                                                                'App\Http\Controllers\AdminKabController',
+                                                            )->countRekapitulasiRWInDesa($desa->id);
+                                                        @endphp
+                                                       {{ ucfirst($counts['countRW']) }}
+                                                    </td>
+                                                    <td style="vertical-align: middle;">
+                                                        {{ ucfirst($counts['rt']) }}
+                                                    </td>
+                                                    <td style="vertical-align: middle;">
 
-                                    <tbody>
-                                        @foreach ($desas as $desa)
-                                        <tr>
-                                            <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                            <td style="vertical-align: middle;">{{ $desa->desa->nama_desa }}</td>
-                                            <td style="vertical-align: middle;">{{ $desa->jumlah_dusun }}</td>
-                                            <td style="vertical-align: middle;">{{ $desa->jumlah_rw }}</td>
-                                            <td style="vertical-align: middle;">{{ $desa->jumlah_rt }}</td>
-                                            <td style="vertical-align: middle;">{{ $desa->jumlah_dasa_wisma }}</td>
-                                            <td style="vertical-align: middle;">{{ $desa->jumlah_KRT }}</td>
-                                            <td style="vertical-align: middle;">{{ $desa->jumlah_KK }}</td>
-                                            <td>{{ $desa->jumlah_laki_laki }}</td>
-                                            <td>{{ $desa->jumlah_perempuan }}</td>
-                                            <td>{{ $desa->jumlah_balita_laki }}</td>
-                                            <td>{{ $desa->jumlah_balita_perempuan }}</td>
-                                            <td>{{ $desa->jumlah_3_buta_laki }}</td>
-                                            <td>{{ $desa->jumlah_3_buta_perempuan }}</td>
-                                            <td>{{ $desa->jumlah_PUS }}</td>
-                                            <td>{{ $desa->jumlah_WUS }}</td>
-                                            <td>{{ $desa->jumlah_ibu_hamil }}</td>
-                                            <td>{{ $desa->jumlah_ibu_menyusui }}</td>
-                                            <td>{{ $desa->jumlah_lansia }}</td>
-                                            <td>{{ $desa->jumlah_kebutuhan_khusus }}</td>
-                                            <td>{{ $desa->jumlah_kriteria_rumah_sehat }}</td>
-                                            <td>{{ $desa->jumlah_kriteria_rumah_tidak_sehat }}</td>
-                                            <td>{{ $desa->jumlah_punya_tempat_sampah }}</td>
-                                            <td>{{ $desa->jumlah_punya_saluran_air }}</td>
-                                            <td>{{ $desa->jumlah_tempel_stiker }}</td>
-                                            <td>{{ $desa->jumlah_sumber_air_pdam }}</td>
-                                            <td>{{ $desa->jumlah_sumber_air_sumur }}</td>
-                                            <td>{{ $desa->jumlah_sumber_air_sungai }}</td>
-                                            <td>{{ $desa->jumlah_sumber_air_dll }}</td>
-                                            <td>{{ $desa->punya_jamban }}</td>
-                                            <td>{{ $desa->jumlah_makanan_pokok_beras }}</td>
-                                            <td>{{ $desa->jumlah_makanan_pokok_non_beras }}</td>
-                                            <td>{{ $desa->jumlah_aktivitas_UP2K }}</td>
-                                            <td>{{ $desa->jumlah_have_pemanfaatan }}</td>
-                                            <td>{{ $desa->jumlah_have_industri }}</td>
-                                            <td>{{ $desa->jumlah_have_kegiatan }}</td>
-                                        </tr>
-                                        @endforeach
+                                                        {{ ucfirst($counts['countDasawisma']) }}
 
-                                        <tr>
-                                            <td><strong>Jumlah</strong></td>
-                                            <td></td>
-                                            <td>{{ $desas->sum('jumlah_dusun') }}</td>
-                                            <td>{{ $desas->sum('jumlah_rw') }}</td>
-                                            <td>{{ $desas->sum('jumlah_rt') }}</td>
-                                            <td>{{ $desas->sum('jumlah_dasa_wisma') }}</td>
-                                            <td>{{ $desas->sum('jumlah_KRT') }}</td>
-                                            <td>{{ $desas->sum('jumlah_KK') }}</td>
-                                            <td>{{ $desas->sum('jumlah_laki_laki') }}</td>
-                                            <td>{{ $desas->sum('jumlah_perempuan') }}</td>
-                                            <td>{{ $desas->sum('jumlah_balita_laki') }}</td>
-                                            <td>{{ $desas->sum('jumlah_balita_perempuan') }}</td>
-                                            <td>{{ $desas->sum('jumlah_3_buta_laki') }}</td>
-                                            <td>{{ $desas->sum('jumlah_3_buta_perempuan') }}</td>
-                                            <td>{{ $desas->sum('jumlah_PUS') }}</td>
-                                            <td>{{ $desas->sum('jumlah_WUS') }}</td>
-                                            <td>{{ $desas->sum('jumlah_ibu_hamil') }}</td>
-                                            <td>{{ $desas->sum('jumlah_ibu_menyusui') }}</td>
-                                            <td>{{ $desas->sum('jumlah_lansia') }}</td>
-                                            <td>{{ $desas->sum('jumlah_kebutuhan_khusus') }}</td>
-                                            <td>{{ $desas->sum('jumlah_kriteria_rumah_sehat') }}</td>
-                                            <td>{{ $desas->sum('jumlah_kriteria_rumah_tidak_sehat') }}</td>
-                                            <td>{{ $desas->sum('jumlah_punya_tempat_sampah') }}</td>
-                                            <td>{{ $desas->sum('jumlah_punya_saluran_air') }}</td>
-                                            <td>{{ $desas->sum('jumlah_tempel_stiker') }}</td>
-                                            <td>{{ $desas->sum('jumlah_sumber_air_pdam') }}</td>
-                                            <td>{{ $desas->sum('jumlah_sumber_air_sumur') }}</td>
-                                            <td>{{ $desas->sum('jumlah_sumber_air_sungai') }}</td>
-                                            <td>{{ $desas->sum('jumlah_sumber_air_dll') }}</td>
-                                            <td>{{ $desas->sum('punya_jamban') }}</td>
-                                            <td>{{ $desas->sum('jumlah_makanan_pokok_beras') }}</td>
-                                            <td>{{ $desas->sum('jumlah_makanan_pokok_non_beras') }}</td>
-                                            <td>{{ $desas->sum('jumlah_aktivitas_UP2K') }}</td>
-                                            <td>{{ $desas->sum('jumlah_have_pemanfaatan') }}</td>
-                                            <td>{{ $desas->sum('jumlah_have_industri') }}</td>
-                                            <td>{{ $desas->sum('jumlah_have_kegiatan') }}</td>
-                                        </tr>
-                                    </tbody>
+                                                    </td>
+                                                    <td>
 
-                                </table>
+                                                        {{ ucfirst($counts['countRumahTangga']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['countKK']) }}
+                                                    </td>
+                                                    <td>
 
-                            </div>
-                            <a href="{{ url('export_rekap_kec').'?'.http_build_query(compact('nama_kecamatan', 'desa', 'periode')) }}" target="_blank" class="btn btn-success" type="button" role="button">
+
+                                                        {{ ucfirst($counts['laki_laki']) }}<br>
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['perempuan']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['balitaLaki']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['balitaPerempuan']) }}
+                                                    </td>
+
+                                                    <td>
+                                                        {{ ucfirst($counts['pus']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['wus']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['ibuHamil']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['ibuMenyusui']) }}
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['lansia']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['kebutuhanKhusus']) }}
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['rumahSehat']) }}
+
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['rumahNonSehat']) }}
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['tempatSampah']) }}
+
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['countSPAL']) }}
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['countJamban']) }}
+
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['countStiker']) }}
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['countAirPDAM']) }}
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['countAirSumur']) }}
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['countAirLainya']) }}
+
+
+                                                    </td>
+
+                                                    <td>
+                                                        {{ ucfirst($counts['countBeras']) }}
+
+                                                    </td>
+
+                                                    <td>
+                                                        {{ ucfirst($counts['countNonBeras']) }}
+
+                                                    </td>
+
+                                                    <td>
+                                                        {{ ucfirst($counts['aktivitasUP2K']) }}
+                                                    </td>
+
+                                                    <td>
+                                                        {{ ucfirst($counts['pemanfaatanPekarangan']) }}
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['industriRumahTangga']) }}
+
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['kesehatanLingkungan']) }}
+
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td><strong>Jumlah</strong> </td>
+                                                <td>
+                                                    {{$totalDesa}}
+                                                </td>
+                                                <td>
+                                                    {{$totalRW}}
+                                                </td>
+                                                <td>
+                                                    {{$totalRT}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_KK') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalDasawisma}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_laki') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalJmlKRT}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_perempuan') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalJmlKK}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_balita_laki') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAnggotaLaki}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_balita_perempuan') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAnggotaPerempuan}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_3_buta') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAnggotaBalitaLaki}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_PUS') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAnggotaBalitaPerempuan}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_WUS') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAnggotaPUS}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_ibu_hamil') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAnggotaWUS}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_ibu_menyusui') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAnggotaIbuHamil}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_lansia') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAnggotaIbuMenyusui}}
+                                                    {{-- {{ $catatan_keluarga->sum('jumlah_kebutuhan_khusus') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAnggotaLansia}}
+                                                    {{-- {{ $catatan_keluarga->sum('kriteria_rumah') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAnggotaBerkebutuhanKhusus}}
+                                                    {{-- {{ $catatan_keluarga->count() - $catatan_keluarga->sum('kriteria_rumah') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalSheatLayakHuni}}
+                                                    {{-- {{ $catatan_keluarga->sum('punya_tempat_sampah') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalTidakSheatLayakHuni}}
+                                                    {{-- {{ $catatan_keluarga->sum('punya_saluran_air') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalPemSampah}}
+                                                    {{-- {{ $catatan_keluarga->sum('punya_jamban') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalSPAL}}
+                                                    {{-- {{ $catatan_keluarga->sum('tempel_stiker') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalJamban}}
+                                                    {{-- {{ $catatan_keluarga->where('sumber_air', 1)->count() }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalStiker}}
+                                                    {{-- {{ $catatan_keluarga->where('sumber_air', 2)->count() }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAirPDAM}}
+                                                    {{-- {{ $catatan_keluarga->where('sumber_air', 4)->count() }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAirSumur}}
+                                                    {{-- {{ $catatan_keluarga->where('makanan_pokok', 1)->count() }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalAirLainnya}}
+                                                    {{-- {{ $catatan_keluarga->where('makanan_pokok', 0)->count() }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalMakanBeras}}
+                                                    {{-- {{ $catatan_keluarga->sum('aktivitas_UP2K') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalMakanNonBeras}}
+                                                    {{-- {{ $catatan_keluarga->sum('have_pemanfaatan') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalKegiatanUP2K}}
+                                                    {{-- {{ $catatan_keluarga->sum('have_industri') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalKegiatanPemanfaatanPekarangan}}
+                                                    {{-- {{ $catatan_keluarga->sum('have_kegiatan') }} --}}
+                                                </td>
+                                                <td>
+                                                    {{$totalKegiatanIndustri}}
+                                                </td>
+                                                <td>
+                                                    {{$totalKegiatanLingkungan}}
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+
+                                </div>
+                                <a href="{{ url('export_rekap_kec',['id' => $desaa->first()->id_kecamatan ]) }}" target="_blank" class="btn btn-success" type="button" role="button">
                                 <i class="fas fa-print"></i> Cetak ke Excel </a><br>
-
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-        </div>
-
-    </section>
-</div>
+        </section>
+    </div>
     <!-- /.content -->
 
 
-<!-- page script -->
-  @endsection
+    <!-- page script -->
+@endsection
 
-  @push('script-addon')
+@push('script-addon')
+    {{-- <script src="{{url('admin/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+  <script src="{{url('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script> --}}
+    <script>
+        $(document).ready(function() {
+            $('.data').DataTable({
+                "order": [[ 1, 'asc' ]]
+            });
+        });
+    </script>
 
-<script>
-$(document).ready( function () {
-    $('.data').DataTable();
-} );
-</script>
-
-
-
+    <script>
+        $('.delete').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                    title: `Apakah anda yakin ingin menghapus data ini ?`,
+                    text: "Jika anda menghapusnya maka datanya akan di hapus secara permanen",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+        });
+    </script>
 @endpush

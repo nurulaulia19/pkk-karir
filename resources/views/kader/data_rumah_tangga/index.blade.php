@@ -11,7 +11,7 @@
 
         <div class="section-body">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-12">
+                <div class="col-12 col-md-12 col-lg-12">
                     <div class="card">
 
                         <div class="card-body">
@@ -52,14 +52,14 @@
                                                 N/A <!-- Tampilkan pesan alternatif jika dasawisma tidak tersedia -->
                                             @endif
                                         </td>
-                                        <td>
+                                        <td style="vertical-align: middle;">
                                             @if ($c->dasawisma)
                                                 {{ ucfirst($c->dasawisma->rw->name) }}
                                             @else
                                                 N/A <!-- Tampilkan pesan alternatif jika dasawisma tidak tersedia -->
                                             @endif
                                         </td>
-                                        <td>
+                                        <td style="vertical-align: middle;">
                                             @if ($c->dasawisma)
                                                 {{ ucfirst($c->dasawisma->rt->name) }}
                                             @else
@@ -67,27 +67,21 @@
                                             @endif
                                         </td>
                                         <td style="vertical-align: middle;">{{ $c->periode}}</td>
-                                        <td class="text-center">
-                                            <form action="{{ route('data_rumah_tangga.destroy',$c->id) }}" method="POST">
-
-                                            {{-- <a class="btn btn-info btn-sm" href="{{ url('data_keluarga.show',$c->id) }}">Show</a> --}}
-                                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">
-                                                Detail
-                                              </button>
-
-                                                <a class="btn btn-primary btn-sm" href="{{ url('data_rumah_tangga/'.$c->id.'/edit') }}">Edit</a>
-
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit" class="btn btn-danger btn-sm delete">Hapus</button>
-                                            </form>
+                                        <td class="text-center" width="100px" style="vertical-align: middle;">
+                                            <div class="d-flex">
+                                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">
+                                                    Detail
+                                                </button>
+                                                <a class="btn btn-primary btn-sm ml-1" href="{{ url('data_rumah_tangga/'.$c->id.'/edit') }}">Edit</a>
+                                                <form action="{{ route('data_rumah_tangga.destroy',$c->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1">Hapus</button>
+                                                </form>
+                                            </div>
                                         </td>
-
                                     </tr>
-
                                     @endforeach
-
                                     </tbody>
                                 </table>
 

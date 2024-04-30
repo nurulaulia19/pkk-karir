@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Exports\CatatanKeluargaExport;
+use App\Exports\WargaExport;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -32,32 +33,58 @@ class KaderFormController extends Controller
     // halaman dashboard
     public function dashboard_kader(){
         $user = Auth::user();
-        $keluarga = DataKeluarga::
-        where('id_user', $user->id)
-        ->get()->count();
-        $keluargaUpdate = DataKeluarga::
-        where('id_user', $user->id)->where('dilihat',false)
-        ->get()->count();
+        // $keluarga = DataKeluarga::
+        // where('id_user', $user->id)
+        // ->get()->count();
+        // $keluargaUpdate = DataKeluarga::
+        // where('id_user', $user->id)->where('dilihat',false)
+        // ->get()->count();
 
-        $warga = DataWarga::
-        where('id_user', $user->id)
-        ->get()->count();
+        // $warga = DataWarga::
+        // where('id_user', $user->id)
+        // ->get()->count();
 
-        $kegiatan = DataKegiatanWarga::
-        where('id_user', $user->id)
-        ->get()->count();
+        // $kegiatan = DataKegiatanWarga::
+        // where('id_user', $user->id)
+        // ->get()->count();
 
-        $pemanfaatan = DataPemanfaatanPekarangan::
-        where('id_user', $user->id)
-        ->get()->count();
+        // $pemanfaatan = DataPemanfaatanPekarangan::
+        // where('id_user', $user->id)
+        // ->get()->count();
 
-        $industri = DataIndustriRumah::
-        where('id_user', $user->id)
-        ->get()->count();
+        // $industri = DataIndustriRumah::
+        // where('id_user', $user->id)
+        // ->get()->count();
 
-        $rekap = DataWarga::with('keluarga')
-        ->where('id_user', $user->id)
-        ->get()->count();
+        // $rekap = DataWarga::with('keluarga')
+        // ->where('id_user', $user->id)
+        // ->get()->count();
+        $rekap = 1;
+        // dd($user);
+        $warga = 0;
+        $kegiatan = 0;
+        $pemanfaatan = 0;
+        $industri = 0;
+        $wargaAll = DataWarga::with(['kegiatan','pemanfaatan','industri'])->where('id_dasawisma', $user->id_dasawisma)->get();
+        foreach($wargaAll as $item){
+            $warga++;
+            foreach($item->kegiatan as $keg){
+                $kegiatan++;
+            }
+            foreach($item->pemanfaatan as $pem){
+                $pemanfaatan++;
+            }
+            foreach($item->industri as $indus){
+                $industri++;
+            }
+        }
+        // dd($warga);
+
+        $keluarga =  DataKeluarga::where('id_dasawisma', $user->id_dasawisma)->count();
+
+        // dibawah ini gajelas
+        $rekap = 0;
+        $keluargaUpdate = 0;
 
         return view('kader.dashboard', compact('keluarga', 'warga', 'kegiatan', 'pemanfaatan', 'industri',  'rekap', 'keluargaUpdate'));
     }
@@ -105,15 +132,15 @@ class KaderFormController extends Controller
     }
 
     // ngambil nama kepala keluarga
-    // public function rekap(){
-    //     $user = Auth::user();
+    public function rekap(){
+        $user = Auth::user();
 
-    //     $warga = DataWarga::with('keluarga')
-    //     ->where('id_user', $user->id)
-    //     ->get();
-    //     // dd($warga);
-    //     return view('kader.rekap', compact('warga'));
-    // }
+        $warga = DataWarga::with('keluarga')
+        ->where('id_user', $user->id)
+        ->get();
+        dd($warga);
+        return view('kader.rekap', compact('warga'));
+    }
 
     public function catatan_keluarga(){
         $user = Auth::user();
@@ -127,28 +154,13 @@ class KaderFormController extends Controller
      // halaman data rekap data warga pkk
     public function rekap_data_warga($id){
         // $kepala_keluarga = DataWarga::findOrFail($id);
-        // dd($kepala_keluarga);
-        // $warga =  DataWarga::where('id_keluarga', $id)->get();
-        // // dd($warga);
-        // $print = DataWarga::where('id_keluarga', $id)
-        // ->first();
-        // $print_pdf = DataWarga::where('id_keluarga', $id)
-        // ->first();
-        // Mengambil kepala keluarga
-        $kepala_keluarga = DataWarga::findOrFail($id);
+        // $warga =  DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->get();
+        // $print = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
+        // $print_pdf = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
 
-        // Mengambil semua data warga untuk keluarga yang sesuai dengan $id_kepala_keluarga
-        $warga =  DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->get();
+        $dataKeluarga = DataKeluarga::with('anggota.warga')->findOrFail($id);
 
-        // Mengambil data print pertama untuk keluarga yang sesuai dengan $id_kepala_keluarga
-        $print = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
-        // dd($print);
-        // Mengambil data print kedua untuk keluarga yang sesuai dengan $id_kepala_keluarga
-        $print_pdf = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
-
-
-
-        return view('kader.data_rekap', compact('warga', 'print','print_pdf','kepala_keluarga'));
+        return view('kader.data_rekap',compact('dataKeluarga'));
     }
 
      // print halaman data rekap data warga pkk
@@ -192,27 +204,45 @@ class KaderFormController extends Controller
     //     $dompdf->stream();
     // }
 
-    public function printPDF($id) {
-        $kepala_keluarga = DataWarga::findOrFail($id);
-        $warga =  DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->get();
-        $print = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
-        $print_pdf = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
+    // public function printPDF($id) {
+    //     $kepala_keluarga = DataWarga::findOrFail($id);
+    //     $warga =  DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->get();
+    //     $print = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
+    //     $print_pdf = DataWarga::where('id_keluarga', $kepala_keluarga->id_keluarga)->first();
 
-        // Render the view into HTML
-        $html = view('kader.print_rekap_pdf', compact('warga', 'print', 'print_pdf'));
+    //     // Render the view into HTML
+    //     $html = view('kader.print_rekap_pdf', compact('warga', 'print', 'print_pdf'));
 
-        // Instantiate Dompdf with our view content
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
+    //     // Instantiate Dompdf with our view content
+    //     $dompdf = new Dompdf();
+    //     $dompdf->loadHtml($html);
 
-        // (Optional) Set the paper size and orientation
-        $dompdf->setPaper('A4', 'landscape');
+    //     // (Optional) Set the paper size and orientation
+    //     $dompdf->setPaper('A4', 'landscape');
 
-        // Render the HTML as PDF
-        $dompdf->render();
+    //     // Render the HTML as PDF
+    //     $dompdf->render();
 
-        // Output the generated PDF (inline view or download)
-        $dompdf->stream("data_rekap.pdf");
+    //     // Output the generated PDF (inline view or download)
+    //     $dompdf->stream("data_rekap.pdf");
+    // }
+
+    public function printExcel($id) {
+
+       $userKader = Auth::user();
+
+
+    $keluarga = DataKeluarga::with(['anggota.warga.kegiatan', 'dasawisma','rumah_tangga.rumah_tangga'])->find($id);
+    // dd($keluarga);
+    $warga = $keluarga->anggota->first();
+    $dasawismaId = $warga->warga->id_dasawisma;
+    $dasawisma = DasaWisma::find($dasawismaId);
+
+    $dataKegiatan = DataKegiatan::where('desa_id',$userKader->id_desa)->get();
+    // dd($keluarga);
+
+
+    return Excel::download(new WargaExport($keluarga, $dasawisma, $dataKegiatan), 'Data Warga.xlsx');
     }
 
 

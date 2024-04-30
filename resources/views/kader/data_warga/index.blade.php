@@ -10,10 +10,9 @@
     <section class="section">
 
         <div class="section-body">
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-12">
+            <div class="row w-full ">
+                <div class="col-12 col-md-12 col-lg-12 ">
                     <div class="card">
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
@@ -61,17 +60,18 @@
                                         <td style="vertical-align: middle;">{{ucfirst($c->jenis_kelamin)}}</td>
                                         <td style="vertical-align: middle;">{{ucfirst($c->periode)}}</td>
 
-                                        <td class="text-center">
-                                            <form action="{{ route('data_warga.destroy',$c->id) }}" method="POST">
+                                        <td class="text-center" width="100px" style="vertical-align: middle;">
+                                            <div class="d-flex">
                                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">
                                                     Detail
-                                                  </button>
-
-                                                <a class="btn btn-primary btn-sm" href="{{ url('data_warga/'.$c->id.'/edit') }}">Edit</a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm delete">Hapus</button>
-                                            </form>
+                                                </button>
+                                                <a class="btn btn-primary btn-sm ml-1" href="{{ url('data_warga/'.$c->id.'/edit') }}">Edit</a>
+                                                <form action="{{ route('data_warga.destroy',$c->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1">Hapus</button>
+                                                </form>
+                                            </div>
                                         </td>
 
                                     </tr>
