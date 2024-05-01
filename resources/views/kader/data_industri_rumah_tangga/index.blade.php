@@ -13,7 +13,6 @@
             <div class="row">
                 <div class="col-12 col-lg-12">
                     <div class="card">
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
@@ -21,9 +20,7 @@
                                         <div class="col-md-1">
                                             <a href="{{ url('data_industri/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
                                         </div>
-
                                     </div>
-
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -35,9 +32,7 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-
                                     <tbody>
-
                                         @foreach ($industri as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
@@ -59,9 +54,7 @@
                                             </div>
                                             {{-- @endif --}}
                                           </td>
-
                                     </tr>
-
                                     @endforeach
 
                                     </tbody>

@@ -63,7 +63,18 @@
                                             </span>
                                         @enderror
                                     </div>
-
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlSelect1">RW</label>
+                                            <input type="hidden" disabled class="form-control" name="rw_id" id="rw_id"  value="{{ $kader->dasawisma->rw_id }}">
+                                            <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rw->name }}">
+                                        </div>
+                                        @error('rw_id')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">RT</label>
@@ -76,20 +87,6 @@
                                             </span>
                                         @enderror
                                     </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleFormControlSelect1">RT</label>
-                                            <input type="hidden" disabled class="form-control" name="rw_id" id="rw_id"  value="{{ $kader->dasawisma->rw_id }}">
-                                            <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rw->name }}">
-                                        </div>
-                                        @error('rw_id')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group @error('rw') is-invalid @enderror">
                                             <label for="exampleFormControlSelect1">Dusun</label>

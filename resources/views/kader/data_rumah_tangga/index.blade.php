@@ -85,7 +85,7 @@
                                     </tbody>
                                 </table>
 
-                                @foreach ($keluarga as $c)
+                                @foreach ($krt as $c)
                                 <div id="details-modal-{{ $c->id }}" class="modal fade" tabindex="1" role="dialog" aria-labelledby="details-modal-{{ $c->id }}" aria-hidden="true">
                                     <div class="modal-dialog modal-xl">
                                         <div class="modal-content">
@@ -95,143 +95,84 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                             </div>
-                                                    <div class="modal-body">
+                                                <div class="modal-body">
                                                     <h5>
-                                                        Dasawisma : <strong>
-                                                            {{-- {{ucfirst($c->dasawisma->nama_dasawisma) }}  --}}
-                                                        </strong><br>
-                                                        RT <strong>
-                                                            {{-- {{ ($c->rt) }} --}}
-                                                        </strong>, RW <strong>
-                                                            {{-- {{ ($c->rt) }} --}}
-                                                        </strong> <br>
-                                                        Dusun : <br>
-                                                        Desa/Kel : <strong>
-                                                            {{-- {{ucfirst($c->desa->nama_desa)}} --}}
-                                                        </strong><br>
-                                                        Kec. <strong>
-                                                            {{-- {{ucfirst($c->kecamatan->nama_kecamatan)}} --}}
-                                                        </strong>,
-                                                            Kabupaten <strong>
-                                                                {{-- {{ucfirst($c->kabupaten) }} --}}
-                                                            </strong>, Provinsi <strong>
-                                                                {{-- {{ucfirst($c->provinsi) }} --}}
-                                                            </strong>
+                                                        Dasawisma :
+                                                        <strong>
+                                                            {{ucfirst($c->dasawisma->nama_dasawisma) }}
+                                                        </strong>
                                                         <br>
-                                                        Nama Kepala Rumah Tangga : <strong>
-                                                            {{-- {{ucfirst($c->nama_kepala_rumah_tangga) }} --}}
+                                                        RT / RW :
+                                                        <strong>
+                                                            {{ ($c->dasawisma->rt->name) }} / {{ ($c->dasawisma->rw->name) }}
+                                                        </strong> <br>
+                                                        {{-- Dusun :
+                                                        <strong>
+                                                            {{ ($c->dusun) }}
+                                                        </strong>
+                                                        <br> --}}
+                                                        Desa/Kel :
+                                                        <strong>
+                                                            {{ucfirst($c->dasawisma->desa->nama_desa)}}
+                                                        </strong>
+                                                        <br>
+                                                        Kec.
+                                                        <strong>
+                                                            {{ucfirst($c->dasawisma->desa->kecamatan->nama_kecamatan)}}
+                                                        </strong>,
+                                                        Kabupaten
+                                                        <strong>
+                                                            {{ucfirst($c->dasawisma->desa->kecamatan->kabupaten->name)}}
+                                                        </strong>,
+                                                        Provinsi
+                                                        <strong>
+                                                            {{ucfirst($c->dasawisma->desa->kecamatan->kabupaten->provinsi->name)}}
+                                                        </strong>
+                                                        <br>
+                                                        Nama Kepala Rumah Tangga :
+                                                        <strong>
+                                                            {{ $c->nama_kepala_rumah_tangga}}
                                                         </strong><br>
-                                                        Jumlah Anggota Keluarga : <strong>
-                                                            {{-- {{ucfirst($c->jumlah_anggota_keluarga) }} --}}
-                                                        </strong>Orang<br>
-
-                                                        Jumlah Balita :
-                                                        {{-- @if ($warga = $c->jumlah_balita)
-                                                                        {{ $warga }} --}}
-                                                                         Anak
-                                                                        {{-- @else
-                                                                            - Orang
-                                                                        @endif <br> --}}
-                                                        Jumlah PUS (Pasangan Usia Subur) :  Orang
-                                                                        {{-- @else
-                                                                            - Orang
-                                                                        @endif <br> --}}
-                                                        Jumlah WUS (Wanita Usia Subur) :
-                                                         {{-- @if ($warga = $c->jumlah_WUS)
-                                                                        {{ $warga }} Orang
-                                                                        @else
-                                                                            - Orang
-                                                                        @endif <br> --}}
-                                                        Jumlah 3 Buta (Buta Warna, Buta Baca, Buta Hitung):
-                                                        {{-- @if ($warga = $c->jumlah_3_buta)
-                                                                        {{ $warga }} Orang
-                                                                        @else
-                                                                            - Orang
-                                                                        @endif <br> --}}
-                                                        Jumlah Ibu Hamil :
-                                                         {{-- @if ($warga = $c->jumlah_ibu_hamil)
-                                                                        {{ $warga }} Orang
-                                                                        @else
-                                                                            - Orang
-                                                                        @endif <br> --}}
-                                                        Jumlah Ibu Menyusui :
-                                                        {{-- @if ($warga = $c->jumlah_ibu_menyusui)
-                                                                        {{ $warga }} Orang
-                                                                        @else
-                                                                            - Orang
-                                                                        @endif <br> --}}
-                                                        Jumlah  Lansia :
-                                                         {{-- @if ($warga = $c->jumlah_lansia)
-                                                                        {{ $warga }} Orang
-                                                                        @else
-                                                                            - Orang
-                                                                        @endif <br> --}}
-                                                        Jumlah Kebutuhan Khusus :
-                                                        {{-- @if ($warga = $c->jumlah_kebutuhan_khusus)
-                                                                                    {{ $warga }} Orang
-                                                                                    @else
-                                                                                    - Orang
-                                                                                    @endif <br> --}}
-
-                                                        {{-- @if ($c->makanan_pokok == 1) --}}
-                                                            Makanan Pokok Sehari-hari: <strong> Beras </strong><br>
-                                                        {{-- @else --}}
-                                                            {{-- Makanan Pokok Sehari-hari: <strong> Non Beras </strong><br> --}}
-                                                        {{-- @endif --}}
-
-                                                        {{-- @if ($c->punya_jamban == 1) --}}
-                                                            Mempunyai Jamban Keluarga: <strong> Ya/ Buah</strong><br>
-                                                        {{-- @else
+                                                        Jumlah KK :
+                                                        <strong>
+                                                            {{ ucfirst($c->anggotaRT->count()) }}
+                                                        </strong>
+                                                        <br>
+                                                        @if ($c->punya_jamban)
+                                                            Mempunyai Jamban Keluarga: <strong> Ya / 1 Buah</strong><br>
+                                                        @else
                                                             Mempunyai Jamban Keluarga: <strong> Tidak/ {{ $c->jumlah_jamban }} Buah</strong><br>
-                                                        @endif --}}
-
-                                                        {{-- @if ($c->sumber_air == 1) --}}
+                                                        @endif
+                                                        @if ($c->sumber_air_pdam)
                                                             Sumber Air Keluarga: <strong> PDAM</strong><br>
-                                                        {{-- @elseif ($c->sumber_air == 2)
+                                                        @elseif ($c->sumber_air_sumur)
                                                             Sumber Air Keluarga: <strong> Sumur</strong><br>
-                                                        @elseif($c->sumber_air == 3)
-                                                            Sumber Air Keluarga: <strong> Sungai</strong><br>
-                                                        @elseif($c->sumber_air == 4)
+                                                        @elseif($c->sumber_air_lainnya)
                                                             Sumber Air Keluarga: <strong> Lainnya</strong><br>
-                                                        @endif --}}
-
-                                                        {{-- @if ($c->punya_tempat_sampah == 1)
+                                                        @endif
+                                                        @if ($c->punya_tempat_sampah)
                                                             Memiliki Tempat Pembuangan Sampah: <strong> Ya</strong><br>
-                                                        @else --}}
+                                                        @else
                                                             Memiliki Tempat Pembuangan Sampah: <strong> Tidak</strong><br>
-                                                        {{-- @endif --}}
-
-                                                        {{-- @if ($c->punya_saluran_air == 1) --}}
+                                                        @endif
+                                                        @if ($c->saluran_pembuangan_air_limbah)
                                                             Mempunyai Saluran Pembuangan Air Limbah: <strong> Ya</strong><br>
-                                                        {{-- @else
+                                                        @else
                                                             Mempunyai Saluran Pembuangan Air Limbah: <strong> Tidak</strong><br>
-                                                        @endif --}}
-
-                                                        {{-- @if ($c->tempel_stiker == 1) --}}
+                                                        @endif
+                                                        @if ($c->tempel_stiker)
                                                             Menempel Stiker P4K: <strong> Ya</strong><br>
-                                                        {{-- @else
+                                                        @else
                                                             Menempel Stiker P4K: <strong> Tidak</strong><br>
-                                                        @endif --}}
-
-                                                        {{-- @if ($c->kriteria_rumah == 1)
+                                                        @endif
+                                                        @if ($c->kriteria_rumah_sehat)
                                                             Kriteria Rumah : <strong>Sehat</strong><br>
-                                                        @else --}}
+                                                        @else
                                                             Kriteria Rumah : <strong>Kurang Sehat</strong><br>
-                                                        {{-- @endif
-
-                                                        @if ($c->aktivitas_UP2K == 1) --}}
-                                                            Aktivitaser UP2K: <strong> Ya</strong><br>
-                                                        {{-- @else
-                                                            Aktivitaser UP2K: <strong> Tidak</strong><br>
-                                                        @endif --}}
-
-                                                        {{-- @if ($c->aktivitas_kegiatan_usaha == 1) --}}
-                                                            Aktivitas Kegiatan Usaha Kesehatan Lingkungan: <strong> Ya</strong><br>
-                                                        {{-- @else
-                                                            Aktivitas Kegiatan Usaha Kesehatan Lingkungan: <strong> Tidak</strong><br>
-                                                        @endif --}}
-                                                        </h5>
-                                                    </div>
+                                                        @endif
+                                                        <br>
+                                                    </h5>
+                                                </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Oke</button>
                                                         {{-- <button type="button" class="btn btn-primary">Oke</button> --}}

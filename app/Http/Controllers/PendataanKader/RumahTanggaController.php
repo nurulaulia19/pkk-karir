@@ -29,8 +29,7 @@ class RumahTanggaController extends Controller
         $user = Auth::user();
         $keluarga = DataKeluarga::with('anggota.warga')->where('id_dasawisma', $user->id_dasawisma)->get();
         $krt = RumahTangga::with('dasawisma.rw.rt')->where('id_dasawisma', $user->id_dasawisma)->get();
-
-
+        // dd($krt);
         //halaman form data keluarga
         // $keluarga = DataKeluarga::all()->where('id_user', $user->id);
         // $dasawisma = DataKelompokDasawisma::all();

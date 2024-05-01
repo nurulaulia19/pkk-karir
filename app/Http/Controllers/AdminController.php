@@ -151,9 +151,6 @@ class AdminController extends Controller
         $totalAirPDAM = 0;
         $totalAirSumur = 0;
         $totalAirLainya = 0;
-
-
-
         $today = Carbon::now();
         foreach ($rumahtangga as $tangga){
             if($tangga->sumber_air_pdam){

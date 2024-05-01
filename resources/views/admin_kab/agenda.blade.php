@@ -14,12 +14,9 @@
 
         <div class="section-body">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-12">
+                <div class="col-12 col-lg-12">
                     <div class="card">
-
-
                         <div class="card-body">
-
                             <div class="table-responsive">
                                 <table id="example1" class="table table-bordered table-striped">
 

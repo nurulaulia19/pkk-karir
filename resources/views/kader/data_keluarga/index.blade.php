@@ -79,9 +79,12 @@
                                             {{ ucfirst($countPerempuan) }} Orang
                                         <td class="text-center" width="100px" style="vertical-align: middle;">
                                             <div class="d-flex">
-                                                <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >
+                                                {{-- <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >
                                                     Detail
-                                                </a>
+                                                </a> --}}
+                                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">
+                                                    Detail
+                                                </button>
                                                 <a class="btn btn-primary btn-sm ml-1" href="{{ route('data_keluarga.edit', $c->id) }}">Edit</a>
                                                 <form action="{{ route('data_keluarga.destroy', $c->id) }}" method="POST">
                                                     @csrf
@@ -109,68 +112,108 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                             </div>
-                                                    <div class="modal-body">
+                                                <div class="modal-body">
                                                     <h5>
-                                                        Dasawisma : <strong>
-                                                            {{-- {{ucfirst($c->dasawisma->nama_dasawisma) }} --}}
-                                                         </strong><br>
-                                                        RT <strong>
-                                                            {{-- {{ ($c->rt) }} --}}
-                                                        </strong>, RW <strong>
-                                                            {{-- {{ ($c->rt) }} --}}
+                                                        Dasawisma :
+                                                        <strong>
+                                                            {{ucfirst($c->dasawisma->nama_dasawisma) }}
+                                                        </strong>
+                                                        <br>
+                                                        RT / RW :
+                                                        <strong>
+                                                            {{ ($c->dasawisma->rt->name) }} / {{ ($c->dasawisma->rw->name) }}
                                                         </strong> <br>
-                                                        Dusun : <br>
-                                                        Desa/Kel : <strong>
-                                                            {{-- {{ucfirst($c->desa->nama_desa)}} --}}
-                                                        </strong><br>
-                                                        Kec. <strong>
-                                                            {{-- {{ucfirst($c->kecamatan->nama_kecamatan)}} --}}
+                                                        {{-- Dusun :
+                                                        <strong>
+                                                            {{ ($c->dusun) }}
+                                                        </strong>
+                                                        <br> --}}
+                                                        Desa/Kel :
+                                                        <strong>
+                                                            {{ucfirst($c->dasawisma->desa->nama_desa)}}
+                                                        </strong>
+                                                        <br>
+                                                        Kec.
+                                                        <strong>
+                                                            {{ucfirst($c->dasawisma->desa->kecamatan->nama_kecamatan)}}
                                                         </strong>,
-                                                            Kabupaten <strong>
-                                                                {{-- {{ucfirst($c->kabupaten) }} --}}
-                                                            </strong>, Provinsi <strong>
-                                                                {{-- {{ucfirst($c->provinsi) }} --}}
-                                                            </strong><br>
-                                                        Nama Kepala Rumah Tangga : <strong>
-                                                            {{-- {{ucfirst($c->nama_kepala_rumah_tangga) }} --}}
+                                                        Kabupaten
+                                                        <strong>
+                                                            {{ucfirst($c->dasawisma->desa->kecamatan->kabupaten->name)}}
+                                                        </strong>,
+                                                        Provinsi
+                                                        <strong>
+                                                            {{ucfirst($c->dasawisma->desa->kecamatan->kabupaten->provinsi->name)}}
+                                                        </strong>
+                                                        <br>
+                                                        Nama Kepala Keluarga :
+                                                        <strong>
+                                                            {{ucfirst($c->nama_kepala_keluarga) }}
                                                         </strong><br>
                                                         Jumlah Anggota Keluarga : <strong>
-                                                            {{-- {{ucfirst($c->jumlah_anggota_keluarga) }} --}}
+                                                            {{ucfirst($c->anggota->count()) }}
                                                         </strong>Orang<br>
-
-                                                        Jumlah Balita :  2 orang <br>
-                                                        Jumlah PUS (Pasangan Usia Subur) :  2 orang <br>
-                                                        Jumlah WUS (Wanita Usia Subur) :  2 orang <br>
-                                                        Jumlah 3 Buta (Buta Warna, Buta Baca, Buta Hitung):  2 orang<br>
-                                                        Jumlah Ibu Hamil :  2 orang<br>
-                                                        Jumlah Ibu Menyusui : 2 orang <br>
-                                                        Jumlah  Lansia :  2 orang<br>
-                                                        Jumlah Kebutuhan Khusus :2 orang <br>
-
-                                                            Makanan Pokok Sehari-hari: <strong> Beras </strong><br>
-
-                                                            Mempunyai Jamban Keluarga: <strong> Ya/ 2 Buah</strong><br>
-
-
-                                                            Sumber Air Keluarga: <strong> PDAM</strong><br>
-
-
-                                                            Memiliki Tempat Pembuangan Sampah: <strong> Ya</strong><br>
-
-
-                                                            Mempunyai Saluran Pembuangan Air Limbah: <strong> Ya</strong><br>
-
-
-                                                            Menempel Stiker P4K: <strong> Ya</strong><br>
-
-
-                                                            Kriteria Rumah : <strong>Sehat</strong><br>
-
-
-                                                            Aktivitaser UP2K: <strong> Ya</strong><br>
-
-                                                            Aktivitas Kegiatan Usaha Kesehatan Lingkungan: <strong> Ya</strong><br>
-
+                                                        Jumlah Balita :
+                                                        <strong>
+                                                            {{ $c->anggota->filter(function($anggota) {
+                                                                // Calculate age based on birthdate
+                                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                                $today = new DateTime();
+                                                                $age = $today->diff($birthdate)->y;
+                                                                return $age <= 5;
+                                                            })->count() }}
+                                                        </strong> Orang <br>
+                                                        Jumlah WUS (Wanita Usia Subur)
+                                                        <strong>
+                                                            {{ $c->anggota->filter(function($anggota) {
+                                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                                $today = new DateTime();
+                                                                $age = $today->diff($birthdate)->y;
+                                                                // Check if the member is female, aged between 15 and 49, and married
+                                                                return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
+                                                            })->count() }}
+                                                        </strong> orang <br>
+                                                        Jumlah PUS (Pasangan Usia Subur) :
+                                                        <strong>
+                                                            {{ $c->anggota->filter(function($anggota) {
+                                                                // Calculate age based on birthdate
+                                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                                $today = new DateTime();
+                                                                $age = $today->diff($birthdate)->y;
+                                                                // Check if the member is aged between 15 and 49 and married
+                                                                return $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
+                                                            })->count() }}
+                                                        </strong> orang <br>
+                                                        {{-- Jumlah 3 Buta (Buta Warna, Buta Baca, Buta Hitung):  2 orang<br> --}}
+                                                        Jumlah Ibu Hamil :
+                                                        <strong>
+                                                            {{ ucfirst($c->anggota->filter(function($anggota) {
+                                                                return $anggota->warga->ibu_hamil;
+                                                            })->count()) }}
+                                                        </strong> Orang <br>
+                                                        Jumlah Ibu Menyusui :
+                                                        <strong>
+                                                            {{ ucfirst($c->anggota->filter(function($anggota) {
+                                                                return $anggota->warga->ibu_menyusui;
+                                                            })->count()) }}
+                                                        </strong> Orang <br>
+                                                        Jumlah  Lansia :
+                                                        <strong>
+                                                            {{ $c->anggota->filter(function($anggota) {
+                                                                // Calculate age based on birthdate
+                                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                                $today = new DateTime();
+                                                                $age = $today->diff($birthdate)->y;
+                                                                return $age >= 45;
+                                                            })->count() }}
+                                                        <br>
+                                                        </strong>
+                                                        Jumlah Kebutuhan Khusus :
+                                                        <strong>
+                                                            {{ $c->anggota->filter(function($anggota) {
+                                                                return $anggota->warga->berkebutuhan_khusus !== null && $anggota->warga->berkebutuhan_khusus !== 'Tidak';
+                                                            })->count() }}
+                                                        </strong> Orang <br>
                                                         </h5>
                                                     </div>
                                                     <div class="modal-footer">
