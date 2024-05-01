@@ -35,7 +35,7 @@
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td style="vertical-align: middle;">{{$c->name}}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-warning btn-sm" href="{{ url('rekap_kelompok_pkk_rt/rw/'.$c->id) }}">Data RT</a>
+                                            <a class="btn btn-warning btn-sm" href="{{ url('rekap_kelompok_pkk_rt/rw/'.$c->id) }}">Rekap RT</a>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -38,8 +38,13 @@ class RtController extends Controller
             dd('Tidak ada RW');
         }
         $rw = $rwData->name;
+        $lastRT = Rt::latest()->first();
+        // Mengambil id dari entri terakhir, atau defaultkan ke 0 jika tabel kosong
+        $lastId = $lastRT ? $lastRT->id : 0;
+        // Menambahkan 1 untuk mendapatkan nomor berikutnya
+        $nextId = $lastId + 1;
 
-        return view('admin_desa.rw.rt.create',compact('rw'));
+        return view('admin_desa.rw.rt.create',compact('rw','nextId'));
     }
     public function store(Request $request)
     {

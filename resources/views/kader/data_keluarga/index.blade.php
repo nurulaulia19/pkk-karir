@@ -173,16 +173,28 @@
                                                                 return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                                             })->count() }}
                                                         </strong> orang <br>
-                                                        Jumlah PUS (Pasangan Usia Subur) :
+                                                        Jumlah PUS (Pasangan Usia Subur):
                                                         <strong>
-                                                            {{ $c->anggota->filter(function($anggota) {
-                                                                // Calculate age based on birthdate
-                                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                                $today = new DateTime();
-                                                                $age = $today->diff($birthdate)->y;
-                                                                // Check if the member is aged between 15 and 49 and married
-                                                                return $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
-                                                            })->count() }}
+                                                            {{
+                                                                $c->anggota->filter(function($anggota) {
+                                                                    // Calculate age based on birthdate
+                                                                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                                    $today = new DateTime();
+                                                                    $age = $today->diff($birthdate)->y;
+                                                                    // Check if the member is married
+                                                                    if ($anggota->warga->status_perkawinan === 'menikah') {
+                                                                        // If the member is male, return true regardless of age
+                                                                        if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+                                                                            return true;
+                                                                        }
+                                                                        // If the member is female, check if age is between 15 and 49
+                                                                        return $age >= 15 && $age <= 49;
+                                                                    }
+                                                                    // If not married, return false
+                                                                    return false;
+                                                                })->count()
+                                                            }}
+                                                        </strong>
                                                         </strong> orang <br>
                                                         {{-- Jumlah 3 Buta (Buta Warna, Buta Baca, Buta Hitung):  2 orang<br> --}}
                                                         Jumlah Ibu Hamil :

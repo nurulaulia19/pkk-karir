@@ -186,7 +186,7 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
             ['REKAPITULASI'],
             ['CATATAN DATA DAN KEGIATAN WARGA'],
             ['TP PKK KABUPATEN'],
-            ['TAHUN : ' . $this->periode],
+            ['TAHUN : ' . $this->kecamatans->first()->desa->first()->rw->first()->periode],
             ['KAB/KOTA : INDRAMAYU'],
             ['PROVINSI : JAWA BARAT'], [], $headings, $headings2];
     }

@@ -3586,17 +3586,17 @@ class UserSeeder extends Seeder
         // $admin_desa->assignRole(Role::ROLE_ADMIN);
 
 
-        // // Admin PKK Kecamatan
-        // $admin_kecamatan = User::create([
-        //     'name' => 'Admin PKK Kecamatan Anjatan',
-        //     'email' => 'adminkecamatananjatan@gmail.com',
-        //     'password' => Hash::make('kecamatananjatan'),
-        //     'user_type' => 'admin_kecamatan',
-        // 'foto' => null,
-        //     'id_kecamatan' => 1,
-        //     'id_desa' => null,
-        // ]);
-        // $admin_kecamatan->assignRole(Role::ROLE_ADMIN);
+        // Admin PKK Kecamatan
+        $admin_kecamatan = User::create([
+            'name' => 'Admin PKK Kecamatan Anjatan',
+            'email' => 'adminkecamatananjatan@gmail.com',
+            'password' => Hash::make('kecamatananjatan'),
+            'user_type' => 'admin_kecamatan',
+        'foto' => null,
+            'id_kecamatan' => 1,
+            'id_desa' => null,
+        ]);
+        $admin_kecamatan->assignRole(Role::ROLE_ADMIN);
 
         // $admin_kecamatan = User::create([
         //     'name' => 'Admin PKK Kecamatan Arahan',

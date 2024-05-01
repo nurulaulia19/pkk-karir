@@ -16,7 +16,6 @@ class RwController extends Controller
     {
         $user = Auth::user();
         $rw = Rw::where('desa_id', $user->id_desa)->get();
-        // dd($rw);
 
         return view('admin_desa.rw.index', compact('rw'));
     }
@@ -32,8 +31,12 @@ class RwController extends Controller
 
     public function create(Request $request)
     {
-        // halaman create rw
-        return view('admin_desa.rw.create');
+        $lastRW = Rw::latest()->first();
+        // Mengambil id dari entri terakhir, atau defaultkan ke 0 jika tabel kosong
+        $lastId = $lastRW ? $lastRW->id : 0;
+        // Menambahkan 1 untuk mendapatkan nomor berikutnya
+        $nextId = $lastId + 1;
+        return view('admin_desa.rw.create', compact('nextId'));
     }
     public function store(Request $request)
     {

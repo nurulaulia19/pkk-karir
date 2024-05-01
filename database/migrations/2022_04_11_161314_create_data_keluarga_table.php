@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('periode');
             $table->bigInteger('id_dasawisma')->unsigned()->nullable();
             $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma');
-            $table->string('dusun')->nullable();
+            // $table->string('dusun')->nullable();
             // $table->string('provinsi');
             $table->string('nama_kepala_keluarga');
             // $table->boolean('punya_jamban');

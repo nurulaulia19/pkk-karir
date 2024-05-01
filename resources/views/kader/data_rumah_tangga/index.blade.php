@@ -144,12 +144,22 @@
                                                             Mempunyai Jamban Keluarga: <strong> Tidak/ {{ $c->jumlah_jamban }} Buah</strong><br>
                                                         @endif
                                                         @if ($c->sumber_air_pdam)
-                                                            Sumber Air Keluarga: <strong> PDAM</strong><br>
-                                                        @elseif ($c->sumber_air_sumur)
-                                                            Sumber Air Keluarga: <strong> Sumur</strong><br>
-                                                        @elseif($c->sumber_air_lainnya)
-                                                            Sumber Air Keluarga: <strong> Lainnya</strong><br>
+                                                            Sumber Air Keluarga: <strong> PDAM</strong>
+                                                        @else
+                                                           <br>
                                                         @endif
+                                                        @if ($c->sumber_air_sumur)
+                                                            <strong> Sumur</strong>
+                                                        @else
+                                                           <br>
+                                                        @endif
+
+                                                        @if ($c->sumber_air_lainnya)
+                                                            <strong> Lainnya</strong><br>
+                                                        @else
+                                                            <br>
+                                                        @endif
+
                                                         @if ($c->punya_tempat_sampah)
                                                             Memiliki Tempat Pembuangan Sampah: <strong> Ya</strong><br>
                                                         @else

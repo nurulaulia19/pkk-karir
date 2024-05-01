@@ -42,7 +42,7 @@
                                         <td class="text-center">
                                             <a class="btn btn-success btn-sm" href="{{ url('rekap_data_warga/'.$c->id.'/rekap_data_warga') }}">Rekap Data Warga</a>
                                             <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >
-                                                Detail
+                                                Catatan Keluarga
                                             </a>
                                         </td>
 

@@ -38,6 +38,7 @@ class DataKeluargaController extends Controller
     {
         $user = Auth::user();
         $keluarga = DataKeluarga::with('anggota.warga')->where('id_dasawisma', $user->id_dasawisma)->get();
+        // dd($keluarga);
 
 
         //halaman form data keluarga
@@ -72,7 +73,7 @@ class DataKeluargaController extends Controller
 
         $keg = DataKeluarga::all();
         $warga = DataWarga::where('is_keluarga', false)->get();
-        
+
         $dasawisma = DataKelompokDasawisma::all();
         $kabupaten = DataKabupaten::first();
         $provinsi = DataProvinsi::first();
@@ -154,7 +155,7 @@ class DataKeluargaController extends Controller
             'nama_kepala_keluarga' => $kepalaKeluarga->nama,
             'rt' => $request->rt,
             'rw' => $request->rw,
-            'dusun' => $request->dusun,
+            // 'dusun' => $request->dusun,
             'provinsi' => $request->provinsi,
             'id_dasawisma' => $request->id_dasawisma,
             'periode' => $request->periode,
@@ -288,7 +289,7 @@ class DataKeluargaController extends Controller
             // 'punya_jamban' => $request->punya_jamban,
             'rt' => $request->rt,
             'rw' => $request->rw,
-            'dusun' => $request->dusun,
+            // 'dusun' => $request->dusun,
             'provinsi' => $request->provinsi,
             'id_dasawisma' => $request->id_dasawisma,
             'nama_kepala_keluarga' => $kepalaKeluarga->nama,

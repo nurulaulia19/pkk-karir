@@ -5,7 +5,7 @@
 @section('bread', 'Edit RT')
 @section('container')
 
-<div class="col-md-12">
+<div class="col-md-4">
     <!-- general form elements -->
     <div class="card card-primary">
       <div class="card-header">
@@ -45,7 +45,7 @@
 
         <div class="card-footer">
           <button type="submit" class="btn btn-primary">Edit</button>
-          <a href="/kategori_kegiatan" class="btn btn-outline-primary">
+          <a href="/rt" class="btn btn-outline-primary">
             <span>Batalkan</span>
         </a>
         </div>

@@ -11,7 +11,7 @@
         <section class="section">
             <div class="section-body">
                 <div class="row">
-                    <div class="col-12 col-md-6 col-lg-12">
+                    <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
                             <div class="card-body">
                                 <div>
@@ -46,7 +46,7 @@
                                                 <th rowspan="2" style="text-align: center;">Jml Dasawisma</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KRT</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KK</th>
-                                                <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
+                                                <th colspan="10" style="text-align:center;">Jumlah Anggota Keluarga</th>
                                                 <th colspan="5" style="text-align:center;">Kriteria Rumah</th>
                                                 <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
                                                 <th colspan="2" style="text-align:center;">Makanan Pokok</th>

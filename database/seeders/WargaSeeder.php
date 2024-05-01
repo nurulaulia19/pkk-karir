@@ -39,7 +39,7 @@ class WargaSeeder extends Seeder
             'ikut_koperasi' => 1,
             'memiliki_tabungan' => 1,
             'periode' => 2024,
-            'is_keluarga' => true
+            'is_keluarga' => false
         ]);
 
         DataWarga::create([
@@ -66,7 +66,7 @@ class WargaSeeder extends Seeder
             'ikut_koperasi' => 0,
             'memiliki_tabungan' => 1,
             'periode' => 2024,
-            'is_keluarga' => true
+            'is_keluarga' => false
         ]);
         DataWarga::create([
             'id_desa' => 1,
@@ -92,7 +92,7 @@ class WargaSeeder extends Seeder
             'ikut_koperasi' => 0,
             'memiliki_tabungan' => 1,
             'periode' => 2024,
-            'is_keluarga' => true
+            'is_keluarga' => false
         ]);
 
         // DataWarga::create([

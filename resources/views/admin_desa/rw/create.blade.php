@@ -27,17 +27,17 @@
             </div>
         @endif
 
-        <div class="card-body">
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Nama RW</label>
-                    {{-- nama Nama RW --}}
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama RW" value="{{ old('name') }}">
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                 <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Nama RW</label>
+                        {{-- nama Nama RW --}}
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama RW" value="{{ $nextId }}">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                </div>
             </div>
         </div>
         <!-- /.card-body -->

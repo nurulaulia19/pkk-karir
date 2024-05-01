@@ -84,7 +84,7 @@
                                                 <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rt->name }}">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <div class="form-group @error('rw') is-invalid @enderror">
                                                 <label for="exampleFormControlSelect1">Dusun</label>
                                                 <input type="text"
@@ -97,11 +97,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="row">
+                                        </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-group @error('id_desa') is-invalid @enderror">
                                                 <label for="exampleFormControlSelect1">Desa</label>
@@ -119,8 +115,11 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group @error('id_kecamatan') is-invalid @enderror">
                                                 <label for="exampleFormControlSelect1">Kecamatan</label>
@@ -141,10 +140,6 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Kabupaten</label>
@@ -157,6 +152,10 @@
                                                     @enderror
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Provinsi</label>
@@ -169,10 +168,6 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 {{-- pilih periode --}}
@@ -184,6 +179,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Periode</label>
+                                                <select class="form-control" id="periode" name="periode" readonly>
+                                                    <option value="{{ date('Y') }}">{{ date('Y') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="card-footer">
@@ -634,7 +641,7 @@
             var statusSelect = rownew.find('.status-select');
             statusSelect.append('<option value="ibu">Ibu</option>');
             statusSelect.append('<option value="anak">Anak</option>');
-            // statusSelect.append('<option value="lainnya">Lainnya</option>');
+            statusSelect.append('<option value="lainnya">Lainnya</option>');
         }
 
         warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan

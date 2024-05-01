@@ -85,7 +85,7 @@
                                                 <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rt->name }}">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <div class="form-group @error('rw') is-invalid @enderror">
                                                 <label for="exampleFormControlSelect1">Dusun</label>
                                                 <input type="text" class="form-control @error('dusun') is-invalid @enderror" name="dusun" id="dusun" placeholder="Masukkan Nama Dusun" value="{{ old('dusun', $krt->dusun) }}">
@@ -95,12 +95,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="row">
+                                        </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-group @error('id_desa') is-invalid @enderror">
                                                 <label for="exampleFormControlSelect1">Desa</label>
@@ -118,8 +113,11 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group @error('id_kecamatan') is-invalid @enderror">
                                                 <label for="exampleFormControlSelect1">Kecamatan</label>
@@ -140,10 +138,6 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Kabupaten</label>
@@ -156,6 +150,10 @@
                                                     @enderror
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Provinsi</label>
@@ -168,21 +166,30 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Periode</label>
+                                                <select class="form-control" id="periode" name="periode" readonly>
+                                                    {{-- Tampilkan opsi select dengan nilai default dari properti periode --}}
+                                                    <option value="{{ $krt->periode }}" selected>{{ $krt->periode }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                {{-- <div class="col-md-12">
                                     <div class="row">
                                          <div class="col-md-6">
                                              <div class="form-group">
                                                  <label>Periode</label>
                                                  <select class="form-control" id="periode" name="periode" readonly>
-                                                     {{-- Tampilkan opsi select dengan nilai default dari properti periode --}}
+
                                                      <option value="{{ $krt->periode }}" selected>{{ $krt->periode }}</option>
                                                  </select>
                                              </div>
                                          </div>
                                     </div>
-                                 </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="card-footer">

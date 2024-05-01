@@ -235,7 +235,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
             'MENEMPEL STIKER P4K',
             'SUMBER AIR PDAM',
             'SUMBER AIR SUMUR SUMUR',
-            'SUMBER AIR LAINYA',
+            'SUMBER AIR LAINNYA',
             'BERAS',
             'NON BERAS',
             'UP2K',
@@ -250,7 +250,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
             ['CATATAN DATA DAN KEGIATAN WARGA'],
             ['TP PKK DESA/KELURAHAN'],
             [
-                'TAHUN ' . ($this->dasa_wisma->first()->periode),
+                'TAHUN ' . ($this->dasa_wisma->first()->dasawisma->first()->periode),
             ],
             [
                 'TP PKK Desa/Kelurahan : ' . ($this->dasa_wisma->first()->dasawisma->first()->desa->nama_desa),
@@ -368,7 +368,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
 
         $lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString('D');
 
-        for ($col = 'A'; $col <= 'D'; $col++) {
+        for ($col = 'A'; $col <= 'F'; $col++) {
             // Simpan nilai sel sebelum digabungkan
             $value = $sheet->getCell($col . '10')->getValue();
 

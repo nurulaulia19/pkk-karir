@@ -162,19 +162,19 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             'TEMPAT SAMPAH: ' . ($rumahTangga->punya_tempat_sampah ? 'ADA' : 'TIDAK ADA'),
         ];
 
-        // $memberHeadings = [
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     '',
-        //     'KEGIATAN PKK YANG DIIKUTI'
-        // ];
+        $headings5 = [
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            'KEGIATAN PKK YANG DIIKUTI'
+        ];
 
         $memberHeadings = [
             'NO',
@@ -208,6 +208,7 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             $headings3,
             $headings4,
             [''],
+            $headings5,
             // $memberHeadings,
             $allHeadings
             // ['KETERANGAN']
@@ -253,7 +254,7 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         // Mengatur teks pada baris 1 hingga 7 menjadi tebal (bold)
-        $sheet->getStyle('1:7')->getFont()->setBold(true);
+        $sheet->getStyle('1:8')->getFont()->setBold(true);
 
         // Menentukan rentang kolom untuk gaya (dari A7 sampai kolom terakhir yang berisi data)
         $dataRange = 'A7:' . $lastColumn . $sheet->getHighestRow();
@@ -305,7 +306,6 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
 
         // Mendapatkan indeks numerik dari kolom terakhir (misalnya 18 untuk kolom 'R')
         $lastColumnIndex = Coordinate::columnIndexFromString($lastColumn);
-
         // Loop through each column from 'K' (indeks 11) hingga kolom terakhir yang berisi data
         for ($colIndex = 11; $colIndex <= $lastColumnIndex; $colIndex++) {
             // Konversi indeks numerik kolom kembali ke format huruf (misalnya 'K' untuk indeks 11)
@@ -320,24 +320,44 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
         }
 
         // Mengatur cells merged secara vertikal
-        // $lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString('J');
+        $lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString('J');
 
-        // for ($col = 'A'; $col <= 'J'; $col++) {
-        //     // Simpan nilai sel sebelum digabungkan
-        //     $value = $sheet->getCell($col . '8')->getValue();
+        for ($col = 'A'; $col <= 'J'; $col++) {
+            // Simpan nilai sel sebelum digabungkan
+            $value = $sheet->getCell($col . '8')->getValue();
 
-        //     // Pindahkan nilai sel ke sel atas
-        //     $sheet->setCellValue($col . '7', $value);
+            // Pindahkan nilai sel ke sel atas
+            $sheet->setCellValue($col . '7', $value);
 
-        //     // Gabungkan sel secara vertikal
-        //     $sheet->mergeCells($col . '7:' . $col . '8');
+            // Gabungkan sel secara vertikal
+            $sheet->mergeCells($col . '7:' . $col . '8');
 
-        //     // Atur penyelarasan vertikal ke tengah
-        //     $sheet->getStyle($col . '7:' . $col . '8')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-        // }
+            // Atur penyelarasan vertikal ke tengah
+            $sheet->getStyle($col . '7:' . $col . '8')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        }
 
+        $kolomAwal = 'K';
+        $jumlahKegiatan = count($this->dataKegiatan);
+        $kolomAkhir = chr(ord($kolomAwal[0]) + $jumlahKegiatan - 1);
+        // dd($kolomAkhir);
 
+        $sheet->mergeCells($kolomAwal . '7:' . $kolomAkhir . '7');
+        $sheet->getStyle($kolomAwal . '7')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle($kolomAwal . '7')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
+        // Mendapatkan huruf dari kolom terakhir yang berisi data
+        $lastColumn = $sheet->getHighestColumn();
 
+        // Mendapatkan nilai dari sel di baris 8 pada kolom terakhir
+        $value = $sheet->getCell($lastColumn . '8')->getValue();
+
+        // Pindahkan nilai sel di baris 8 ke sel di baris 7 pada kolom terakhir
+        $sheet->setCellValue($lastColumn . '7', $value);
+
+        // Gabungkan baris 7 dan 8 untuk kolom terakhir saja
+        $sheet->mergeCells($lastColumn . '7:' . $lastColumn . '8');
+
+        // Atur penyelarasan vertikal ke tengah untuk sel yang digabungkan
+        $sheet->getStyle($lastColumn . '7:' . $lastColumn . '8')->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
     }
 }

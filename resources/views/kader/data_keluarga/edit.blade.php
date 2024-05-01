@@ -43,8 +43,6 @@
                                 </ul>
                             </div>
                         @endif
-
-
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">
@@ -75,6 +73,10 @@
                                             </span>
                                         @enderror
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">RT</label>
@@ -87,7 +89,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="form-group @error('rw') is-invalid @enderror">
                                             <label for="exampleFormControlSelect1">Dusun</label>
                                             <input type="text" class="form-control @error('dusun') is-invalid @enderror" name="dusun" id="dusun" placeholder="Masukkan Nama Dusun" value="{{ old('dusun', $data_keluarga->dusun) }}">
@@ -97,19 +99,13 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="row">
+                                    </div> --}}
                                     <div class="col-md-6">
                                         <div class="form-group @error('id_desa') is-invalid @enderror">
                                             <label for="exampleFormControlSelect1">Desa</label>
                                             @foreach ($desas as $c)
                                                 <input type="hidden" class="form-control" name="id_desa" id="id_desa" placeholder="Masukkan Nama Desa" value="{{$c->id}}">
                                                 <input type="text" disabled class="form-control" name="id_desa" id="id_desa" placeholder="Masukkan Nama Desa" value="{{ $c->nama_desa }}">
-
                                             @endforeach
                                         </div>
                                         @error('id_desa')
@@ -117,15 +113,17 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group @error('id_kecamatan') is-invalid @enderror">
                                             <label for="exampleFormControlSelect1">Kecamatan</label>
                                             @foreach ($kec as $c)
                                             <input type="hidden" class="form-control" name="id_kecamatan" id="id_kecamatan" placeholder="Masukkan Nama Kecamatan" value="{{$c->id}}">
                                             <input type="text" disabled class="form-control" name="id_kecamatan" id="id_kecamatan" placeholder="Masukkan Nama Kecamatan" value="{{ $c->nama_kecamatan }}">
-
                                             @endforeach
                                         </div>
                                         @error('id_kecamatan')
@@ -146,6 +144,10 @@
                                                 @enderror
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                               <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Provinsi</label>
@@ -158,10 +160,6 @@
                                             @enderror
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                               <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Periode</label>
@@ -259,6 +257,7 @@
                                                         {{-- <option value="kepala-keluarga">Kepala Keluarga</option> --}}
                                                         <option value="ibu" {{ $item->status == 'ibu' ? 'selected' : '' }}>Ibu</option>
                                                         <option value="anak" {{ $item->status == 'anak' ? 'selected' : '' }}>Anak</option>
+                                                        <option value="lainnya" {{ $item->status == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
                                                     @endif
                                                 </select>
                                             </div>
@@ -620,7 +619,7 @@
             var statusSelect = rownew.find('.status-select');
             statusSelect.append('<option value="ibu">Ibu</option>');
             statusSelect.append('<option value="anak">Anak</option>');
-            // statusSelect.append('<option value="lainnya">Lainnya</option>');
+            statusSelect.append('<option value="lainnya">Lainnya</option>');
         }
 
         warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
