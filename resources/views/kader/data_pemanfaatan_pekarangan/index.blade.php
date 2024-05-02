@@ -25,10 +25,8 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Warga</th>
-                                            <th>Kategori</th>
-                                            <th>Komoditi</th>
-                                            <th>Jumlah</th>
+                                            <th>Nama Kepala Rumah Tangga</th>
+                                            <th>Kategori Pemanfaatan</th>
                                             <th>Periode</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -40,7 +38,9 @@
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         {{-- nama desa yang login --}}
-                                        <td style="vertical-align: middle;">{{ucfirst($c->warga->nama) }}</td>
+                                        <td style="vertical-align: middle;">
+                                            {{ucfirst($c->rumahtangga->nama_kepala_rumah_tangga) }}
+                                        </td>
                                         {{-- <td style="vertical-align: middle;">{{ucfirst($c->keluarga->nama_kepala_rumah_tangga) }}</td> --}}
                                         {{-- @if ($c->nama_kategori == 1)
                                             <td style="vertical-align: middle;">Peternakan</td>
@@ -56,9 +56,7 @@
                                             <td style="vertical-align: middle;">Lainnya</td>
 
                                         @endif --}}
-                                        <td style="vertical-align: middle;">{{ucfirst($c->nama_kategori)}}</td>
-                                        <td style="vertical-align: middle;">{{ucfirst($c->komoditi)}}</td>
-                                        <td style="vertical-align: middle;">{{ucfirst($c->jumlah)}}</td>
+                                        <td style="vertical-align: middle;">{{ucfirst($c->pemanfaatan->nama_kategori)}}</td>
                                         <td style="vertical-align: middle;">{{ucfirst($c->periode)}}</td>
                                         <td class="text-center" width="100px" style="vertical-align: middle;">
                                             <div class="d-flex">

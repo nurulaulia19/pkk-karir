@@ -36,4 +36,14 @@ class DataPemanfaatanPekarangan extends Model
     public function warga(){
         return $this->belongsTo(DataWarga::class, 'warga_id');
     }
+
+
+
+    //dibawah ini yg dipake
+    public function rumahtangga(){
+        return $this->belongsTo(RumahTangga::class, 'rumah_tangga_id');
+    }
+    public function pemanfaatan(){
+        return $this->belongsTo(KategoriPemanfaatanLahan::class, 'kategori_id');
+    }
 }

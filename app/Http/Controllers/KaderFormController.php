@@ -65,15 +65,15 @@ class KaderFormController extends Controller
         $kegiatan = 0;
         $pemanfaatan = 0;
         $industri = 0;
-        $wargaAll = DataWarga::with(['kegiatan','pemanfaatan','industri'])->where('id_dasawisma', $user->id_dasawisma)->get();
+        $wargaAll = DataWarga::with(['kegiatan','industri'])->where('id_dasawisma', $user->id_dasawisma)->get();
         foreach($wargaAll as $item){
             $warga++;
             foreach($item->kegiatan as $keg){
                 $kegiatan++;
             }
-            foreach($item->pemanfaatan as $pem){
-                $pemanfaatan++;
-            }
+            // foreach($item->pemanfaatan as $pem){
+            //     $pemanfaatan++;
+            // }
             foreach($item->industri as $indus){
                 $industri++;
             }

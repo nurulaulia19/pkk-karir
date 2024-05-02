@@ -17,8 +17,5 @@ class KategoriPemanfaatanLahan extends Model
 
 
 
-    public function pemanfaatan(){
-        return $this->hasMany(PemanfaatanKarangan::class);
-    }
 
 }

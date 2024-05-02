@@ -84,11 +84,11 @@
                 <div class="col-md-6">
                     <div class="form-group @error('warga_id') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Nama Warga</label>
-                        <select class="form-control" id="warga_id" name="warga_id">
+                        <select class="form-control" id="rumah_tangga_id" name="rumah_tangga_id">
                           {{-- nama warga --}}
                           <option hidden> Pilih Warga</option>
                             @foreach ($warga as $warga)
-                                <option value="{{ $warga->id }}">{{ $warga->nama }} - {{$warga->no_ktp}}</option>
+                                <option value="{{ $warga->id }}">{{ $warga->nama_kepala_rumah_tangga }} - {{$warga->no_ktp}}</option>
                             @endforeach
                           </select>
                       </div>
@@ -99,51 +99,36 @@
                       @enderror
                 </div>
 
-                <div class="col-md-6">
-                    <div class="form-group @error('nama_kategori') is-invalid @enderror">
-                        <label>Kategori</label>
-                        <select class="form-control" id="nama_kategori" name="nama_kategori">
-                            <option hidden> Pilih Kategori</option>
-                            <option value="Peternakan">Peternakan</option>
-                            <option value="Perikanan">Perikanan</option>
-                            <option value="Warung Hidup">Warung Hidup</option>
-                            <option value="TOGA (Tanaman Obat Keluarga)">TOGA (Tanaman Obat Keluarga)</option>
-                            <option value="Tanaman Keras">Tanaman Keras</option>
-                            <option value="Lainnya">Lainnya</option>
+
+            </div>
+            {{-- tingting --}}
+            <div class="form-group" id="formContainer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="nama_pemanfaatan">Nama Kategori Pemanfaatan</label>
+                        <select class="form-control selectNamaKegiatan" name="nama_pemanfaatan[]">
+                            <option value="">Pilih Kegiatan</option>
+                            @foreach ($kategoriPemanfaatan as $item)
+                                <option
+                                    value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                            @endforeach
                         </select>
-                      </div>
-                      @error('nama_kategori')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                      @enderror
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Komoditi</label>
-                {{-- nama Komoditi --}}
-                <input type="text" class="form-control @error('komoditi') is-invalid @enderror" name="komoditi" id="komoditi" placeholder="Masukkan Komoditi" value="{{ old('komoditi') }}">
-                @error('komoditi')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Jumlah</label>
-                        {{-- Jumlah Komoditi--}}
-                        <input type="number" class="form-control @error('jumlah') is-invalid @enderror" name="jumlah" id="jumlah" placeholder="Masukkan Jumlah" value="{{ old('jumlah') }}">
-                        @error('jumlah')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                    </div>
+                    <div class="col-md-1 d-flex align-items-center mt-4">
+                        {{-- <a href="{{ route('data-kegiatan-warga-delete', ['id' => $wargaKeg->id]) }}"
+                            class="btn btn-danger btn-sm mt-2">Delete</a> --}}
                     </div>
                 </div>
+        </div>
+
+        <div class="row d-flex justify-content-end mr-1">
+            <button type="button" id="addButton" class="btn btn-primary">Add</button>
+        </div>
+        {{-- end tingting --}}
+
+
+            <div class="row">
+
                 <div class="col-md-6">
                     <div class="form-group @error('periode') is-invalid @enderror">
                         <label>Periode</label>
@@ -207,6 +192,92 @@
          $('#id_desa').empty();
        }
     });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function() {
+        console.log(kategoriPemanfaatanLahan )
+        let data; // Variabel untuk menyimpan data kegiatan
+
+        console.log('data :>> ', data);
+        var kategoriPemanfaatanLahan = @json($kategoriPemanfaatan);
+        data = kategoriPemanfaatanLahan;
+console.log('kategoriPemanfaatanLahan :>> ', kategoriPemanfaatanLahan);
+
+        // Event listener untuk tombol "Add"
+        const addButton = document.querySelector('#addButton');
+        const formContainer = document.querySelector('#formContainer');
+        let totalClick = 1;
+
+        addButton.addEventListener('click', function() {
+            if (totalClick <= data.length) {
+                const newRow = document.createElement('div');
+                newRow.className = 'row mb-2 align-items-center'; // Add alignment classes
+
+                const namaKegiatanCol = document.createElement('div');
+                namaKegiatanCol.className = 'col-md-11'; // Adjusted column width for select
+
+                const namaKegiatanLabel = document.createElement('label');
+                namaKegiatanLabel.textContent = 'Nama Kegiatan';
+                namaKegiatanLabel.htmlFor = 'nama_pemanfaatan'; // Set 'for' attribute for label
+
+                const namaKegiatanSelect = document.createElement('select');
+                namaKegiatanSelect.className = 'form-control selectNamaKegiatan';
+                namaKegiatanSelect.name = 'nama_pemanfaatan[]';
+
+                const deleteButtonDiv = document.createElement('div');
+                deleteButtonDiv.className =
+                'col-md-1 d-flex align-items-center mt-4'; // Adjusted column width for delete button
+
+                const deleteButton = document.createElement('a');
+                deleteButton.href = '#'; // Set href attribute for delete button
+                deleteButton.className = 'btn btn-danger btn-sm mt-2';
+                deleteButton.textContent = 'Delete';
+                deleteButton.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default link behavior
+                    newRow.remove();
+                    totalClick--; // Decrease totalClick when row is removed
+                });
+
+                // Append elements to their respective containers
+                namaKegiatanCol.appendChild(namaKegiatanLabel);
+                namaKegiatanCol.appendChild(namaKegiatanSelect);
+
+                deleteButtonDiv.appendChild(deleteButton);
+
+                newRow.appendChild(namaKegiatanCol);
+                newRow.appendChild(deleteButtonDiv);
+
+                formContainer.appendChild(newRow);
+
+                // Populate select options
+                const newSelect = newRow.querySelector('select');
+                newSelect.innerHTML = '';
+
+                const defaultOptionNamaKegiatan = document.createElement('option');
+                defaultOptionNamaKegiatan.value = '';
+                defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kategori ';
+                newSelect.appendChild(defaultOptionNamaKegiatan);
+
+                // Add options based on data
+                if (data) {
+                    data.forEach(function(item) {
+                        const option = document.createElement('option');
+                        option.value = item.id;
+                        option.textContent = item.nama_kategori;
+                        newSelect.appendChild(option);
+                    });
+                }
+
+                totalClick++; // Increment totalClick counter
+            } else {
+                alert('Semua data kegiatan sudah ditambahkan.');
+            }
+        });
+
+
     });
 </script>
 @endpush
