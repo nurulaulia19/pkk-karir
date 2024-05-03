@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('nama_kepala_keluarga');
             // $table->boolean('punya_jamban');
             $table->boolean('is_rumah_tangga')->default(false);
+            $table->bigInteger('industri_id')->default(0);
             $table->timestamps();
         });
     }

@@ -34,9 +34,9 @@
                                         <th rowspan="3" style="text-align: center;">Jml. Dasa Wisma</th>
                                         <th rowspan="3" style="text-align: center;">Jml. KRT</th>
                                         <th rowspan="3" style="text-align: center;">Jml. KK</th>
-                                        <th colspan="10" style="text-align:center;">Jumlah Anggota Keluarga</th>
+                                        <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
                                         <th colspan="6" style="text-align:center;">Kriteria Rumah</th>
-                                        <th colspan="4" style="text-align:center;">Sumber Air Keluarga</th>
+                                        <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
                                         {{-- <th rowspan="3" style="text-align: center;">Jml. Jamban Keluarga</th> --}}
                                         <th colspan="2" style="text-align:center;">Makanan Pokok</th>
                                         <th colspan="6" style="text-align:center;">Warga Mengikuti Kegiatan</th>
@@ -52,6 +52,7 @@
                                         <th>Ibu Hamil</th>
                                         <th>Ibu Menyusui</th>
                                         <th>Lansia</th>
+                                        <th>3 Buta</th>
                                         <th>Berkebutuhan Khusus</th>
                                         <th>Sehat</th>
                                         <th>Tidak Sehat</th>
@@ -164,6 +165,7 @@
                                                 {{ ucfirst($counts['lansia']) }}
 
                                             </td>
+                                            <td>0</td>
                                             <td>
                                                 {{ ucfirst($counts['kebutuhanKhusus']) }}
 
@@ -260,6 +262,7 @@
                                             <td>{{ $totalIbuHamil }}</td>
                                             <td>{{ $totalIbuMenyesui }}</td>
                                             <td>{{ $totalLansia }}</td>
+                                            <td>0</td>
                                             <td>{{ $totalKebutuhanKhusus }}</td>
                                             <td>{{ $totalKriteriaRumahSehat }}</td>
                                             <td>{{ $totalKriteriaRumahNonSehat}}</td>

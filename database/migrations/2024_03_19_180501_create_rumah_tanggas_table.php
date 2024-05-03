@@ -28,6 +28,7 @@ return new class extends Migration
             $table->boolean('sumber_air_pdam')->default(false);
             $table->boolean('sumber_air_sumur')->default(false);
             $table->boolean('sumber_air_lainnya')->default(false);
+            $table->boolean('is_pemanfaatan_lahan')->default(false);
             $table->timestamps();
         });
     }

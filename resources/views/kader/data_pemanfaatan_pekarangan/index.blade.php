@@ -39,7 +39,7 @@
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         {{-- nama desa yang login --}}
                                         <td style="vertical-align: middle;">
-                                            {{ucfirst($c->rumahtangga->nama_kepala_rumah_tangga) }}
+                                            {{ucfirst($c->nama_kepala_rumah_tangga) }}
                                         </td>
                                         {{-- <td style="vertical-align: middle;">{{ucfirst($c->keluarga->nama_kepala_rumah_tangga) }}</td> --}}
                                         {{-- @if ($c->nama_kategori == 1)
@@ -56,12 +56,21 @@
                                             <td style="vertical-align: middle;">Lainnya</td>
 
                                         @endif --}}
-                                        <td style="vertical-align: middle;">{{ucfirst($c->pemanfaatan->nama_kategori)}}</td>
+                                        <td style="vertical-align: middle;">
+                                            <ul >
+                                                @foreach ($c->pemanfaatanlahan as $item)
+                                                    <li>
+                                                     {{ $item->pemanfaatan->nama_kategori}}
+
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
                                         <td style="vertical-align: middle;">{{ucfirst($c->periode)}}</td>
                                         <td class="text-center" width="100px" style="vertical-align: middle;">
                                             <div class="d-flex">
                                                 <a class="btn btn-primary btn-sm" href="{{ url('data_pemanfaatan/'.$c->id.'/edit') }}">Edit</a>
-                                                <form action="{{ route('data_pemanfaatan.destroy',$c->id) }}" method="POST">
+                                                <form action="{{ route('data_pemanfaatan.deleted_all',[ 'id' => $c->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm delete ml-1">Hapus</button>

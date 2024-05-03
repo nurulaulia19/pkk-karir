@@ -84,8 +84,8 @@ class DesaController extends Controller
     public function rekapitulasi(Request $request, $id)
     {
         $user = Auth::user();
-        $dasa_wisma = Rw::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga.pemanfaatan',
-        'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga.industri',
+        $dasa_wisma = Rw::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga',
+        'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga',
         'dasawisma.desa.kecamatan'
         ])
             ->where('desa_id', $id)
@@ -145,6 +145,12 @@ class DesaController extends Controller
                     // Iterasi melalui setiap rumahtangga dalam dasawisma
                     foreach ($dasawisma->rumahtangga as $rumahtangga) {
                         if ($rumahtangga) {
+                            if($rumahtangga->pemanfaatanlahan){
+                                foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
+                                    $totalKegiatanPemanfaatanPekarangan++;
+                                }
+                            }
+
                             // Hitung jumlah KRT (Kepala Rumah Tangga)
                             if ($rumahtangga->sumber_air_pdam) {
                                 $totalAirPDAM++;
@@ -181,16 +187,19 @@ class DesaController extends Controller
                                 if ($keluarga->keluarga && $keluarga->keluarga->nama_kepala_keluarga) {
                                     $totalJmlKK++;
                                 }
+                                if($keluarga->keluarga->industri_id != 0) {
+                                        $totalKegiatanIndustri++;
+                                    }
                                 // Iterasi melalui setiap anggota keluarga
                                 foreach ($keluarga->keluarga->anggota as $anggota) {
                                     // Hitung jumlah kegiatan industri dari setiap anggota
-                                    foreach ($anggota->warga->industri as $indust) {
-                                        $totalKegiatanIndustri++;
-                                    }
+                                    // foreach ($anggota->warga->industri as $indust) {
+                                    //     $totalKegiatanIndustri++;
+                                    // }
                                     // Hitung jumlah kegiatan pemanfaatan pekarangan dari setiap anggota
-                                    foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                                        $totalKegiatanPemanfaatanPekarangan++;
-                                    }
+                                    // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                                    //     $totalKegiatanPemanfaatanPekarangan++;
+                                    // }
                                     // Hitung jumlah anggota yang merupakan lansia (umur >= 45 tahun)
                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                                     // dd($anggota->warga->tgl_lahir);
@@ -297,8 +306,8 @@ class DesaController extends Controller
     public function export(Request $request, $id)
         {
             $user = Auth::user();
-        $dasa_wisma = Rw::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga.pemanfaatan',
-        'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga.industri',
+        $dasa_wisma = Rw::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga',
+        'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga',
         'dasawisma.desa.kecamatan'
         ])
             ->where('desa_id', $id)
@@ -358,6 +367,12 @@ class DesaController extends Controller
                     // Iterasi melalui setiap rumahtangga dalam dasawisma
                     foreach ($dasawisma->rumahtangga as $rumahtangga) {
                         if ($rumahtangga) {
+                            if($rumahtangga->pemanfaatanlahan){
+                                foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
+                                    $totalKegiatanPemanfaatanPekarangan++;
+                                }
+                            }
+
                             // Hitung jumlah KRT (Kepala Rumah Tangga)
                             if ($rumahtangga->sumber_air_pdam) {
                                 $totalAirPDAM++;
@@ -394,16 +409,19 @@ class DesaController extends Controller
                                 if ($keluarga->keluarga && $keluarga->keluarga->nama_kepala_keluarga) {
                                     $totalJmlKK++;
                                 }
+                                if($keluarga->keluarga->industri_id != 0) {
+                                        $totalKegiatanIndustri++;
+                                    }
                                 // Iterasi melalui setiap anggota keluarga
                                 foreach ($keluarga->keluarga->anggota as $anggota) {
                                     // Hitung jumlah kegiatan industri dari setiap anggota
-                                    foreach ($anggota->warga->industri as $indust) {
-                                        $totalKegiatanIndustri++;
-                                    }
+                                    // foreach ($anggota->warga->industri as $indust) {
+                                    //     $totalKegiatanIndustri++;
+                                    // }
                                     // Hitung jumlah kegiatan pemanfaatan pekarangan dari setiap anggota
-                                    foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                                        $totalKegiatanPemanfaatanPekarangan++;
-                                    }
+                                    // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                                    //     $totalKegiatanPemanfaatanPekarangan++;
+                                    // }
                                     // Hitung jumlah anggota yang merupakan lansia (umur >= 45 tahun)
                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                                     // dd($anggota->warga->tgl_lahir);

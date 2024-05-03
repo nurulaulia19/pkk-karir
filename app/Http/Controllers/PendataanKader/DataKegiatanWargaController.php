@@ -98,21 +98,21 @@ class DataKegiatanWargaController extends Controller
 
 
         // pengkondisian tabel
-            $kegiatans = new DataKegiatanWarga;
-            $kegiatans->id_desa = $request->id_desa;
-            $kegiatans->id_kecamatan = $request->id_kecamatan;
-            $kegiatans->id_warga = $request->id_warga;
-            // $kegiatans->nama_kegiatan = $request->nama_kegiatan;
-            $kegiatans->id_kategori = $request->id_kategori;
-            $kegiatans->id_user = $request->id_user;
+            // $kegiatans = new DataKegiatanWarga;
+            // $kegiatans->id_desa = $request->id_desa;
+            // $kegiatans->id_kecamatan = $request->id_kecamatan;
+            // $kegiatans->id_warga = $request->id_warga;
+            // // $kegiatans->nama_kegiatan = $request->nama_kegiatan;
+            // $kegiatans->id_kategori = $request->id_kategori;
+            // $kegiatans->id_user = $request->id_user;
 
-            $kegiatans->aktivitas = $request->aktivitas;
-            // $kegiatans->keterangan = $request->keterangan;
-            $kegiatans->id_keterangan = $request->id_keterangan;
-            $kegiatans->periode = $request->periode;
+            // $kegiatans->aktivitas = $request->aktivitas;
+            // // $kegiatans->keterangan = $request->keterangan;
+            // $kegiatans->id_keterangan = $request->id_keterangan;
+            // $kegiatans->periode = $request->periode;
 
-            // simpan data
-            $kegiatans->save();
+            // // simpan data
+            // $kegiatans->save();
 
             Alert::success('Berhasil', 'Data berhasil di tambahkan');
 
@@ -154,47 +154,87 @@ class DataKegiatanWargaController extends Controller
     }
 
 
+    // public function update(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'id_warga' => 'required|exists:data_warga,id',
+    //         'periode' => 'required',
+    //         'nama_kegiatan' => 'required',
+
+    //     ], [
+    //         'id_warga.required' => 'Lengkapi Nama Warga Yang Didata',
+    //         'nama_kegiatan.required' => 'Pilih Kegiata',
+    //         'periode.required' => 'Pilih Periode',
+
+    //     ]);
+    //     // dd($request->all());
+
+    //      foreach ($request->nama_kegiatan as $key => $item) {
+    //         // dd($item);
+    //         if ($item !== null && $item !== '') {
+
+    //             $kegiatanWarga = DataKegiatanWarga::where('data_kegiatan_id', $item)->first();
+    //             if(!$kegiatanWarga){
+    //                 DataKegiatanWarga::create([
+    //                     'warga_id' => $request->id_warga,
+    //                     'data_kegiatan_id' => $item,
+    //                     'periode' => $request->periode,
+    //                 ]);
+    //             }
+
+    //         }
+    //      }
+
+    //      $dataWarga = DataWarga::find($request->id_warga);
+    //      if ($dataWarga) {
+    //          $dataWarga->is_kegiatan = true;
+    //          $dataWarga->save();
+    //      }
+
+    //      Alert::success('Berhasil', 'Data berhasil di tambahkan');
+    //      return redirect('/data_kegiatan');
+
+    // }
+
     public function update(Request $request, $id)
     {
         $request->validate([
             'id_warga' => 'required|exists:data_warga,id',
             'periode' => 'required',
-            'nama_kegiatan' => 'required',
-
+            'nama_kegiatan' => 'required|array', // Pastikan ini diubah menjadi array karena akan menerima banyak nilai
         ], [
             'id_warga.required' => 'Lengkapi Nama Warga Yang Didata',
             'nama_kegiatan.required' => 'Pilih Kegiata',
             'periode.required' => 'Pilih Periode',
-
         ]);
-        // dd($request->all());
 
-         foreach ($request->nama_kegiatan as $key => $item) {
-            // dd($item);
+        // Mencari data kegiatan warga yang sudah ada
+        $existingKegiatanWarga = DataKegiatanWarga::where('warga_id', $request->id_warga)->get();
+
+        // Menghapus data kegiatan warga yang sudah ada
+        DataKegiatanWarga::where('warga_id', $request->id_warga)->delete();
+
+        // Memasukkan kembali data kegiatan warga sesuai permintaan yang baru
+        foreach ($request->nama_kegiatan as $key => $item) {
             if ($item !== null && $item !== '') {
-
-                $kegiatanWarga = DataKegiatanWarga::where('data_kegiatan_id', $item)->first();
-                if(!$kegiatanWarga){
-                    DataKegiatanWarga::create([
-                        'warga_id' => $request->id_warga,
-                        'data_kegiatan_id' => $item,
-                        'periode' => $request->periode,
-                    ]);
-                }
-
+                DataKegiatanWarga::create([
+                    'warga_id' => $request->id_warga,
+                    'data_kegiatan_id' => $item,
+                    'periode' => $request->periode,
+                ]);
             }
-         }
+        }
 
-         $dataWarga = DataWarga::find($request->id_warga);
-         if ($dataWarga) {
-             $dataWarga->is_kegiatan = true;
-             $dataWarga->save();
-         }
+        $dataWarga = DataWarga::find($request->id_warga);
+        if ($dataWarga) {
+            $dataWarga->is_kegiatan = true;
+            $dataWarga->save();
+        }
 
-         Alert::success('Berhasil', 'Data berhasil di tambahkan');
-         return redirect('/data_kegiatan');
-
+        Alert::success('Berhasil', 'Data berhasil diperbarui');
+        return redirect('/data_kegiatan');
     }
+
 
     // public function destroy($id)
     // {

@@ -69,12 +69,12 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group @error('warga_id') is-invalid @enderror">
-                        <label for="exampleFormControlSelect1">Nama Warga</label>
+                        <label for="exampleFormControlSelect1">Nama Keluarga</label>
                         <select class="form-control" id="warga_id" name="warga_id">
                           {{-- nama warga --}}
-                          <option hidden> Pilih Warga</option>
+                          <option hidden> Pilih Kepala Keluarga</option>
                             @foreach ($warga as $warga)
-                                <option value="{{ $warga->id }}">{{ $warga->nama }} - {{$warga->no_ktp}}</option>
+                                <option value="{{ $warga->id }}">{{ $warga->nama_kepala_keluarga }} - {{$warga->no_ktp}}</option>
                             @endforeach
                           </select>
                       </div>
@@ -89,11 +89,15 @@
                         <label>Kategori</label>
                         <select class="form-control" id="nama_kategori" name="nama_kategori">
                             <option hidden> Pilih Kategori</option>
-                            <option value="Pangan">Pangan</option>
+                            @foreach ($kateagoriIndustri as $item)
+                                    <option value="{{ $item->id }}" value="Konveksi">{{ $item->nama_kategori }}</option>
+
+                            @endforeach
+                            {{-- <option value="Pangan">Pangan</option>
                             <option value="Konveksi">Konveksi</option>
                             <option value="Sandang">Sandang</option>
                             <option value="Jasa">Jasa</option>
-                            <option value="Lain-lain">Lain-lain</option>
+                            <option value="Lain-lain">Lain-lain</option> --}}
                         </select>
                       </div>
                       @error('nama_kategori')
@@ -104,33 +108,7 @@
                 </div>
             </div>
 
-        <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                    {{-- nama komoditi --}}
-                  <label>Komoditi</label>
-                  <input type="text" class="form-control @error('komoditi') is-invalid @enderror" name="komoditi" id="komoditi" placeholder="Masukkan Komoditi" value="{{ old('komoditi') }}">
-                  @error('komoditi')
-                      <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                      </span>
-                  @enderror
-              </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    {{-- jumlah volume --}}
-                    <label>Volume</label>
-                    <input type="number" min="0" class="form-control @error('volume') is-invalid @enderror" name="volume" id="volume" placeholder="Masukkan Volume" value="{{ old('volume') }}">
-                    @error('volume')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-        </div>
 
 
         <div class="row">

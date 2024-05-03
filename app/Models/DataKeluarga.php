@@ -108,9 +108,9 @@ class DataKeluarga extends Model
     }
 
      // data_pemanfaatan
-     public function industri(){
-        return $this->hasMany(DataIndustriRumah::class, 'id_keluarga');
-    }
+    //  public function industri(){
+    //     return $this->hasMany(DataIndustriRumah::class, 'id_keluarga');
+    // }
 
     public function user(){
         return $this->belongsTo(User::class, 'id_user');
@@ -123,6 +123,12 @@ class DataKeluarga extends Model
     public function rumah_tangga()
     {
         return $this->hasMany(RumahTanggaHasKeluarga::class, 'keluarga_id');
+    }
+
+
+    public function industri()
+    {
+        return $this->belongsTo(KategoriIndustriRumah::class, 'industri_id');
     }
 
 }

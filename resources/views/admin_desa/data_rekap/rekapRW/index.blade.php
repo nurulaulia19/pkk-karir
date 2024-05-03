@@ -44,7 +44,7 @@
                                                 <th rowspan="2" style="text-align: center;">Nama Dasawisma</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KRT</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KK</th>
-                                                <th colspan="10" style="text-align:center;">Jumlah Anggota Keluarga</th>
+                                                <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
                                                 <th colspan="6" style="text-align:center;">Kriteria Rumah</th>
                                                 <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
                                                 <th colspan="2" style="text-align:center;">Makanan Pokok</th>
@@ -56,12 +56,12 @@
                                                 <th>Total P</th>
                                                 <th>Balita L</th>
                                                 <th>Balita P</th>
-
                                                 <th>PUS</th>
                                                 <th>WUS</th>
                                                 <th>Ibu Hamil</th>
                                                 <th>Ibu Menyusui</th>
                                                 <th>Lansia</th>
+                                                <th>3 Buta</th>
                                                 <th>Berkebutuhan Khusus</th>
                                                 <th>Sehat Layak Huni</th>
                                                 <th>Tidak Sehat Layak Huni</th>
@@ -108,8 +108,6 @@
                                                         {{ ucfirst($counts['countKK']) }}
                                                     </td>
                                                     <td>
-
-
                                                         {{ ucfirst($counts['laki_laki']) }}<br>
 
                                                     </td>
@@ -148,6 +146,7 @@
 
                                                         {{-- {{ $keluarga->jumlah_lansia }} --}}
                                                     </td>
+                                                    <td>0</td>
                                                     <td>
                                                         {{ ucfirst($counts['kebutuhanKhusus']) }}
 
@@ -155,12 +154,6 @@
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['rumahSehat']) }}
-
-                                                        {{-- @if ($keluarga->kriteria_rumah_sehat == '1')
-                                                            <i class="fas fa-check"></i>
-                                                        @else
-0
-                                                        @endif --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['rumahNonSehat']) }}
@@ -333,6 +326,7 @@
                                                 <td>
                                                     {{$totalAnggotaLansia}}
                                                 </td>
+                                                <td>0</td>
                                                 <td>
                                                     {{$totalAnggotaBerkebutuhanKhusus}}
                                                     {{-- {{ $catatan_keluarga->count() - $catatan_keluarga->sum('kriteria_rumah') }} --}}

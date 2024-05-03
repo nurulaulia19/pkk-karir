@@ -61,6 +61,7 @@
                                                 <th>Ibu Hamil</th>
                                                 <th>Ibu Menyusui</th>
                                                 <th>Lansia</th>
+                                                <th>3 buta</th>
                                                 <th>Berkebutuhan Khusus</th>
                                                 <th>Sehat Layak Huni</th>
                                                 <th>Tidak Sehat Layak Huni</th>
@@ -143,6 +144,9 @@
                                                         {{ ucfirst($counts['lansia']) }}
 
                                                         {{-- {{ $keluarga->jumlah_lansia }} --}}
+                                                    </td>
+                                                    <td>
+                                                        0
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['kebutuhanKhusus']) }}
@@ -329,6 +333,7 @@
                                                     {{$totalAnggotaLansia}}
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_lansia') }} --}}
                                                 </td>
+                                                <td>0</td>
                                                 <td>
                                                     {{$totalAnggotaBerkebutuhanKhusus}}
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_kebutuhan_khusus') }} --}}

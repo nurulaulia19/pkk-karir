@@ -107,6 +107,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
                 'jumlah_ibu_hamil' =>  ucfirst($counts['ibuHamil']) ?: '0',
                 'jumlah_ibu_menyusui' => ucfirst($counts['ibuMenyusui']) ?: '0',
                 'jumlah_lansia' => ucfirst($counts['lansia'])  ?: '0',
+                'tiga_buta' =>  '0',
                 'jumlah_kebutuhan_khusus' => ucfirst($counts['kebutuhanKhusus'])  ?: '0',
                 'sehat_layak_huni' => ucfirst($counts['rumahSehat']) ?: '0',
                 'tidak_sehat_layak_huni' => ucfirst($counts['rumahNonSehat']) ?: '0',
@@ -144,6 +145,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
             'jumlah_ibu_hamil' => $this->totalAnggotaIbuHamil ?: '0',
             'jumlah_ibu_menyusui' => $this->totalAnggotaIbuMenyusui ?: '0',
             'jumlah_lansia' => $this->totalAnggotaLansia ?: '0',
+            'jumlah_tiga_buta' =>  '0',
             'jumlah_kebutuhan_khusus' => $this->totalAnggotaBerkebutuhanKhusus ?: '0',
             'sehat_layak_huni' => $this->totalSheatLayakHuni ?: '0',
             'tidak_sehat_layak_huni' => $this->totalTidakSheatLayakHuni ?: '0',
@@ -173,6 +175,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
             '',
             '',
             'JUMLAH ANGGOTA KELUARGA',
+            '',
             '',
             '',
             '',
@@ -213,6 +216,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
             'IBU HAMIL',
             'IBU MENYUSUI',
             'LANSIA',
+            '3 BUTA',
             'BERKEBUTUHAN KHUSUS',
             'SEHAT',
             'KURANG SEHAT',
@@ -358,11 +362,11 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
 
 
             // // Lakukan merge pada sel D10 ke L10
-            $sheet->mergeCells('E9:N9');
-            $sheet->mergeCells('O9:T9');
-            $sheet->mergeCells('U9:W9');
-            $sheet->mergeCells('X9:Y9');
-            $sheet->mergeCells('Z9:AC9');
+            $sheet->mergeCells('E9:O9');
+            $sheet->mergeCells('P9:U9');
+            $sheet->mergeCells('V9:X9');
+            $sheet->mergeCells('Y9:Z9');
+            $sheet->mergeCells('AA9:AD9');
 
         }
 

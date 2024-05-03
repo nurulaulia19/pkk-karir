@@ -117,7 +117,7 @@ class AdminController extends Controller
         $user = Auth::user();
 
         $dasa_wisma = DataKelompokDasawisma::with('desa')->find($id);
-        $rumahtangga = RumahTangga::with(['anggotaRT.keluarga.anggota.warga.pemanfaatan', 'anggotaRT.keluarga.anggota.warga.industri'])
+        $rumahtangga = RumahTangga::with(['anggotaRT.keluarga.anggota.warga', 'anggotaRT.keluarga.anggota.warga'])
             ->where('id_dasawisma', $dasa_wisma->id)
             ->get();
             // dd($rumahtangga);
@@ -126,6 +126,7 @@ class AdminController extends Controller
         // ->count();
         $totalKepalaRumahTangga = 0;
         $totalJmlKK = 0;
+        $totalTigaButa = 0;
         $totalAnggotaLansia = 0;
         $totalAnggotaIbuHamil = 0;
         $totalAnggotaIbuMenyusui = 0;
@@ -146,6 +147,7 @@ class AdminController extends Controller
         $totalTidakSheatLayakHuni = 0 ;
         $totalPemSampah = 0;
         $totalSPAL = 0;
+
         $totalJamban = 0;
         $totalStiker = 0;
         $totalAirPDAM = 0;
@@ -153,6 +155,12 @@ class AdminController extends Controller
         $totalAirLainya = 0;
         $today = Carbon::now();
         foreach ($rumahtangga as $tangga){
+
+            foreach($tangga->pemanfaatanlahan as $pemanfaatan){
+                if($pemanfaatan){
+                    $totalKegiatanPemanfaatanPekarangan++;
+                }
+            }
             if($tangga->sumber_air_pdam){
                 $totalAirPDAM++;
                 // dd($totalAirPDAM++);
@@ -186,17 +194,21 @@ class AdminController extends Controller
             $totalKepalaRumahTangga++;
             foreach($tangga->anggotaRT as $tangg){
                 $totalJmlKK++;
+                if ($tangg->keluarga->industri_id != 0) {
+                    $totalKegiatanIndustri++;
+                }
                 foreach ($tangg->keluarga->anggota as $anggota) {
-                    foreach ($anggota->warga->industri as $industri) {
-                        if ($industri) {
-                            $totalKegiatanIndustri++;
-                        }
-                    }
-                    foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                        if ($pemanfaatan) {
-                            $totalKegiatanPemanfaatanPekarangan++;
-                        }
-                    }
+
+                    // foreach ($anggota->warga->industri as $industri) {
+                    //     if ($industri) {
+                    //         $totalKegiatanIndustri++;
+                    //     }
+                    // }
+                    // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                    //     if ($pemanfaatan) {
+                    //         $totalKegiatanPemanfaatanPekarangan++;
+                    //     }
+                    // }
                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                     $umurz = $tgl_lahir->diffInYears($today);
                     if ($umurz >= 45) {
@@ -258,31 +270,13 @@ class AdminController extends Controller
         }
 
 
-
-
-
-        // dd($rumahtangga);
-
-        // $catatan_keluarga = DataKeluarga::query()
-        //     ->with(['industri', 'pemanfaatan','dasawisma'
-        //         ])
-        //     ->where('id_desa', $user->id_desa)
-        //     ->whereHas('dasawisma', function ($q) use ($nama_dasawisma) {
-        //         $q->where('nama_dasawisma', $nama_dasawisma);
-        //     })
-        //     ->where('rt', $rt)
-        //     ->where('rw', $rw)
-        //     ->where('periode', $periode)
-        //     ->get();
-
-        // $desa = $user->desa;
-
         return view('admin_desa.data_rekap.rekapDasawisma.index', compact(
             'rumahtangga',
             'dasa_wisma',
             'totalKepalaRumahTangga',
             'totalJmlKK',
             'totalAnggotaLansia',
+            'totalTigaButa',
             'totalAnggotaIbuHamil',
             'totalAnggotaIbuMenyusui',
             'totalAnggotaLaki',
@@ -314,41 +308,13 @@ class AdminController extends Controller
     // export rekap dasawisma
     public function export_rekap_dasawisma(Request $request,$id)
     {
-        // // dd('aw aw aha ah');
-        // /** @var User */
-        // $user = Auth::user();
-
-        // $nama_dasawisma = $request->query('nama_dasawisma');
-        // $dasa_wisma = DataKelompokDasawisma::where('nama_dasawisma', $nama_dasawisma)->firstOrFail();
-        // $rt = $request->query('rt');
-        // $rw = $request->query('rw');
-        // $periode = $request->query('periode');
-
-        // $catatan_keluarga = DataKeluarga::query()
-        //     ->with(['industri', 'pemanfaatan', 'dasawisma'])
-        //     ->where('id_desa', $user->id_desa)
-        //     ->whereHas('dasawisma', function ($q) use ($nama_dasawisma) {
-        //         $q->where('nama_dasawisma', $nama_dasawisma);
-        //     })
-        //     ->where('rt', $rt)
-        //     ->where('rw', $rw)
-        //     ->where('periode', $periode)
-        //     ->get();
-
-        // $desa = $user->desa;
-
-        //lagi dikerjain
-
             $user = Auth::user();
 
             $dasa_wisma = DataKelompokDasawisma::with('desa')->find($id);
-            $rumahtangga = RumahTangga::with(['anggotaRT.keluarga.anggota.warga.pemanfaatan', 'anggotaRT.keluarga.anggota.warga.industri'])
+            $rumahtangga = RumahTangga::with(['anggotaRT.keluarga.anggota.warga', 'anggotaRT.keluarga.anggota.warga'])
                 ->where('id_dasawisma', $dasa_wisma->id)
                 ->get();
-                // dd($rumahtangga);
-                // kik
-            // $totalKepalaRumahTangga = RumahTangga::where('id_dasawisma', $dasa_wisma->id)
-            // ->count();
+
             $totalKepalaRumahTangga = 0;
             $totalJmlKK = 0;
             $totalAnggotaLansia = 0;
@@ -379,6 +345,12 @@ class AdminController extends Controller
 
             $today = Carbon::now();
             foreach ($rumahtangga as $tangga){
+
+                foreach($tangga->pemanfaatanlahan as $pemanfaatan){
+                    if($pemanfaatan){
+                        $totalKegiatanPemanfaatanPekarangan++;
+                    }
+                }
                 if($tangga->sumber_air_pdam){
                     $totalAirPDAM++;
                     // dd($totalAirPDAM++);
@@ -412,17 +384,21 @@ class AdminController extends Controller
                 $totalKepalaRumahTangga++;
                 foreach($tangga->anggotaRT as $tangg){
                     $totalJmlKK++;
+                    if ($tangg->keluarga->industri_id != 0) {
+                        $totalKegiatanIndustri++;
+                    }
                     foreach ($tangg->keluarga->anggota as $anggota) {
-                        foreach ($anggota->warga->industri as $industri) {
-                            if ($industri) {
-                                $totalKegiatanIndustri++;
-                            }
-                        }
-                        foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                            if ($pemanfaatan) {
-                                $totalKegiatanPemanfaatanPekarangan++;
-                            }
-                        }
+
+                        // foreach ($anggota->warga->industri as $industri) {
+                        //     if ($industri) {
+                        //         $totalKegiatanIndustri++;
+                        //     }
+                        // }
+                        // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                        //     if ($pemanfaatan) {
+                        //         $totalKegiatanPemanfaatanPekarangan++;
+                        //     }
+                        // }
                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                         $umurz = $tgl_lahir->diffInYears($today);
                         if ($umurz >= 45) {
@@ -482,29 +458,6 @@ class AdminController extends Controller
                 }
 
             }
-
-
-
-
-
-            // dd($rumahtangga);
-
-            // $catatan_keluarga = DataKeluarga::query()
-            //     ->with(['industri', 'pemanfaatan','dasawisma'
-            //         ])
-            //     ->where('id_desa', $user->id_desa)
-            //     ->whereHas('dasawisma', function ($q) use ($nama_dasawisma) {
-            //         $q->where('nama_dasawisma', $nama_dasawisma);
-            //     })
-            //     ->where('rt', $rt)
-            //     ->where('rw', $rw)
-            //     ->where('periode', $periode)
-            //     ->get();
-
-            // $desa = $user->desa;
-
-
-
 
         // $export = new RekapKelompokDasaWismaExport(compact('dasa_wisma', 'rt', 'rw', 'periode', 'catatan_keluarga', 'desa', 'nama_dasawisma'));
         $export = new RekapKelompokDasaWismaExport( compact(
@@ -590,7 +543,7 @@ class AdminController extends Controller
     {
         // calon kopi plek
         $user = Auth::user();
-        $dasa_wisma = DataKelompokDasawisma::with(['rumahtangga.anggotaRT.keluarga.anggota.warga.pemanfaatan', 'rumahtangga.anggotaRT.keluarga.anggota.warga.industri'])
+        $dasa_wisma = DataKelompokDasawisma::with(['rumahtangga.anggotaRT.keluarga.anggota.warga', 'rumahtangga.anggotaRT.keluarga.anggota.warga'])
             ->where('id_rt', $id)
             ->with('desa')
             ->get();
@@ -633,42 +586,31 @@ class AdminController extends Controller
 
         $today = Carbon::now();
         foreach ($dasa_wisma as $index){
+
+
+
             foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->sumber_air_pdam) {
                     $totalAirPDAM++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->sumber_air_sumur) {
                     $totalAirSumur++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->sumber_air_lainnya) {
                     $totalAirLainnya++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->tempel_stiker) {
                     $totalStiker++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->punya_jamban) {
                     $totalJamban++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->punya_tempat_sampah) {
                     $totalPemSampah++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->saluran_pembuangan_air_limbah) {
                     $totalSPAL++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->punya_jamban && $rumahtangga->punya_tempat_sampah && $rumahtangga->saluran_pembuangan_air_limbah) {
                     $totalSheatLayakHuni++;
                 } else {
@@ -676,29 +618,40 @@ class AdminController extends Controller
                 }
             }
 
+
             $totalDasawisma = $dasa_wisma->count();
             $totalKepalaRumahTangga++;
             // foreach($index->anggotaRT as $tangg){
             //     $totalJmlKK++;
+
             foreach ($index->rumahtangga as $rumahtangga) {
+                foreach($rumahtangga->pemanfaatanlahan as $lahan){
+                    $totalKegiatanPemanfaatanPekarangan++;
+                }
                 if ($rumahtangga->anggotaRT) {
                     $totalJmlKRT++;
                     foreach ($rumahtangga->anggotaRT as $keluarga) {
                         // Periksa apakah rumah tangga memiliki setidaknya satu kepala keluarga
+                        if($keluarga->keluarga->industri_id != 0){
+                            $totalKegiatanIndustri++;
+                        }
                         if ($keluarga->keluarga->nama_kepala_keluarga) {
                         $totalJmlKK++;
+                        // if ($keluarga->industri_id != 0) {
+                        //     $totalKegiatanIndustri++;
+                        // }
                             foreach ($keluarga->keluarga->anggota as $anggota) {
                                 // dd($keluarga->keluarga->anggota);
-                                foreach ($anggota->warga->industri as $indust) {
-                                    if ($indust) {
-                                        $totalKegiatanIndustri++;
-                                    }
-                                }
-                                foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                                    if ($pemanfaatan) {
-                                        $totalKegiatanPemanfaatanPekarangan++;
-                                    }
-                                }
+                                // foreach ($anggota->warga->industri as $indust) {
+                                //     if ($indust) {
+                                //         $totalKegiatanIndustri++;
+                                //     }
+                                // }
+                                // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                                //     if ($pemanfaatan) {
+                                //         $totalKegiatanPemanfaatanPekarangan++;
+                                //     }
+                                // }
                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                                 $umurz = $tgl_lahir->diffInYears($today);
                                 if ($umurz >= 45) {
@@ -758,6 +711,7 @@ class AdminController extends Controller
                     }
                 }
             }
+            // dd($totalKegiatanIndustri);
 
         }
 
@@ -768,7 +722,7 @@ class AdminController extends Controller
     public function export_rekap_rt(Request $request, $id)
     {
         $user = Auth::user();
-        $dasa_wisma = DataKelompokDasawisma::with(['rumahtangga.anggotaRT.keluarga.anggota.warga.pemanfaatan', 'rumahtangga.anggotaRT.keluarga.anggota.warga.industri'])
+        $dasa_wisma = DataKelompokDasawisma::with(['rumahtangga.anggotaRT.keluarga.anggota.warga', 'rumahtangga.anggotaRT.keluarga.anggota.warga'])
             ->where('id_rt', $id)
             ->with('desa')
             ->get();
@@ -853,24 +807,34 @@ class AdminController extends Controller
             // foreach($index->anggotaRT as $tangg){
             //     $totalJmlKK++;
             foreach ($index->rumahtangga as $rumahtangga) {
+                if ($rumahtangga->pemanfaatanlahan) {
+                    foreach($rumahtangga->pemanfaatanlahan as $pemanfaatan){
+                        if($pemanfaatan){
+                            $totalKegiatanPemanfaatanPekarangan++;
+                        }
+                    }
+                }
                 if ($rumahtangga->anggotaRT) {
                     $totalJmlKRT++;
                     foreach ($rumahtangga->anggotaRT as $keluarga) {
                         // Periksa apakah rumah tangga memiliki setidaknya satu kepala keluarga
                         if ($keluarga->keluarga->nama_kepala_keluarga) {
+                            if ($keluarga->keluarga->industri_id != 0) {
+                                        $totalKegiatanIndustri++;
+                                    }
                         $totalJmlKK++;
                             foreach ($keluarga->keluarga->anggota as $anggota) {
                                 // dd($keluarga->keluarga->anggota);
-                                foreach ($anggota->warga->industri as $indust) {
-                                    if ($indust) {
-                                        $totalKegiatanIndustri++;
-                                    }
-                                }
-                                foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                                    if ($pemanfaatan) {
-                                        $totalKegiatanPemanfaatanPekarangan++;
-                                    }
-                                }
+                                // foreach ($anggota->warga->industri as $indust) {
+                                //     if ($indust) {
+                                //         $totalKegiatanIndustri++;
+                                //     }
+                                // }
+                                // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                                //     if ($pemanfaatan) {
+                                //         $totalKegiatanPemanfaatanPekarangan++;
+                                //     }
+                                // }
                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                                 $umurz = $tgl_lahir->diffInYears($today);
                                 if ($umurz >= 45) {
@@ -959,7 +923,7 @@ class AdminController extends Controller
     public function rekap_kelompok_pkk_rw(Request $request, $id)
     {
         $user = Auth::user();
-        $dasa_wisma = DataKelompokDasawisma::with(['rumahtangga.anggotaRT.keluarga.anggota.warga.pemanfaatan', 'rumahtangga.anggotaRT.keluarga.anggota.warga.industri'])
+        $dasa_wisma = DataKelompokDasawisma::with(['rumahtangga.anggotaRT.keluarga.anggota.warga', 'rumahtangga.anggotaRT.keluarga.anggota.warga'])
             ->where('id_rw', $id)
             ->with('desa', 'rt')
             ->get();
@@ -1006,42 +970,31 @@ class AdminController extends Controller
 
         $today = Carbon::now();
         foreach ($dasa_wisma as $index){
+
+
+
             foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->sumber_air_pdam) {
                     $totalAirPDAM++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->sumber_air_sumur) {
                     $totalAirSumur++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->sumber_air_lainnya) {
                     $totalAirLainnya++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->tempel_stiker) {
                     $totalStiker++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->punya_jamban) {
                     $totalJamban++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->punya_tempat_sampah) {
                     $totalPemSampah++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->saluran_pembuangan_air_limbah) {
                     $totalSPAL++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->punya_jamban && $rumahtangga->punya_tempat_sampah && $rumahtangga->saluran_pembuangan_air_limbah) {
                     $totalSheatLayakHuni++;
                 } else {
@@ -1049,29 +1002,40 @@ class AdminController extends Controller
                 }
             }
 
-            // $totalRT++;
-            // $totalKepalaRumahTangga++;
-            // foreach($index->anggotaRT as $tangg){
+
             $totalDasawisma = $dasa_wisma->count();
+            $totalKepalaRumahTangga++;
+            // foreach($index->anggotaRT as $tangg){
+            //     $totalJmlKK++;
+
             foreach ($index->rumahtangga as $rumahtangga) {
+                foreach($rumahtangga->pemanfaatanlahan as $lahan){
+                    $totalKegiatanPemanfaatanPekarangan++;
+                }
                 if ($rumahtangga->anggotaRT) {
                     $totalJmlKRT++;
                     foreach ($rumahtangga->anggotaRT as $keluarga) {
                         // Periksa apakah rumah tangga memiliki setidaknya satu kepala keluarga
+                        if($keluarga->keluarga->industri_id != 0){
+                            $totalKegiatanIndustri++;
+                        }
                         if ($keluarga->keluarga->nama_kepala_keluarga) {
                         $totalJmlKK++;
+                        // if ($keluarga->industri_id != 0) {
+                        //     $totalKegiatanIndustri++;
+                        // }
                             foreach ($keluarga->keluarga->anggota as $anggota) {
                                 // dd($keluarga->keluarga->anggota);
-                                foreach ($anggota->warga->industri as $indust) {
-                                    if ($indust) {
-                                        $totalKegiatanIndustri++;
-                                    }
-                                }
-                                foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                                    if ($pemanfaatan) {
-                                        $totalKegiatanPemanfaatanPekarangan++;
-                                    }
-                                }
+                                // foreach ($anggota->warga->industri as $indust) {
+                                //     if ($indust) {
+                                //         $totalKegiatanIndustri++;
+                                //     }
+                                // }
+                                // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                                //     if ($pemanfaatan) {
+                                //         $totalKegiatanPemanfaatanPekarangan++;
+                                //     }
+                                // }
                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                                 $umurz = $tgl_lahir->diffInYears($today);
                                 if ($umurz >= 45) {
@@ -1131,6 +1095,7 @@ class AdminController extends Controller
                     }
                 }
             }
+            // dd($totalKegiatanIndustri);
 
         }
         return view('admin_desa.data_rekap.rekapRW.index', compact('dasa_wisma', 'totalJmlKK', 'totalKegiatanIndustri', 'totalKegiatanPemanfaatanPekarangan', 'totalDasawisma', 'totalJmlKRT', 'totalSheatLayakHuni', 'totalTidakSheatLayakHuni', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainnya', 'totalStiker', 'totalJamban', 'totalPemSampah', 'totalSPAL', 'totalAnggotaLansia', 'totalAnggotaIbuHamil', 'totalAnggotaIbuMenyusui', 'totalKegiatanLingkungan', 'totalKegiatanUP2K', 'totalAnggotaBerkebutuhanKhusus', 'totalMakanBeras', 'totalMakanNonBeras', 'totalAnggotaLaki', 'totalAnggotaBalitaLaki', 'totalAnggotaPerempuan', 'totalAnggotaWUS', 'totalAnggotaBalitaPerempuan', 'totalAnggotaPUS'));
@@ -1153,31 +1118,16 @@ class AdminController extends Controller
     // export rekap rw
     public function export_rekap_rw(Request $request,$id)
     {
-        // /** @var User */
-        // $user = Auth::user();
-        // $desa = $user->desa;
-        // $dasa_wisma = $request->query('dasa_wisma');
-        // $rt = $request->query('rt');
-        // $rw = $request->query('rw');
-        // $periode = $request->query('periode');
-
-        // $rts = DataRT::getRT($desa->id, $rw, $rt, $periode);
         $user = Auth::user();
-        $dasa_wisma = DataKelompokDasawisma::with(['rumahtangga.anggotaRT.keluarga.anggota.warga.pemanfaatan', 'rumahtangga.anggotaRT.keluarga.anggota.warga.industri'])
+        $dasa_wisma = DataKelompokDasawisma::with(['rumahtangga.anggotaRT.keluarga.anggota.warga', 'rumahtangga.anggotaRT.keluarga.anggota.warga'])
             ->where('id_rw', $id)
             ->with('desa', 'rt')
             ->get();
-        // dd($dasa_wisma);
+
         if ($dasa_wisma->isEmpty()) {
             dd('data rt masih belum ada jadi gada rekap');
         }
 
-        // $rumahtangga = RumahTangga::with(['anggotaRT.keluarga.anggota.warga.pemanfaatan','anggotaRT.keluarga.anggota.warga.industri'])
-        //     ->where('id_dasawisma', $dasa_wisma->first()->id)
-        //     ->get();
-
-        // return view('admin_desa.data_rekap.data_rekap_dasa_wisma', compact('rumahtangga', 'dasa_wisma'));
-        // return view('admin_desa.data_rekap.rekapRT.index', compact( 'dasa_wisma')); $totalDasawisma = 0;
         $totalKepalaRumahTangga = 0;
         $totalJmlKK = 0;
         $totalJmlKRT = 0;
@@ -1214,38 +1164,24 @@ class AdminController extends Controller
                 if ($rumahtangga->sumber_air_pdam) {
                     $totalAirPDAM++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->sumber_air_sumur) {
                     $totalAirSumur++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->sumber_air_lainnya) {
                     $totalAirLainnya++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->tempel_stiker) {
                     $totalStiker++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->punya_jamban) {
                     $totalJamban++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->punya_tempat_sampah) {
                     $totalPemSampah++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->saluran_pembuangan_air_limbah) {
                     $totalSPAL++;
                 }
-            }
-            foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->punya_jamban && $rumahtangga->punya_tempat_sampah && $rumahtangga->saluran_pembuangan_air_limbah) {
                     $totalSheatLayakHuni++;
                 } else {
@@ -1253,29 +1189,26 @@ class AdminController extends Controller
                 }
             }
 
-            // $totalRT++;
-            // $totalKepalaRumahTangga++;
-            // foreach($index->anggotaRT as $tangg){
+
             $totalDasawisma = $dasa_wisma->count();
+            $totalKepalaRumahTangga++;
+            // foreach($index->anggotaRT as $tangg){
+            //     $totalJmlKK++;
+
             foreach ($index->rumahtangga as $rumahtangga) {
+                foreach($rumahtangga->pemanfaatanlahan as $lahan){
+                    $totalKegiatanPemanfaatanPekarangan++;
+                }
                 if ($rumahtangga->anggotaRT) {
                     $totalJmlKRT++;
                     foreach ($rumahtangga->anggotaRT as $keluarga) {
                         // Periksa apakah rumah tangga memiliki setidaknya satu kepala keluarga
+                        if($keluarga->keluarga->industri_id != 0){
+                            $totalKegiatanIndustri++;
+                        }
                         if ($keluarga->keluarga->nama_kepala_keluarga) {
                         $totalJmlKK++;
                             foreach ($keluarga->keluarga->anggota as $anggota) {
-                                // dd($keluarga->keluarga->anggota);
-                                foreach ($anggota->warga->industri as $indust) {
-                                    if ($indust) {
-                                        $totalKegiatanIndustri++;
-                                    }
-                                }
-                                foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                                    if ($pemanfaatan) {
-                                        $totalKegiatanPemanfaatanPekarangan++;
-                                    }
-                                }
                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                                 $umurz = $tgl_lahir->diffInYears($today);
                                 if ($umurz >= 45) {
@@ -1335,6 +1268,7 @@ class AdminController extends Controller
                     }
                 }
             }
+            // dd($totalKegiatanIndustri);
 
         }
 
@@ -1408,8 +1342,8 @@ class AdminController extends Controller
     public function rekap_pkk_desa(Request $request, $id)
     {
         $user = Auth::user();
-        $dasa_wisma = Rw::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga.pemanfaatan',
-        'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga.industri',
+        $dasa_wisma = Rw::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga',
+        'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga',
         'dasawisma.desa.kecamatan'
         ])
             ->where('desa_id', $id)
@@ -1469,6 +1403,12 @@ class AdminController extends Controller
                     // Iterasi melalui setiap rumahtangga dalam dasawisma
                     foreach ($dasawisma->rumahtangga as $rumahtangga) {
                         if ($rumahtangga) {
+                            if($rumahtangga->pemanfaatanlahan){
+                                foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
+                                    $totalKegiatanPemanfaatanPekarangan++;
+                                }
+                            }
+
                             // Hitung jumlah KRT (Kepala Rumah Tangga)
                             if ($rumahtangga->sumber_air_pdam) {
                                 $totalAirPDAM++;
@@ -1505,16 +1445,19 @@ class AdminController extends Controller
                                 if ($keluarga->keluarga && $keluarga->keluarga->nama_kepala_keluarga) {
                                     $totalJmlKK++;
                                 }
+                                if($keluarga->keluarga->industri_id != 0) {
+                                        $totalKegiatanIndustri++;
+                                    }
                                 // Iterasi melalui setiap anggota keluarga
                                 foreach ($keluarga->keluarga->anggota as $anggota) {
                                     // Hitung jumlah kegiatan industri dari setiap anggota
-                                    foreach ($anggota->warga->industri as $indust) {
-                                        $totalKegiatanIndustri++;
-                                    }
+                                    // foreach ($anggota->warga->industri as $indust) {
+                                    //     $totalKegiatanIndustri++;
+                                    // }
                                     // Hitung jumlah kegiatan pemanfaatan pekarangan dari setiap anggota
-                                    foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                                        $totalKegiatanPemanfaatanPekarangan++;
-                                    }
+                                    // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                                    //     $totalKegiatanPemanfaatanPekarangan++;
+                                    // }
                                     // Hitung jumlah anggota yang merupakan lansia (umur >= 45 tahun)
                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                                     // dd($anggota->warga->tgl_lahir);
@@ -1605,8 +1548,8 @@ class AdminController extends Controller
     {
         // dd($id);
         $user = Auth::user();
-        $dasa_wisma = Rw::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga.pemanfaatan',
-        'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga.industri',
+        $dasa_wisma = Rw::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga',
+        'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga',
         'dasawisma.desa.kecamatan'
         ])
             ->where('desa_id', $id)
@@ -1666,6 +1609,12 @@ class AdminController extends Controller
                     // Iterasi melalui setiap rumahtangga dalam dasawisma
                     foreach ($dasawisma->rumahtangga as $rumahtangga) {
                         if ($rumahtangga) {
+                            if($rumahtangga->pemanfaatanlahan){
+                                foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
+                                    $totalKegiatanPemanfaatanPekarangan++;
+                                }
+                            }
+
                             // Hitung jumlah KRT (Kepala Rumah Tangga)
                             if ($rumahtangga->sumber_air_pdam) {
                                 $totalAirPDAM++;
@@ -1702,16 +1651,19 @@ class AdminController extends Controller
                                 if ($keluarga->keluarga && $keluarga->keluarga->nama_kepala_keluarga) {
                                     $totalJmlKK++;
                                 }
+                                if($keluarga->keluarga->industri_id != 0) {
+                                        $totalKegiatanIndustri++;
+                                    }
                                 // Iterasi melalui setiap anggota keluarga
                                 foreach ($keluarga->keluarga->anggota as $anggota) {
                                     // Hitung jumlah kegiatan industri dari setiap anggota
-                                    foreach ($anggota->warga->industri as $indust) {
-                                        $totalKegiatanIndustri++;
-                                    }
+                                    // foreach ($anggota->warga->industri as $indust) {
+                                    //     $totalKegiatanIndustri++;
+                                    // }
                                     // Hitung jumlah kegiatan pemanfaatan pekarangan dari setiap anggota
-                                    foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                                        $totalKegiatanPemanfaatanPekarangan++;
-                                    }
+                                    // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                                    //     $totalKegiatanPemanfaatanPekarangan++;
+                                    // }
                                     // Hitung jumlah anggota yang merupakan lansia (umur >= 45 tahun)
                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                                     // dd($anggota->warga->tgl_lahir);
@@ -1871,19 +1823,29 @@ class AdminController extends Controller
         }
 
         $countKik = 0;
+        foreach($keluarga->pemanfaatanlahan as $lahan){
+            if($lahan){
+
+                $data_pemanfaatan_pekarangan++;
+            }
+        }
         foreach ($keluarga->anggotaRT as $anggotaRumah) {
             // $countKik++;
+            if($anggotaRumah->keluarga->industri_id != 0){
+                $industri_rumah_tangga++;
+            }
             foreach ($anggotaRumah->keluarga->anggota as $anggota) {
-                foreach ($anggota->warga->industri as $industri) {
-                    if ($industri) {
-                        $industri_rumah_tangga++;
-                    }
-                }
-                foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                    if ($pemanfaatan) {
-                        $data_pemanfaatan_pekarangan++;
-                    }
-                }
+
+                // foreach ($anggota->warga->industri as $industri) {
+                //     if ($industri) {
+                //         $industri_rumah_tangga++;
+                //     }
+                // }
+                // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                //     if ($pemanfaatan) {
+                //         $data_pemanfaatan_pekarangan++;
+                //     }
+                // }
                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                 $umurz = $tgl_lahir->diffInYears($today);
                 if ($umurz >= 45) {
@@ -2002,6 +1964,11 @@ class AdminController extends Controller
         $rumah = RumahTangga::where('id_dasawisma', $id)->get();
 
         foreach ($rumah as $keluarga) {
+            foreach ($keluarga->pemanfaatanlahan as $pemanfaatan) {
+                        if ($pemanfaatan) {
+                            $data_pemanfaatan_pekarangan++;
+                        }
+                    }
             $countRumahTangga++;
             if ($keluarga->punya_tempat_sampah) {
                 $countTempatSampah++;
@@ -2034,17 +2001,25 @@ class AdminController extends Controller
 
             foreach ($keluarga->anggotaRT as $anggotaRumah) {
                 $countKK++;
-                foreach ($anggotaRumah->keluarga->anggota as $anggota) {
-                    foreach ($anggota->warga->industri as $industri) {
-                        if ($industri) {
+                if ($anggotaRumah->keluarga->industri_id != 0) {
                             $industri_rumah_tangga++;
                         }
-                    }
-                    foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                        if ($pemanfaatan) {
-                            $data_pemanfaatan_pekarangan++;
-                        }
-                    }
+                // foreach($anggotaRumah->keluarga as $industri){
+                //             if ($industri) {
+                //             $industri_rumah_tangga++;
+                //         }
+                // }
+                foreach ($anggotaRumah->keluarga->anggota as $anggota) {
+                    // foreach ($anggota->warga->industri as $industri) {
+                    //     if ($industri) {
+                    //         $industri_rumah_tangga++;
+                    //     }
+                    // }
+                    // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                    //     if ($pemanfaatan) {
+                    //         $data_pemanfaatan_pekarangan++;
+                    //     }
+                    // }
                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                     $umurz = $tgl_lahir->diffInYears($today);
 
@@ -2195,6 +2170,13 @@ class AdminController extends Controller
         $rumah = RumahTangga::where('id_dasawisma', $item->id)->get();
         foreach ($rumah as $keluarga) {
             $countRumahTangga++;
+            if($keluarga->pemanfaatanlahan){
+                foreach($keluarga->pemanfaatanlahan as $lahan){
+                    if($lahan){
+                        $data_pemanfaatan_pekarangan++;
+                    }
+                }
+            }
             if ($keluarga->punya_tempat_sampah) {
                 $countTempatSampah++;
             }
@@ -2226,17 +2208,20 @@ class AdminController extends Controller
 
             foreach ($keluarga->anggotaRT as $anggotaRumah) {
                 // $countKK++;
-                foreach ($anggotaRumah->keluarga->anggota as $anggota) {
-                    foreach ($anggota->warga->industri as $industri) {
-                        if ($industri) {
+                     if ($anggotaRumah->keluarga->industri_id != 0) {
                             $industri_rumah_tangga++;
                         }
-                    }
-                    foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                        if ($pemanfaatan) {
-                            $data_pemanfaatan_pekarangan++;
-                        }
-                    }
+                foreach ($anggotaRumah->keluarga->anggota as $anggota) {
+                    // foreach ($anggota->warga->industri as $industri) {
+                    //     if ($industri) {
+                    //         $industri_rumah_tangga++;
+                    //     }
+                    // }
+                    // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                    //     if ($pemanfaatan) {
+                    //         $data_pemanfaatan_pekarangan++;
+                    //     }
+                    // }
                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                     $umurz = $tgl_lahir->diffInYears($today);
 

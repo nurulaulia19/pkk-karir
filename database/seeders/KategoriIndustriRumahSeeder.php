@@ -17,22 +17,15 @@ class KategoriIndustriRumahSeeder extends Seeder
     {
         // create tabel kategori_industri_rumah
         DB::table('kategori_industri_rumah')->insert([
-
             [
-                'nama_kategori'=>'Pangan',
+                'nama_kategori'=>'Jasa',
             ],
             [
                 'nama_kategori'=>'Sandang',
             ],
             [
-                'nama_kategori'=>'Konveksi',
+                'nama_kategori'=>'Pangan',
             ],
-            [
-                'nama_kategori'=>'Jasa',
-            ],
-            [
-                'nama_kategori'=>'Lain-lain',
-            ]
         ]);
     }
 }

@@ -286,7 +286,24 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
     Route::get('/keluarga', [RumahTanggaController::class,'keluarga']);
 
     Route::resource('/data_pemanfaatan', DataPemanfaatanPekaranganController::class);
+    Route::resource('/data_pemanfaatan', DataPemanfaatanPekaranganController::class)->except([
+        'edit',
+        'update','destroy'
+    ]);
+    Route::get('data_pemanfaatan/{id}/edit', [DataPemanfaatanPekaranganController::class, 'edit'])->name('data_pemanfaatan.edit');
+    Route::get('data_pemanfaatan/{id}/deleted', [DataPemanfaatanPekaranganController::class, 'destroy'])->name('data_pemanfaatan.splice');
+    Route::delete('data_pemanfaatan/{id}/deleted/all', [DataPemanfaatanPekaranganController::class, 'deleted_all'])->name('data_pemanfaatan.deleted_all');
+
     Route::resource('/data_industri', DataIndustriRumahController::class);
+    Route::resource('/data_industri', DataIndustriRumahController::class)->except([
+        'edit',
+        'update','destroy'
+    ]);
+    Route::get('data_industri/{id}/edit', [DataIndustriRumahController::class, 'edit'])->name('data_industri.edit');
+    Route::delete('data_industri/{id}/deleted', [DataIndustriRumahController::class, 'destroyz'])->name('data_industri.destroy');
+    // Route::delete('data_industri/{id}/deleted/all', [DataIndustriRumahController::class, 'deleted_all'])->name('data_industri.deleted_all');
+
+
     Route::resource('/data_pelatihan', DataPelatihanKaderController::class);
     Route::resource('/data_gabung', DataKaderGabungController::class);
     Route::get('/rekap', [KaderFormController::class, 'rekap']);

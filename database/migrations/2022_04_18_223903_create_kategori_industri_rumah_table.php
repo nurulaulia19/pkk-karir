@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('kategori_industri_rumah', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kategori');
-
             $table->timestamps();
         });
     }

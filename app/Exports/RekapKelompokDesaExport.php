@@ -113,6 +113,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
                 'jumlah_ibu_hamil' => ucfirst($counts['ibuHamil']) ?: '0',
                 'jumlah_ibu_menyusui' => ucfirst($counts['ibuMenyusui']) ?: '0',
                 'jumlah_lansia' =>  ucfirst($counts['lansia'])  ?: '0',
+                'jumlah_tiga_buta' => '0',
                 'jumlah_kebutuhan_khusus' => ucfirst($counts['kebutuhanKhusus']) ?: '0',
                 'sehat_layak_huni' =>ucfirst($counts['rumahSehat']) ?: '0',
                 'tidak_sehat_layak_huni' => ucfirst($counts['rumahNonSehat']) ?: '0',
@@ -152,6 +153,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
             'jumlah_ibu_hamil' =>  $this->totalAnggotaIbuHamil ?: '0',
             'jumlah_ibu_menyusui' =>  $this->totalAnggotaIbuMenyusui ?: '0',
             'jumlah_lansia' =>  $this->totalAnggotaLansia ?: '0',
+            'jumlah_tiga_buta' => '0',
             'jumlah_kebutuhan_khusus' => $this->totalAnggotaBerkebutuhanKhusus ?: '0',
             'sehat_layak_huni' => $this->totalSheatLayakHuni ?: '0',
             'tidak_sehat_layak_huni' => $this->totalTidakSheatLayakHuni ?: '0',
@@ -183,6 +185,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
             '',
             '',
             'JUMLAH ANGGOTA KELUARGA',
+            '',
             '',
             '',
             '',
@@ -226,6 +229,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
             'IBU HAMIL',
             'IBU MENYUSUI',
             'LANSIA',
+            '3 BUTA',
             'BERKEBUTUHAN KHUSUS',
             'SEHAT',
             'KURANG SEHAT',
@@ -234,7 +238,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
             'MEMILIKI JAMBAN KELUARGA',
             'MENEMPEL STIKER P4K',
             'SUMBER AIR PDAM',
-            'SUMBER AIR SUMUR SUMUR',
+            'SUMBER AIR SUMUR',
             'SUMBER AIR LAINNYA',
             'BERAS',
             'NON BERAS',
@@ -358,11 +362,11 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
             $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-            $sheet->mergeCells('G9:P9');
-            $sheet->mergeCells('Q9:V9');
-            $sheet->mergeCells('W9:Y9');
-            $sheet->mergeCells('Z9:AA9');
-            $sheet->mergeCells('AB9:AE9');
+            $sheet->mergeCells('G9:Q9');
+            $sheet->mergeCells('R9:W9');
+            $sheet->mergeCells('X9:Z9');
+            $sheet->mergeCells('AA9:AB9');
+            $sheet->mergeCells('AC9:AF9');
 
         }
 

@@ -46,8 +46,8 @@
                                                 <th rowspan="2" style="text-align: center;">Jml Dasawisma</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KRT</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KK</th>
-                                                <th colspan="10" style="text-align:center;">Jumlah Anggota Keluarga</th>
-                                                <th colspan="5" style="text-align:center;">Kriteria Rumah</th>
+                                                <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
+                                                <th colspan="6" style="text-align:center;">Kriteria Rumah</th>
                                                 <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
                                                 <th colspan="2" style="text-align:center;">Makanan Pokok</th>
                                                 <th colspan="4" style="text-align:center;">Warga Mengikuti Kegiatan</th>
@@ -58,12 +58,12 @@
                                                 <th>Total P</th>
                                                 <th>Balita L</th>
                                                 <th>Balita P</th>
-
                                                 <th>PUS</th>
                                                 <th>WUS</th>
                                                 <th>Ibu Hamil</th>
                                                 <th>Ibu Menyusui</th>
                                                 <th>Lansia</th>
+                                                <th>3 Buta</th>
                                                 <th>Berkebutuhan Khusus</th>
                                                 <th>Sehat Layak Huni</th>
                                                 <th>Tidak Sehat Layak Huni</th>
@@ -157,6 +157,7 @@
                                                     <td>
                                                         {{ ucfirst($counts['lansia']) }}
                                                     </td>
+                                                    <td>0</td>
                                                     <td>
                                                         {{ ucfirst($counts['kebutuhanKhusus']) }}
 
@@ -301,6 +302,7 @@
                                                     {{$totalAnggotaLansia}}
                                                     {{-- {{ $catatan_keluarga->sum('kriteria_rumah') }} --}}
                                                 </td>
+                                                <td>0</td>
                                                 <td>
                                                     {{$totalAnggotaBerkebutuhanKhusus}}
                                                     {{-- {{ $catatan_keluarga->count() - $catatan_keluarga->sum('kriteria_rumah') }} --}}

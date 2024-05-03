@@ -31,7 +31,7 @@
             @endif
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group @error('id_desa') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Desa</label>
                         {{-- nama desa --}}
@@ -49,7 +49,7 @@
                     @enderror
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="form-group @error('id_kecamatan') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Kecamatan</label>
                         {{-- nama kecamatan --}}
@@ -65,9 +65,8 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col-md-2">
+                {{-- <div class="col-md-2">
                     <div class="form-group @error('id_user') is-invalid @enderror">
-                        {{-- nama kader --}}
                         @foreach ($kad as $c)
                             <input type="hidden" class="form-control" name="id_user" id="id_user" placeholder="Masukkan Nama Desa" value="{{$c->id}}">
                         @endforeach
@@ -77,28 +76,39 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                </div>
+                </div> --}}
             </div>
 
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group @error('warga_id') is-invalid @enderror">
-                        <label for="exampleFormControlSelect1">Nama Warga</label>
+                    <div class="form-group @error('rumah_tangga_id') is-invalid @enderror">
+                        <label for="exampleFormControlSelect1">Nama Kepala Rumah Tangga</label>
                         <select class="form-control" id="rumah_tangga_id" name="rumah_tangga_id">
-                          {{-- nama warga --}}
-                          <option hidden> Pilih Warga</option>
-                            @foreach ($warga as $warga)
-                                <option value="{{ $warga->id }}">{{ $warga->nama_kepala_rumah_tangga }} - {{$warga->no_ktp}}</option>
+                          <option hidden> Pilih Kepala Rumah Tangga</option>
+                            @foreach ($krt as $rumahTangga)
+                                <option value="{{ $rumahTangga->id }}">{{ $rumahTangga->nama_kepala_rumah_tangga }} - {{$rumahTangga->no_ktp}}</option>
                             @endforeach
                           </select>
                       </div>
-                      @error('warga_id')
+                      @error('rumah_tangga_id')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
                 </div>
-
+                <div class="col-md-6">
+                    <div class="form-group @error('periode') is-invalid @enderror">
+                        <label>Periode</label>
+                        <select class="form-control" id="periode" name="periode" readonly>
+                            <option value="{{ date('Y') }}">{{ date('Y') }}</option>
+                        </select>
+                    </div>
+                      @error('periode')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                </div>
 
             </div>
             {{-- tingting --}}
@@ -125,24 +135,6 @@
             <button type="button" id="addButton" class="btn btn-primary">Add</button>
         </div>
         {{-- end tingting --}}
-
-
-            <div class="row">
-
-                <div class="col-md-6">
-                    <div class="form-group @error('periode') is-invalid @enderror">
-                        <label>Periode</label>
-                        <select class="form-control" id="periode" name="periode" readonly>
-                            <option value="{{ date('Y') }}">{{ date('Y') }}</option>
-                        </select>
-                    </div>
-                      @error('periode')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                      @enderror
-                </div>
-            </div>
         </div>
         <!-- /.card-body -->
 

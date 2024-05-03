@@ -14,13 +14,11 @@
       <!-- /.card-header -->
       <!-- form start -->
 
-      <form action="{{ url('data_industri', $data_industri->id) }}" method="POST">
+      <form action="{{ url('data_industri', ['id' => $keluarga->id]) }}" method="POST">
         @method('PUT')
-
         @csrf
         <div class="card-body">
             <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
-
             @if (count($errors)>0)
                 <div class="alert alert-danger">
                     <ul>
@@ -74,13 +72,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Nama</label>
-                        <select class="form-control" name="warga_id">
-                                <option value="{{ $data_industri->warga->id }}" selected>
-                                    {{ $data_industri->warga->nama }} - {{ $data_industri->warga->no_ktp }}
+                        <select class="form-control" name="keluarga_id">
+                                <option value="{{ $keluarga->id }}" selected>
+                                    {{ $keluarga->nama_kepala_keluarga }}
                                 </option>
                         </select>
 
-                        @error('warga_id')
+                        @error('keluarga_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -94,74 +92,21 @@
                         <select class="form-control" id="nama_kategori" name="nama_kategori">
                             {{-- pilih kategori --}}
                             <option hidden> Pilih Kategori</option>
-                            <option value="Pangan" {{ $data_industri->nama_kategori == "Pangan" ? 'selected' : '' }}>Pangan</option>
+                            @foreach ($kateagoriIndustri as $item)
+                                <option value="{{ $item->id }}" {{ $keluarga->industri_id == $item->id ? 'selected' : ''  }} >{{ $item->nama_kategori }}</option>
+
+                            @endforeach
+                            {{-- <option value="Pangan" {{ $data_industri->nama_kategori == "Pangan" ? 'selected' : '' }}>Pangan</option>
                             <option value="Konveksi" {{ $data_industri->nama_kategori == "Konveksi" ? 'selected' : '' }}>Konveksi</option>
                             <option value="Sandang" {{ $data_industri->nama_kategori == "Sandang" ? 'selected' : '' }}>Sandang</option>
                             <option value="Jasa" {{ $data_industri->nama_kategori == "Jasa" ? 'selected' : '' }}>Jasa</option>
-                            <option value="Lain-lain" {{ $data_industri->nama_kategori == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option>
+                            <option value="Lain-lain" {{ $data_industri->nama_kategori == "Lain-lain" ? 'selected' : '' }}>Lain-lain</option> --}}
                         </select>
                     </div>
                 </div>
             </div>
 
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Komoditi</label>
-                        {{-- nama Komoditi --}}
-                        <input type="text" class="form-control @error('komoditi') is-invalid @enderror" name="komoditi" id="komoditi" placeholder="Masukkan Komoditi" value="{{ucfirst(old('komoditi', $data_industri->komoditi)) }}">
-                        @error('komoditi')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Volume</label>
-                        {{-- volume Komoditi --}}
-                        <input type="number" min="0" class="form-control @error('volume') is-invalid @enderror" name="volume" id="volume" placeholder="Masukkan Volume" value="{{ucfirst(old('volume', $data_industri->volume))}}">
-                        @error('volume')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Periode</label>
-                        {{-- pilih periode --}}
-                        <select style="cursor:pointer;" class="form-control" id="periode" name="periode">
-                            <option value="{{ $data_industri->periode }}" {{ $data_industri->periode ? 'selected' : '' }}>{{ $data_industri->periode }}</option>
-                                <?php
-                                $year = date('Y');
-                                $min = $year ;
-                                    $max = $year + 20;
-                                for( $i=$min; $i<=$max; $i++ ) {
-                                echo '<option value='.$i.'>'.$i.'</option>';
-                            }?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group @error('id_user') is-invalid @enderror">
-                        {{-- nama kader --}}
-                        @foreach ($kad as $c)
-                            <input type="hidden" class="form-control" name="id_user" id="id_user" placeholder="Masukkan Nama Desa" value="{{$c->id}}">
-                            <input type="hidden" disabled class="form-control" name="id_user" id="id_user" placeholder="Masukkan Nama Desa" value="{{ $c->name }}">
-                        @endforeach
-                    </div>
-                    @error('id_user')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
         </div>
 
         <!-- /.card-body -->

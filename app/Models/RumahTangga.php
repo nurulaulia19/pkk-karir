@@ -24,4 +24,7 @@ class RumahTangga extends Model
     public function dasawisma(){
         return $this->belongsTo(DasaWisma::class, 'id_dasawisma');
     }
+    public function pemanfaatanlahan(){
+        return $this->hasMany(DataPemanfaatanPekarangan::class, 'rumah_tangga_id');
+    }
 }

@@ -20,16 +20,16 @@ return new class extends Migration
             $table->bigInteger('id_kecamatan')->unsigned();
             $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan');
             // kalo pake warga
-            $table->bigInteger('warga_id')->unsigned();
-            $table->foreign('warga_id')->references('id')->on('data_warga');
+            $table->bigInteger('keluarga_id')->unsigned();
+            $table->foreign('keluarga_id')->references('id')->on('data_keluarga');
             // $table->bigInteger('id_keluarga')->unsigned();
             // $table->foreign('id_keluarga')->references('id')->on('data_keluarga');
             // $table->bigInteger('id_user')->unsigned();
             // $table->foreign('id_user')->references('id')->on('users');
 
             $table->string('nama_kategori');
-            $table->string('komoditi');
-            $table->integer('volume');
+            // $table->string('komoditi');
+            // $table->integer('volume');
             $table->integer('periode');
             $table->timestamps();
         });

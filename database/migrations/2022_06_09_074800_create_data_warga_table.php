@@ -30,16 +30,9 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('tempat_lahir');
             $table->date('tgl_lahir');
-            // $table->integer('umur');
             $table->string('status_perkawinan');
-            // $table->string('status_keluarga');
-            // $table->string('status_anggota_keluarga')->nullable();
             $table->string('agama');
             $table->string('alamat');
-            // $table->integer('rt');
-            // $table->integer('rw');
-            // $table->string('kabupaten');
-            // $table->string('provinsi');
             $table->string('pendidikan');
             $table->string('pekerjaan');
             $table->boolean('pasangan_usia_subur')->default(false);

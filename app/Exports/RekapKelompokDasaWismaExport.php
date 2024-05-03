@@ -102,12 +102,12 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
                 'jumlah_perempuan' => ucfirst($counts['perempuan']) ?: '0',
                 'jumlah_balita_laki' => ucfirst($counts['balitaLaki']) ?: '0',
                 'jumlah_balita_perempuan' => ucfirst($counts['balitaPerempuan']) ?: '0',
-                // 'jumlah_3_buta' => $keluarga->jumlah_3_buta ?: '0',
                 'jumlah_PUS' => ucfirst($counts['pus']) ?: '0',
                 'jumlah_WUS' => ucfirst($counts['wus']) ?: '0',
                 'jumlah_ibu_hamil' => ucfirst($counts['ibuHamil']) ?: '0',
                 'jumlah_ibu_menyusui' =>  ucfirst($counts['ibuMenyusui']) ?: '0',
                 'jumlah_lansia' =>ucfirst($counts['lansia']) ?: '0',
+                'jumlah_tiga_buta' => '0',
                 'jumlah_kebutuhan_khusus' =>ucfirst($counts['kebutuhanKhusus']) ?: '0',
                 'sehat_layak_huni' => $keluarga->kriteria_rumah_sehat == '1' ? '1' : '0',
                 'tidak_sehat_layak_huni' => $keluarga->kriteria_rumah_sehat == '0' ? '1' : '0',
@@ -115,9 +115,9 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
                 'punya_saluran_air' => $keluarga->saluran_pembuangan_air_limbah == '1' ? '1' : '0',
                 'punya_jamban' => $keluarga->punya_jamban == '1' ? '1' : '0',
                 'tempel_stiker' => $keluarga->tempel_stiker == '1' ? '1' : '0',
-                'sumber_air' => $keluarga->sumber_air_pdam == '1' ? '1' : '0',
-                'sumber_air_2' => $keluarga->sumber_air_sumur == '1' ? '1' : '0',
-                'sumber_air_4' => $keluarga->sumber_air_lainnya == '1' ? '1' : '0',
+                'sumber_air_pdam' => $keluarga->sumber_air_pdam == '1' ? '1' : '0',
+                'sumber_air_sumur' => $keluarga->sumber_air_sumur == '1' ? '1' : '0',
+                'sumber_air_lainnya' => $keluarga->sumber_air_lainnya == '1' ? '1' : '0',
                 'makanan_pokok_beras' =>  ucfirst($counts['MakanBeras']) ?: '0',
                 'makanan_pokok_non_beras' => ucfirst($counts['MakanNonBeras']) ?: '0',
                 'aktivitas_UP2K' =>ucfirst($counts['aktivitasUP2K']) ?: '0',
@@ -143,6 +143,7 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
             'jumlah_ibu_hamil' => $this->totalAnggotaIbuHamil ?: '0',
             'jumlah_ibu_menyusui' => $this->totalAnggotaIbuMenyusui ?: '0',
             'jumlah_lansia' => $this->totalAnggotaLansia ?: '0',
+            'jumlah_tiga_buta' => '0',
             'jumlah_kebutuhan_khusus' => $this->totalAnggotaBerkebutuhanKhusus ?: '0',
             'sehat_layak_huni' => $this->totalSheatLayakHuni ?: '0',
             'tidak_sehat_layak_huni' => $this->totalTidakSheatLayakHuni ?: '0',
@@ -159,15 +160,6 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
             'pemanfaatan' => $this->totalKegiatanPemanfaatanPekarangan ?: '0',
             'industri' => $this->totalKegiatanIndustri ?: '0',
             'aktivitas_kesehatan_lingkungan' => $this->totalKegiatanLingkungan ?: '0'
-
-
-
-            // 'makanan_pokok' => $catatan_keluarga->where('makanan_pokok', 1)->count() ?: '0',
-            // 'makanan_pokok_0' => $catatan_keluarga->where('makanan_pokok', 0)->count() ?: '0',
-            // 'aktivitas_UP2K' => $catatan_keluarga->sum('aktivitas_UP2K') ?: '0',
-            // 'pemanfaatan' => $catatan_keluarga->sum('have_pemanfaatan') ?: '0',
-            // 'industri' => $catatan_keluarga->sum('have_industri') ?: '0',
-            // 'kerja_bakti' => $catatan_keluarga->sum('have_kegiatan') ?: '0',
         ];
         // dd($this->totalAnggotaIbuHamil);
 
@@ -181,6 +173,7 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
             '',
             '',
             'JUMLAH ANGGOTA KELUARGA',
+            '',
             '',
             '',
             '',
@@ -220,6 +213,7 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
             'IBU HAMIL',
             'IBU MENYUSUI',
             'LANSIA',
+            '3 BUTA',
             'BERKEBUTUHAN KHUSUS',
             'SEHAT',
             'KURANG SEHAT',
@@ -363,11 +357,11 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
 
 
             // Lakukan merge pada sel D10 ke L10
-            $sheet->mergeCells('D10:M10');
-            $sheet->mergeCells('N10:S10');
-            $sheet->mergeCells('T10:V10');
-            $sheet->mergeCells('W10:X10');
-            $sheet->mergeCells('Y10:AB10');
+            $sheet->mergeCells('D10:N10');
+            $sheet->mergeCells('O10:T10');
+            $sheet->mergeCells('U10:W10');
+            $sheet->mergeCells('X10:Y10');
+            $sheet->mergeCells('Z10:AC10');
 
         }
 

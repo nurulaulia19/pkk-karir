@@ -113,13 +113,13 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
                 'jumlah_ibu_hamil' => ucfirst($counts['ibuHamil']) ?: '0',
                 'jumlah_ibu_menyusui' => ucfirst($counts['ibuMenyusui']) ?: '0',
                 'jumlah_lansia' => ucfirst($counts['lansia']) ?: '0',
+                'jumlah_tiga_buta' => '0',
                 'jumlah_kebutuhan_khusus' => ucfirst($counts['kebutuhanKhusus']) ?: '0',
                 'sehat_layak_huni' => ucfirst($counts['rumahSehat']) ?: '0',
                 'tidak_sehat_layak_huni' => ucfirst($counts['rumahNonSehat']) ?: '0',
                 'punya_tempat_sampah' => ucfirst($counts['tempatSampah']) ?: '0',
                 'punya_saluran_air' => ucfirst($counts['countSPAL']) ?: '0',
                 'jumlah_punya_jamban' => ucfirst($counts['countJamban']) ?: '0',
-
                 'tempel_stiker' => ucfirst($counts['countStiker']) ?: '0',
                 'sumber_air_pdam' => ucfirst($counts['countAirPDAM']) ?: '0',
                 'sumber_air_sumur' => ucfirst($counts['countAirSumur']) ?: '0',
@@ -154,13 +154,13 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
             'jumlah_ibu_hamil' => $this->totalIbuHamil ?: '0',
             'jumlah_ibu_menyusui' => $this->totalIbuMenyesui ?: '0',
             'jumlah_lansia' => $this->totalLansia ?: '0',
+            'jumlah_tiga_buta' => '0',
             'jumlah_kebutuhan_khusus' => $this->totalKebutuhanKhusus ?: '0',
             'sehat_layak_huni' => $this->totalKriteriaRumahSehat ?: '0',
             'tidak_sehat_layak_huni' => $this->totalKriteriaRumahNonSehat ?: '0',
             'punya_tempat_sampah' => $this->totalTempatSampah ?: '0',
             'punya_saluran_air' => $this->totalSPAL ?: '0',
             'jumlah_jamban' => $this->totalJamban ?: '0',
-
             'tempel_stiker' => $this->totalStiker ?: '0',
             'sumber_air_pdam' => $this->totalAirPDAM ?: '0',
             'sumber_air_sumur' => $this->totalAirSumur ?: '0',
@@ -178,9 +178,9 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
 
     public function headings(): array
     {
-        $headings = ['', '', '', '', '', '', '', '', 'JUMLAH ANGGOTA KELUARGA', '', '', '', '', '', '', '', '', '', 'KRITERIA RUMAH', '', '', '', '', '', 'SUMBER AIR KELUARGA', '', '', 'MAKANAN POKOK', '', 'WARGA MENGIKUTI KEGIATAN', '', '', ''];
+        $headings = ['', '', '', '', '', '', '', '', 'JUMLAH ANGGOTA KELUARGA', '', '', '', '', '', '', '', '', '', '', 'KRITERIA RUMAH', '', '', '', '', '', 'SUMBER AIR KELUARGA', '', '', 'MAKANAN POKOK', '', 'WARGA MENGIKUTI KEGIATAN', '', '', ''];
 
-        $headings2 = ['NO', 'NAMA KECAMATAN', 'JML. DESA/KELURAHAN', 'JML. RW', 'JML. RT', 'JML. DASAWISMA', 'JML. KRT', 'JML. KK', 'TOTAL L', 'TOTAL P', 'BALITA L', 'BALITA P', 'PUS', 'WUS', 'IBU HAMIL', 'IBU MENYUSUI', 'LANSIA', 'BERKEBUTUHAN KHUSUS', 'SEHAT', 'TIDAK SEHAT', 'MEMILIKI TMP. PEMB. SAMPAH', 'MEMILIKI SPAL', 'MEMILIKI JAMBAN', 'MENEMPEL STIKER P4K', 'PDAM', 'SUMUR', 'DLL', 'BERAS', 'NON BERAS', 'UP2K', 'PEMANFAATAN DAN PEKARANGAN', 'INDUSTRI RUMAH TANGGA', 'KESEHATAN LINGKUNGAN'];
+        $headings2 = ['NO', 'NAMA KECAMATAN', 'JML. DESA/KELURAHAN', 'JML. RW', 'JML. RT', 'JML. DASAWISMA', 'JML. KRT', 'JML. KK', 'TOTAL L', 'TOTAL P', 'BALITA L', 'BALITA P', 'PUS', 'WUS', 'IBU HAMIL', 'IBU MENYUSUI', 'LANSIA', '3 BUTA', 'BERKEBUTUHAN KHUSUS', 'SEHAT', 'KURANG SEHAT', 'MEMILIKI TMP. PEMB. SAMPAH', 'MEMILIKI SPAL', 'MEMILIKI JAMBAN', 'MENEMPEL STIKER P4K', 'PDAM', 'SUMUR', 'DLL', 'BERAS', 'NON BERAS', 'UP2K', 'PEMANFAATAN DAN PEKARANGAN', 'INDUSTRI RUMAH TANGGA', 'KESEHATAN LINGKUNGAN'];
 
         return [
             ['REKAPITULASI'],
@@ -290,11 +290,11 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
             $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-            $sheet->mergeCells('I8:R8');
-            $sheet->mergeCells('S8:X8');
-            $sheet->mergeCells('Y8:AA8');
-            $sheet->mergeCells('AB8:AC8');
-            $sheet->mergeCells('AD8:AG8');
+            $sheet->mergeCells('I8:S8');
+            $sheet->mergeCells('T8:Y8');
+            $sheet->mergeCells('Z8:AB8');
+            $sheet->mergeCells('AC8:AD8');
+            $sheet->mergeCells('AE8:AH8');
 
         }
 
