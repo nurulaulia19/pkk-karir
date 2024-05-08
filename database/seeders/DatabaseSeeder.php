@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(KategoriPemanfaatanSeeder::class );
         // $this->call(KategoriPemanfaatanLahanSeeder::class);
         $this->call(KategoriIndustriRumahSeeder::class);
+        $this->call(DusunSeeder::class);
 
     }
 }

@@ -22,6 +22,7 @@ class DataDesaController extends Controller
         // $desa = Data_Desa::paginate(20);
         return view('admin_kab.data_desa.index', compact('desa'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

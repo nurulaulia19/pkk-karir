@@ -3,10 +3,13 @@
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\PokjaController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminDesa\DusunController;
 use App\Http\Controllers\AdminDesa\KaderController;
 use App\Http\Controllers\AdminDesa\KategoriKegiatanController;
 use App\Http\Controllers\AdminDesa\KelompokDasawismaController;
 use App\Http\Controllers\AdminDesa\KeteranganKegiatanController;
+use App\Http\Controllers\AdminDesa\RekapDusunInDesa;
+use App\Http\Controllers\AdminDesa\RekapDusunInDesaController;
 use App\Http\Controllers\AdminKab\BeritaController;
 use App\Http\Controllers\AdminKab\DataAgendaKegiatanController;
 use App\Http\Controllers\AdminKab\DataDesaController;
@@ -118,6 +121,11 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::resource('rw', RwController::class);
     Route::resource('rt', RtController::class);
 
+
+    // rekapdesa
+    // Route::get('/rekapdesa', [AdminController::class, 'rekapdesa']);
+
+
     // data kelompok dasa wisma
     Route::get('/data_kelompok_dasa_wisma', [AdminController::class, 'data_kelompok_dasa_wisma']);
 
@@ -142,11 +150,15 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::get('/export_rekap_rw/{id}', [AdminController::class, 'export_rekap_rw']);
 
     // data kelompok pkk dusun
-    Route::get('/data_kelompok_pkk_dusun', [AdminController::class, 'data_kelompok_pkk_dusun']);
+    // Route::get('/data_kelompok_pkk_dusun', [AdminController::class, 'data_kelompok_pkk_dusun']);
+    // Route::get('/data_kelompok_pkk_dusun', [AdminController::class, 'data_kelompok_pkk_dusun']);
 
     // rekap kelompok dusun
-    Route::get('/rekap_kelompok_pkk_dusun', [AdminController::class, 'rekap_kelompok_pkk_dusun']);
-    Route::get('/export_rekap_dusun', [AdminController::class, 'export_rekap_dusun']);
+    Route::get('/dusun', [RekapDusunInDesaController::class, 'dataDusun']);
+    Route::get('/dusun/{id}', [RekapDusunInDesaController::class, 'rekapDusun'])->name('dusun.rekap');
+    Route::get('/export_rekap_dusun/{id}', [RekapDusunInDesaController::class, 'export_rekap_dusun']);
+    // Route::get('/rekap_kelompok_pkk_dusun', [AdminController::class, 'rekap_kelompok_pkk_dusun']);
+    // Route::get('/export_rekap_dusun', [AdminController::class, 'export_rekap_dusun']);
 
     // data kelompok pkk desa
     Route::get('/data_kelompok_pkk_desa', [AdminController::class, 'data_kelompok_pkk_desa']);
@@ -154,6 +166,8 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     // rekap kelompok desa
     // mau di copy
     Route::get('/rekap_pkk_desa/{id}', [AdminController::class, 'rekap_pkk_desa']);
+    Route::get('/rekap_desa', [RekapDusunInDesaController::class, 'index']);
+
     Route::get('/export_rekap_desa/{id}', [AdminController::class, 'export_rekap_desa']);
 
     // akun kader desa

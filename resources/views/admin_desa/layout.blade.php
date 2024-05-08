@@ -215,14 +215,21 @@
                       <p>Data Kelompok PKK RW</p>
                     </a>
                   </li>
-                  {{-- <li class="nav-item">
-                    <a href="/data_kelompok_pkk_dusun" class="nav-link {{ Request::is('data_kelompok_pkk_dusun') ? 'active':'' }}">
+                  <li class="nav-item">
+                    <a href="/dusun" class="nav-link {{ Request::is('dusun') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Data Kelompok PKK Dusun</p>
                     </a>
-                  </li> --}}
-                  <li class="nav-item">
+                  </li>
+                  {{-- <li class="nav-item">
                     <a href="/data_kelompok_pkk_desa" class="nav-link {{ Request::is('data_kelompok_pkk_desa') ? 'active':'' }}">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Data TP PKK Desa/Kelurahan</p>
+                    </a>
+                  </li> --}}
+
+                  <li class="nav-item">
+                    <a href="/rekap_desa" class="nav-link {{ Request::is('rekap_desa') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Data TP PKK Desa/Kelurahan</p>
                     </a>

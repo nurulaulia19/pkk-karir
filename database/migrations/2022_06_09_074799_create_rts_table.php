@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->bigInteger('rw_id')->unsigned();
             $table->foreign('rw_id')->references('id')->on('rws');
+            $table->bigInteger('dusun_id')->default(0);
+
             $table->timestamps();
         });
     }
