@@ -102,27 +102,26 @@ public function __construct(array $data)
 
             $data = [
                 '_index' => $i,
-                'nama_dusun' => $desa->name  ?: '0',
-                'jumlah_rw' => ucfirst($counts['countRw']) ?: '0',
-                'jumlah_rt' => ucfirst($counts['countRt']) ?: '0',
+                'kode_rw' => $desa->name  ?: '0',
+                'jumlah_rt' => ucfirst($counts['rt']) ?: '0',
                 'jumlah_dasa_wisma' => ucfirst($counts['countDasawisma']) ?: '0',
                 'jumlah_KRT' => ucfirst($counts['countRumahTangga']) ?: '0',
                 'jumlah_KK' =>  ucfirst($counts['countKK']) ?: '0',
-                'jumlah_laki' => ucfirst($counts['countLakiLaki']) ?: '0',
-                'jumlah_perempuan' =>  ucfirst($counts['countPerempuan']) ?: '0',
-                'jumlah_balita_laki' =>ucfirst($counts['countbalitaLaki']) ?: '0',
-                'jumlah_balita_perempuan' => ucfirst($counts['countbalitaPerempuan']) ?: '0',
+                'jumlah_laki' => ucfirst($counts['laki_laki']) ?: '0',
+                'jumlah_perempuan' =>  ucfirst($counts['perempuan']) ?: '0',
+                'jumlah_balita_laki' =>ucfirst($counts['balitaLaki']) ?: '0',
+                'jumlah_balita_perempuan' => ucfirst($counts['balitaPerempuan']) ?: '0',
                 // 'jumlah_3_buta' => $keluarga->jumlah_3_buta ?: '0',
-                'jumlah_PUS' => ucfirst($counts['countPUS']) ?: '0',
-                'jumlah_WUS' => ucfirst($counts['countWUS']) ?: '0',
-                'jumlah_ibu_hamil' => ucfirst($counts['countIbuHamil']) ?: '0',
-                'jumlah_ibu_menyusui' => ucfirst($counts['countIbuMenyesui']) ?: '0',
-                'jumlah_lansia' =>  ucfirst($counts['countLansia'])  ?: '0',
+                'jumlah_PUS' => ucfirst($counts['pus']) ?: '0',
+                'jumlah_WUS' => ucfirst($counts['wus']) ?: '0',
+                'jumlah_ibu_hamil' => ucfirst($counts['ibuHamil']) ?: '0',
+                'jumlah_ibu_menyusui' => ucfirst($counts['ibuMenyusui']) ?: '0',
+                'jumlah_lansia' =>  ucfirst($counts['lansia'])  ?: '0',
                 'jumlah_tiga_buta' => '0',
-                'jumlah_kebutuhan_khusus' => ucfirst($counts['countKebutuhanKhusus']) ?: '0',
-                'sehat_layak_huni' =>ucfirst($counts['countKriteriaRumahSehat']) ?: '0',
-                'tidak_sehat_layak_huni' => ucfirst($counts['countKriteriaRumahNonSehat']) ?: '0',
-                'punya_tempat_sampah' => ucfirst($counts['countTempatSampah']) ?: '0',
+                'jumlah_kebutuhan_khusus' => ucfirst($counts['kebutuhanKhusus']) ?: '0',
+                'sehat_layak_huni' =>ucfirst($counts['rumahSehat']) ?: '0',
+                'tidak_sehat_layak_huni' => ucfirst($counts['rumahNonSehat']) ?: '0',
+                'punya_tempat_sampah' => ucfirst($counts['tempatSampah']) ?: '0',
                 'punya_saluran_air' =>  ucfirst($counts['countSPAL']) ?: '0',
                 'jumlah_punya_jamban' => ucfirst($counts['countJamban']) ?: '0',
                 'tempel_stiker' => ucfirst($counts['countStiker']) ?: '0',
@@ -132,9 +131,9 @@ public function __construct(array $data)
                 'makanan_pokok_beras' => ucfirst($counts['countBeras']) ?: '0',
                 'makanan_pokok_non_beras' => ucfirst($counts['countNonBeras']) ?: '0',
                 'aktivitas_UP2K' => ucfirst($counts['aktivitasUP2K']) ?: '0',
-                'pemanfaatan' => ucfirst($counts['data_pemanfaatan_pekarangan']) ?: '0',
-                'industri' =>ucfirst($counts['industri_rumah_tangga'])?: '0',
-                'kesehatan_lingkungan' => ucfirst($counts['aktivitasKesehatanLingkungan']) ?: '0',
+                'pemanfaatan' => ucfirst($counts['pemanfaatanPekarangan']) ?: '0',
+                'industri' =>ucfirst($counts['industriRumahTangga'])?: '0',
+                'kesehatan_lingkungan' => ucfirst($counts['kesehatanLingkungan']) ?: '0',
             ];
 
             $result[] = $data;
@@ -142,40 +141,39 @@ public function __construct(array $data)
         }
 
         $result[] = [
-                '_index' => 'JUMLAH',
-                'dusun' => null,
-                'jumlah_rw' => $this->totalRw  ?: '0',
-                'jumlah_rt' => $this->totalRt ?: '0',
-                'jumlah_dasa_wisma' => $this->totalDasawisma ?: '0',
-                'jumlah_KRT' => $this->totalRumahTangga ?: '0',
-                'jumlah_KK' =>  $this->totalKeluarga ?: '0',
-                'jumlah_laki' => $this->totalLakiLaki ?: '0',
-                'jumlah_perempuan' =>  $this->totalPerempuan ?: '0',
-                'jumlah_balita_laki' => $this->totalbalitaLaki ?: '0',
-                'jumlah_balita_perempuan' => $this->totalbalitaPerempuan ?: '0',
-                // 'jumlah_3_buta' => $keluarga->jumlah_3_buta ?: '0',
-                'jumlah_PUS' => $this->totalPUS ?: '0',
-                'jumlah_WUS' => $this->totalWUS ?: '0',
-                'jumlah_ibu_hamil' => $this->totalIbuHamil ?: '0',
-                'jumlah_ibu_menyusui' => $this->totalIbuMenyusui ?: '0',
-                'jumlah_lansia' =>  $this->totalLansia  ?: '0',
-                'jumlah_tiga_buta' => '0',
-                'jumlah_kebutuhan_khusus' => $this->totalKebutuhanKhusus ?: '0',
-                'sehat_layak_huni' => $this->totalRumahSehat?: '0',
-                'tidak_sehat_layak_huni' => $this->totalRumahNonSehat ?: '0',
-                'punya_tempat_sampah' => $this->totalTempatSampah ?: '0',
-                'punya_saluran_air' =>  $this->totalSPAL ?: '0',
-                'jumlah_punya_jamban' => $this->totalJamban ?: '0',
-                'tempel_stiker' => $this->totalJamban ?: '0',
-                'sumber_air_pdam' => $this->totalAirPDAM ?: '0',
-                'sumber_air_sumur' => $this->totalAirSumur ?: '0',
-                'sumber_air_lainya' => $this->totalAirLainya ?: '0',
-                'makanan_pokok_beras' => $this->totalBeras ?: '0',
-                'makanan_pokok_non_beras' => $this->totalNonBeras ?: '0',
-                'aktivitas_UP2K' => $this->totalAktivitasUP2K ?: '0',
-                'pemanfaatan' => $this->totalPemanfaatanPekarangan ?: '0',
-                'industri' => $this->totalIndustri ?: '0',
-                'kesehatan_lingkungan' => $this->totalAktivitasLingkungan ?: '0',
+            '_index' => 'JUMLAH',
+            // 'dusun' => null,
+            'jumlah_rw' => $this->totalRW ?: '0',
+            'jumlah_rt' => $this->totalRT ?: '0',
+            'jumlah_dasa_wisma' => $this->totalDasawisma ?: '0',
+            'jumlah_KRT' => $this->totalJmlKRT ?: '0',
+            'jumlah_KK' => $this->totalJmlKK ?: '0',
+            'jumlah_laki' => $this->totalAnggotaLaki ?: '0',
+            'jumlah_perempuan' => $this->totalAnggotaPerempuan ?: '0',
+            'jumlah_balita_laki' => $this->totalAnggotaBalitaLaki ?: '0',
+            'jumlah_balita_perempuan' => $this->totalAnggotaBalitaPerempuan ?: '0',
+            'jumlah_PUS' => $this->totalAnggotaPUS ?: '0',
+            'jumlah_WUS' => $this->totalAnggotaWUS ?: '0',
+            'jumlah_ibu_hamil' =>  $this->totalAnggotaIbuHamil ?: '0',
+            'jumlah_ibu_menyusui' =>  $this->totalAnggotaIbuMenyusui ?: '0',
+            'jumlah_lansia' =>  $this->totalAnggotaLansia ?: '0',
+            'jumlah_tiga_buta' => '0',
+            'jumlah_kebutuhan_khusus' => $this->totalAnggotaBerkebutuhanKhusus ?: '0',
+            'sehat_layak_huni' => $this->totalSheatLayakHuni ?: '0',
+            'tidak_sehat_layak_huni' => $this->totalTidakSheatLayakHuni ?: '0',
+            'punya_tempat_sampah' => $this->totalPemSampah ?: '0',
+            'punya_saluran_air' => $this->totalSPAL ?: '0',
+            'jumlah_jamban' => $this->totalJamban ?: '0',
+            'tempel_stiker' => $this->totalStiker ?: '0',
+            'sumber_air_pdam' => $this->totalAirPDAM ?: '0',
+            'sumber_air_sumur' => $this->totalAirSumur ?: '0',
+            'sumber_air_lainnya' => $this->totalAirLainnya ?: '0',
+            'makanan_beras' => $this->totalMakanBeras ?: '0',
+            'makanan_non_beras' => $this->totalMakanNonBeras ?: '0',
+            'aktivitas_UP2K' => $this->totalKegiatanUP2K ?: '0',
+            'pemanfaatan' => $this->totalKegiatanPemanfaatanPekarangan ?: '0',
+            'industri' => $this->totalKegiatanIndustri ?: '0',
+            'kesehatan_lingkungan' => $this->totalKegiatanLingkungan ?: '0',
         ];
 
         return $result;
@@ -184,7 +182,6 @@ public function __construct(array $data)
     public function headings(): array
     {
         $headings = [
-            '',
             '',
             '',
             '',
@@ -221,8 +218,7 @@ public function __construct(array $data)
 
         $headings2 = [
             'NO',
-            'NAMA DUSUN',
-            'JML RW',
+            'KODE RW',
             'JML RT',
             'JML DASAWISMA',
             'JML KRT',
@@ -262,19 +258,19 @@ public function __construct(array $data)
             ['CATATAN DATA DAN KEGIATAN WARGA'],
             ['TP PKK DESA/KELURAHAN'],
             [
-                'TAHUN ' . ($this->dusun->first()->rt->first()->dasawisma->first()->periode),
+                'TAHUN ' . ($this->dasa_wisma->first()->dasawisma->first()->periode),
             ],
             [
-                'TP PKK Desa/Kelurahan : ' . ($this->dusun->first()->rt->first()->first()->dasawisma->first()->desa->nama_desa),
+                'TP PKK Desa/Kelurahan : ' . ($this->dasa_wisma->first()->dasawisma->first()->desa->nama_desa),
             ],
             [
-                'Kecamatan : ' . ($this->dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan),
+                'Kecamatan : ' . ($this->dasa_wisma->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan),
             ],
              [
-                 'Kabupaten : ' . ($this->dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->name),
+                 'Kabupaten : ' . ($this->dasa_wisma->first()->dasawisma->first()->desa->kecamatan->kabupaten->name),
              ],
             [
-                'Provinsi : ' . ($this->dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name),
+                'Provinsi : ' . ($this->dasa_wisma->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name),
             ],
             [],
             $headings,
@@ -286,8 +282,8 @@ public function __construct(array $data)
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $lastRow = count($this->dusun) + 11;
-                $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
+                // $lastRow = count($this->dasa_wisma) + 12;
+                // $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
                 $highestRow = $event->sheet->getHighestRow();
                 $event->sheet->getStyle('A9:A'.$highestRow)->applyFromArray([
                     'alignment' => [
@@ -370,17 +366,17 @@ public function __construct(array $data)
             $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-            $sheet->mergeCells('H9:R9');
-            $sheet->mergeCells('S9:X9');
-            $sheet->mergeCells('Y9:AA9');
-            $sheet->mergeCells('AB9:AC9');
-            $sheet->mergeCells('AD9:AG9');
+            $sheet->mergeCells('G9:Q9');
+            $sheet->mergeCells('R9:W9');
+            $sheet->mergeCells('X9:Z9');
+            $sheet->mergeCells('AA9:AB9');
+            $sheet->mergeCells('AC9:AF9');
 
         }
 
         $lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString('D');
 
-        for ($col = 'A'; $col <= 'G'; $col++) {
+        for ($col = 'A'; $col <= 'F'; $col++) {
             // Simpan nilai sel sebelum digabungkan
             $value = $sheet->getCell($col . '10')->getValue();
 

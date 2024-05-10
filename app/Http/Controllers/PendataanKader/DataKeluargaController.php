@@ -34,10 +34,22 @@ class DataKeluargaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        $keluarga = DataKeluarga::with('anggota.warga')->where('id_dasawisma', $user->id_dasawisma)->get();
+        $periode = $request->periode;
+        // dd($periode);
+        // $warga=DataWarga::with('kepalaKeluarga')->where('id_dasawisma', $user->id_dasawisma)->get();
+        if ($periode) {
+        $keluarga = DataKeluarga::with('anggota.warga')->where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', $periode)
+        ->get();
+
+        } else {
+            $keluarga = DataKeluarga::with('anggota.warga')->where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', now()->year)
+        ->get();
+        }
         // dd($keluarga);
 
 
@@ -52,7 +64,7 @@ class DataKeluargaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         // nama desa yang login
         $desas = DB::table('data_desa')
@@ -71,9 +83,10 @@ class DataKeluargaController extends Controller
             ->where('id', auth()->user()->id)
             ->first();
 
-        $keg = DataKeluarga::all();
-        $warga = DataWarga::where('is_keluarga', false)->get();
 
+            $warga = DataWarga::where('is_keluarga', false)
+            ->where('periode', now()->year)
+            ->get();
         $dasawisma = DataKelompokDasawisma::all();
         $kabupaten = DataKabupaten::first();
         $provinsi = DataProvinsi::first();

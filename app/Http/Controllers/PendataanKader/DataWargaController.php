@@ -23,11 +23,26 @@ class DataWargaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $periode = $request->periode;
+        // dd($periode);
         $user = Auth::user();
         // $warga=DataWarga::with('kepalaKeluarga')->where('id_dasawisma', $user->id_dasawisma)->get();
-        $warga = DataWarga::with('kepalaKeluarga.keluarga')->where('id_dasawisma', $user->id_dasawisma)->get();
+        if ($periode) {
+            $warga = DataWarga::with('kepalaKeluarga.keluarga')
+        ->where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', $periode) // menambahkan kondisi where untuk tahun sekarang
+        ->get();
+        } else {
+            $warga = DataWarga::with('kepalaKeluarga.keluarga')
+        ->where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', now()->year) // menambahkan kondisi where untuk tahun sekarang
+        ->get();
+        }
+
+
+
         // $keluarga = DataKeluarga::with(['anggota.warga.kegiatan', 'dasawisma','rumah_tangga.rumah_tangga'])->find($id);
         // dd($warga);
         // $dasawisma = DataKelompokDasawisma::all();
@@ -347,8 +362,10 @@ class DataWargaController extends Controller
 
     }
 
-    public function warga(){
-        $warga = DataWarga::where('is_keluarga',false)->get();
+    public function warga(Request $request){
+        $warga = DataWarga::where('is_keluarga',false)->
+        where('periode',now()->year)->
+        get();
         return response()->json([
             'warga' => $warga
         ]);

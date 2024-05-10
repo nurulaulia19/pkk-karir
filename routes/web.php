@@ -168,7 +168,7 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::get('/rekap_pkk_desa/{id}', [AdminController::class, 'rekap_pkk_desa']);
     Route::get('/rekap_desa', [RekapDusunInDesaController::class, 'index']);
 
-    Route::get('/export_rekap_desa/{id}', [AdminController::class, 'export_rekap_desa']);
+    Route::get('/export_rekap_desa/{id}', [AdminController::class, 'export_rekap_desa_new']);
 
     // akun kader desa
     Route::post('/data_kader/update/{id}/password', [KaderController::class, 'update_password']);
@@ -244,6 +244,7 @@ Route::middleware(['user_type:admin_kecamatan'])->group(function(){
     Route::get('/rekap_desa/{id}', [DesaController::class, 'rekap_desa'])->name('rekap_desa');
     // mau di salin
     Route::get('/export_rekap_desa/kecamatan/{id}', [DesaController::class, 'export'])->name('export_rekap_desa_kecamatan');
+    //  Route::get('/export_rekap_desa/kecamatan/{id}', [AdminController::class, 'export_rekap_desa_new']);
      // profil admin kecamatan
     Route::get('/profil_admin_kecamatan', [DesaController::class, 'profilAdminKec'])->name('profil_adminKec');
     Route::post('/profil_admin_kecamatan/update/{id}', [DesaController::class, 'update_profilAdminKec'])->name('update_profil_admin_kec');

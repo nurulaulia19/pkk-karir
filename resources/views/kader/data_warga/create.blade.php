@@ -15,6 +15,19 @@
         <li class="nav-item">
             <a class="nav-link" id="aktivitas-warga-tab" data-toggle="tab" href="#aktivitas-warga" role="tab" aria-controls="aktivitas-warga" aria-selected="false">Data Aktivitas Warga</a>
         </li>
+        {{-- <li>
+            <div class="form-group">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Pilih Periode
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ url('data_warga/create?periode=2024') }}">2024</a>
+                        <a class="dropdown-item" href="{{ url('data_warga/create?periode=2025') }}">2025</a>
+                    </div>
+                </div>
+            </div>
+        </li> --}}
 
     </ul>
     <form action="{{ route('data_warga.store') }}" method="POST">
@@ -486,8 +499,9 @@
                                         <div class="form-group">
                                             {{-- pilih periode --}}
                                             <label>Periode</label>
-                                            <select class="form-control" id="periode" name="periode" readonly>
-                                                <option value="{{ date('Y') }}">{{ date('Y') }}</option>
+                                            <select class="form-control" id="periode" name="periode" >
+                                                <option selected value="{{ date('Y') }}">{{ date('Y') }}</option>
+                                                <option value="2025">2025</option>
                                             </select>
                                         </div>
                                     </div>

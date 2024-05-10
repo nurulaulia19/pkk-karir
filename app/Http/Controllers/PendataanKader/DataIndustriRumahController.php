@@ -19,13 +19,25 @@ class DataIndustriRumahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
        // halaman data industri rumah tangga
        $user = Auth::user();
-    //    $industri = DataIndustriRumah::with('warga')->where('id', $user->id_dasawisma)->get();
+       $periode = $request->periode;
 
-        $industri = DataKeluarga::with('industri')->where('id_dasawisma', $user->id_dasawisma)->where('industri_id' ,'!=' , "0")->get();
+    //    $industri = DataIndustriRumah::with('warga')->where('id', $user->id_dasawisma)->get();
+        if ($periode) {
+            $industri = DataKeluarga::with('industri')
+            ->where('periode', $periode)
+            ->where('id_dasawisma', $user->id_dasawisma)->where('industri_id' ,'!=' , "0")->get();
+
+        } else {
+            $industri = DataKeluarga::with('industri')
+            ->where('periode', now()->year)
+            ->where('id_dasawisma', $user->id_dasawisma)->where('industri_id' ,'!=' , "0")->get();
+
+        }
+
         // dd($industri);
        return view('kader.data_industri_rumah_tangga.index', compact('industri'));
    }

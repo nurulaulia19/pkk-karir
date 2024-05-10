@@ -17,14 +17,23 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class DataKegiatanWargaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-
+        $periode = $request->periode;
         // halaman data kegiatan
         // $kegiatan=DataKegiatanWarga::all()->where('id_user', $user->id);
-        $user = Auth::user();
-        $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->where('is_kegiatan', true)->where('id_dasawisma', $user->id_dasawisma)->get();
+        if ($periode) {
+            $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->
+        where('periode', $periode)->
+        where('is_kegiatan', true)->where('id_dasawisma', $user->id_dasawisma)->get();
+        } else {
+            $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->
+        where('periode', now()->year)->
+        where('is_kegiatan', true)->where('id_dasawisma', $user->id_dasawisma)->get();
+        }
+
+
 
         return view('kader.data_kegiatan_warga.index', compact('kegiatan'));
     }

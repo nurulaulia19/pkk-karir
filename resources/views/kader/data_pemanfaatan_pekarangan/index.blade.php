@@ -15,9 +15,20 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
-                                    <div class="row">
+                                    <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
                                             <a href="{{ url('data_pemanfaatan/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Pilihan
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="{{ url('data_pemanfaatan?periode=2024') }}">2024</a>
+                                                    <a class="dropdown-item" href="{{ url('data_pemanfaatan?periode=2025') }}">2025</a>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>

@@ -14,20 +14,73 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents
     // protected $periode;
     // protected $desa;
     protected $dusun;
-    /**
-    * @return \Illuminate\Supporw\Collection
-    */
-    // public function collection()
-    // {
-    //     //
-    // }
+protected $dusun_data;
+protected $totalRt;
+protected $totalDasawisma;
+protected $totalRumahTangga;
+protected $totalKegiatanPemanfaatanPekarangan;
+protected $totalAirPDAM;
+protected $totalAirSumur;
+protected $totalAirLainnya;
+protected $totalStiker;
+protected $totalJamban;
+protected $totalPemSampah;
+protected $totalSPAL;
+protected $totalSheatLayakHuni;
+protected $totalTidakSheatLayakHuni;
+protected $totalJmlKRT;
+protected $totalJmlKK;
+protected $totalKegiatanIndustri;
+protected $totalAnggotaLansia;
+protected $totalAnggotaIbuHamil;
+protected $totalAnggotaIbuMenyusui;
+protected $totalKegiatanLingkungan;
+protected $totalKegiatanUP2K;
+protected $totalAnggotaBerkebutuhanKhusus;
+protected $totalMakanBeras;
+protected $totalMakanNonBeras;
+protected $totalAnggotaLaki;
+protected $totalAnggotaBalitaLaki;
+protected $totalAnggotaPerempuan;
+protected $totalAnggotaWUS;
+protected $totalAnggotaBalitaPerempuan;
+protected $totalAnggotaPUS;
+
 
     public function __construct(array $data)
     {
-        // $this->rw = $data['rws'] ?? [];
         $this->dusun = $data['dusun'] ?? [];
-        // $this->periode = $data['periode'] ?? null;
-        // $this->desa = $data['desa'] ?? null;
+        $this->dusun_data = $data['dusun_data'] ?? null;
+$this->totalRt = $data['totalRt'] ?? null;
+$this->totalDasawisma = $data['totalDasawisma'] ?? null;
+$this->totalRumahTangga = $data['totalRumahTangga'] ?? null;
+$this->totalKegiatanPemanfaatanPekarangan = $data['totalKegiatanPemanfaatanPekarangan'] ?? null;
+$this->totalAirPDAM = $data['totalAirPDAM'] ?? null;
+$this->totalAirSumur = $data['totalAirSumur'] ?? null;
+$this->totalAirLainnya = $data['totalAirLainnya'] ?? null;
+$this->totalStiker = $data['totalStiker'] ?? null;
+$this->totalJamban = $data['totalJamban'] ?? null;
+$this->totalPemSampah = $data['totalPemSampah'] ?? null;
+$this->totalSPAL = $data['totalSPAL'] ?? null;
+$this->totalSheatLayakHuni = $data['totalSheatLayakHuni'] ?? null;
+$this->totalTidakSheatLayakHuni = $data['totalTidakSheatLayakHuni'] ?? null;
+$this->totalJmlKRT = $data['totalJmlKRT'] ?? null;
+$this->totalJmlKK = $data['totalJmlKK'] ?? null;
+$this->totalKegiatanIndustri = $data['totalKegiatanIndustri'] ?? null;
+$this->totalAnggotaLansia = $data['totalAnggotaLansia'] ?? null;
+$this->totalAnggotaIbuHamil = $data['totalAnggotaIbuHamil'] ?? null;
+$this->totalAnggotaIbuMenyusui = $data['totalAnggotaIbuMenyusui'] ?? null;
+$this->totalKegiatanLingkungan = $data['totalKegiatanLingkungan'] ?? null;
+$this->totalKegiatanUP2K = $data['totalKegiatanUP2K'] ?? null;
+$this->totalAnggotaBerkebutuhanKhusus = $data['totalAnggotaBerkebutuhanKhusus'] ?? null;
+$this->totalMakanBeras = $data['totalMakanBeras'] ?? null;
+$this->totalMakanNonBeras = $data['totalMakanNonBeras'] ?? null;
+$this->totalAnggotaLaki = $data['totalAnggotaLaki'] ?? null;
+$this->totalAnggotaBalitaLaki = $data['totalAnggotaBalitaLaki'] ?? null;
+$this->totalAnggotaPerempuan = $data['totalAnggotaPerempuan'] ?? null;
+$this->totalAnggotaWUS = $data['totalAnggotaWUS'] ?? null;
+$this->totalAnggotaBalitaPerempuan = $data['totalAnggotaBalitaPerempuan'] ?? null;
+$this->totalAnggotaPUS = $data['totalAnggotaPUS'] ?? null;
     }
 
     public function array(): array
@@ -79,42 +132,42 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents
         }
 
 
-        // $result[] = [
-        //     '_index' => 'Jumlah',
-        //     'rw' => null,
-        //     'jumlah_rt' => $rw->sum('jumlah_rt') ?: '0',
-        //     'jumlah_dasa_wisma' => $rw->sum('jumlah_dasa_wisma') ?: '0',
-        //     'jumlah_KRT' => $rw->sum('jumlah_KRT') ?: '0',
-        //     'jumlah_KK' => $rw->sum('jumlah_KK') ?: '0',
-        //     'jumlah_laki' => $rw->sum('jumlah_laki_laki') ?: '0',
-        //     'jumlah_perempuan' => $rw->sum('jumlah_perempuan') ?: '0',
-        //     'jumlah_balita_laki' => $rw->sum('jumlah_balita_laki') ?: '0',
-        //     'jumlah_balita_perempuan' => $rw->sum('jumlah_balita_perempuan') ?: '0',
-        //     'jumlah_3_buta_laki' => $rw->sum('jumlah_3_buta_laki') ?: '0',
-        //     'jumlah_3_buta_perempuan' => $rw->sum('jumlah_3_buta_perempuan') ?: '0',
-        //     'jumlah_PUS' => $rw->sum('jumlah_PUS') ?: '0',
-        //     'jumlah_WUS' => $rw->sum('jumlah_WUS') ?: '0',
-        //     'jumlah_ibu_hamil' => $rw->sum('jumlah_ibu_hamil') ?: '0',
-        //     'jumlah_ibu_menyusui' => $rw->sum('jumlah_ibu_menyusui') ?: '0',
-        //     'jumlah_lansia' => $rw->sum('jumlah_lansia') ?: '0',
-        //     'jumlah_kebutuhan_khusus' => $rw->sum('jumlah_kebutuhan_khusus') ?: '0',
-        //     'sehat_layak_huni' => $rw->sum('jumlah_kriteria_rumah_sehat') ?: '0',
-        //     'tidak_sehat_layak_huni' => $rw->sum('jumlah_kriteria_rumah_tidak_sehat') ?: '0',
-        //     'punya_tempat_sampah' => $rw->sum('jumlah_punya_tempat_sampah') ?: '0',
-        //     'punya_saluran_air' => $rw->sum('jumlah_punya_saluran_air') ?: '0',
-        //     'tempel_stiker' => $rw->sum('jumlah_tempel_stiker') ?: '0',
-        //     'sumber_air' => $rw->sum('jumlah_sumber_air_pdam') ?: '0',
-        //     'sumber_air_2' => $rw->sum('jumlah_sumber_air_sumur') ?: '0',
-        //     'sumber_air_3' => $rw->sum('jumlah_sumber_air_sungai') ?: '0',
-        //     'sumber_air_4' => $rw->sum('jumlah_sumber_air_dll') ?: '0',
-        //     'jumlah_punya_jamban' => $rw->sum('punya_jamban') ?: '0',
-        //     'makanan_pokok' => $rw->sum('jumlah_makanan_pokok_beras') ?: '0',
-        //     'makanan_pokok_0' => $rw->sum('jumlah_makanan_pokok_non_beras') ?: '0',
-        //     'aktivitas_UP2K' => $rw->sum('jumlah_aktivitas_UP2K') ?: '0',
-        //     'pemanfaatan' => $rw->sum('jumlah_have_pemanfaatan') ?: '0',
-        //     'industri' => $rw->sum('jumlah_have_industri') ?: '0',
-        //     'kesehatan_lingkungan' => $rw->sum('jumlah_have_kegiatan') ?: '0',
-        // ];
+        $result[] = [
+            '_index' => 'Jumlah',
+            'rw' => null,
+            'jumlah_rt' => $this->totalRt ?: '0',
+            'jumlah_dasa_wisma' => $this->totalDasawisma ?: '0',
+            'jumlah_KRT' => $this->totalJmlKRT ?: '0',
+            'jumlah_KK' => $this->totalJmlKK ?: '0',
+            'jumlah_laki' => $this->totalAnggotaLaki ?: '0',
+            'jumlah_perempuan' => $this->totalAnggotaPerempuan ?: '0',
+            'jumlah_balita_laki' => $this->totalAnggotaBalitaLaki ?: '0',
+            'jumlah_balita_perempuan' => $this->totalAnggotaBalitaPerempuan ?: '0',
+            'jumlah_3_buta_laki' => '0',
+            'jumlah_3_buta_perempuan' => '0',
+            'jumlah_PUS' => $this->totalAnggotaPUS ?: '0',
+            'jumlah_WUS' => $this->totalAnggotaWUS ?: '0',
+            'jumlah_ibu_hamil' => $this->totalAnggotaIbuHamil ?: '0',
+            'jumlah_ibu_menyusui' => $this->totalAnggotaIbuMenyusui ?: '0',
+            'jumlah_lansia' => $this->totalAnggotaLansia ?: '0',
+            'jumlah_kebutuhan_khusus' => $this->totalAnggotaBerkebutuhanKhusus ?: '0',
+            'sehat_layak_huni' => $this->totalSheatLayakHuni ?: '0',
+            'tidak_sehat_layak_huni' => $this->totalTidakSheatLayakHuni ?: '0',
+            'punya_tempat_sampah' => $this->totalPemSampah ?: '0',
+            'punya_saluran_air' => $this->totalSPAL ?: '0',
+            'tempel_stiker' => $this->totalStiker ?: '0',
+            'sumber_air' => $this->totalAirPDAM ?: '0',
+            'sumber_air_2' => $this->totalAirSumur ?: '0',
+            'sumber_air_3' =>  '0',
+            'sumber_air_4' => $this->totalAirLainnya?: '0',
+            'jumlah_punya_jamban' => $this->totalJamban ?: '0',
+            'makanan_pokok' => $this->totalMakanBeras ?: '0',
+            'makanan_pokok_0' => $this->totalMakanNonBeras ?: '0',
+            'aktivitas_UP2K' => $this->totalKegiatanUP2K ?: '0',
+            'pemanfaatan' => $this->totalKegiatanPemanfaatanPekarangan ?: '0',
+            'industri' => $this->totalKegiatanIndustri ?: '0',
+            'kesehatan_lingkungan' => $this->totalKegiatanLingkungan ?: '0',
+        ];
 
         return $result;
     }

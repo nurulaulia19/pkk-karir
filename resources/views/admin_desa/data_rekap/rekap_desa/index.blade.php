@@ -249,112 +249,119 @@
                                             <tr>
                                                 <td><strong>Jumlah</strong> </td>
                                                 <td>
-                                                    {{-- {{$totalRW}} --}}
+                                                    {{$totalDusun}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalRW}} --}}
+                                                    {{$totalRw}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalRT}} --}}
+                                                    {{$totalRt}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalDasawisma}} --}}
+                                                    {{$totalDasawisma}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalJmlKRT}} --}}
+                                                    {{$totalRumahTangga}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalJmlKK}} --}}
+                                                    {{$totalKeluarga}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAnggotaLaki}} --}}
+                                                    {{$totalLakiLaki}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAnggotaPerempuan}} --}}
+                                                    {{$totalPerempuan}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAnggotaBalitaLaki}} --}}
+                                                    {{$totalbalitaLaki}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAnggotaBalitaPerempuan}} --}}
+                                                    {{$totalbalitaPerempuan}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAnggotaPUS}} --}}
+                                                    {{$totalPUS}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAnggotaWUS}} --}}
+                                                    {{$totalWUS}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAnggotaIbuHamil}} --}}
+                                                    {{$totalIbuHamil}}
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_lansia') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAnggotaIbuMenyusui}} --}}
+                                                    {{$totalIbuMenyusui}}
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_kebutuhan_khusus') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAnggotaLansia}} --}}
+                                                    {{$totalLansia}}
                                                     {{-- {{ $catatan_keluarga->sum('kriteria_rumah') }} --}}
                                                 </td>
                                                 <td>0</td>
                                                 <td>
-                                                    {{-- {{$totalAnggotaBerkebutuhanKhusus}} --}}
+                                                    {{$totalKebutuhanKhusus}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalSheatLayakHuni}} --}}
+                                                    {{$totalRumahSehat}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalTidakSheatLayakHuni}} --}}
+                                                    {{$totalRumahNonSehat}}
                                                     {{-- {{ $catatan_keluarga->sum('punya_saluran_air') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalPemSampah}} --}}
+                                                    {{$totalTempatSampah}}
                                                     {{-- {{ $catatan_keluarga->sum('punya_jamban') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalSPAL}} --}}
+                                                    {{$totalSPAL}}
                                                     {{-- {{ $catatan_keluarga->sum('tempel_stiker') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalJamban}} --}}
+                                                    {{$totalJamban}}
                                                     {{-- {{ $catatan_keluarga->where('sumber_air', 1)->count() }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalStiker}} --}}
+                                                    {{$totalStiker}}
                                                     {{-- {{ $catatan_keluarga->where('sumber_air', 2)->count() }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAirPDAM}} --}}
+                                                    {{$totalAirPDAM}}
                                                     {{-- {{ $catatan_keluarga->where('sumber_air', 4)->count() }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAirSumur}} --}}
+                                                    {{$totalAirSumur}}
                                                     {{-- {{ $catatan_keluarga->where('makanan_pokok', 1)->count() }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalAirLainnya}} --}}
+                                                    {{$totalAirLainya}}
                                                     {{-- {{ $catatan_keluarga->where('makanan_pokok', 0)->count() }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalMakanBeras}} --}}
+                                                    {{$totalBeras}}
                                                     {{-- {{ $catatan_keluarga->sum('aktivitas_UP2K') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalMakanNonBeras}} --}}
+                                                    {{$totalNonBeras}}
+
                                                     {{-- {{ $catatan_keluarga->sum('have_pemanfaatan') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalKegiatanUP2K}} --}}
-                                                    {{-- {{ $catatan_keluarga->sum('have_industri') }} --}}
+                                                    {{$totalAktivitasUP2K}}
                                                 </td>
                                                 <td>
-                                                    {{-- {{$totalKegiatanPemanfaatanPekarangan}} --}}
+
+                                                    {{$totalPemanfaatanPekarangan}}
+
                                                     {{-- {{ $catatan_keluarga->sum('have_kegiatan') }} --}}
                                                 </td>
                                                 <td>
+                                                    {{$totalIndustri}}
+
                                                     {{-- {{$totalKegiatanIndustri}} --}}
                                                 </td>
                                                 <td>
+
+                                                    {{$totalAktivitasLingkungan}}
+
                                                     {{-- {{$totalKegiatanLingkungan}} --}}
                                                 </td>
                                             </tr>
@@ -362,7 +369,7 @@
                                     </table>
 
                                 </div>
-                                <a href="{{ url('export_rekap_desa', ['id' => 1]) }}" target="_blank"
+                                <a href="{{ url('export_rekap_desa', ['id' => $dusun->first()->desa_id]) }}" target="_blank"
                                     class="btn btn-success" type="button" role="button">
                                     <i class="fas fa-print"></i> Cetak ke Excel </a><br>
                             </div>

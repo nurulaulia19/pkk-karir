@@ -34,15 +34,26 @@ class DataPemanfaatanPekaranganController extends Controller
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
         // $user = Auth::user();
         //halaman form data pemanfaatan tanah pekarangan
         $user = Auth::user();
+        $periode = $request->periode;
+
         // $pemanfaatan = DataPemanfaatanPekarangan::with('warga')->where('id', $user->id_dasawisma)->get();
-        $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')->
+        if ($periode) {
+            $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')->
+        where('periode', $periode)->
         where('is_pemanfaatan_lahan',1)->
         get();
+        } else {
+            $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')->
+        where('periode', now()->year)->
+        where('is_pemanfaatan_lahan',1)->
+        get();
+        }
+
         // dd($pemanfaatan);
         // $pemanfaatan = DataPemanfaatanPekarangan::all()->where('id_user', $user->id);
         return view('kader.data_pemanfaatan_pekarangan.index', compact('pemanfaatan'));

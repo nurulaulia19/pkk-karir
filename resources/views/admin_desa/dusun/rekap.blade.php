@@ -202,41 +202,41 @@
                                                 </tr>
                                             @endforeach
 
-                                            {{-- <tr>
+                                            <tr>
                                                 <td colspan="2"><strong>Jumlah</strong></td>
-                                                <td>{{ $rws->sum('jumlah_rt') }}</td>
-                                                <td>{{ $rws->sum('jumlah_dasa_wisma') }}</td>
-                                                <td>{{ $rws->sum('jumlah_KRT') }}</td>
-                                                <td>{{ $rws->sum('jumlah_KK') }}</td>
-                                                <td>{{ $rws->sum('jumlah_laki_laki') }}</td>
-                                                <td>{{ $rws->sum('jumlah_perempuan') }}</td>
-                                                <td>{{ $rws->sum('jumlah_balita_laki') }}</td>
-                                                <td>{{ $rws->sum('jumlah_balita_perempuan') }}</td>
-                                                <td>{{ $rws->sum('jumlah_3_buta_laki') }}</td>
-                                                <td>{{ $rws->sum('jumlah_3_buta_perempuan') }}</td>
-                                                <td>{{ $rws->sum('jumlah_PUS') }}</td>
-                                                <td>{{ $rws->sum('jumlah_WUS') }}</td>
-                                                <td>{{ $rws->sum('jumlah_ibu_hamil') }}</td>
-                                                <td>{{ $rws->sum('jumlah_ibu_menyusui') }}</td>
-                                                <td>{{ $rws->sum('jumlah_lansia') }}</td>
-                                                <td>{{ $rws->sum('jumlah_kebutuhan_khusus') }}</td>
-                                                <td>{{ $rws->sum('jumlah_kriteria_rumah_sehat') }}</td>
-                                                <td>{{ $rws->sum('jumlah_kriteria_rumah_tidak_sehat') }}</td>
-                                                <td>{{ $rws->sum('jumlah_punya_tempat_sampah') }}</td>
-                                                <td>{{ $rws->sum('jumlah_punya_saluran_air') }}</td>
-                                                <td>{{ $rws->sum('jumlah_tempel_stiker') }}</td>
-                                                <td>{{ $rws->sum('jumlah_sumber_air_pdam') }}</td>
-                                                <td>{{ $rws->sum('jumlah_sumber_air_sumur') }}</td>
-                                                <td>{{ $rws->sum('jumlah_sumber_air_sungai') }}</td>
-                                                <td>{{ $rws->sum('jumlah_sumber_air_dll') }}</td>
-                                                <td>{{ $rws->sum('punya_jamban') }}</td>
-                                                <td>{{ $rws->sum('jumlah_makanan_pokok_beras') }}</td>
-                                                <td>{{ $rws->sum('jumlah_makanan_pokok_non_beras') }}</td>
-                                                <td>{{ $rws->sum('jumlah_aktivitas_UP2K') }}</td>
-                                                <td>{{ $rws->sum('jumlah_have_pemanfaatan') }}</td>
-                                                <td>{{ $rws->sum('jumlah_have_industri') }}</td>
-                                                <td>{{ $rws->sum('jumlah_have_kegiatan') }}</td>
-                                            </tr> --}}
+                                                <td>{{ $totalRt }}</td>
+                                                <td>{{ $totalDasawisma }}</td>
+                                                <td> {{ $totalRumahTangga }} </td>
+                                                <td> {{  $totalJmlKK }} </td>
+                                                <td> {{ $totalAnggotaLaki }} </td>
+                                                <td> {{ $totalAnggotaPerempuan }} </td>
+                                                <td> {{ $totalAnggotaBalitaLaki }} </td>
+                                                <td> {{ $totalAnggotaBalitaPerempuan }} </td>
+                                                <td> 0 </td>
+                                                <td> 0 </td>
+                                                <td> {{ $totalAnggotaPUS }} </td>
+                                                <td> {{ $totalAnggotaWUS }} </td>
+                                                <td> {{ $totalAnggotaIbuHamil }} </td>
+                                                <td> {{ $totalAnggotaIbuMenyusui }} </td>
+                                                <td> {{ $totalAnggotaLansia }} </td>
+                                                <td> {{ $totalAnggotaBerkebutuhanKhusus }} </td>
+                                                <td> {{ $totalSheatLayakHuni }} </td>
+                                                <td> {{ $totalTidakSheatLayakHuni }} </td>
+                                                <td>{{ $totalPemSampah }}</td>
+        <td>{{ $totalSPAL }}</td>
+        <td>{{ $totalStiker }}</td>
+        <td>{{ $totalAirPDAM }}</td>
+        <td>{{ $totalAirSumur }}</td>
+        <td>0</td>
+        <td>{{ $totalAirLainnya }}</td>
+        <td>{{ $totalJamban }}</td>
+        <td>{{ $totalMakanBeras }}</td>
+        <td>{{ $totalMakanNonBeras }}</td>
+        <td>{{ $totalKegiatanUP2K }}</td>
+        <td>{{ $totalKegiatanPemanfaatanPekarangan }}</td>
+        <td>{{ $totalKegiatanIndustri }}</td>
+        <td>{{ $totalKegiatanLingkungan }}</td>
+                                            </tr>
                                         </tbody>
 
                                     </table>
