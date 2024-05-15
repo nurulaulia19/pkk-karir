@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Exports\CatatanKeluargaExport;
 use App\Exports\WargaExport;
+use App\Models\Periode;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -142,13 +143,26 @@ class KaderFormController extends Controller
         return view('kader.rekap', compact('warga'));
     }
 
-    public function catatan_keluarga(){
+    public function catatan_keluarga(Request $request){
         $user = Auth::user();
-        $keluarga = DataKeluarga::with('anggota.warga')->where('id_dasawisma', $user->id_dasawisma)->get();
+        $periode = $request->periode;
+
+    //    $industri = DataIndustriRumah::with('warga')->where('id', $user->id_dasawisma)->get();
+        if ($periode) {
+            $keluarga = DataKeluarga::with('anggota.warga')->
+        where('periode', $periode)->
+        where('id_dasawisma', $user->id_dasawisma)->get();
+        }else{
+        $keluarga = DataKeluarga::with('anggota.warga')->
+        where('periode', now()->year)->
+        where('id_dasawisma', $user->id_dasawisma)->get();
+
+        }
         // dd($keluarga);
+        $dataPeriode = Periode::all();
 
         // dd($warga);
-        return view('kader.data_catatan_keluarga.rekap', compact('keluarga'));
+        return view('kader.data_catatan_keluarga.rekap', compact('keluarga','dataPeriode'));
     }
 
      // halaman data rekap data warga pkk

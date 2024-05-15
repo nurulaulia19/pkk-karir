@@ -9,6 +9,7 @@ use App\Models\DataKelompokDasawisma;
 use App\Models\DataKeluarga;
 use App\Models\DataProvinsi;
 use App\Models\DataWarga;
+use App\Models\Periode;
 use App\Models\Rw;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -40,6 +41,8 @@ class DataWargaController extends Controller
         ->where('periode', now()->year) // menambahkan kondisi where untuk tahun sekarang
         ->get();
         }
+        $dataPeriode = Periode::all();
+
 
 
 
@@ -47,7 +50,7 @@ class DataWargaController extends Controller
         // dd($warga);
         // $dasawisma = DataKelompokDasawisma::all();
 
-        return view('kader.data_warga.index', compact('warga', 'user'));
+        return view('kader.data_warga.index', compact('warga', 'user','dataPeriode'));
     }
 
     /**

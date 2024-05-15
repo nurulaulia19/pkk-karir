@@ -15,6 +15,7 @@ use App\Models\DataKelompokDasawisma;
 use App\Models\DataKeluarga;
 use App\Models\DataRekapDesa;
 use App\Models\DataRekapKecamatan;
+use App\Models\Periode;
 use App\Models\Rt;
 use App\Models\RumahTangga;
 use App\Models\Rw;
@@ -32,6 +33,17 @@ use RealRashid\SweetAlert\Facades\Alert;
 class AdminKabController extends Controller
 {
     // halaman dashboard
+    public function migrate(){
+        $periode = Periode::where('tahun',now()->year)->first();
+        if(!$periode){
+            Periode::create([
+                'tahun' => now()->year
+            ]);
+        }
+        return redirect('/dashboard_kab');
+
+    }
+
     public function dashboard_kab()
     {
         $berita = BeritaKab::count();
@@ -40,9 +52,15 @@ class AdminKabController extends Controller
         $user = User::count();
         $agenda = DataAgenda::count();
         $galeri = DataGaleri::count();
+        $periode = Periode::where('tahun',now()->year)->first();
+        $newPeriode = false;
+        if(!$periode){
+            $newPeriode = true;
+        }
+        // dd($newPeriode);
         // $kecamatan = DataKecamatan::count();
         // $user = User::count();
-        return view('admin_kab.dashboard_kab', compact('berita', 'desa', 'kecamatan', 'user', 'agenda', 'galeri'));
+        return view('admin_kab.dashboard_kab', compact('newPeriode','berita', 'desa', 'kecamatan', 'user', 'agenda', 'galeri'));
     }
 
     // halaman login admin kabupaten

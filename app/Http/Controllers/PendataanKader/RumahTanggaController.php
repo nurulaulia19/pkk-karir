@@ -8,6 +8,7 @@ use App\Models\DataKelompokDasawisma;
 use App\Models\DataKeluarga;
 use App\Models\DataProvinsi;
 use App\Models\DataWarga;
+use App\Models\Periode;
 use App\Models\RumahTangga;
 use App\Models\RumahTanggaHasKeluarga;
 use App\Models\RumahTanggaHasWarga;
@@ -45,13 +46,14 @@ class RumahTanggaController extends Controller
             ->where('periode', now()->year)
             ->where('id_dasawisma', $user->id_dasawisma)->get();
         }
+        $dataPeriode = Periode::all();
 
 
         // dd($krt);
         //halaman form data keluarga
         // $keluarga = DataKeluarga::all()->where('id_user', $user->id);
         // $dasawisma = DataKelompokDasawisma::all();
-        return view('kader.data_rumah_tangga.index', compact('krt', 'keluarga'));
+        return view('kader.data_rumah_tangga.index', compact('krt', 'keluarga','dataPeriode'));
     }
 
     public function create()

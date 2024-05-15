@@ -14,6 +14,7 @@ use App\Models\DataWarga;
 use App\Models\User;
 use App\Models\Keluargahaswarga;
 use App\Models\NotifDataKeluarga;
+use App\Models\Periode;
 use App\Models\RumahTangga;
 use App\Models\RumahTanggaHasKeluarga;
 use Illuminate\Http\Request;
@@ -50,13 +51,14 @@ class DataKeluargaController extends Controller
         ->where('periode', now()->year)
         ->get();
         }
+        $dataPeriode = Periode::all();
         // dd($keluarga);
 
 
         //halaman form data keluarga
         // $keluarga = DataKeluarga::all()->where('id_user', $user->id);
         // $dasawisma = DataKelompokDasawisma::all();
-        return view('kader.data_keluarga.index', compact('keluarga'));
+        return view('kader.data_keluarga.index', compact('keluarga','dataPeriode'));
     }
 
     /**

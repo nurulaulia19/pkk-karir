@@ -1,4 +1,6 @@
-@extends('admin_kab.layout')
+@extends('admin_kab.layout',[
+    'newPeriode' => $newPeriode
+])
 
 @section('title' , 'Dashboard | Admin Kabupaten')
 @section('bread' , 'Dashboard')
@@ -10,6 +12,13 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+        <div class="row">
+
+        @if ($newPeriode)
+            <a class="btn btn-primary m-2" href="{{ route('admin_kabupaten.migrate') }}">migrate data ke tahun sekarang {{ $newPeriode }}</a>
+
+        @endif
+        </div>
         <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-lg-3 col-6">

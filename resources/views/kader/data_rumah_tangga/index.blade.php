@@ -27,8 +27,9 @@
                                                     Pilihan
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    <a class="dropdown-item" href="{{ url('data_rumah_tangga?periode=2024') }}">2024</a>
-                                                    <a class="dropdown-item" href="{{ url('data_rumah_tangga?periode=2025') }}">2025</a>
+                                                    @foreach ($dataPeriode as $item)
+                                                        <a class="dropdown-item" href="{{ url('data_rumah_tangga?periode=' . $item->tahun) }}">{{ $item->tahun }}</a>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>

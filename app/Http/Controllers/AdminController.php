@@ -89,13 +89,14 @@ class AdminController extends Controller
     }
 
     // data catatan data dan kegiatan warga kelompok dasa wisma admin desa
-    public function data_kelompok_dasa_wisma()
+    public function data_kelompok_dasa_wisma(Request $request)
     {
         // Get the authenticated user
         $user = Auth::user();
 
         // Get the user's ID
         $userId = $user->id;
+        $periode = $request->periode;
 
         // Get the desa ID associated with the user
         $desaId = $user->id_desa;

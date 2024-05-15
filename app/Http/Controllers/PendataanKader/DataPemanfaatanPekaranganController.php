@@ -7,6 +7,7 @@ use App\Models\DataPemanfaatanPekarangan;
 use App\Models\DataWarga;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\KategoriPemanfaatanLahan;
+use App\Models\Periode;
 use App\Models\RumahTangga;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
@@ -53,10 +54,11 @@ class DataPemanfaatanPekaranganController extends Controller
         where('is_pemanfaatan_lahan',1)->
         get();
         }
+        $dataPeriode = Periode::all();
 
         // dd($pemanfaatan);
         // $pemanfaatan = DataPemanfaatanPekarangan::all()->where('id_user', $user->id);
-        return view('kader.data_pemanfaatan_pekarangan.index', compact('pemanfaatan'));
+        return view('kader.data_pemanfaatan_pekarangan.index', compact('pemanfaatan','dataPeriode'));
     }
 
     /**

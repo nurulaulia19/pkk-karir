@@ -10,6 +10,7 @@ use App\Models\DataWarga;
 use App\Models\DetailKegiatan;
 use App\Models\KategoriKegiatan;
 use App\Models\KeteranganKegiatan;
+use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -33,9 +34,12 @@ class DataKegiatanWargaController extends Controller
         where('is_kegiatan', true)->where('id_dasawisma', $user->id_dasawisma)->get();
         }
 
+        $dataPeriode = Periode::all();
 
 
-        return view('kader.data_kegiatan_warga.index', compact('kegiatan'));
+
+
+        return view('kader.data_kegiatan_warga.index', compact('kegiatan','dataPeriode'));
     }
     public function create()
     {

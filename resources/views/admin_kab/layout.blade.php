@@ -62,7 +62,11 @@
             ></a>
           </li>
         </ul>
+{{-- 
+        @if ($newPeriode)
+        <a href="{{ route('admin_kabupaten.migrate') }}">migrate data ke tahun sekarang {{ $newPeriode }}</a>
 
+        @endif --}}
         <!-- Right navbar links -->
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">

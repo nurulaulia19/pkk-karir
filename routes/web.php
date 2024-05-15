@@ -198,6 +198,7 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
 Route::post('/admin_kabupaten/logout', [AdminKabController::class, 'logoutPost'])->name('admin_kabupaten.logout');
 Route::middleware(['user_type:admin_kabupaten'])->group(function(){
     Route::get('/dashboard_kab', [AdminKabController::class, 'dashboard_kab'])->name('admin_kabupaten.dashboard');
+    Route::get('/migrate-data', [AdminKabController::class, 'migrate'])->name('admin_kabupaten.migrate');
 
     Route::get('/data_kelompok_pkk_kec', [AdminKabController::class, 'data_kelompok_pkk_kec']);
     Route::get('/rekap_pkk_kec/{id}', [AdminKabController::class, 'rekap_pkk_kec']);

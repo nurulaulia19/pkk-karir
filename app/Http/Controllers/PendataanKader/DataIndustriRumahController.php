@@ -6,6 +6,7 @@ use App\Models\DataIndustriRumah;
 use App\Models\DataKeluarga;
 use App\Models\DataWarga;
 use App\Models\KategoriIndustriRumah;
+use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -37,9 +38,10 @@ class DataIndustriRumahController extends Controller
             ->where('id_dasawisma', $user->id_dasawisma)->where('industri_id' ,'!=' , "0")->get();
 
         }
+        $dataPeriode = Periode::all();
 
         // dd($industri);
-       return view('kader.data_industri_rumah_tangga.index', compact('industri'));
+       return view('kader.data_industri_rumah_tangga.index', compact('industri','dataPeriode'));
    }
 
    /**
