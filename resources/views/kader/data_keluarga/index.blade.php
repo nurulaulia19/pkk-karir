@@ -59,6 +59,11 @@
                                         {{-- nama desa yang login --}}
                                         <td style="vertical-align: middle;">
                                             {{ucfirst($c->nama_kepala_keluarga) }}
+                                            @if (!$c->is_valid)
+                                                            <button class="btn btn-success btn-sm">
+                                                                edit untuk validasi
+                                                            </button>
+                                                        @endif
                                         </td>
                                         <td style="vertical-align: middle;">
                                             {{ ucfirst($c->anggota->count()) }} Orang

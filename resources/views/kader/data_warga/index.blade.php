@@ -60,7 +60,15 @@
                                                 <tr>
                                                     <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                                     {{-- nama desa yang login --}}
-                                                    <td style="vertical-align: middle;">{{ ucfirst($c->nama) }}</td>
+                                                    <td style="vertical-align: middle;">
+                                                        {{ ucfirst($c->nama) }} <br>
+                                                        @if (!$c->is_valid)
+                                                            <button class="btn btn-success btn-sm">
+                                                                edit untuk validasi
+                                                            </button>
+                                                        @endif
+
+                                                    </td>
 
                                                     <td style="vertical-align: middle;">
                                                         @if ($c->kepalaKeluarga->isNotEmpty())

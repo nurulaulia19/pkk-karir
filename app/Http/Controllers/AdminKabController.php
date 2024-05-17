@@ -15,9 +15,12 @@ use App\Models\DataKelompokDasawisma;
 use App\Models\DataKeluarga;
 use App\Models\DataRekapDesa;
 use App\Models\DataRekapKecamatan;
+use App\Models\DataWarga;
+use App\Models\Keluargahaswarga;
 use App\Models\Periode;
 use App\Models\Rt;
 use App\Models\RumahTangga;
+use App\Models\RumahTanggaHasKeluarga;
 use App\Models\Rw;
 use App\Models\User;
 use Carbon\Carbon;
@@ -36,9 +39,54 @@ class AdminKabController extends Controller
     public function migrate(){
         $periode = Periode::where('tahun',now()->year)->first();
         if(!$periode){
-            Periode::create([
+            $nowPeriode = Periode::create([
                 'tahun' => now()->year
             ]);
+            $dataWarga = DataWarga::where('periode', $nowPeriode->tahun - 1 )->get();
+            foreach ($dataWarga as $warga) {
+                $wargaBaru = $warga->replicate(); // Membuat salinan dari data warga
+                $wargaBaru->periode = Carbon::now()->year; // Mengganti periode ke periode saat ini
+                $wargaBaru->is_valid = null; // Mengganti periode ke periode saat ini
+                echo "Periode Sebelum: " . $warga->periode . "\n"; // Print nilai periode sebelum diubah
+                echo "Periode Sesudah: " . $wargaBaru->periode . "\n"; // Print nilai periode setelah diubah
+                $wargaBaru->save(); // Menyimpan data warga baru ke database
+            }
+            $datakeluarga = DataKeluarga::with('anggota.warga')->where('periode', $nowPeriode->tahun - 1 )->get();
+
+            foreach ($datakeluarga as $keluarga) {
+
+                $wargaBaru = $keluarga->replicate();
+                $wargaBaru->periode = Carbon::now()->year;
+                $wargaBaru->is_valid = null;
+                $wargaBaru->save();
+                foreach($keluarga->anggota as $anggota){
+                    $wargaFind = DataWarga::where('periode',now()->year)
+                    ->where('no_ktp',$anggota->warga->no_ktp)->first();
+                    Keluargahaswarga::create([
+                        'keluarga_id' => $wargaBaru->id,
+                        'warga_id' => $wargaFind->id
+                    ]);
+                }
+
+            }
+            $dataRumahTangga = RumahTangga::with('anggotaRT.keluarga')->where('periode', $nowPeriode->tahun - 1 )->get();
+            foreach ($dataRumahTangga as $rumahtangga) {
+                $wargaBaru = $rumahtangga->replicate();
+                $wargaBaru->periode = Carbon::now()->year;
+                $wargaBaru->is_valid = null;
+                $wargaBaru->save();
+                foreach($rumahtangga->anggotaRT as $anggota){
+                    // $keluargaFind = DataKeluarga::find($anggota->keluarga_id);
+                    $keluargaFind = DataKeluarga::where('periode',now()->year)
+                    ->where('nama_kepala_keluarga',$anggota->keluarga->nama_kepala_keluarga)->first();
+                    RumahTanggaHasKeluarga::create([
+                        'keluarga_id' => $wargaBaru->id,
+                        'warga_id' => $keluargaFind->id
+                    ]);
+                }
+            }
+
+
         }
         return redirect('/dashboard_kab');
 

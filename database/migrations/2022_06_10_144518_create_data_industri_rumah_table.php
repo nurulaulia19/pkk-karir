@@ -31,6 +31,7 @@ return new class extends Migration
             // $table->string('komoditi');
             // $table->integer('volume');
             $table->integer('periode');
+            $table->date('is_valid')->nullable();
             $table->timestamps();
         });
     }

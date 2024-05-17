@@ -35,6 +35,7 @@ return new class extends Migration
             // $table->string('komoditi');
             // $table->integer('jumlah');
             $table->integer('periode');
+            $table->date('is_valid')->nullable();
             $table->timestamps();
         });
     }

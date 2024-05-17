@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('data_kegiatan_id')->unsigned();
             $table->foreign('data_kegiatan_id')->references('id')->on('data_kegiatan');
             $table->integer('periode');
+            $table->date('is_valid')->nullable();
             $table->timestamps();
 
             // $table->bigInteger('id_desa')->unsigned();

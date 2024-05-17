@@ -21,7 +21,8 @@ class DataKeluargaSeeder extends Seeder
         $keluarga = DataKeluarga::create([
             'nama_kepala_keluarga' => $kepala->nama,
             'id_dasawisma' => 1,
-            'periode' => 2024
+            'periode' => 2023,
+            'is_valid' => '2023-02-02'
         ]);
 
             Keluargahaswarga::create([
@@ -39,7 +40,8 @@ class DataKeluargaSeeder extends Seeder
             $keluarga2 = DataKeluarga::create([
                 'nama_kepala_keluarga' => $kelapa->nama,
                 'id_dasawisma' => 1,
-                'periode' => 2024
+                'periode' => 2023,
+                'is_valid' => '2023-02-02'
             ]);
             Keluargahaswarga::create([
                 'keluarga_id' =>  $keluarga2->id,

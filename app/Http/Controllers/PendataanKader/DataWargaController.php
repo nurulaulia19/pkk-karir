@@ -12,6 +12,7 @@ use App\Models\DataWarga;
 use App\Models\Periode;
 use App\Models\Rw;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -42,13 +43,6 @@ class DataWargaController extends Controller
         ->get();
         }
         $dataPeriode = Periode::all();
-
-
-
-
-        // $keluarga = DataKeluarga::with(['anggota.warga.kegiatan', 'dasawisma','rumah_tangga.rumah_tangga'])->find($id);
-        // dd($warga);
-        // $dasawisma = DataKelompokDasawisma::all();
 
         return view('kader.data_warga.index', compact('warga', 'user','dataPeriode'));
     }
@@ -333,6 +327,9 @@ class DataWargaController extends Controller
 
         // update data
         $data_warga->update($request->all());
+        $data_warga->update([
+            'is_valid' => Carbon::now()
+        ]);
             // Temukan ID keluarga terkait dengan DataWarga
             $id_keluarga = DB::table('keluarga_has_warga')
             ->where('warga_id', $data_warga->id)

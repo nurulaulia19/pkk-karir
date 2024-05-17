@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call(GeneratePermissionSeeder::class);
-
+        $this->call(PeriodeSeeder::class);
         $this->call(DataKecamatanSeeder::class);
         $this->call(DataDesaSeeder::class);
         $this->call(RWSeeder::class);
@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(DetailKegiatanSeeder::class);
         $this->call(WargaSeeder::class);
         $this->call(DataKeluargaSeeder::class);
+        $this->call(RumahTanggaSeeder::class);
         $this->call(KategoriPemanfaatanSeeder::class );
         // $this->call(KategoriPemanfaatanLahanSeeder::class);
         $this->call(KategoriIndustriRumahSeeder::class);

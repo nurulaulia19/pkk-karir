@@ -802,7 +802,14 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="submit" class="btn btn-primary">
+
+                            @if ($data_warga->is_valid)
+                                edit
+                            @else
+                                Validasi
+                            @endif
+                        </button>
                         <a href="/data_warga" class="btn btn-outline-primary">
                             <span>Batalkan</span>
                         </a>

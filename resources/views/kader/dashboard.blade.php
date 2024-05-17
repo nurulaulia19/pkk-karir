@@ -23,7 +23,7 @@
             <div class="small-box bg-success">
               <div class="inner">
                 {{-- <h3>53<sup style="font-size: 20px">%</sup></h3> --}}
-                <h3>{{ $keluarga }}</h3>
+                {{-- <h3>{{ $keluarga }}</h3> --}}
 
                 <p>Data Keluarga</p>
               </div>
@@ -40,7 +40,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>{{ $warga }}</h3>
+                {{-- <h3>{{ $warga }}</h3> --}}
 
                 <p>Data Warga</p>
               </div>
@@ -57,7 +57,7 @@
             <!-- small box -->
             <div class="small-box bg-primary">
               <div class="inner">
-            <h3>{{ $kegiatan }}</h3>
+            {{-- <h3>{{ $kegiatan }}</h3> --}}
 
                 <p>Data Kegiatan Warga</p>
               </div>
@@ -74,7 +74,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>{{ $industri }}</h3>
+                {{-- <h3>{{ $industri }}</h3> --}}
 
                 <p>Data Industri Rumah Tangga</p>
               </div>
@@ -97,7 +97,7 @@
                 <!-- small box -->
                 <div class="small-box bg-secondary">
                   <div class="inner">
-                    <h3>{{ $pemanfaatan }}</h3>
+                    {{-- <h3>{{ $pemanfaatan }}</h3> --}}
 
                     <p>Data Pemanfaatan Tanah Pekarangan</p>
                   </div>
@@ -115,7 +115,7 @@
             <div class="small-box bg-danger">
               <div class="inner">
                 {{-- <h3>53<sup style="font-size: 20px">%</sup></h3> --}}
-                <h3>{{ $rekap }}</h3>
+                {{-- <h3>{{ $rekap }}</h3> --}}
 
                 <p>Data Rekapitulasi Warga dan Catatan Keluarga</p>
               </div>

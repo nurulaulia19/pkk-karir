@@ -25,7 +25,7 @@ class WargaSeeder extends Seeder
             'jabatan' => 'ketua',
             'jenis_kelamin' => 'laki-laki',
             'tempat_lahir' => 'Indramayu',
-            'tgl_lahir' => '2024-07-17',
+            'tgl_lahir' => '2023-07-17',
             'status_perkawinan' => 'menikah',
             'agama' => 'islam',
             'alamat' => 'anjatan',
@@ -38,8 +38,9 @@ class WargaSeeder extends Seeder
             'ikut_paud_sejenis' => 1,
             'ikut_koperasi' => 1,
             'memiliki_tabungan' => 1,
-            'periode' => 2024,
-            'is_keluarga' => false
+            'periode' => 2023,
+            'is_keluarga' => false,
+            'is_valid' => '2023-02-01'
         ]);
 
         DataWarga::create([
@@ -65,8 +66,9 @@ class WargaSeeder extends Seeder
             'ikut_paud_sejenis' => 0,
             'ikut_koperasi' => 0,
             'memiliki_tabungan' => 1,
-            'periode' => 2024,
-            'is_keluarga' => false
+            'periode' => 2023,
+            'is_keluarga' => false,
+            'is_valid' => '2023-02-01'
         ]);
         DataWarga::create([
             'id_desa' => 1,
@@ -91,8 +93,9 @@ class WargaSeeder extends Seeder
             'ikut_paud_sejenis' => 0,
             'ikut_koperasi' => 0,
             'memiliki_tabungan' => 1,
-            'periode' => 2024,
-            'is_keluarga' => false
+            'periode' => 2023,
+            'is_keluarga' => false,
+            'is_valid' => '2023-02-01'
         ]);
 
         // DataWarga::create([
@@ -119,7 +122,7 @@ class WargaSeeder extends Seeder
         //     'ikut_paud_sejenis' => 0,
         //     'ikut_koperasi' => 0,
         //     'memiliki_tabungan' => 1,
-        //     'periode' => 2024,
+        //     'periode' => 2023,
         // ]);
         // $table->string('');
         // $table->string('');
