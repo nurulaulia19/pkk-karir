@@ -35,14 +35,25 @@
                         </span>
                    @enderror
             </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Dusun</label>
+                <select class="form-control" id="dusun_id" name="dusun_id">
+                    <option value="0" {{ (!$rw->dusun_id) ? 'selected' : '' }}>Pilih Dusun</option>
+                    @foreach ($dusun as $index)
+                        <option value="{{ $index->id }}" {{ $index->id == $rw->dusun_id ? 'selected' : '' }}>
+                            {{ $index->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
         </div>
-        </div>
-        </div>
+    </div>
+</div>
         <!-- /.card-body -->
 
         <div class="card-footer">
           <button type="submit" class="btn btn-primary">Edit</button>
-          <a href="/kategori_kegiatan" class="btn btn-outline-primary">
+          <a href="/rw" class="btn btn-outline-primary">
             <span>Batalkan</span>
         </a>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dusun;
 use App\Models\Rw;
 use App\Models\User;
 use Carbon\Carbon;
@@ -15,7 +16,8 @@ class RwController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $rw = Rw::where('desa_id', $user->id_desa)->get();
+        $rw = Rw::where('desa_id', $user->id_desa)->with('dusun')->get();
+        // dd($rw);
 
         return view('admin_desa.rw.index', compact('rw'));
     }
@@ -31,12 +33,14 @@ class RwController extends Controller
 
     public function create(Request $request)
     {
+        $user = Auth::user();
         $lastRW = Rw::latest()->first();
         // Mengambil id dari entri terakhir, atau defaultkan ke 0 jika tabel kosong
         $lastId = $lastRW ? $lastRW->id : 0;
         // Menambahkan 1 untuk mendapatkan nomor berikutnya
         $nextId = $lastId + 1;
-        return view('admin_desa.rw.create', compact('nextId'));
+        $dusun = Dusun::where('desa_id', $user->id_desa)->get();
+        return view('admin_desa.rw.create', compact('nextId', 'dusun'));
     }
     public function store(Request $request)
     {
@@ -55,7 +59,8 @@ class RwController extends Controller
         Rw::create([
             'name' => $request->name,
              'desa_id' => $user->id_desa,
-             'periode' => $tahun,
+             'dusun_id' => $request->dusun_id,
+            //  'periode' => $tahun,
         ]);
         // dd($kat);
         Alert::success('Berhasil', 'RW berhasil di tambahkan');
@@ -65,8 +70,9 @@ class RwController extends Controller
 
     public function edit(RW $rw)
     {
-        //
-        return view('admin_desa.rw.edit', compact('rw'));
+        $user = Auth::user();
+        $dusun = Dusun::where('desa_id', $user->id_desa)->get();
+        return view('admin_desa.rw.edit', compact('rw', 'dusun'));
 
     }
 
@@ -79,6 +85,7 @@ class RwController extends Controller
         ]);
 
         $rw->name = $request->name;
+        $rw->dusun_id = $request->dusun_id;
         // $rw->periode = $request->periode;
         $rw->update();
         Alert::success('Berhasil', 'Data berhasil di Ubah');

@@ -195,21 +195,12 @@ class DataIndustriRumahController extends Controller
 
    public function destroyz($id)
    {
-       //temukan id data industri rumah tangga warga
-    //    $inds::find($data_industri)->delete();
-        // $industri = DataIndustriRumah::with('warga')->find($id);
-        // $warga = DataWarga::find($industri->warga->id);
-        // $warga->is_industri_rumah_tangga = 0;
-        // $warga->save();
-        // $industri->delete();
         $keluarga = DataKeluarga::find($id);
         $keluarga->industri_id = 0;
         $keluarga->save();
        Alert::success('Berhasil', 'Data berhasil di Hapus');
 
        return redirect('/data_industri');
-
-
-
    }
+
 }

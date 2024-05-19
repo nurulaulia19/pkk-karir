@@ -62,12 +62,7 @@
             ></a>
           </li>
         </ul>
-{{-- 
-        @if ($newPeriode)
-        <a href="{{ route('admin_kabupaten.migrate') }}">migrate data ke tahun sekarang {{ $newPeriode }}</a>
 
-        @endif --}}
-        <!-- Right navbar links -->
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
@@ -206,7 +201,30 @@
                     </li>
                 </ul>
               </li>
-
+                <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                    Data Dasawisma
+                    <i class="fas fa-angle-left right"></i>
+                    {{-- <span class="badge badge-info right">6</span> --}}
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ url('/data_kategori_pemanfaatan_lahan') }}" class="nav-link {{ Request::is('data_kategori_pemanfaatan_lahan') ? 'active':'' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Kategori Pemanfaatan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/data_kategori_industri') }}" class="nav-link {{ Request::is('data_kategori_industri') ? 'active':'' }}" >
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Kategori Industri</p>
+                        </a>
+                    </li>
+                </ul>
+              </li>
               <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-copy"></i>

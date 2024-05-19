@@ -1,8 +1,8 @@
-@extends('admin_desa.layout')
+@extends('admin_kab.layout')
 
-@section('title', 'Data RW | Admin Desa PKK Kab. Indramayu')
+@section('title', 'Kategori Industri Rumah Tangga | Admin PKK Kab. Indramayu')
 
-@section('bread', 'Data RW')
+@section('bread', 'Kategori Industri Rumah Tangga')
 @section('container')
 
     <!-- Main content -->
@@ -15,47 +15,39 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
-                                    <div class="row">
+                                    <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
-                                            <a href="{{ url('rw/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                            <a href="{{ url('data_kategori_industri/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
                                         </div>
                                     </div>
                                     <thead>
                                         <tr>
-                                        <th>No</th>
-                                        <th>Nama Rw</th>
-                                        <th>Dusun</th>
-                                        <th>Aksi</th>
-                                    </tr>
+                                            <th>No</th>
+                                            <th>Kategori</th>
+                                            <th>Aksi</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($rw as $c)
+                                        @foreach ($industri as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                        <td style="vertical-align: middle;">{{$c->name}}</td>
-                                        <td style="vertical-align: middle;">
-                                            @if ($c->dusun)
-                                                {{ $c->dusun->name }}
-                                            @else
-                                                Tidak ada dusun
-                                            @endif
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="d-flex justify-content-center">
-                                                <a class="btn btn-warning btn-sm" href="{{ url('rw/'.$c->id) }}">Data RT</a>
-                                                <a class="btn btn-primary btn-sm ml-1" href="{{ url('rw/'.$c->id.'/edit') }}">Edit</a>
-                                                <form action="{{ route('rw.destroy', $c->id) }}" method="POST">
+                                        <td style="vertical-align: middle;"> {{$c->nama_kategori}} </td>
+                                        <td class="text-center" width="100px" style="vertical-align: middle;">
+                                            <div class="d-flex">
+                                                <a class="btn btn-primary btn-sm" href="{{ url('data_kategori_industri/'.$c->id.'/edit') }}">Edit</a>
+                                                <form action="{{ route('data_kategori_industri.destroy', ['data_kategori_industri' => $c->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1">Hapus</button>
                                                 </form>
                                             </div>
-                                        </td>
+                                          </td>
                                     </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
                             </div>
+                            {{-- {{ $industri->links() }} --}}
                         </div>
 
                     </div>

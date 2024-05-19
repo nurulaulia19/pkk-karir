@@ -18,4 +18,8 @@ class Rt extends Model
         return $this->hasMany(DasaWisma::class, 'id_rt');
     }
 
+    public function dusun(){
+        return $this->belongsTo(Dusun::class, 'dusun_id');
+    }
+
 }

@@ -24,7 +24,7 @@ class RumahTanggaSeeder extends Seeder
         $keluarga = RumahTangga::create([
             'nama_kepala_rumah_tangga' => $kepala->nama_kepala_keluarga,
             'id_dasawisma' => 1,
-            'dusun' => '',
+            // 'dusun' => 1,
             // 'punya_jamban' => $request->punya_jamban,
             // 'punya_tempat_sampah' => $request->punya_tempat_sampah,
             // // 'kriteria_rumah_sehat' => $request->kriteria_rumah_sehat,

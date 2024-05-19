@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dusun;
 use App\Models\KategoriKegiatan;
 use App\Models\Rt;
 use App\Models\Rw;
@@ -13,7 +14,8 @@ class RtController extends Controller
 {
     public function index()
     {
-        $rw = Rw::all();
+        $user = Auth::user();
+        $rw = Rw::where('desa_id', $user->id_desa)->with('rt','dusun')->get();
 
         return view('admin_desa.rw.index', compact('rw'));
     }
@@ -29,6 +31,7 @@ class RtController extends Controller
 
     public function create(Request $request)
     {
+        $user = Auth::user();
         $rwQuery = $request->input('rw');
         if(!$rwQuery){
             dd('Tidak ada RW');
@@ -44,7 +47,9 @@ class RtController extends Controller
         // Menambahkan 1 untuk mendapatkan nomor berikutnya
         $nextId = $lastId + 1;
 
-        return view('admin_desa.rw.rt.create',compact('rw','nextId'));
+        $dusun = Dusun::where('desa_id', $user->id_desa)->get();
+
+        return view('admin_desa.rw.rt.create',compact('rw','nextId', 'dusun'));
     }
     public function store(Request $request)
     {
@@ -68,7 +73,8 @@ class RtController extends Controller
 
         Rt::create([
             'name' => $request->name,
-             'rw_id' => $rw->id
+             'rw_id' => $rw->id,
+             'dusun_id' => $request->dusun_id,
         ]);
         // dd($kat);
         Alert::success('Berhasil', 'RW berhasil di tambahkan');
@@ -80,8 +86,9 @@ class RtController extends Controller
 
     public function edit(RT $rt)
     {
-        //
-        return view('admin_desa.rw.rt.edit', compact('rt'));
+        $user = Auth::user();
+        $dusun = Dusun::where('desa_id', $user->id_desa)->get();
+        return view('admin_desa.rw.rt.edit', compact('rt', 'dusun'));
 
     }
 
@@ -94,6 +101,8 @@ class RtController extends Controller
         ]);
 
         $rt->name = $request->name;
+        // $rt->rw = $rw->id;
+        $rt->dusun_id = $request->dusun_id;
         $rt->update();
         Alert::success('Berhasil', 'Data berhasil di Ubah');
 

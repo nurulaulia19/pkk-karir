@@ -22,4 +22,9 @@ class Rw extends Model
         return $this->hasMany(DasaWisma::class, 'id_rw');
     }
 
+    public function dusun()
+    {
+        return $this->belongsTo(Dusun::class);
+    }
+
 }

@@ -32,11 +32,22 @@
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Nama RT</label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama Kegiatan" value="{{ old('name', $rt->name) }}">
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Dusun</label>
+                <select class="form-control" id="dusun_id" name="dusun_id">
+                    <option value="0" {{ (!$rt->dusun_id) ? 'selected' : '' }}>Pilih Dusun</option>
+                    @foreach ($dusun as $index)
+                        <option value="{{ $index->id }}" {{ $index->id == $rt->dusun_id ? 'selected' : '' }}>
+                            {{ $index->name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
         </div>
         </div>

@@ -15,8 +15,6 @@
       <!-- form start -->
 
       <form action="{{ route('rt.store', ['rw' => $rw ]) }}" method="POST">
-
-
         @csrf
         @if (count($errors)>0)
             <div class="alert alert-danger">
@@ -28,21 +26,27 @@
                 </ul>
             </div>
         @endif
-
         <div class="card-body">
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Nama RT</label>
-                        {{-- nama Nama RT --}}
-                        <input type="hidden" name="rw" value="{{ $rw }}">
-
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama RT" value="{{ $nextId }}">
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                    </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Nama RT</label>
+                    <input type="hidden" name="rw" value="{{ $rw }}">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama RT" value="{{ $nextId }}">
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
             </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Dusun</label>
+                <select class="form-control" id="dusun_id" name="dusun_id">
+                    <option value="0">Pilih Dusun</option>
+                    @foreach ($dusun as $c)
+                        <option value="{{ $c->id }}">{{ $c->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         </div>
         <!-- /.card-body -->
 

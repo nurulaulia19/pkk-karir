@@ -1,8 +1,8 @@
 @extends('admin_desa.layout')
 
-@section('title', 'Data RT | Admin Desa PKK Kab. Indramayu')
+@section('title', 'Data Dusun | Admin Desa PKK Kab. Indramayu')
 
-@section('bread', 'Data RT')
+@section('bread', 'Data Dusun')
 @section('container')
 
     <!-- Main content -->
@@ -16,43 +16,26 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row">
-                                        <div class="col-md-2">
-                                            <a href="{{ route('rt.create', ['rw' => $rt->id]) }}" type="button" class="btn btn-success">Tambah RT</a><br><br>
+                                        <div class="col-md-1">
+                                            <a href="{{ url('data_dusun/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
                                         </div>
                                     </div>
                                     <thead>
                                         <tr>
                                         <th>No</th>
-                                        <th>Nama RT</th>
-                                        <th>RW</th>
-                                        <th>Dusun</th>
+                                        <th>Nama Dusun</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
-
                                     <tbody>
-                                        @foreach ($rt->rt as $c)
+                                        @foreach ($dusun as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td style="vertical-align: middle;">{{$c->name}}</td>
-                                        <td style="vertical-align: middle;">
-                                            @if ($c->rw)
-                                                {{ $c->rw->name }}
-                                            @else
-                                                Tidak ada RW
-                                            @endif
-                                        </td>
-                                        <td style="vertical-align: middle;">
-                                            @if ($c->dusun)
-                                                {{ $c->dusun->name }}
-                                            @else
-                                                Tidak ada dusun
-                                            @endif
-                                        </td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center">
-                                                <a class="btn btn-primary btn-sm ml-1" href="{{ url('rt/'.$c->id.'/edit') }}">Edit</a>
-                                                <form action="{{ route('rt.destroy',$c->id) }}" method="POST">
+                                                <a class="btn btn-primary btn-sm ml-1" href="{{ url('data_dusun/'.$c->id.'/edit') }}">Edit</a>
+                                                <form action="{{ route('data_dusun.destroy', $c->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm delete ml-1">Delete</button>
@@ -62,9 +45,7 @@
                                     </tr>
                                     @endforeach
                                     </tbody>
-
                                 </table>
-
                             </div>
                         </div>
 

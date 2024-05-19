@@ -18,6 +18,8 @@ use App\Http\Controllers\AdminKab\DataKecamatanController;
 use App\Http\Controllers\AdminKab\DataKabupatenController;
 use App\Http\Controllers\AdminKab\DataProvinsiController;
 use App\Http\Controllers\AdminKab\UserController;
+use App\Http\Controllers\AdminKab\KategoriIndustriRumahController;
+use App\Http\Controllers\Adminkab\KategoriPemanfaatanLahanController;
 use App\Http\Controllers\AdminKabController;
 use App\Http\Controllers\AdminKec\DesaController;
 use App\Http\Controllers\AdminKecController;
@@ -58,6 +60,7 @@ use App\Models\KeteranganKegiatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\KategoriDusunController;
 use App\Http\Controllers\KeluargaHasWargaController;
 use App\Http\Controllers\PendataanKader\RumahTanggaController;
 use App\Http\Controllers\RtController;
@@ -120,6 +123,7 @@ Route::middleware(['user_type:admin_desa'])->group(function(){
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin_desa.dashboard');
     Route::resource('rw', RwController::class);
     Route::resource('rt', RtController::class);
+    Route::resource('data_dusun', KategoriDusunController::class);
 
 
     // rekapdesa
@@ -234,6 +238,9 @@ Route::middleware(['user_type:admin_kabupaten'])->group(function(){
     // Route::get('/data_kabupaten', [DataKabupatenController::class, 'index'])->name('kabupaten.index');
     Route::resource('/data_kabupaten', DataKabupatenController::class);
     Route::resource('/data_provinsi', DataProvinsiController::class);
+
+    Route::resource('/data_kategori_industri', KategoriIndustriRumahController::class);
+    Route::resource('/data_kategori_pemanfaatan', KategoriPemanfaatanLahanController::class);
 });
 
 // halaman admin kecamatan
