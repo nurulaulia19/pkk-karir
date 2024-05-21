@@ -72,7 +72,7 @@
                                 <label for="exampleFormControlSelect1">Nama Warga</label>
                                 <select class="form-control @error('id_warga') is-invalid @enderror" id="id_warga"
                                     name="id_warga">
-                                    <option selected value="{{ $warga->id }}"> {{ $warga->id }}-{{ $warga->nama }}
+                                    <option selected value="{{ $warga->id }}"> {{ $warga->nama }} - {{ $warga->no_ktp }}
                                     </option>
                                 </select>
                                 @error('id_warga')
@@ -101,7 +101,7 @@
                                 <div class="col-md-11">
                                     <label for="nama_kegiatan">Nama Kegiatan</label>
                                     <select class="form-control selectNamaKegiatan" name="nama_kegiatan[]">
-                                        <option value="">Pilih Kegiatan</option>
+                                        <option disabled selected value="">Pilih Kegiatan</option>
                                         @foreach ($keg as $item)
                                             <option {{ $wargaKeg->data_kegiatan_id == $item->id ? 'selected' : '' }}
                                                 value="{{ $item->id }}">{{ $item->name }}</option>
@@ -251,6 +251,8 @@
                     const defaultOptionNamaKegiatan = document.createElement('option');
                     defaultOptionNamaKegiatan.value = '';
                     defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kegiatan';
+                    defaultOptionNamaKegiatan.selected = true;
+                    defaultOptionNamaKegiatan.disabled = true;
                     newSelect.appendChild(defaultOptionNamaKegiatan);
 
                     // Add options based on data

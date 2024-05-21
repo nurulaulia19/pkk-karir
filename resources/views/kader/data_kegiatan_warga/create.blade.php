@@ -122,7 +122,7 @@
                                 <div class="col-md-12">
                                     <label for="nama_kegiatan">Nama Kegiatan</label>
                                     <select class="form-control selectNamaKegiatan" name="nama_kegiatan[]">
-                                        <option value="">Pilih Kegiatan</option>
+                                        <option selected disabled value="">Pilih Kegiatan</option>
                                         @foreach ($keg as $item)
                                             <option
                                                 value="{{ $item->id }}">{{ $item->name }}</option>
@@ -270,6 +270,8 @@
                 const defaultOptionNamaKegiatan = document.createElement('option');
                 defaultOptionNamaKegiatan.value = '';
                 defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kegiatan';
+                defaultOptionNamaKegiatan.selected = true;
+                defaultOptionNamaKegiatan.disabled = true;
                 newSelect.appendChild(defaultOptionNamaKegiatan);
 
                 // Add options based on data

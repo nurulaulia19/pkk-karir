@@ -22,18 +22,8 @@ return new class extends Migration
             // misal data warga
             $table->bigInteger('rumah_tangga_id')->unsigned();
             $table->foreign('rumah_tangga_id')->references('id')->on('rumah_tanggas');
-            // ini aslinya
-            // $table->bigInteger('id_keluarga')->unsigned();
-            // $table->foreign('id_keluarga')->references('id')->on('data_keluarga');
-            // $table->bigInteger('id_user')->unsigned();
-            // $table->foreign('id_user')->references('id')->on('users');
-
-            $table->string('nama_kategori');
-
             $table->bigInteger('kategori_id')->unsigned();
             $table->foreign('kategori_id')->references('id')->on('kategori_pemanfaatan_lahan');
-            // $table->string('komoditi');
-            // $table->integer('jumlah');
             $table->integer('periode');
             $table->date('is_valid')->nullable();
             $table->timestamps();

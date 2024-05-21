@@ -51,8 +51,6 @@ class DataIndustriRumahController extends Controller
     */
    public function create()
    {
-       // halaman form tambah data industri rumah tangga
-    // nama desa yang login
     $desas = DB::table('data_desa')
     ->where('id', auth()->user()->id_desa)
     ->get();
@@ -66,17 +64,19 @@ class DataIndustriRumahController extends Controller
     ->get();
 
     $user = Auth::user();
-    // $warga = DataWarga::where('id_dasawisma', $user->id_dasawisma)
-    //  ->where('is_industri_rumah_tangga', false)
-    //  ->get();
 
-    $kateagoriIndustri = KategoriIndustriRumah::all();
+    $kategoriIndustri = KategoriIndustriRumah::all();
 
-   $warga = DataKeluarga::where('id_dasawisma', $user->id_dasawisma)
-     ->where('industri_id', 0)
-     ->get();
+    //    $keluarga = DataKeluarga::where('id_dasawisma', $user->id_dasawisma)
+    //      ->where('industri_id', 0)
+    //      ->get();
+    $keluarga = DataKeluarga::where('id_dasawisma', $user->id_dasawisma)
+    ->where('industri_id', 0)
+    ->where('is_valid', '!=', 0)
+    ->where('periode', now()->year)
+    ->get();
 
-    return view('kader.data_industri_rumah_tangga.create', compact('kateagoriIndustri','kec','desas', 'warga', 'kad'));
+    return view('kader.data_industri_rumah_tangga.create', compact('kategoriIndustri','kec','desas', 'keluarga', 'kad'));
 
 }
 
@@ -88,19 +88,29 @@ class DataIndustriRumahController extends Controller
  */
    public function store(Request $request)
    {
-       // proses penyimpanan untuk tambah data data industri rumah tangga
-    //    dd($request->all());
-       // validasi data
        $request->validate([
-           'warga_id' => 'required',
-           'nama_kategori' => 'required'
-       ], ['warga_id.required' => 'Lengkapi Nama Warga Yang Didata',
-            'nama_kategori.required' => 'Pilih Kategori Industri Rumah Tangga Warga',
+           'keluarga_id' => 'required',
+           'kategori_industri_rumah_id' => 'required'
+       ], ['keluarga_id.required' => 'Lengkapi Nama Warga Yang Didata',
+            'kategori_industri_rumah_id.required' => 'Pilih Kategori Industri Rumah Tangga Warga',
        ]);
 
-       $keluarga = DataKeluarga::find($request->warga_id);
-       $keluarga->industri_id = $request->nama_kategori;
-       $keluarga->save();
+
+        $keluarga = DataKeluarga::find($request->keluarga_id);
+        $keluarga->industri_id = $request->kategori_industri_rumah_id;
+        $keluarga->save();
+
+        //tambahan
+        DataIndustriRumah::create([
+            'id_desa' => $request->id_desa,
+            'id_kecamatan' => $request->id_kecamatan,
+            'keluarga_id' => $request->keluarga_id,
+            'kategori_industri_rumah_id' => $request->kategori_industri_rumah_id,
+            'periode' => $request->periode,
+            'is_valid' => $request->is_valid,
+            // Add other necessary fields here
+        ]);
+        Alert::success('Berhasil', 'Data berhasil di Tambah');
        return redirect('/data_industri');
 
    }
@@ -124,17 +134,9 @@ class DataIndustriRumahController extends Controller
    */
    public function edit($id)
    {
-       //halaman form edit data industri rumah tangga
-    //    $kel = DataKeluarga::all();
     $user = Auth::user();
-    // $warga = DataWarga::where('id_dasawisma', $user->id_dasawisma)
-    //  ->where('is_industri_rumah_tangga', false)
-    //  ->get();
-
-    $kateagoriIndustri = KategoriIndustriRumah::all();
-
+    $kategoriIndustri = KategoriIndustriRumah::all();
     $keluarga = DataKeluarga::find($id);
-    //    dd($warga);
 
        $desas = DB::table('data_desa')
        ->where('id', auth()->user()->id_desa)
@@ -149,7 +151,7 @@ class DataIndustriRumahController extends Controller
         ->get();
        // dd($kel);
 
-       return view('kader.data_industri_rumah_tangga.edit', compact('keluarga','kateagoriIndustri', 'kec', 'desas', 'kad'));
+       return view('kader.data_industri_rumah_tangga.edit', compact('keluarga','kategoriIndustri', 'kec', 'desas', 'kad'));
 
    }
 
@@ -165,15 +167,29 @@ class DataIndustriRumahController extends Controller
     // dd($id);
     $request->validate([
         'keluarga_id' => 'required',
-        'nama_kategori' => 'required'
+        'kategori_industri_rumah_id' => 'required'
     ], ['keluarga_id.required' => 'Lengkapi Nama Warga Yang Didata',
-         'nama_kategori.required' => 'Pilih Kategori Industri Rumah Tangga Warga',
+         'kategori_industri_rumah_id.required' => 'Pilih Kategori Industri Rumah Tangga Warga',
     ]);
     // dd($request->all());
 
     $keluarga = DataKeluarga::find($id);
-    $keluarga->industri_id = $request->nama_kategori;
+    $keluarga->industri_id = $request->kategori_industri_rumah_id;
     $keluarga->save();
+
+    $dataIndustriRumah = DataIndustriRumah::where('keluarga_id', $id)->first();
+
+    if ($dataIndustriRumah) {
+        // Update the DataIndustriRumah record
+        $dataIndustriRumah->id_desa = $request->id_desa;
+        $dataIndustriRumah->id_kecamatan = $request->id_kecamatan;
+        $dataIndustriRumah->kategori_industri_rumah_id = $request->kategori_industri_rumah_id;
+        $dataIndustriRumah->periode = $request->periode;
+        $dataIndustriRumah->is_valid = $request->is_valid;
+        // Update other necessary fields here
+        $dataIndustriRumah->save();
+    }
+    Alert::success('Berhasil', 'Data berhasil di Ubah');
     return redirect('/data_industri');
 
    }
@@ -186,21 +202,36 @@ class DataIndustriRumahController extends Controller
    */
   public function destroy($id)
   {
+    $keluarga = DataKeluarga::find($id);
 
-      return redirect('/data_industri');
-
-
-
-  }
-
-   public function destroyz($id)
-   {
-        $keluarga = DataKeluarga::find($id);
+    if ($keluarga) {
+        // Update the industri_id of DataKeluarga record
         $keluarga->industri_id = 0;
         $keluarga->save();
-       Alert::success('Berhasil', 'Data berhasil di Hapus');
 
-       return redirect('/data_industri');
-   }
+        // Find and delete the corresponding DataIndustriRumah records
+        DataIndustriRumah::where('keluarga_id', $id)->delete();
+
+        // Display a success alert
+        Alert::success('Berhasil', 'Data berhasil dihapus');
+    } else {
+        // Handle the case where the DataKeluarga record is not found
+        Alert::error('Gagal', 'Data Keluarga tidak ditemukan');
+    }
+
+        // Redirect to the specified route
+        return redirect('/data_industri');
+  }
+
+
+//    public function destroyz($id)
+//    {
+//         $keluarga = DataKeluarga::find($id);
+//         $keluarga->industri_id = 0;
+//         $keluarga->save();
+//        Alert::success('Berhasil', 'Data berhasil di Hapus');
+
+//        return redirect('/data_industri');
+//    }
 
 }

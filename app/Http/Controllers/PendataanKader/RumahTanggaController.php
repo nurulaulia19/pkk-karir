@@ -74,7 +74,12 @@ class RumahTanggaController extends Controller
             ->where('id', auth()->user()->id)
             ->first();
 
-        $kk = DataKeluarga::where('is_rumah_tangga', false)->get();
+        $user = Auth::user();
+        // $kk = DataKeluarga::where('is_rumah_tangga', false)->get();
+        $kk = DataKeluarga::where('id_dasawisma', $user->id_dasawisma)
+        ->where('is_valid', '!=', 0)
+        ->where('periode', now()->year)
+        ->where('is_rumah_tangga', false)->get();
         //  dd($kk);
         $warga = DataWarga::all();
         $dasawisma = DataKelompokDasawisma::all();
@@ -94,6 +99,12 @@ class RumahTanggaController extends Controller
 
         $keluargaKetua = DataKeluarga::find($request->keluarga[0]);
         // dd($keluargaKetua);
+        if (!isUnique($request->keluarga)) {
+            // dd($request->keluarga);
+            return redirect()
+                ->back()
+                ->withErrors(['keluarga' => 'Nama kepala keluarga tidak boleh sama']);
+            }
 
         $kriteria_rumah_sehat = true;
 
@@ -120,6 +131,7 @@ class RumahTanggaController extends Controller
             'sumber_air_pdam' => $request->has('sumber_air_pdam') ? 1 : 0,
             'sumber_air_sumur' => $request->has('sumber_air_sumur') ? 1 : 0,
             'sumber_air_lainnya' => $request->has('sumber_air_lainnya') ? 1 : 0,
+            'is_valid' => now(),
 
         ]);
         // dd($keluarga->nama_kepala_rumah_tangga);
@@ -227,6 +239,7 @@ class RumahTanggaController extends Controller
             'sumber_air_pdam' => $request->has('sumber_air_pdam') ? 1 : 0,
             'sumber_air_sumur' => $request->has('sumber_air_sumur') ? 1 : 0,
             'sumber_air_lainnya' => $request->has('sumber_air_lainnya') ? 1 : 0,
+            'is_valid' => now(),
         ]);
 
         foreach ($request->keluarga as $key => $keluargaId) {
@@ -316,7 +329,11 @@ class RumahTanggaController extends Controller
 
     public function keluarga()
     {
-        $warga = DataKeluarga::where('is_rumah_tangga', 0)->get();
+        $user = Auth::user();
+        $warga = DataKeluarga::where('id_dasawisma', $user->id_dasawisma)
+        ->where('is_valid', '!=', 0)
+        ->where('periode', now()->year)
+        ->where('is_rumah_tangga', false)->get();
         return response()->json([
             'keluarga' => $warga,
         ]);

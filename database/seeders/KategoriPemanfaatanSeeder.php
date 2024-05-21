@@ -16,31 +16,31 @@ class KategoriPemanfaatanSeeder extends Seeder
     public function run()
     {
         KategoriPemanfaatanLahan::create([
-            'nama_kategori' => "peternakan"
+            'nama_kategori' => "Peternakan"
         ]);
 
         KategoriPemanfaatanLahan::create([
-            'nama_kategori' => "perikanan"
+            'nama_kategori' => "Perikanan"
         ]);
 
         KategoriPemanfaatanLahan::create([
-            'nama_kategori' => "warung hidup"
+            'nama_kategori' => "Warung hidup"
         ]);
 
         KategoriPemanfaatanLahan::create([
-            'nama_kategori' => "lumbung hidup"
+            'nama_kategori' => "Lumbung hidup"
         ]);
 
         KategoriPemanfaatanLahan::create([
-            'nama_kategori' => "toga"
+            'nama_kategori' => "Toga"
         ]);
 
         KategoriPemanfaatanLahan::create([
-            'nama_kategori' => "tanaman keras"
+            'nama_kategori' => "Tanaman keras"
         ]);
 
         KategoriPemanfaatanLahan::create([
-            'nama_kategori' => "tanaman lainnya"
+            'nama_kategori' => "Tanaman lainnya"
         ]);
     }
 }

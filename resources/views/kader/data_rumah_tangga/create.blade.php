@@ -249,7 +249,7 @@
                                                     class="form-control js-example-basic-single" >
                                                     <option selected disabled>Pilih Nama Kepala Rumah Tangga</option>
                                                     @foreach ($kk as $kepala)
-                                                        <option value="{{ $kepala->id }}">{{ $kepala->nama_kepala_keluarga }}</option>
+                                                        <option value="{{ $kepala->id }}">{{ $kepala->nama_kepala_keluarga }} -</option>
                                                     @endforeach
                                                 </select>
                                                 @error('nama_kepala_rumah_tangga')

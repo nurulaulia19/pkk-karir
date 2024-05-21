@@ -84,7 +84,7 @@
                     <div class="form-group @error('rumah_tangga_id') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Nama Kepala Rumah Tangga</label>
                         <select class="form-control" id="rumah_tangga_id" name="rumah_tangga_id">
-                          <option hidden> Pilih Kepala Rumah Tangga</option>
+                          <option disabled selected> Pilih Kepala Keluarga</option>
                             @foreach ($krt as $rumahTangga)
                                 <option value="{{ $rumahTangga->id }}">{{ $rumahTangga->nama_kepala_rumah_tangga }} - {{$rumahTangga->no_ktp}}</option>
                             @endforeach
@@ -115,9 +115,9 @@
             <div class="form-group" id="formContainer">
                 <div class="row">
                     <div class="col-md-12">
-                        <label for="nama_pemanfaatan">Nama Kategori Pemanfaatan</label>
-                        <select class="form-control selectNamaKegiatan" name="nama_pemanfaatan[]">
-                            <option value="">Pilih Kegiatan</option>
+                        <label for="kategori_id">Nama Kategori Pemanfaatan</label>
+                        <select class="form-control selectNamaKegiatan" name="kategori_id[]">
+                            <option disabled selected value="">Pilih Pemanfaatan Tanah Pekarangan</option>
                             @foreach ($kategoriPemanfaatan as $item)
                                 <option
                                     value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
@@ -213,11 +213,11 @@ console.log('kategoriPemanfaatanLahan :>> ', kategoriPemanfaatanLahan);
 
                 const namaKegiatanLabel = document.createElement('label');
                 namaKegiatanLabel.textContent = 'Nama Kegiatan';
-                namaKegiatanLabel.htmlFor = 'nama_pemanfaatan'; // Set 'for' attribute for label
+                namaKegiatanLabel.htmlFor = 'kategori_id'; // Set 'for' attribute for label
 
                 const namaKegiatanSelect = document.createElement('select');
                 namaKegiatanSelect.className = 'form-control selectNamaKegiatan';
-                namaKegiatanSelect.name = 'nama_pemanfaatan[]';
+                namaKegiatanSelect.name = 'kategori_id[]';
 
                 const deleteButtonDiv = document.createElement('div');
                 deleteButtonDiv.className =
@@ -251,6 +251,8 @@ console.log('kategoriPemanfaatanLahan :>> ', kategoriPemanfaatanLahan);
                 const defaultOptionNamaKegiatan = document.createElement('option');
                 defaultOptionNamaKegiatan.value = '';
                 defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kategori ';
+                defaultOptionNamaKegiatan.selected = true;
+                defaultOptionNamaKegiatan.disabled = true;
                 newSelect.appendChild(defaultOptionNamaKegiatan);
 
                 // Add options based on data

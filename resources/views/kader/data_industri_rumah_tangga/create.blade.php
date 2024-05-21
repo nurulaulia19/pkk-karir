@@ -68,36 +68,30 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group @error('warga_id') is-invalid @enderror">
+                    <div class="form-group @error('keluarga_id') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Nama Keluarga</label>
-                        <select class="form-control" id="warga_id" name="warga_id">
+                        <select class="form-control" id="keluarga_id" name="keluarga_id">
                           {{-- nama warga --}}
                           <option hidden> Pilih Kepala Keluarga</option>
-                            @foreach ($warga as $warga)
-                                <option value="{{ $warga->id }}">{{ $warga->nama_kepala_keluarga }} - {{$warga->no_ktp}}</option>
+                            @foreach ($keluarga as $index)
+                                <option value="{{ $index->id }}">{{ $index->nama_kepala_keluarga }} - {{$index->no_ktp}}</option>
                             @endforeach
                           </select>
                       </div>
-                      @error('warga_id')
+                      @error('keluarga_id')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group @error('nama_kategori') is-invalid @enderror">
+                    <div class="form-group @error('kategori_industri_rumah_id') is-invalid @enderror">
                         <label>Kategori</label>
-                        <select class="form-control" id="nama_kategori" name="nama_kategori">
+                        <select class="form-control" id="kategori_industri_rumah_id" name="kategori_industri_rumah_id">
                             <option hidden> Pilih Kategori</option>
-                            @foreach ($kateagoriIndustri as $item)
-                                    <option value="{{ $item->id }}" value="Konveksi">{{ $item->nama_kategori }}</option>
-
+                            @foreach ($kategoriIndustri as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
                             @endforeach
-                            {{-- <option value="Pangan">Pangan</option>
-                            <option value="Konveksi">Konveksi</option>
-                            <option value="Sandang">Sandang</option>
-                            <option value="Jasa">Jasa</option>
-                            <option value="Lain-lain">Lain-lain</option> --}}
                         </select>
                       </div>
                       @error('nama_kategori')

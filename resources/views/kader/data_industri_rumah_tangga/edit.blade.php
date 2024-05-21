@@ -85,14 +85,13 @@
                         @enderror
                     </div>
                 </div>
-
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Kategori</label>
-                        <select class="form-control" id="nama_kategori" name="nama_kategori">
+                        <select class="form-control" id="kategori_industri_rumah_id" name="kategori_industri_rumah_id">
                             {{-- pilih kategori --}}
                             <option hidden> Pilih Kategori</option>
-                            @foreach ($kateagoriIndustri as $item)
+                            @foreach ($kategoriIndustri as $item)
                                 <option value="{{ $item->id }}" {{ $keluarga->industri_id == $item->id ? 'selected' : ''  }} >{{ $item->nama_kategori }}</option>
 
                             @endforeach
@@ -105,7 +104,21 @@
                     </div>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group @error('periode') is-invalid @enderror">
+                        <label>Periode</label>
+                        <select class="form-control" id="periode" name="periode" readonly>
+                            <option value="{{ date('Y') }}">{{ date('Y') }}</option>
+                        </select>
+                    </div>
+                      @error('periode')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                      @enderror
+                </div>
+            </div>
 
         </div>
 

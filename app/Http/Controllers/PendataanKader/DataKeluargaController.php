@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\PendataanKader;
 
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Models\DasaWisma;
 use App\Models\DataDasaWisma;
@@ -86,7 +87,7 @@ class DataKeluargaController extends Controller
             ->first();
 
 
-            $warga = DataWarga::where('is_keluarga', false)
+        $warga = DataWarga::where('is_keluarga', false)
             ->where('periode', now()->year)
             ->get();
         $dasawisma = DataKelompokDasawisma::all();
@@ -142,6 +143,13 @@ class DataKeluargaController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_kepala_keluarga' => 'required|unique:data_keluarga,nama_kepala_keluarga', // Replace table_name and column_name with your actual table and column names
+        ], [
+            'nama_kepala_keluarga.required' => 'Lengkapi Nama Kepala Keluarga Yang Didata',
+            'nama_kepala_keluarga.unique' => 'Nama Kepala Keluarga sudah ada',
+        ]);
+
         // Mendapatkan kepala keluarga dari data warga pertama
         $kepalaKeluarga = DataWarga::find($request->warga[0]);
         // dd($kepalaKeluarga);
@@ -274,6 +282,13 @@ class DataKeluargaController extends Controller
 
     public function update(Request $request, DataKeluarga $data_keluarga)
     {
+        $request->validate([
+            'nama_kepala_keluarga' => [
+                Rule::unique('data_keluarga', 'nama_kepala_keluarga')->ignore($data_keluarga)
+            ],
+        ], [
+            'nama_kepala_keluarga.unique' => 'Nama Kepala Keluarga sudah ada',
+        ]);
         // dd($request->all());
         // if(!isUnique($request->warga)){
         //     dd('harus usernya beda');

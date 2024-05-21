@@ -19,17 +19,10 @@ return new class extends Migration
             $table->foreign('id_desa')->references('id')->on('data_desa');
             $table->bigInteger('id_kecamatan')->unsigned();
             $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan');
-            // kalo pake warga
             $table->bigInteger('keluarga_id')->unsigned();
             $table->foreign('keluarga_id')->references('id')->on('data_keluarga');
-            // $table->bigInteger('id_keluarga')->unsigned();
-            // $table->foreign('id_keluarga')->references('id')->on('data_keluarga');
-            // $table->bigInteger('id_user')->unsigned();
-            // $table->foreign('id_user')->references('id')->on('users');
-
-            $table->string('nama_kategori');
-            // $table->string('komoditi');
-            // $table->integer('volume');
+            $table->bigInteger('kategori_industri_rumah_id')->unsigned();
+            $table->foreign('kategori_industri_rumah_id')->references('id')->on('kategori_industri_rumah');
             $table->integer('periode');
             $table->date('is_valid')->nullable();
             $table->timestamps();

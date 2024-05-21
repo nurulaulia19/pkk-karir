@@ -31,6 +31,7 @@ class DataPemanfaatanPekaranganController extends Controller
             // Menghapus semua data pemanfaatan yang terkait dengan rumah tangga ini
             DataPemanfaatanPekarangan::where('rumah_tangga_id', $rumahTanggaId->id)->delete();
         }
+        Alert::success('Berhasil', 'Data berhasil di hapus');
         return redirect()->route('data_pemanfaatan.index');
 
     }
@@ -45,14 +46,14 @@ class DataPemanfaatanPekaranganController extends Controller
         // $pemanfaatan = DataPemanfaatanPekarangan::with('warga')->where('id', $user->id_dasawisma)->get();
         if ($periode) {
             $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')->
-        where('periode', $periode)->
-        where('is_pemanfaatan_lahan',1)->
-        get();
+            where('periode', $periode)->
+            where('is_pemanfaatan_lahan',1)->
+            get();
         } else {
             $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')->
-        where('periode', now()->year)->
-        where('is_pemanfaatan_lahan',1)->
-        get();
+            where('periode', now()->year)->
+            where('is_pemanfaatan_lahan',1)->
+            get();
         }
         $dataPeriode = Periode::all();
 
@@ -87,7 +88,11 @@ class DataPemanfaatanPekaranganController extends Controller
     $kel = DataKeluarga::all(); // pemanggilan tabel data warga pekarangan
     $user = Auth::user();
 
-    $krt = RumahTangga::where('is_pemanfaatan_lahan',false)->get();
+    // $krt = RumahTangga::where('is_pemanfaatan_lahan',false)->get();
+    $krt = RumahTangga::where('id_dasawisma', $user->id_dasawisma)
+    ->where('is_valid', '!=', 0)
+    ->where('periode', now()->year)
+    ->where('is_pemanfaatan_lahan', false)->get();
     // $krt = RumahTangga::with(['anggotaRT.keluarga', 'anggotaRT.keluarga.warga'])->get();
     // dd($krt);
     //  $kat = KategoriPemanfaatanLahan::all(); // pemanggilan tabel kategori pemanfaatan tanah
@@ -103,16 +108,22 @@ class DataPemanfaatanPekaranganController extends Controller
         $request->validate([
             'rumah_tangga_id' => 'required|exists:rumah_tanggas,id',
             'periode' => 'required',
-            'nama_pemanfaatan' => 'required',
+            'kategori_id' => 'required',
 
         ], [
             'rumah_tangga_id.required' => 'Lengkapi Kepala Rumah Tangga Yang Didata',
-            'nama_pemanfaatan.required' => 'Pilih Kegiatan',
+            'kategori_id.required' => 'Pilih Kegiatan',
             'periode.required' => 'Pilih Periode',
 
         ]);
 
-         foreach ($request->nama_pemanfaatan as $key => $item) {
+        if (!isUnique($request->kategori_id)) {
+            return redirect()
+                ->back()
+                ->withErrors(['data' => 'nama pemanfaatan tidak boleh sama']);
+        }
+
+         foreach ($request->kategori_id as $key => $item) {
             // dd($item);
             if ($item !== null && $item !== '') {
                 $checkDataAavilable = DataPemanfaatanPekarangan::where('rumah_tangga_id', $request->rumah_tangga_id)->
@@ -125,6 +136,7 @@ class DataPemanfaatanPekaranganController extends Controller
                         'rumah_tangga_id' => $request->rumah_tangga_id,
                         'kategori_id' => $item,
                         'periode' => $request->periode,
+                        'is_valid' => now()
                     ]);
                 }
 
@@ -200,22 +212,22 @@ class DataPemanfaatanPekaranganController extends Controller
     //     $request->validate([
     //         'rumah_tangga_id' => 'required|exists:rumah_tanggas,id',
     //         'periode' => 'required',
-    //         'nama_pemanfaatan' => 'required',
+    //         'kategori_id' => 'required',
 
     //     ], [
     //         'rumah_tangga_id.required' => 'Lengkapi Warga Yang Didata',
-    //         'nama_pemanfaatan.required' => 'Pilih Kegiatan',
+    //         'kategori_id.required' => 'Pilih Kegiatan',
     //         'periode.required' => 'Pilih Periode',
 
     //     ]);
-    //     if (!isUnique($request->nama_pemanfaatan)) {
+    //     if (!isUnique($request->kategori_id)) {
     //         return redirect()
     //             ->back()
     //             ->withErrors(['data' => ' tidak boleh sama']);
     //     }
 
 
-    //     foreach ($request->nama_pemanfaatan as $key => $item) {
+    //     foreach ($request->kategori_id as $key => $item) {
     //         // dd($item);
     //         if ($item !== null && $item !== '') {
     //             $checkDataAavilable = DataPemanfaatanPekarangan::where('rumah_tangga_id', $request->rumah_tangga_id)->
@@ -243,18 +255,19 @@ class DataPemanfaatanPekaranganController extends Controller
         $request->validate([
             'rumah_tangga_id' => 'required|exists:rumah_tanggas,id',
             'periode' => 'required',
-            'nama_pemanfaatan' => 'required',
+            'kategori_id' => 'required',
 
         ], [
             'rumah_tangga_id.required' => 'Lengkapi Warga Yang Didata',
-            'nama_pemanfaatan.required' => 'Pilih Kegiatan',
+            'kategori_id.required' => 'Pilih Kegiatan',
             'periode.required' => 'Pilih Periode',
 
         ]);
-        if (!isUnique($request->nama_pemanfaatan)) {
+
+        if (!isUnique($request->kategori_id)) {
             return redirect()
                 ->back()
-                ->withErrors(['data' => ' tidak boleh sama']);
+                ->withErrors(['data' => 'nama pemanfaatan tidak boleh sama']);
         }
 
         // Delete existing data for the given rumah_tangga_id and periode
@@ -262,8 +275,8 @@ class DataPemanfaatanPekaranganController extends Controller
             ->where('periode', $request->periode)
             ->delete();
 
-        // Create new data for each nama_pemanfaatan value
-        foreach ($request->nama_pemanfaatan as $key => $item) {
+        // Create new data for each kategori_id value
+        foreach ($request->kategori_id as $key => $item) {
             if ($item !== null && $item !== '') {
                 DataPemanfaatanPekarangan::create([
                     'id_desa' => 1,
@@ -271,6 +284,7 @@ class DataPemanfaatanPekaranganController extends Controller
                     'rumah_tangga_id' => $request->rumah_tangga_id,
                     'kategori_id' => $item,
                     'periode' => $request->periode,
+                    'is_valid' => now()
                 ]);
             }
         }
@@ -295,7 +309,9 @@ class DataPemanfaatanPekaranganController extends Controller
         if (!$hasKeluarga) {
             abort(404, 'Not Found');
         }
+
         $hasKeluarga->delete();
+
 
         $countPemanfaatan = DataPemanfaatanPekarangan::where('rumah_tangga_id', $rumahTanggaId)->count();
 
@@ -303,9 +319,12 @@ class DataPemanfaatanPekaranganController extends Controller
         if($countPemanfaatan == 0){
             $dataKeluarga->is_pemanfaatan_lahan = false;
             $dataKeluarga->update();
-        return redirect()->route('data_pemanfaatan.index');
+
+
+            return redirect()->route('data_pemanfaatan.index');
 
         }
+
 
         return redirect()->route('data_pemanfaatan.edit', ['id' => $rumahTanggaId]);
 

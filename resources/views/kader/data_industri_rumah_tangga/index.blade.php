@@ -39,8 +39,6 @@
                                             <th>No</th>
                                             <th>Nama Keluarga</th>
                                             <th>Kategori</th>
-                                            {{-- <th>Komoditi</th>
-                                            <th>Volume</th> --}}
                                             <th>Periode</th>
                                             <th>Aksi</th>
                                         </tr>

@@ -97,9 +97,9 @@
                 @foreach ($warga->pemanfaatanlahan as $lahan)
                 <div class="row">
                     <div class="col-md-11">
-                        <label for="nama_pemanfaatan">Nama Kategori Pemanfaatan</label>
-                        <select class="form-control selectNamaKegiatan" name="nama_pemanfaatan[]">
-                            <option disabled value="">Pilih Kegiatan</option>
+                        <label for="kategori_id">Nama Kategori Pemanfaatan</label>
+                        <select class="form-control selectNamaKegiatan" name="kategori_id[]">
+                            <option disabled selected value="">Pilih Kegiatan</option>
                             @foreach ($kategoriPemanfaatan as $item)
                                 <option
                                     {{ $item->id == $lahan->kategori_id ? ' selected' : '' }}
@@ -180,7 +180,7 @@
         console.log('data :>> ', data);
         var kategoriPemanfaatanLahan = @json($kategoriPemanfaatan);
         data = kategoriPemanfaatanLahan;
-console.log('kategoriPemanfaatanLahan :>> ', kategoriPemanfaatanLahan);
+        console.log('kategoriPemanfaatanLahan :>> ', kategoriPemanfaatanLahan);
 
         // Event listener untuk tombol "Add"
         const addButton = document.querySelector('#addButton');
@@ -197,11 +197,11 @@ console.log('kategoriPemanfaatanLahan :>> ', kategoriPemanfaatanLahan);
 
                 const namaKegiatanLabel = document.createElement('label');
                 namaKegiatanLabel.textContent = 'Nama Kegiatan';
-                namaKegiatanLabel.htmlFor = 'nama_pemanfaatan'; // Set 'for' attribute for label
+                namaKegiatanLabel.htmlFor = 'kategori_id'; // Set 'for' attribute for label
 
                 const namaKegiatanSelect = document.createElement('select');
                 namaKegiatanSelect.className = 'form-control selectNamaKegiatan';
-                namaKegiatanSelect.name = 'nama_pemanfaatan[]';
+                namaKegiatanSelect.name = 'kategori_id[]';
 
                 const deleteButtonDiv = document.createElement('div');
                 deleteButtonDiv.className =
@@ -235,6 +235,8 @@ console.log('kategoriPemanfaatanLahan :>> ', kategoriPemanfaatanLahan);
                 const defaultOptionNamaKegiatan = document.createElement('option');
                 defaultOptionNamaKegiatan.value = '';
                 defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kategori ';
+                defaultOptionNamaKegiatan.selected = true;
+                defaultOptionNamaKegiatan.disabled = true;
                 newSelect.appendChild(defaultOptionNamaKegiatan);
 
                 // Add options based on data

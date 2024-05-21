@@ -323,7 +323,7 @@ Route::middleware(['user_type:kader_dasawisma'])->group(function(){
         'update','destroy'
     ]);
     Route::get('data_industri/{id}/edit', [DataIndustriRumahController::class, 'edit'])->name('data_industri.edit');
-    Route::delete('data_industri/{id}/deleted', [DataIndustriRumahController::class, 'destroyz'])->name('data_industri.destroy');
+    Route::delete('data_industri/{id}/deleted', [DataIndustriRumahController::class, 'destroy'])->name('data_industri.destroy');
     // Route::delete('data_industri/{id}/deleted/all', [DataIndustriRumahController::class, 'deleted_all'])->name('data_industri.deleted_all');
 
 
