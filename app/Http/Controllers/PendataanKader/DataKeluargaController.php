@@ -18,6 +18,7 @@ use App\Models\NotifDataKeluarga;
 use App\Models\Periode;
 use App\Models\RumahTangga;
 use App\Models\RumahTanggaHasKeluarga;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -319,6 +320,7 @@ class DataKeluargaController extends Controller
             // 'punya_jamban' => $request->punya_jamban,
             'rt' => $request->rt,
             'rw' => $request->rw,
+            'is_valid' => Carbon::now(),
             // 'dusun' => $request->dusun,
             'provinsi' => $request->provinsi,
             'id_dasawisma' => $request->id_dasawisma,

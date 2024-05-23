@@ -42,7 +42,19 @@
                                         </td> --}}
 
                                         <td class="text-center">
-                                            <a class="btn btn-primary btn-sm" href="{{ url('rekap_kelompok_pkk_rt', ['id' => $c->id]) }}">Rekap</a>
+                                            <div class="form-group">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Rekap
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        @foreach ($periode as $item)
+                                                        <a class="dropdown-item" href="{{ url('rekap_kelompok_pkk_rt', ['id' => $c->id]) }}?periode={{ $item->tahun }}">{{ $item->tahun }}</a>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{-- <a class="btn btn-primary btn-sm" href="{{ url('rekap_kelompok_pkk_rt', ['id' => $c->id]) }}">Rekap</a> --}}
                                         </td>
                                     </tr>
                                     @endforeach

@@ -15,6 +15,7 @@ use App\Models\DataKecamatan;
 use App\Http\Controllers\Controller;
 use App\Models\DataDusun;
 use App\Models\DataKeluarga;
+use App\Models\Periode;
 use App\Models\Rt;
 use App\Models\RumahTangga;
 use App\Models\Rw;
@@ -276,11 +277,16 @@ class DesaController extends Controller
     // }
 
     // bener
-    public function rekapitulasi($id)
+    public function rekapitulasi(Request $request,$id)
     {
         // $user = Auth::user();
-        // dd($user);
-        $dusun = Dusun::with(['rw', 'rt'])
+        if($request->periode){
+            $periode = $request->periode;
+        }else{
+            $periode = Carbon::now()->year;
+        }
+        // dd($periode);
+        $dusun = Dusun::with(['rw', 'rt','desa.kecamatan'])
             ->where('desa_id', $id)
             ->get();
         $totalDusun = $dusun->count();
@@ -318,16 +324,23 @@ class DesaController extends Controller
         $totalbalitaPerempuan = 0;
         $totalPUS= 0 ;
 
+        $desa = Data_Desa::find($id);
+
+
         // dd($dataRt);
         // dd($dasawisma);
         foreach ($dataRt as $drt) {
             // $totalRt++;
             foreach ($drt->dasawisma as $item) {
                 # code...
-                $totalKeluarga += DataKeluarga::where('id_dasawisma', $item->id)->count();
+                $totalKeluarga += DataKeluarga::where('id_dasawisma', $item->id)
+                ->where('periode',$periode)
+                ->count();
 
                 $totalDasawisma++;
-                $rumah = RumahTangga::where('id_dasawisma', $item->id)->get();
+                $rumah = RumahTangga::where('id_dasawisma', $item->id)
+                ->where('periode',$periode)
+                ->get();
                 foreach ($rumah as $keluarga) {
                     $totalRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {
@@ -372,16 +385,6 @@ class DesaController extends Controller
                             $totalIndustri++;
                         }
                         foreach ($anggotaRumah->keluarga->anggota as $anggota) {
-                            // foreach ($anggota->warga->industri as $industri) {
-                            //     if ($industri) {
-                            //         $industri_rumah_tangga++;
-                            //     }
-                            // }
-                            // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                            //     if ($pemanfaatan) {
-                            //         $data_pemanfaatan_pekarangan++;
-                            //     }
-                            // }
                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                             $umurz = $tgl_lahir->diffInYears($today);
 
@@ -447,7 +450,11 @@ class DesaController extends Controller
 
         // dd($totalRw);
         // dd($dusun);
+        $dataPeriode = Periode::all();
         return view('admin_kec.rekapitulasi_desa', compact(
+            'periode',
+            'dataPeriode',
+            'desa',
             'dusun',
             'totalDusun',
             'totalRw',
@@ -708,8 +715,11 @@ class DesaController extends Controller
 
     public function export(Request $request,$id)
     {
-        // $user = Auth::user();
-        // dd($user);
+        if($request->periode){
+            $periode = $request->periode;
+        }else{
+            $periode = Carbon::now()->year;
+        }
         $dusun = Dusun::with(['rw', 'rt'])
             ->where('desa_id', $id)
             ->get();
@@ -754,10 +764,14 @@ class DesaController extends Controller
             // $totalRt++;
             foreach ($drt->dasawisma as $item) {
                 # code...
-                $totalKeluarga += DataKeluarga::where('id_dasawisma', $item->id)->count();
+                $totalKeluarga += DataKeluarga::where('id_dasawisma', $item->id)
+                ->where('periode',$periode)
+                ->count();
 
                 $totalDasawisma++;
-                $rumah = RumahTangga::where('id_dasawisma', $item->id)->get();
+                $rumah = RumahTangga::where('id_dasawisma', $item->id)
+                ->where('periode',$periode)
+                ->get();
                 foreach ($rumah as $keluarga) {
                     $totalRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {
@@ -877,6 +891,7 @@ class DesaController extends Controller
 
 
         $export = new RekapKelompokDesaExport( compact(
+            'periode',
             'dusun',
             'totalDusun',
             'totalRw',

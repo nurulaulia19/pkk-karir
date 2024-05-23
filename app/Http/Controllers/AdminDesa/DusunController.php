@@ -27,7 +27,7 @@ class DusunController extends Controller
         return view('admin_desa.dusun.index', compact('dusun'));
     }
 
-    public function countDataInDusun(Dusun $dusun)
+    public function countDataInDusun(Dusun $dusun,$periode)
     {
         $countRw = Rw::where('dusun_id', $dusun->id)->count();
         $countRt = Rt::where('dusun_id', $dusun->id)->count();
@@ -70,10 +70,15 @@ class DusunController extends Controller
             $dasawisma = DasaWisma::where('id_rt', $rt->id)->get();
             foreach ($dasawisma as $item) {
                 # code...
-                $countKK += DataKeluarga::where('id_dasawisma', $item->id)->count();
+                $countKK += DataKeluarga::where('id_dasawisma', $item->id)
+                ->where('periode',$periode)
+                ->count()
+                ;
 
                 $countDasawisma++;
-                $rumah = RumahTangga::where('id_dasawisma', $item->id)->get();
+                $rumah = RumahTangga::where('id_dasawisma', $item->id)
+                ->where('periode',$periode)
+                ->get();
                 foreach ($rumah as $keluarga) {
                     $countRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {

@@ -20,22 +20,40 @@
                                     <h6 class="d-flex justify-content-center"><strong>CATATAN DATA DAN KEGIATAN
                                             WARGA</strong> </h6>
                                     <h6 class="d-flex justify-content-center"><strong>KELOMPOK DESA/KELURAHAN</strong> </h6>
-                                    <h6 class="d-flex justify-content-center"><strong>TAHUNx</strong> </h6>
+                                    <h6 class="d-flex justify-content-center"><strong>TAHUN {{ $periode }}</strong> </h6>
                                 </div>
-                                <div>
-                                    <h6>Desa/Kel :
-                                        x
-                                    </h6>
-                                    <h6>Kecamatan :
-                                        x
-                                    </h6>
-                                    <h6>Kabupaten :
-                                        x
-                                    </h6>
-                                    <h6>Provinsi :
-                                        x
-                                    </h6>
+                                <div class="d-flex justify-content-between align-items-end">
+                                    <div>
+                                        <h6>Desa/Kel :
+                                            {{ $dusun->first()->desa->nama_desa }}
+
+                                        </h6>
+                                        <h6>Kecamatan :
+                                            {{ $dusun->first()->desa->kecamatan->nama_kecamatan }}
+                                        </h6>
+                                        <h6>Kabupaten :
+                                            Indramayu
+                                        </h6>
+                                        <h6>Provinsi :
+                                            Jawa Barat
+                                        </h6>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {{$periode}}
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                @foreach ($dataPeriode as $item)
+
+                                                    <a class="dropdown-item" href="{{ route('dashboard_kec.rekapitulasi',['id' =>$desa->id]) }}?periode={{$item->tahun}}">{{ $item->tahun }}</a>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
 
 
                                 <div class="table-responsive">
@@ -90,7 +108,7 @@
                                                 @php
                                                     $counts = app(
                                                         'App\Http\Controllers\AdminDesa\DusunController',
-                                                    )->countDataInDusun($dsn);
+                                                    )->countDataInDusun($dsn,$periode);
                                                 @endphp
 
                                                 <tr>
@@ -369,7 +387,9 @@
                                     </table>
 
                                 </div>
-                                <a href="{{ url('export_rekap_desa/kecamatan', ['id' => $dusun->first()->desa_id]) }}" target="_blank"
+                                <a href="{{ url('export_rekap_desa/kecamatan', ['id' => $dusun->first()->desa_id]) }}
+                                    ?periode={{ $periode }}
+                                    " target="_blank"
                                     class="btn btn-success" type="button" role="button">
                                     <i class="fas fa-print"></i> Cetak ke Excel </a><br>
                             </div>

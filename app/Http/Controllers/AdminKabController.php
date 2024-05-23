@@ -13,6 +13,7 @@ use App\Models\DataKabupaten;
 use App\Models\DataKecamatan;
 use App\Models\DataKelompokDasawisma;
 use App\Models\DataKeluarga;
+use App\Models\DataPemanfaatanPekarangan;
 use App\Models\DataRekapDesa;
 use App\Models\DataRekapKecamatan;
 use App\Models\DataWarga;
@@ -58,6 +59,7 @@ class AdminKabController extends Controller
                 $wargaBaru = $keluarga->replicate();
                 $wargaBaru->periode = Carbon::now()->year;
                 $wargaBaru->is_valid = null;
+                $wargaBaru->is_valid_industri = null;
                 $wargaBaru->save();
                 foreach($keluarga->anggota as $anggota){
                     $wargaFind = DataWarga::where('periode',now()->year)
@@ -69,21 +71,36 @@ class AdminKabController extends Controller
                 }
 
             }
-            $dataRumahTangga = RumahTangga::with('anggotaRT.keluarga')->where('periode', $nowPeriode->tahun - 1 )->get();
+            $dataRumahTangga = RumahTangga::with(['anggotaRT.keluarga','pemanfaatanlahan'])->where('periode', $nowPeriode->tahun - 1 )->get();
             foreach ($dataRumahTangga as $rumahtangga) {
                 $wargaBaru = $rumahtangga->replicate();
                 $wargaBaru->periode = Carbon::now()->year;
                 $wargaBaru->is_valid = null;
+                $wargaBaru->is_valid_pemanfaatan_lahan = null;
+
                 $wargaBaru->save();
                 foreach($rumahtangga->anggotaRT as $anggota){
                     // $keluargaFind = DataKeluarga::find($anggota->keluarga_id);
                     $keluargaFind = DataKeluarga::where('periode',now()->year)
                     ->where('nama_kepala_keluarga',$anggota->keluarga->nama_kepala_keluarga)->first();
                     RumahTanggaHasKeluarga::create([
-                        'keluarga_id' => $wargaBaru->id,
-                        'warga_id' => $keluargaFind->id
+                        'rumahtangga_id' => $wargaBaru->id,
+                        'keluarga_id' => $keluargaFind->id,
+                        'status' => $anggota->status
                     ]);
                 }
+                foreach($rumahtangga->pemanfaatanlahan as $lahan){
+                    DataPemanfaatanPekarangan::create([
+                        'id_desa' =>1,
+                        'id_kecamatan' =>1 ,
+                        'rumah_tangga_id' => $wargaBaru->id,
+                        'kategori_id' => $lahan->kategori_id,
+                        'periode' => now()->year(),
+                        'is_valid' => null
+                    ]);
+                }
+
+                //PR PEMANFATAAN LAHAN BELUM DI LOOPONG
             }
 
 

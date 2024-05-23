@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -48,6 +49,7 @@ protected $totalPerempuan;
 protected $totalWUS;
 protected $totalbalitaPerempuan;
 protected $totalPUS;
+protected $periode;
 
 
 public function __construct(array $data)
@@ -85,6 +87,7 @@ public function __construct(array $data)
     $this->totalWUS = $data['totalWUS'] ?? null;
     $this->totalbalitaPerempuan = $data['totalbalitaPerempuan'] ?? null;
     $this->totalPUS = $data['totalPUS'] ?? null;
+    $this->periode = $data['periode'] ?? Carbon::now()->year;
 }
 
 
@@ -98,7 +101,7 @@ public function __construct(array $data)
         foreach ($dusun as $desa) {
             $counts = app(
                 'App\Http\Controllers\AdminDesa\DusunController',
-            )->countDataInDusun($desa);
+            )->countDataInDusun($desa,$this->periode);
 
             $data = [
                 '_index' => $i,
@@ -262,7 +265,7 @@ public function __construct(array $data)
             ['CATATAN DATA DAN KEGIATAN WARGA'],
             ['TP PKK DESA/KELURAHAN'],
             [
-                'TAHUN ' . ($this->dusun->first()->rt->first()->dasawisma->first()->periode),
+                'TAHUN ' . ($this->periode),
             ],
             [
                 'TP PKK Desa/Kelurahan : ' . ($this->dusun->first()->rt->first()->first()->dasawisma->first()->desa->nama_desa),

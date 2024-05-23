@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -44,6 +45,7 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
     protected $totalAirPDAM;
     protected $totalAirSumur;
     protected $totalAirLainya;
+    protected $periode;
 
     public function __construct(array $data)
     {
@@ -77,6 +79,7 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
         $this->totalAirSumur = $data['totalAirSumur'] ?? null;
         $this->totalAirLainya = $data['totalAirLainya'] ?? null;
         $this->totalKegiatanLingkungan = $data['totalKegiatanLingkungan'] ?? null;
+        $this->periode = $data['periode'] ?? Carbon::now()->year;
     }
 
     /**
@@ -241,7 +244,7 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
             ['RT : ' . strtoupper($this->dasa_wisma->rt->name)],
             ['RW : ' . strtoupper($this->dasa_wisma->rw->name)],
             ['DESA/KEL : ' . strtoupper($this->dasa_wisma->desa->nama_desa)],
-            ['TAHUN : ' . strtoupper($this->dasa_wisma->periode)],
+            ['TAHUN : ' . strtoupper($this->periode)],
             [],
             $headings,
             $headings2,

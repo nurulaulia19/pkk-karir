@@ -20,9 +20,10 @@
                                     <h6><strong>CATATAN DATA DAN KEGIATAN WARGA</strong> </h6>
                                     <h6><strong>KELOMPOK PKK DUSUN</strong> </h6>
 
-                                    <h6>Dusun : x</h6>
-                                    <h6>Desa/Kel : </h6>
-                                    <h6>Tahun : </h6>
+                                    <h6>Dusun : {{ $dusun_data->name }}</h6>
+                                    {{-- @dd($dusun) --}}
+                                    <h6>Desa/Kel : {{ $dusun_data->desa->nama_desa }} </h6>
+                                    <h6>Tahun : {{ $periode }}</h6>
                                 </center>
 
                                 <div class="table-responsive">
@@ -244,7 +245,7 @@
                                 </div>
                                 {{-- <a href="" target="_blank" class="btn btn-success" type="button" role="button">
                                 <i class="fas fa-print"></i> Cetak ke Excel </a> --}}
-                                <a href="{{ url('export_rekap_dusun',['id' => $dusun_data->id]) }}" target="_blank" class="btn btn-success" role="button">
+                                <a href="{{ url('export_rekap_dusun',['id' => $dusun_data->id]) }}tahun?={{$periode}}" target="_blank" class="btn btn-success" role="button">
                                     <i class="fas fa-print"></i> Cetak ke Excel
                                 </a>
                                 <br>

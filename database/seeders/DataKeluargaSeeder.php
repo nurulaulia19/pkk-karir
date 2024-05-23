@@ -10,19 +10,22 @@ use Illuminate\Database\Seeder;
 
 class DataKeluargaSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     public function run()
     {
         $kepala = DataWarga::find(1);
         $keluarga = DataKeluarga::create([
             'nama_kepala_keluarga' => $kepala->nama,
+            'nik_kepala_keluarga' => $kepala->no_ktp,
             'id_dasawisma' => 1,
             'periode' => 2023,
-            'is_valid' => '2023-02-02'
+            'is_rumah_tangga' =>   true,
+            'industri_id' =>   1,
+            'is_valid' => '2023-02-02',
+            'is_valid_industri' => '2023-02-02',
+
+            //tambahan seeder dari rumah tangga
+            'is_rumah_tangga' => 1
         ]);
 
             Keluargahaswarga::create([
@@ -39,6 +42,7 @@ class DataKeluargaSeeder extends Seeder
             $kelapa = DataWarga::find(3);
             $keluarga2 = DataKeluarga::create([
                 'nama_kepala_keluarga' => $kelapa->nama,
+                'nik_kepala_keluarga' => $kepala->no_ktp,
                 'id_dasawisma' => 1,
                 'periode' => 2023,
                 'is_valid' => '2023-02-02'

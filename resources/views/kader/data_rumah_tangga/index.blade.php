@@ -56,7 +56,13 @@
                                         </td>
 
                                         {{-- nama desa yang login --}}
-                                        <td style="vertical-align: middle;">{{ $c->nama_kepala_rumah_tangga}} </td>
+                                        <td style="vertical-align: middle;">{{ $c->nama_kepala_rumah_tangga}}
+                                            @if (!$c->is_valid)
+                                            <button class="btn btn-success btn-sm">
+                                                edit untuk validasi
+                                            </button>
+                                        @endif
+                                        </td>
                                         <td style="vertical-align: middle;">
                                             @if ($c->dasawisma)
                                                 {{ ucfirst($c->dasawisma->nama_dasawisma) }}

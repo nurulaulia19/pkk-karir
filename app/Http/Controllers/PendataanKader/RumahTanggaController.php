@@ -116,9 +116,10 @@ class RumahTanggaController extends Controller
 
         $keluarga = RumahTangga::create([
             'nama_kepala_rumah_tangga' => $keluargaKetua->nama_kepala_keluarga,
+            'nik_kepala_rumah_tangga' => $keluargaKetua->nik_kepala_keluarga,
             'id_dasawisma' => $request->id_dasawisma,
             'dusun' => $request->dusun,
-            // 'punya_jamban' => $request->punya_jamban,
+            // 'punya_jamban' => $rewquest->punya_jamban,
             // 'punya_tempat_sampah' => $request->punya_tempat_sampah,
             // // 'kriteria_rumah_sehat' => $request->kriteria_rumah_sehat,
             'punya_jamban' => $validatedData['punya_jamban'],

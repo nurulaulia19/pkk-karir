@@ -20,6 +20,7 @@ return new class extends Migration
             // $table->string('dusun')->nullable();
             $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma');
             $table->string('nama_kepala_rumah_tangga');
+            $table->string('nik_kepala_rumah_tangga');
             $table->boolean('punya_jamban')->default(false);
             $table->boolean('punya_tempat_sampah')->default(false);
             $table->boolean('kriteria_rumah_sehat')->default(false);
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->boolean('sumber_air_sumur')->default(false);
             $table->boolean('sumber_air_lainnya')->default(false);
             $table->boolean('is_pemanfaatan_lahan')->default(false);
+            $table->date('is_valid_pemanfaatan_lahan')->nullable();
             $table->date('is_valid')->nullable();
             $table->timestamps();
         });

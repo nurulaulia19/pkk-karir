@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -44,6 +45,7 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
     protected $totalAnggotaWUS;
     protected $totalAnggotaBalitaPerempuan;
     protected $totalAnggotaPUS;
+    protected $periode;
 
 
 
@@ -78,6 +80,7 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
         $this->totalAnggotaWUS = $data['totalAnggotaWUS'] ?? 0;
         $this->totalAnggotaBalitaPerempuan = $data['totalAnggotaBalitaPerempuan'] ?? 0;
         $this->totalAnggotaPUS = $data['totalAnggotaPUS'] ?? 0;
+        $this->periode = $data['periode'] ?? Carbon::now()->year;
     }
 
     public function array(): array
@@ -90,7 +93,7 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
             $keluarga = $desa->keluarga;
             $counts = app(
                 'App\Http\Controllers\AdminController',
-            )->countRekapitulasiDasawismaInRt($desa->id);
+            )->countRekapitulasiDasawismaInRt($desa->id, $this->periode);
 
             $data = [
                 '_index' => $i,
@@ -252,7 +255,7 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
                 'DESA/KELURAHAN : ' . strtoupper($this->dasa_wisma->first()->desa->nama_desa),
             ],
             [
-                'TAHUN : ' . strtoupper($this->dasa_wisma->first()->periode),
+                'TAHUN : ' . strtoupper($this->periode),
             ],
             // ['DESA/KELURAHAN : ' . $this->desa->nama_desa],
             // ['TAHUN : ' . $this->periode],

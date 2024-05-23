@@ -17,5 +17,8 @@ class Dusun extends Model
     public function rt(){
         return $this->hasMany(Rt::class, 'dusun_id');
     }
+    public function desa(){
+        return $this->belongsTo(Data_Desa::class, 'desa_id');
+    }
 
 }

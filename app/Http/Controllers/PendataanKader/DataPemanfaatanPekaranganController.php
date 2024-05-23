@@ -269,6 +269,10 @@ class DataPemanfaatanPekaranganController extends Controller
                 ->back()
                 ->withErrors(['data' => 'nama pemanfaatan tidak boleh sama']);
         }
+        $rumah = RumahTangga::find($request->rumah_tangga_id);
+        // isi denan tanggal
+        $rumah->is_valid_pemanfaatan_lahan = now();
+        $rumah->update();
 
         // Delete existing data for the given rumah_tangga_id and periode
         DataPemanfaatanPekarangan::where('rumah_tangga_id', $request->rumah_tangga_id)
@@ -278,6 +282,10 @@ class DataPemanfaatanPekaranganController extends Controller
         // Create new data for each kategori_id value
         foreach ($request->kategori_id as $key => $item) {
             if ($item !== null && $item !== '') {
+                $checkDataAavilable = DataPemanfaatanPekarangan::where('rumah_tangga_id', $request->rumah_tangga_id)->
+                where('kategori_id', $request->kategori_id)->first();
+                if(!$checkDataAavilable){
+
                 DataPemanfaatanPekarangan::create([
                     'id_desa' => 1,
                     'id_kecamatan' => 1,
@@ -286,6 +294,8 @@ class DataPemanfaatanPekaranganController extends Controller
                     'periode' => $request->periode,
                     'is_valid' => now()
                 ]);
+            }
+
             }
         }
 

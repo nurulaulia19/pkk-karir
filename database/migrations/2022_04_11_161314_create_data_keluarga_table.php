@@ -24,10 +24,13 @@ return new class extends Migration
             // $table->string('dusun')->nullable();
             // $table->string('provinsi');
             $table->string('nama_kepala_keluarga');
+            $table->string('nik_kepala_keluarga');
+
             // $table->boolean('punya_jamban');
             $table->boolean('is_rumah_tangga')->default(false);
             $table->bigInteger('industri_id')->default(0);
             $table->date('is_valid')->nullable();
+            $table->date('is_valid_industri')->nullable();
             $table->timestamps();
         });
     }

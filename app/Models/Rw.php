@@ -26,5 +26,9 @@ class Rw extends Model
     {
         return $this->belongsTo(Dusun::class);
     }
+    public function desa()
+    {
+        return $this->belongsTo(Data_Desa::class,'desa_id');
+    }
 
 }

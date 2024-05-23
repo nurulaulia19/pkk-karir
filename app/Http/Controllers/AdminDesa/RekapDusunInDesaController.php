@@ -9,6 +9,7 @@ use App\Models\Rt;
 use App\Models\Rw;
 use App\Models\Dusun;
 use App\Models\DasaWisma;
+use App\Models\Periode;
 use App\Models\RumahTangga;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,10 +18,14 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class RekapDusunInDesaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        // dd($user);
+        if($request->periode){
+            $periode = $request->periode;
+        }else{
+            $periode = Carbon::now()->year;
+        }
         $dusun = Dusun::with(['rw', 'rt'])
             ->where('desa_id', $user->id_desa)
             ->get();
@@ -58,6 +63,7 @@ class RekapDusunInDesaController extends Controller
         $totalWUS = 0;
         $totalbalitaPerempuan = 0;
         $totalPUS= 0 ;
+        $periodeAll = Periode::all();
 
         // dd($dataRt);
         // dd($dasawisma);
@@ -65,12 +71,17 @@ class RekapDusunInDesaController extends Controller
             // $totalRt++;
             foreach ($drt->dasawisma as $item) {
                 # code...
-                $totalKeluarga += DataKeluarga::where('id_dasawisma', $item->id)->count();
+                $totalKeluarga += DataKeluarga::where('id_dasawisma', $item->id)
+                ->where('periode',$periode)
+                ->count();
 
                 $totalDasawisma++;
-                $rumah = RumahTangga::where('id_dasawisma', $item->id)->get();
+                $rumah = RumahTangga::where('id_dasawisma', $item->id)->get()
+                ->where('periode',$periode)
+                ;
                 foreach ($rumah as $keluarga) {
-                    $totalRumahTangga++;
+                    if($keluarga){
+                        $totalRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {
                         foreach ($keluarga->pemanfaatanlahan as $lahan) {
                             if ($lahan) {
@@ -182,12 +193,15 @@ class RekapDusunInDesaController extends Controller
                             }
                         }
                     }
+                    }
                 }
             }
         }
         // dd($totalRw);
         // dd($dusun);
         return view('admin_desa.data_rekap.rekap_desa.index', compact(
+            'periode',
+            'periodeAll',
             'dusun',
             'totalDusun',
             'totalRw',
@@ -433,15 +447,22 @@ class RekapDusunInDesaController extends Controller
     public function dataDusun()
     {
         $dusun = Dusun::all();
+        $periode = Periode::all();
         // return response()->json($dusun);
-        return view('admin_desa.dusun.index', compact('dusun'));
+        return view('admin_desa.dusun.index', compact('dusun','periode'));
     }
 
-    public function rekapDusun($id)
+    public function rekapDusun(Request $request,$id)
     {
         // dd('hello world');
-        $result = $this->rtrwdusun($id);
+        if($request->periode){
+            $periode = $request->periode;
+        }else{
+            $periode = Carbon::now()->year;
+        }
+        $result = $this->rtrwdusun($id,$periode);
         $user = Auth::user();
+
         $dusun = $result;
         $dusun_data = Dusun::find($id);
         $dataRt = Rt::with('dasawisma')->where('dusun_id', $id)->get();
@@ -482,7 +503,7 @@ class RekapDusunInDesaController extends Controller
                 $totalDasawisma++;
                 foreach ($dasawisma->rumahtangga as $rumahtangga) {
                     // $totalRumahTangga++;
-                    if ($rumahtangga) {
+                    if ($rumahtangga->periode == $periode) {
                         $totalRumahTangga++;
                         if ($rumahtangga->pemanfaatanlahan) {
                             foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
@@ -596,6 +617,7 @@ class RekapDusunInDesaController extends Controller
 
         // dd($dusun_data);
         return view('admin_desa.dusun.rekap', compact(
+            'periode',
             'dusun',
             'dusun_data',
             'totalRt',
@@ -633,10 +655,10 @@ class RekapDusunInDesaController extends Controller
     }
 
 
-    public function rtrwdusun($id)
+    public function rtrwdusun($id,$periode)
     {
         $rwInRtDusun = [];
-        $rt = Rt::with('rw')->where('dusun_id', $id)->get();
+        $rt = Rt::with('rw.desa')->where('dusun_id', $id)->get();
         // dd($rt);
         $tempuniqueRwInRtDusun = [];
         $dataRw = [];
@@ -695,8 +717,9 @@ class RekapDusunInDesaController extends Controller
                         foreach ($item->dasawisma as $dasawisma) {
                             $totalDasawisma++;
                             foreach ($dasawisma->rumahtangga as $rumahtangga) {
-                                $totalRumahTangga++;
-                                if ($rumahtangga) {
+                                if ($rumahtangga->periode == $periode) {
+                                // $totalRumahTangga++;
+
                                     $totalRumahTangga++;
                                     if ($rumahtangga->pemanfaatanlahan) {
                                         foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
@@ -1434,10 +1457,8 @@ class RekapDusunInDesaController extends Controller
             'countAirLainya' => $countAirLainya,
             'countBeras' => $countBeras,
             'countNonBeras' => $countNonBeras,
-
             'countRt' => $countRt,
             'countDasawisma' => $countDasawisma,
-
             'laki_laki' => $countLakiLaki,
             'perempuan' => $countPerempuan,
             'balitaLaki' => $countbalitaLaki,
@@ -1461,7 +1482,13 @@ class RekapDusunInDesaController extends Controller
 
     public function export_rekap_dusun(Request $request, $id)
     {
-        $result = $this->rtrwdusun($id);
+        if($request->periode){
+            $periode = $request->periode;
+        }else{
+            $periode = Carbon::now()->year;
+        }
+        $result = $this->rtrwdusun($id,$periode);
+        // $periode = $periode;
         $user = Auth::user();
         $dusun = $result;
         $dusun_data = Dusun::find($id);
@@ -1489,21 +1516,21 @@ class RekapDusunInDesaController extends Controller
         $totalKegiatanLingkungan = 0;
         $totalKegiatanUP2K = 0;
         $totalAnggotaBerkebutuhanKhusus = 0 ;
-$totalMakanBeras = 0;
-$totalMakanNonBeras = 0;
-$totalAnggotaLaki = 0;
-$totalAnggotaBalitaLaki = 0;
-$totalAnggotaPerempuan = 0;
-$totalAnggotaWUS = 0;
-$totalAnggotaBalitaPerempuan = 0;
-$totalAnggotaPUS = 0;
+        $totalMakanBeras = 0;
+        $totalMakanNonBeras = 0;
+        $totalAnggotaLaki = 0;
+        $totalAnggotaBalitaLaki = 0;
+        $totalAnggotaPerempuan = 0;
+        $totalAnggotaWUS = 0;
+        $totalAnggotaBalitaPerempuan = 0;
+        $totalAnggotaPUS = 0;
         foreach ($dataRt as $item) {
             $totalRt++;
             foreach ($item->dasawisma as $dasawisma) {
                 $totalDasawisma++;
                 foreach ($dasawisma->rumahtangga as $rumahtangga) {
                     // $totalRumahTangga++;
-                    if ($rumahtangga) {
+                    if ($rumahtangga->periode == $periode) {
                         $totalRumahTangga++;
                         if ($rumahtangga->pemanfaatanlahan) {
                             foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {

@@ -7,6 +7,7 @@ use App\Models\DataKeluarga;
 use App\Models\DataWarga;
 use App\Models\KategoriIndustriRumah;
 use App\Models\Periode;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -44,11 +45,7 @@ class DataIndustriRumahController extends Controller
        return view('kader.data_industri_rumah_tangga.index', compact('industri','dataPeriode'));
    }
 
-   /**
-    * Show the form for creating a new resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+
    public function create()
    {
     $desas = DB::table('data_desa')
@@ -98,18 +95,19 @@ class DataIndustriRumahController extends Controller
 
         $keluarga = DataKeluarga::find($request->keluarga_id);
         $keluarga->industri_id = $request->kategori_industri_rumah_id;
+        $keluarga->is_valid_industri = Carbon::now();
         $keluarga->save();
 
         //tambahan
-        DataIndustriRumah::create([
-            'id_desa' => $request->id_desa,
-            'id_kecamatan' => $request->id_kecamatan,
-            'keluarga_id' => $request->keluarga_id,
-            'kategori_industri_rumah_id' => $request->kategori_industri_rumah_id,
-            'periode' => $request->periode,
-            'is_valid' => $request->is_valid,
-            // Add other necessary fields here
-        ]);
+        // DataIndustriRumah::create([
+        //     'id_desa' => $request->id_desa,
+        //     'id_kecamatan' => $request->id_kecamatan,
+        //     'keluarga_id' => $request->keluarga_id,
+        //     'kategori_industri_rumah_id' => $request->kategori_industri_rumah_id,
+        //     'periode' => $request->periode,
+        //     'is_valid' => $request->is_valid,
+        //     // Add other necessary fields here
+        // ]);
         Alert::success('Berhasil', 'Data berhasil di Tambah');
        return redirect('/data_industri');
 
@@ -175,6 +173,8 @@ class DataIndustriRumahController extends Controller
 
     $keluarga = DataKeluarga::find($id);
     $keluarga->industri_id = $request->kategori_industri_rumah_id;
+    $keluarga->is_valid_industri = Carbon::now();
+
     $keluarga->save();
 
     $dataIndustriRumah = DataIndustriRumah::where('keluarga_id', $id)->first();

@@ -52,6 +52,12 @@
                                         {{-- nama desa yang login --}}
                                         <td style="vertical-align: middle;">
                                             {{ucfirst($c->nama_kepala_rumah_tangga) }}
+
+                                            @if (!$c->is_valid_pemanfaatan_lahan)
+                                            <button class="btn btn-success btn-sm">
+                                                edit untuk validasi
+                                            </button>
+                                        @endif
                                         </td>
                                         {{-- <td style="vertical-align: middle;">{{ucfirst($c->keluarga->nama_kepala_rumah_tangga) }}</td> --}}
                                         {{-- @if ($c->nama_kategori == 1)

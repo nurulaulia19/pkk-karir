@@ -249,7 +249,7 @@
                                                     class="form-control js-example-basic-single" >
                                                     <option selected disabled>Pilih Nama Kepala Rumah Tangga</option>
                                                     @foreach ($kk as $kepala)
-                                                        <option value="{{ $kepala->id }}">{{ $kepala->nama_kepala_keluarga }} -</option>
+                                                        <option value="{{ $kepala->id }}">{{ $kepala->nama_kepala_keluarga }} - {{ $kepala->nik_kepala_keluarga }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('nama_kepala_rumah_tangga')
@@ -706,7 +706,7 @@
             data.forEach(function(item) {
                 var option = document.createElement('option');
                 option.value = item.id;
-                option.textContent = item.nama_kepala_keluarga;
+                option.textContent = item.nama_kepala_keluarga + ' - ' + item.nik_kepala_keluarga;
                 selectElement.appendChild(option);
             });
         }

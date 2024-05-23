@@ -48,7 +48,15 @@
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         {{-- nama desa yang login --}}
-                                        <td style="vertical-align: middle;">{{ucfirst($c->nama_kepala_keluarga) }}</td>
+                                        <td style="vertical-align: middle;">
+                                            {{ucfirst($c->nama_kepala_keluarga) }}
+
+                                            @if (!$c->is_valid_industri)
+                                            <button class="btn btn-success btn-sm">
+                                                edit untuk validasi
+                                            </button>
+                                        @endif
+                                        </td>
                                         <td style="vertical-align: middle;">
                                             @if ($c->industri)
                                             {{ucfirst($c->industri->nama_kategori)}}
