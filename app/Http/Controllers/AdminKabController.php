@@ -43,15 +43,34 @@ class AdminKabController extends Controller
             $nowPeriode = Periode::create([
                 'tahun' => now()->year
             ]);
-            $dataWarga = DataWarga::where('periode', $nowPeriode->tahun - 1 )->get();
-            foreach ($dataWarga as $warga) {
-                $wargaBaru = $warga->replicate(); // Membuat salinan dari data warga
-                $wargaBaru->periode = Carbon::now()->year; // Mengganti periode ke periode saat ini
-                $wargaBaru->is_valid = null; // Mengganti periode ke periode saat ini
-                echo "Periode Sebelum: " . $warga->periode . "\n"; // Print nilai periode sebelum diubah
-                echo "Periode Sesudah: " . $wargaBaru->periode . "\n"; // Print nilai periode setelah diubah
-                $wargaBaru->save(); // Menyimpan data warga baru ke database
-            }
+            $dataWarga = DataWarga::with('kegiatan')->where('periode', $nowPeriode->tahun - 1)->get();
+
+foreach ($dataWarga as $warga) {
+    // Replicate DataWarga record
+    $wargaBaru = $warga->replicate();
+    $wargaBaru->periode = Carbon::now()->year; // Set current year
+    $wargaBaru->is_valid = null; // Reset is_valid
+
+    echo "Periode Sebelum: " . $warga->periode . "\n"; // Print previous period
+    echo "Periode Sesudah: " . $wargaBaru->periode . "\n"; // Print new period
+
+    // Save the new DataWarga record
+    $wargaBaru->save();
+
+    // Check if there are related kegiatan
+    if ($warga->kegiatan) {
+        foreach ($warga->kegiatan as $kegiatan) {
+            // Replicate each kegiatan
+            $kegiatanBaru = $kegiatan->replicate();
+            $kegiatanBaru->warga_id = $wargaBaru->id; // Update warga_id to the new record's ID
+            $kegiatanBaru->periode = Carbon::now()->year; // Set current year
+            $kegiatanBaru->is_valid = null; // Reset is_valid
+
+            // Save the new kegiatan record
+            $kegiatanBaru->save();
+        }
+    }
+}
             $datakeluarga = DataKeluarga::with('anggota.warga')->where('periode', $nowPeriode->tahun - 1 )->get();
 
             foreach ($datakeluarga as $keluarga) {

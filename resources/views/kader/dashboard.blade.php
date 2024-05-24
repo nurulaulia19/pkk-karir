@@ -27,6 +27,12 @@
                     </div>
                     <div class="icon">
                         <i class="ion ion-person"></i>
+                        @if ($wargaBelumValid > 0)
+                        <div class="notification-badge">
+                            {{ $wargaBelumValid}}
+                        </div>
+                        @endif
+
                     </div>
                     <a href="/data_warga" class="small-box-footer"
                         >Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i
@@ -42,6 +48,11 @@
                 </div>
                 <div class="icon">
                     <i class="ion ion-person-stalker"></i>
+                    @if ($keluargaBelumValid > 0)
+                        <div class="notification-badge">
+                            {{ $keluargaBelumValid}}
+                        </div>
+                        @endif
                 </div>
                 <a href="/data_keluarga" class="small-box-footer"
                     >Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i
@@ -57,6 +68,11 @@
                 </div>
                 <div class="icon">
                     <i class="ion ion-person"></i>
+                    @if ($krtBelumValid > 0)
+                        <div class="notification-badge">
+                            {{ $krtBelumValid}}
+                        </div>
+                        @endif
                 </div>
                 <a href="/data_rumah_tangga" class="small-box-footer"
                     >Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i
@@ -67,11 +83,16 @@
                 <!-- small box -->
                 <div class="small-box bg-primary">
                 <div class="inner">
-                    <h3>{{ $kegiatan }}</h3>
+                    <h3>{{ $totalKegiatan }}</h3>
                     <p>Data Kegiatan Warga</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-folder"></i>
+                    @if ($totalKegiatanBelumValid > 0)
+                        <div class="notification-badge">
+                            {{ $totalKegiatanBelumValid}}
+                        </div>
+                        @endif
                 </div>
                 <a href="/data_kegiatan" class="small-box-footer"
                     >Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i
@@ -89,6 +110,12 @@
                   </div>
                   <div class="icon">
                     <i class="ion ion-folder"></i>
+                        @if ($pemanfaatanBelumValid > 0)
+                        <div class="notification-badge">
+                            {{ $pemanfaatanBelumValid}}
+                        </div>
+                        @endif
+
                   </div>
                   <a href="/data_pemanfaatan" class="small-box-footer"
                     >Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i
@@ -104,6 +131,13 @@
                 </div>
                 <div class="icon">
                     <i class="ion ion-home"></i>
+                    <div class="notification-badge">
+                        @if ($industriBelumValid > 0)
+                        <div class="notification-badge">
+                            {{ $industriBelumValid}}
+                        </div>
+                        @endif
+                    </div>
                 </div>
                 <a href="/data_industri" class="small-box-footer"
                     >Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i
@@ -121,6 +155,11 @@
                   </div>
                   <div class="icon">
                     <i class="ion ion-filing"></i>
+                    @if ($rekapBelumValid > 0)
+                        <div class="notification-badge">
+                            {{ $rekapBelumValid}}
+                        </div>
+                        @endif
                   </div>
                   <a href="/rekap" class="small-box-footer">Lihat Selengkapnya
                     <i class="fas fa-arrow-circle-right"></i>

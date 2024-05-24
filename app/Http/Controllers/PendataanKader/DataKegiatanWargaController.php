@@ -35,6 +35,7 @@ class DataKegiatanWargaController extends Controller
         }
 
         $dataPeriode = Periode::all();
+        // dd($kegiatan);
         return view('kader.data_kegiatan_warga.index', compact('kegiatan','dataPeriode'));
     }
     public function create()

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\DataKegiatanWarga;
 use App\Models\DataWarga;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,7 +16,7 @@ class WargaSeeder extends Seeder
      */
     public function run()
     {
-        DataWarga::create([
+        $abdulghani = DataWarga::create([
             'id_desa' => 1,
             'id_kecamatan' => 1,
             'id_dasawisma' => 1,
@@ -39,9 +40,17 @@ class WargaSeeder extends Seeder
             'ikut_koperasi' => 1,
             'memiliki_tabungan' => 1,
             'periode' => 2023,
-            'is_keluarga' => false,
-            'is_valid' => '2023-02-01'
+            'is_keluarga' => true,
+            'is_valid' => '2023-02-01',
+            'is_kegiatan' => true,
         ]);
+        DataKegiatanWarga::create([
+            'warga_id' => $abdulghani->id,
+            'data_kegiatan_id' => 1,
+            'periode' => 2023,
+            'is_valid' => now()
+        ]);
+
 
         DataWarga::create([
             'id_desa' => 1,

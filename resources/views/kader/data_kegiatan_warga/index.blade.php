@@ -47,7 +47,13 @@
                                         @foreach ($kegiatan as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                        <td style="vertical-align: middle;">{{ $c->nama }}</td>
+                                        <td style="vertical-align: middle;">{{ $c->nama }}
+                                            @if (!$c->kegiatan->first()->is_valid)
+                                            <button class="btn btn-success btn-sm">
+                                                edit untuk validasi
+                                            </button>
+                                        @endif
+                                        </td>
                                         <td style="vertical-align: middle;">
                                             <ul>
                                                 @foreach ($c->kegiatan as $item)

@@ -67,62 +67,109 @@ class KaderFormController extends Controller
         $kegiatan = 0;
         $pemanfaatan = 0;
         $industri = 0;
-        // $wargaAll = DataWarga::with(['kegiatan','industri'])->where('id_dasawisma', $user->id_dasawisma)->get();
-        // foreach($wargaAll as $item){
-        //     $warga++;
-        //     foreach($item->kegiatan as $keg){
-        //         $kegiatan++;
-        //     }
-        //     // foreach($item->pemanfaatan as $pem){
-        //     //     $pemanfaatan++;
-        //     // }
-        //     foreach($item->industri as $indus){
-        //         $industri++;
-        //     }
-        // }
-        // dd($warga);
+
 
         $warga = DataWarga::where('id_dasawisma', $user->id_dasawisma)
         ->where('periode', now()->year)
         ->where('is_valid', '!=', null)
+        ->count();
+        $wargaBelumValid = DataWarga::where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', now()->year)
+        ->where('is_valid', '=', null)
         ->count();
 
         $keluarga = DataKeluarga::where('id_dasawisma', $user->id_dasawisma)
         ->where('periode', now()->year)
         ->where('is_valid', '!=', null)
         ->count();
+        $keluargaBelumValid = DataKeluarga::where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', now()->year)
+        ->where('is_valid', '=', null)
+        ->count();
 
         $krt = RumahTangga::where('id_dasawisma', $user->id_dasawisma)
         ->where('periode', now()->year)
         ->where('is_valid', '!=', null)
+        ->count();
+        $krtBelumValid = RumahTangga::where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', now()->year)
+        ->where('is_valid', '=', null)
         ->count();
 
         $kegiatan = DataWarga::with(['kegiatan.kegiatan'])
         ->where('is_kegiatan', true)
         ->where('id_dasawisma', $user->id_dasawisma)
         ->where('periode', now()->year)
-        ->count();
+        ->get();
+        $totalKegiatan = 0;
+        $totalKegiatanBelumValid = 0;
+        foreach($kegiatan as $kg){
+            foreach($kegiatan->kegiatan as $a){
+                if($a->is_valid){
+                    $totalKegiatan++;
+                }else{
+                    $totalKegiatanBelumValid++;
+                }
+            }
+        }
+        // $kegiatan = DataKegiatanWarga::
+        // where('is_valid','!=', null)
+        // ->where('id_dasawisma', $user->id_dasawisma)
+        // ->where('periode', now()->year)
+        // ->count();
+
+
 
         $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')
         ->where('periode', now()->year)
         ->where('is_pemanfaatan_lahan', true)
-        ->where('is_valid', '!=', null)
+        ->where('is_valid_pemanfaatan_lahan', '!=', null)
+        ->count();
+        $pemanfaatanBelumValid = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')
+        ->where('periode', now()->year)
+        ->where('is_pemanfaatan_lahan', true)
+        ->where('is_valid_pemanfaatan_lahan', '=', null)
         ->count();
 
         $industri = DataKeluarga::with('industri')
         ->where('id_dasawisma', $user->id_dasawisma)
         ->where('periode', now()->year)
         ->where('industri_id' ,'!=' , null)
-        ->where('is_valid', '!=', null)
+        ->where('is_valid_industri', '!=', null)
+        ->count();
+        $industriBelumValid = DataKeluarga::with('industri')
+        ->where('id_dasawisma', $user->id_dasawisma)
+        ->where('industri_id' ,'!=' , 0)
+        ->where('is_valid_industri', '=', null)
+        ->where('periode', now()->year)
         ->count();
 
         $rekap = DataKeluarga::where('id_dasawisma', $user->id_dasawisma)
         ->where('is_valid', '!=', null)
         ->where('periode', now()->year)
         ->count();
+        $rekapBelumValid = DataKeluarga::where('id_dasawisma', $user->id_dasawisma)
+        ->where('is_valid', '=', null)
+        ->where('periode', now()->year)
+        ->count();
 
 
-        return view('kader.dashboard', compact('warga', 'keluarga', 'krt', 'kegiatan', 'pemanfaatan', 'industri',  'rekap'));
+
+        return view('kader.dashboard', compact(
+            'wargaBelumValid',
+            'warga', 'keluarga',
+            'keluargaBelumValid',
+            'krt',
+            'krtBelumValid',
+            'totalKegiatan',
+            'totalKegiatanBelumValid',
+
+            'pemanfaatan',
+            'pemanfaatanBelumValid',
+            'industri',
+            'industriBelumValid',
+        'rekapBelumValid' ,   'rekap',
+        ));
     }
 
     public function notif()
