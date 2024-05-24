@@ -264,6 +264,9 @@ class AdminKabController extends Controller
                         // Iterasi melalui setiap rumahtangga dalam dasawisma
                         foreach ($dasawisma->rumahtangga as $rumahtangga) {
                             if ($rumahtangga->periode == $periode) {
+                                if(!$rumahtangga->is_valid){
+                                    return redirect()->route('belum.vaidasi');
+                                }
                                 if($rumahtangga->pemanfaatanlahan){
                                     foreach ($rumahtangga->pemanfaatanlahan as $lahan){
                                         if($lahan){
@@ -672,6 +675,9 @@ class AdminKabController extends Controller
                         $rumah = RumahTangga::where('id_dasawisma', $item->id)->where('periode', $periode)->get();
                         foreach ($rumah as $keluarga) {
                             if($keluarga->pemanfaatanlahan){
+                                if(!$keluarga->is_valid){
+                                    return redirect()->route('belum.vaidasi');
+                                }
                                 foreach ($keluarga->pemanfaatanlahan as $lahan) {
                                         if ($lahan) {
                                             $totalPemanfaatanPekarangan++;

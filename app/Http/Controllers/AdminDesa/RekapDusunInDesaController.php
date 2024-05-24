@@ -77,10 +77,12 @@ class RekapDusunInDesaController extends Controller
 
                 $totalDasawisma++;
                 $rumah = RumahTangga::where('id_dasawisma', $item->id)->get()
-                ->where('periode',$periode)
-                ;
+                ->where('periode',$periode);
                 foreach ($rumah as $keluarga) {
                     if($keluarga){
+                        if(!$keluarga->is_valid){
+                            return redirect()->route('belum.vaidasi');
+                        }
                         $totalRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {
                         foreach ($keluarga->pemanfaatanlahan as $lahan) {
@@ -504,6 +506,9 @@ class RekapDusunInDesaController extends Controller
                 foreach ($dasawisma->rumahtangga as $rumahtangga) {
                     // $totalRumahTangga++;
                     if ($rumahtangga->periode == $periode) {
+                        if(!$rumahtangga->is_valid){
+                            return redirect()->route('belum.vaidasi');
+                        }
                         $totalRumahTangga++;
                         if ($rumahtangga->pemanfaatanlahan) {
                             foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {

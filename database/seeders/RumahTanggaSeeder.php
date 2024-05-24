@@ -43,7 +43,8 @@ class RumahTanggaSeeder extends Seeder
 
             //optional
             'is_pemanfaatan_lahan' => true,
-            'is_valid_pemanfaatan_lahan' => '2023-02-02'
+            'is_valid_pemanfaatan_lahan' => '2023-02-02',
+            'is_valid' => '2023-02-02'
 
         ]);
         // is_rumah_tangga = true

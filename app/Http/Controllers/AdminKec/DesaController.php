@@ -344,6 +344,9 @@ class DesaController extends Controller
                 foreach ($rumah as $keluarga) {
                     $totalRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {
+                        if(!$keluarga->is_valid){
+                            return redirect()->route('belum.vaidasi');
+                        }
                         foreach ($keluarga->pemanfaatanlahan as $lahan) {
                             if ($lahan) {
                                 $totalPemanfaatanPekarangan++;

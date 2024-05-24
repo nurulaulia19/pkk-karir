@@ -165,6 +165,9 @@ class AdminController extends Controller
         $totalAirLainya = 0;
         $today = Carbon::now();
         foreach ($rumahtangga as $tangga){
+            if(!$tangga->is_valid ){
+                return redirect()->route('belum.vaidasi');
+            }
 
             foreach($tangga->pemanfaatanlahan as $pemanfaatan){
                 if($pemanfaatan){
@@ -611,9 +614,6 @@ class AdminController extends Controller
 
         $today = Carbon::now();
         foreach ($dasa_wisma as $index){
-
-
-
             foreach ($index->rumahtangga as $rumahtangga) {
                 if ($rumahtangga->sumber_air_pdam) {
                     $totalAirPDAM++;
@@ -642,8 +642,6 @@ class AdminController extends Controller
                     $totalTidakSheatLayakHuni++;
                 }
             }
-
-
             $totalDasawisma = $dasa_wisma->count();
             $totalKepalaRumahTangga++;
             // foreach($index->anggotaRT as $tangg){
@@ -651,6 +649,9 @@ class AdminController extends Controller
 
             foreach ($index->rumahtangga as $rumahtangga) {
                 if($rumahtangga->periode == $periode){
+                    if(!$rumahtangga->is_valid){
+                        return redirect()->route('belum.vaidasi');
+                    }
                     foreach($rumahtangga->pemanfaatanlahan as $lahan){
                         $totalKegiatanPemanfaatanPekarangan++;
                     }
@@ -1001,19 +1002,17 @@ class AdminController extends Controller
 
         $today = Carbon::now();
         foreach ($dasa_wisma as $index){
-
-
-
-
-
-
             $totalDasawisma = $dasa_wisma->count();
             $totalKepalaRumahTangga++;
             // foreach($index->anggotaRT as $tangg){
             //     $totalJmlKK++;
 
             foreach ($index->rumahtangga as $rumahtangga) {
+
                 if($rumahtangga->periode == $periode){
+                    if(!$rumahtangga->is_valid){
+                        return redirect()->route('belum.vaidasi');
+                    }
                     if ($rumahtangga->sumber_air_pdam) {
                         $totalAirPDAM++;
                     }

@@ -25,6 +25,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Exports\CatatanKeluargaExport;
 use App\Exports\WargaExport;
 use App\Models\Periode;
+use App\Models\RumahTangga;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -60,7 +61,7 @@ class KaderFormController extends Controller
         // $rekap = DataWarga::with('keluarga')
         // ->where('id_user', $user->id)
         // ->get()->count();
-        $rekap = 1;
+        $rekap = 0;
         // dd($user);
         $warga = 0;
         $kegiatan = 0;
@@ -81,13 +82,47 @@ class KaderFormController extends Controller
         // }
         // dd($warga);
 
-        $keluarga =  DataKeluarga::where('id_dasawisma', $user->id_dasawisma)->count();
+        $warga = DataWarga::where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', now()->year)
+        ->where('is_valid', '!=', null)
+        ->count();
 
-        // dibawah ini gajelas
-        $rekap = 0;
-        $keluargaUpdate = 0;
+        $keluarga = DataKeluarga::where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', now()->year)
+        ->where('is_valid', '!=', null)
+        ->count();
 
-        return view('kader.dashboard', compact('keluarga', 'warga', 'kegiatan', 'pemanfaatan', 'industri',  'rekap', 'keluargaUpdate'));
+        $krt = RumahTangga::where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', now()->year)
+        ->where('is_valid', '!=', null)
+        ->count();
+
+        $kegiatan = DataWarga::with(['kegiatan.kegiatan'])
+        ->where('is_kegiatan', true)
+        ->where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', now()->year)
+        ->count();
+
+        $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')
+        ->where('periode', now()->year)
+        ->where('is_pemanfaatan_lahan', true)
+        ->where('is_valid', '!=', null)
+        ->count();
+
+        $industri = DataKeluarga::with('industri')
+        ->where('id_dasawisma', $user->id_dasawisma)
+        ->where('periode', now()->year)
+        ->where('industri_id' ,'!=' , null)
+        ->where('is_valid', '!=', null)
+        ->count();
+
+        $rekap = DataKeluarga::where('id_dasawisma', $user->id_dasawisma)
+        ->where('is_valid', '!=', null)
+        ->where('periode', now()->year)
+        ->count();
+
+
+        return view('kader.dashboard', compact('warga', 'keluarga', 'krt', 'kegiatan', 'pemanfaatan', 'industri',  'rekap'));
     }
 
     public function notif()

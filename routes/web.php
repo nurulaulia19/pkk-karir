@@ -115,6 +115,10 @@ Route::get('/pokja4', [PokjaController::class, 'pokja4']);
 Route::get('/sekretariat', [PokjaController::class, 'sekretariat']);
 // Route::get('/data_umum', [PokjaController::class, 'data_umum']);
 
+Route::get('/belum-di-validasi', function(){
+    return view('error.belum-divalidasi');
+})->name('belum.vaidasi');
+
 // halaman admin desa
 // Route::get('/admin_desa/login', [AdminController::class, 'login'])->name('admin_desa.login');
 // Route::post('/admin_desa/login', [AdminController::class, 'loginPost']);

@@ -307,10 +307,12 @@ class RumahTanggaController extends Controller
         }
 
 
-        return response()->json([
-            'message' => 'success',
-            'data' => $dataKeluarga,
-        ]);
+        return redirect()->to(url('data_rumah_tangga/'.$rumahTanggaId.'/edit'));
+
+        // return response()->json([
+        //     'message' => 'success',
+        //     'data' => $dataKeluarga,
+        // ]);
     }
 
     public function destroy($id)

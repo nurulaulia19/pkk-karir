@@ -78,13 +78,12 @@
                     @enderror
                 </div> --}}
             </div>
-
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group @error('rumah_tangga_id') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Nama Kepala Rumah Tangga</label>
                         <select class="form-control" id="rumah_tangga_id" name="rumah_tangga_id">
-                          <option disabled selected> Pilih Kepala Keluarga</option>
+                          <option disabled selected> Pilih Kepala Rumah Tangga</option>
                             @foreach ($krt as $rumahTangga)
                                 <option value="{{ $rumahTangga->id }}">{{ $rumahTangga->nama_kepala_rumah_tangga }} - {{$rumahTangga->no_ktp}}</option>
                             @endforeach

@@ -50,12 +50,29 @@
                                         </td>
                                         <td style="vertical-align: middle;">
                                             {{ucfirst($c->nama_kepala_keluarga) }}
+                                            {{-- @if (!$c->is_valid)
+                                                            <a
+                                                            href="{{ url('data_rumah_tangga/'.$c->id.'/edit') }}"
+                                                            class="btn btn-success btn-sm">
+                                                                edit untuk validasi
+                                                            </a>
+                                                        @endif --}}
                                         </td>
                                         <td class="text-center">
+                                            @if ($c->is_valid)
                                             <a class="btn btn-success btn-sm" href="{{ url('rekap_data_warga/'.$c->id.'/rekap_data_warga') }}">Rekap Data Warga</a>
+
+
                                             <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >
                                                 Catatan Keluarga
                                             </a>
+
+                                            @else
+                                            Belum di validasi
+                                            @endif
+
+
+
                                         </td>
 
                                     </tr>
