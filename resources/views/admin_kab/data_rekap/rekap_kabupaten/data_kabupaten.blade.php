@@ -35,9 +35,19 @@
                                         {{-- <td style="vertical-align: middle;">{{($c->periode)}}</td> --}}
 
                                         <td class="text-center">
-                                            <a class="btn btn-success btn-sm" href="{{ url('rekap_pkk_kab').'?'.http_build_query([
+                                            {{-- <a class="btn btn-success btn-sm" href="{{ url('rekap_pkk_kab').'?'.http_build_query([
                                                 'periode' => $c->periode
-                                            ]) }}">Rekap</a>
+                                            ]) }}">Rekap</a> --}}
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Rekap
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    @foreach ($periode as $item)
+                                                    <a class="dropdown-item" href="{{ url('rekap_pkk_kab') }}?periode={{ $item->tahun }}">{{ $item->tahun }}</a>
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         </td>
 
                                     </tr>

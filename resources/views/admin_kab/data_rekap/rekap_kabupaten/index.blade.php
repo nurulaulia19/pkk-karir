@@ -17,7 +17,7 @@
                             <center>
                                 <h6><strong>CATATAN DATA KEGIATAN WARGA</strong></h6>
                                 <h6>TP PKK KABUPATEN</h6>
-                                <h6>TAHUN {{$kecamatans->first()->desa->first()->rw->first()->periode}}</h6><br>
+                                <h6>TAHUN {{$periode}}</h6><br>
                                 <h6><strong>KAB/KOTA : INDRAMAYU</strong> </h6>
                                 <h6><strong>PROVINSI : JAWA BARAT</strong> </h6>
                             </center>
@@ -92,7 +92,7 @@
                                                 @php
                                                     $counts = app(
                                                         'App\Http\Controllers\AdminKabController',
-                                                    )->countRekapitulasiDesaInKecamatan($kec->id);
+                                                    )->countRekapitulasiDesaInKecamatan($kec->id, $periode);
                                                 @endphp
                                                 {{ ucfirst($counts['totalDesa']) }}
 
@@ -286,7 +286,7 @@
                                 </table>
 
                             </div>
-                            <a href="{{ url('export_rekap_kab') }}" target="_blank" class="btn btn-success" type="button" role="button">
+                            <a href="{{ url('export_rekap_kab') }}?periode={{$periode}}" target="_blank" class="btn btn-success" type="button" role="button">
                                 <i class="fas fa-print"></i> Cetak ke Excel </a><br>
 
                         </div>

@@ -186,13 +186,18 @@ class AdminKabController extends Controller
         // ->select('name', 'periode')
         // ->distinct()
         // ->get();
-
-        return view('admin_kab.data_rekap.rekap_kecamatan.data_kecamatan', compact('kecamatan'));
+        $periode = Periode::all();
+        return view('admin_kab.data_rekap.rekap_kecamatan.data_kecamatan', compact('kecamatan','periode'));
     }
     // rekap catatan data dan keluarga dan kegiatan warga admin kec
     public function rekap_pkk_kec(Request $request, $id)
     {
         $user = Auth::user();
+        if($request->periode){
+            $periode = $request->periode;
+        }else{
+            $periode = Carbon::now()->year;
+        }
         $desaa = Data_Desa::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga', 'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga', 'dasawisma.desa.kecamatan', 'rw'])
             ->where('id_kecamatan', $id)
             ->get();
@@ -247,14 +252,18 @@ class AdminKabController extends Controller
             foreach ($rws as $rw) {
                 $totalRT += Rt::where('rw_id', $rw->id)->count();
             }
+
+
             if ($des->dasawisma) {
                 foreach ($des->dasawisma as $dasawisma) {
                     if ($dasawisma) {
+                        $totalJmlKK += DataKeluarga::where('id_dasawisma', $dasawisma->id)
+                        ->where('periode',$periode)->count();
                         $totalDasawisma++;
 
                         // Iterasi melalui setiap rumahtangga dalam dasawisma
                         foreach ($dasawisma->rumahtangga as $rumahtangga) {
-                            if ($rumahtangga) {
+                            if ($rumahtangga->periode == $periode) {
                                 if($rumahtangga->pemanfaatanlahan){
                                     foreach ($rumahtangga->pemanfaatanlahan as $lahan){
                                         if($lahan){
@@ -295,9 +304,8 @@ class AdminKabController extends Controller
                                 }
                                 // Hitung jumlah anggota RT dalam KRT
                                 foreach ($rumahtangga->anggotaRT as $keluarga) {
-                                    if ($keluarga->keluarga && $keluarga->keluarga->nama_kepala_keluarga) {
-                                        $totalJmlKK++;
-                                    }
+                                    // $totalJmlKK++;
+
                                      if ($keluarga->keluarga->industri_id != 0) {
                                             $totalKegiatanIndustri++;
                                         }
@@ -381,7 +389,7 @@ class AdminKabController extends Controller
         }
         // dd($desaa);
 
-        return view('admin_kab.data_rekap.rekap_kecamatan.index', compact('desaa', 'totalDesa', 'totalRT', 'totalRW', 'totalJmlKK', 'totalDasawisma', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainnya', 'totalStiker', 'totalJamban', 'totalPemSampah', 'totalSPAL', 'totalSheatLayakHuni', 'totalTidakSheatLayakHuni', 'totalJmlKRT', 'totalKegiatanIndustri', 'totalKegiatanPemanfaatanPekarangan', 'totalAnggotaLansia', 'totalAnggotaIbuHamil', 'totalAnggotaIbuMenyusui', 'totalKegiatanLingkungan', 'totalKegiatanUP2K', 'totalAnggotaBerkebutuhanKhusus', 'totalMakanBeras', 'totalMakanNonBeras', 'totalAnggotaBalitaLaki', 'totalAnggotaPerempuan', 'totalAnggotaWUS', 'totalAnggotaPUS', 'totalAnggotaBalitaPerempuan', 'totalAnggotaLaki'));
+        return view('admin_kab.data_rekap.rekap_kecamatan.index', compact('periode','desaa', 'totalDesa', 'totalRT', 'totalRW', 'totalJmlKK', 'totalDasawisma', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainnya', 'totalStiker', 'totalJamban', 'totalPemSampah', 'totalSPAL', 'totalSheatLayakHuni', 'totalTidakSheatLayakHuni', 'totalJmlKRT', 'totalKegiatanIndustri', 'totalKegiatanPemanfaatanPekarangan', 'totalAnggotaLansia', 'totalAnggotaIbuHamil', 'totalAnggotaIbuMenyusui', 'totalKegiatanLingkungan', 'totalKegiatanUP2K', 'totalAnggotaBerkebutuhanKhusus', 'totalMakanBeras', 'totalMakanNonBeras', 'totalAnggotaBalitaLaki', 'totalAnggotaPerempuan', 'totalAnggotaWUS', 'totalAnggotaPUS', 'totalAnggotaBalitaPerempuan', 'totalAnggotaLaki'));
     }
 
     // export rekap kecamatan
@@ -390,6 +398,11 @@ class AdminKabController extends Controller
 
 
         $user = Auth::user();
+        if($request->periode){
+            $periode = $request->periode;
+        }else{
+            $periode = Carbon::now()->year;
+        }
         $desaa = Data_Desa::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga', 'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga', 'dasawisma.desa.kecamatan', 'rw'])
             ->where('id_kecamatan', $id)
             ->get();
@@ -446,11 +459,13 @@ class AdminKabController extends Controller
             if ($des->dasawisma) {
                 foreach ($des->dasawisma as $dasawisma) {
                     if ($dasawisma) {
+                        $totalJmlKK += DataKeluarga::where('id_dasawisma', $dasawisma->id)
+                        ->where('periode',$periode)->count();
                         $totalDasawisma++;
 
                         // Iterasi melalui setiap rumahtangga dalam dasawisma
                         foreach ($dasawisma->rumahtangga as $rumahtangga) {
-                            if ($rumahtangga) {
+                            if ($rumahtangga->periode == $periode) {
                                 if($rumahtangga->pemanfaatanlahan){
                                     foreach ($rumahtangga->pemanfaatanlahan as $lahan){
                                         if($lahan){
@@ -491,9 +506,9 @@ class AdminKabController extends Controller
                                 }
                                 // Hitung jumlah anggota RT dalam KRT
                                 foreach ($rumahtangga->anggotaRT as $keluarga) {
-                                    if ($keluarga->keluarga && $keluarga->keluarga->nama_kepala_keluarga) {
-                                        $totalJmlKK++;
-                                    }
+                                    // if ($keluarga->keluarga) {
+                                    //     $totalJmlKK++;
+                                    // }
                                      if ($keluarga->keluarga->industri_id != 0) {
                                             $totalKegiatanIndustri++;
                                         }
@@ -572,7 +587,7 @@ class AdminKabController extends Controller
                 }
             }
         }
-        $export = new RekapKelompokKecamatanExport(compact('desaa', 'totalDesa', 'totalRT', 'totalRW', 'totalJmlKK', 'totalDasawisma', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainnya', 'totalStiker', 'totalJamban', 'totalPemSampah', 'totalSPAL', 'totalSheatLayakHuni', 'totalTidakSheatLayakHuni', 'totalJmlKRT', 'totalKegiatanIndustri', 'totalKegiatanPemanfaatanPekarangan', 'totalAnggotaLansia', 'totalAnggotaIbuHamil', 'totalAnggotaIbuMenyusui', 'totalKegiatanLingkungan', 'totalKegiatanUP2K', 'totalAnggotaBerkebutuhanKhusus', 'totalMakanBeras', 'totalMakanNonBeras', 'totalAnggotaBalitaLaki', 'totalAnggotaPerempuan', 'totalAnggotaWUS', 'totalAnggotaPUS', 'totalAnggotaBalitaPerempuan', 'totalAnggotaLaki'));
+        $export = new RekapKelompokKecamatanExport(compact('periode','desaa', 'totalDesa', 'totalRT', 'totalRW', 'totalJmlKK', 'totalDasawisma', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainnya', 'totalStiker', 'totalJamban', 'totalPemSampah', 'totalSPAL', 'totalSheatLayakHuni', 'totalTidakSheatLayakHuni', 'totalJmlKRT', 'totalKegiatanIndustri', 'totalKegiatanPemanfaatanPekarangan', 'totalAnggotaLansia', 'totalAnggotaIbuHamil', 'totalAnggotaIbuMenyusui', 'totalKegiatanLingkungan', 'totalKegiatanUP2K', 'totalAnggotaBerkebutuhanKhusus', 'totalMakanBeras', 'totalMakanNonBeras', 'totalAnggotaBalitaLaki', 'totalAnggotaPerempuan', 'totalAnggotaWUS', 'totalAnggotaPUS', 'totalAnggotaBalitaPerempuan', 'totalAnggotaLaki'));
 
         return Excel::download($export, 'rekap-kelompok-kecamatan.xlsx');
     }
@@ -582,6 +597,7 @@ class AdminKabController extends Controller
         /** @var User */
         $user = Auth::user();
         $kabupaten = DataKabupaten::where('id', $user->id)->get();
+        $periode = Periode::all();
 
         // $kabupaten = DB::table('data_keluarga')
         // ->join('data_kecamatan', 'data_keluarga.id_kecamatan', '=', 'data_kecamatan.id')
@@ -589,13 +605,18 @@ class AdminKabController extends Controller
         // ->distinct()
         // ->get();
 
-        return view('admin_kab.data_rekap.rekap_kabupaten.data_kabupaten', compact('kabupaten'));
+        return view('admin_kab.data_rekap.rekap_kabupaten.data_kabupaten', compact('kabupaten','periode'));
     }
     // rekap catatan data dan keluarga dan kegiatan warga admin kec
     public function rekap_pkk_kab(Request $request)
     {
         $user = Auth::user();
         // woi
+        if($request->periode){
+            $periode = $request->periode;
+        }else{
+            $periode = Carbon::now()->year;
+        }
         $kecamatans = DataKecamatan::with('desa')->get();
         $totalDesa = 0;
         $totalRw = 0;
@@ -646,9 +667,9 @@ class AdminKabController extends Controller
                     }
                     // rt  belum
                     foreach ($dasawisma as $item) {
-                        $totalKK += DataKeluarga::where('id_dasawisma', $item->id)->count();
+                        $totalKK += DataKeluarga::where('id_dasawisma', $item->id)->where('periode', $periode)->count();
                         $totalDasawisma++;
-                        $rumah = RumahTangga::where('id_dasawisma', $item->id)->get();
+                        $rumah = RumahTangga::where('id_dasawisma', $item->id)->where('periode', $periode)->get();
                         foreach ($rumah as $keluarga) {
                             if($keluarga->pemanfaatanlahan){
                                 foreach ($keluarga->pemanfaatanlahan as $lahan) {
@@ -770,6 +791,7 @@ class AdminKabController extends Controller
         // dd($kecamatans);
         // admin_kab.data_rekap.data_rekap_pkk_kab
         return view('admin_kab.data_rekap.rekap_kabupaten.index', compact(
+            'periode',
             'kecamatans',
             'totalDesa',
             'totalRw',
@@ -809,7 +831,11 @@ class AdminKabController extends Controller
     public function export_rekap_kab(Request $request)
     {
         $user = Auth::user();
-        // woi
+        if($request->periode){
+            $periode = $request->periode;
+        }else{
+            $periode = Carbon::now()->year;
+        }
         $kecamatans = DataKecamatan::with('desa')->get();
         $totalDesa = 0;
         $totalRw = 0;
@@ -845,7 +871,8 @@ class AdminKabController extends Controller
         $totalPUS = 0;
         $today = Carbon::now();
 
-        $periode = 0 ;
+        // $periode = 0 ;
+        // dd($periode);
 
 
         // dd($kecamatans);
@@ -862,10 +889,10 @@ class AdminKabController extends Controller
                     }
                     // rt  belum
                     foreach ($dasawisma as $item) {
-                        $periode = $item->periode;
-                        $totalKK += DataKeluarga::where('id_dasawisma', $item->id)->count();
+                        // $periode = $item->periode;
+                        $totalKK += DataKeluarga::where('id_dasawisma', $item->id)->where('periode', $periode)->count();
                         $totalDasawisma++;
-                        $rumah = RumahTangga::where('id_dasawisma', $item->id)->get();
+                        $rumah = RumahTangga::where('id_dasawisma', $item->id)->where('periode', $periode)->get();
                         foreach ($rumah as $keluarga) {
                             if($keluarga->pemanfaatanlahan){
                                 foreach ($keluarga->pemanfaatanlahan as $pemanfaatan){
@@ -984,8 +1011,10 @@ class AdminKabController extends Controller
                 }
             }
         }
+        // dd($periode);
 
         $export = new RekapKelompokKabupatenExport(compact(
+            'periode',
             'kecamatans',
             'totalDesa',
             'totalRw',
@@ -1085,7 +1114,7 @@ class AdminKabController extends Controller
         return redirect()->route('profil_adminKabupaten');
     }
 
-    public function countRekapitulasiRWInDesa($id)
+    public function countRekapitulasiRWInDesa($id,$periode)
     {
         $countLakiLaki = 0;
         $countPerempuan = 0;
@@ -1132,10 +1161,13 @@ class AdminKabController extends Controller
         // dd($dasawisma);
         foreach ($dasawisma as $item) {
             # code...
-            $countKK += DataKeluarga::where('id_dasawisma', $item->id)->count();
+            $countKK += DataKeluarga::where('id_dasawisma', $item->id)->
+            where('periode',$periode)
+            ->count();
 
             $countDasawisma++;
-            $rumah = RumahTangga::where('id_dasawisma', $item->id)->get();
+            $rumah = RumahTangga::where('id_dasawisma', $item->id)->
+            where('periode',$periode)->get();
             foreach ($rumah as $keluarga) {
                           if ($keluarga->pemanfaatanlahan) {
                                 foreach ($keluarga->pemanfaatanlahan as $lahan){
@@ -1294,7 +1326,7 @@ class AdminKabController extends Controller
         ];
     }
 
-    public function countRekapitulasiDesaInKecamatan($id)
+    public function countRekapitulasiDesaInKecamatan($id, $periode)
     {
         $countLakiLaki = 0;
         $countPerempuan = 0;
@@ -1347,9 +1379,9 @@ class AdminKabController extends Controller
                 }
                 // rt  belum
                 foreach ($dasawisma as $item) {
-                    $countKK += DataKeluarga::where('id_dasawisma', $item->id)->count();
+                    $countKK += DataKeluarga::where('id_dasawisma', $item->id)->where('periode', $periode)->count();
                     $countDasawisma++;
-                    $rumah = RumahTangga::where('id_dasawisma', $item->id)->get();
+                    $rumah = RumahTangga::where('id_dasawisma', $item->id)->where('periode', $periode)->get();
                     foreach ($rumah as $keluarga) {
                         if($keluarga->pemanfaatanlahan){
                             foreach ($keluarga->pemanfaatanlahan as $lahan) {

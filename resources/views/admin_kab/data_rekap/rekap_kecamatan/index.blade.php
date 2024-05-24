@@ -18,7 +18,7 @@
                                     <h6 class="d-flex justify-content-center"><strong>REKAPITULASI</strong></h6>
                                     <h6 class="d-flex justify-content-center"><strong>CATATAN DATA DAN KEGIATAN WARGA</strong> </h6>
                                     <h6 class="d-flex justify-content-center"><strong>KELOMPOK KECAMATAN</strong> </h6>
-                                    <h6 class="d-flex justify-content-center"><strong>TAHUN {{$desaa->first()->dasawisma->first()->periode}}</strong> </h6>
+                                    <h6 class="d-flex justify-content-center"><strong>TAHUN {{$periode}}</strong> </h6>
                                 </div>
                                 <div>
 
@@ -95,7 +95,7 @@
                                                         @php
                                                             $counts = app(
                                                                 'App\Http\Controllers\AdminKabController',
-                                                            )->countRekapitulasiRWInDesa($desa->id);
+                                                            )->countRekapitulasiRWInDesa($desa->id,$periode);
                                                         @endphp
                                                        {{ ucfirst($counts['countRW']) }}
                                                     </td>
@@ -345,7 +345,7 @@
                                     </table>
 
                                 </div>
-                                <a href="{{ url('export_rekap_kec',['id' => $desaa->first()->id_kecamatan ]) }}" target="_blank" class="btn btn-success" type="button" role="button">
+                                <a href="{{ url('export_rekap_kec',['id' => $desaa->first()->id_kecamatan ]) }}?periode={{$periode}}" target="_blank" class="btn btn-success" type="button" role="button">
                                 <i class="fas fa-print"></i> Cetak ke Excel </a><br>
                             </div>
                         </div>

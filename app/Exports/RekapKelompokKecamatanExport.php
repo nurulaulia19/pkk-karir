@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -49,6 +50,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
     protected $totalAnggotaPUS;
     protected $totalAnggotaBalitaPerempuan;
     protected $totalAnggotaLaki;
+    protected $periode;
 
     public function __construct(array $data)
     {
@@ -84,6 +86,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
         $this->totalAnggotaPUS = $data['totalAnggotaPUS'] ?? null;
         $this->totalAnggotaBalitaPerempuan = $data['totalAnggotaBalitaPerempuan'] ?? null;
         $this->totalAnggotaLaki = $data['totalAnggotaLaki'] ?? null;
+        $this->periode = $data['periode'] ?? Carbon::now()->year;
     }
 
     public function array(): array
@@ -95,7 +98,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
         foreach ($desa as $des) {
             $counts = app(
                 'App\Http\Controllers\AdminKabController',
-            )->countRekapitulasiRWInDesa($des->id);
+            )->countRekapitulasiRWInDesa($des->id,$this->periode);
 
             $data = [
                 '_index' => $i,
@@ -256,7 +259,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
             ['REKAPITULASI'],
             ['CATATAN DATA DAN KEGIATAN WARGA'],
             ['TP PKK KECAMATAN'],
-            ['TAHUN ' . $this->desaa->first()->dasawisma->first()->periode],
+            ['TAHUN ' . $this->periode],
             ['Kecamatan : ' . $this->desaa->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan],
             ['Kabupaten : Indramayu'],
             ['Provinsi : Jawa Barat'],
