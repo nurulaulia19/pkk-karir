@@ -88,8 +88,8 @@ class DataIndustriRumahController extends Controller
        $request->validate([
            'keluarga_id' => 'required',
            'kategori_industri_rumah_id' => 'required'
-       ], ['keluarga_id.required' => 'Lengkapi Nama Warga Yang Didata',
-            'kategori_industri_rumah_id.required' => 'Pilih Kategori Industri Rumah Tangga Warga',
+       ], ['keluarga_id.required' => 'Lengkapi nama warga yang didata',
+            'kategori_industri_rumah_id.required' => 'Pilih Kategori Industri Rumah Tangga',
        ]);
 
 
@@ -172,6 +172,13 @@ class DataIndustriRumahController extends Controller
     // dd($request->all());
 
     $keluarga = DataKeluarga::find($id);
+    // Check if the DataKeluarga record is validated
+    if (!$keluarga->is_valid) {
+        return redirect()
+            ->back()
+            ->withErrors(['keluarga_id' => 'Data keluarga belum divalidasi.'])
+            ->withInput();
+    }
     $keluarga->industri_id = $request->kategori_industri_rumah_id;
     $keluarga->is_valid_industri = Carbon::now();
 

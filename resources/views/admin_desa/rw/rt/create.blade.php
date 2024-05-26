@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Nama RT</label>
                     <input type="hidden" name="rw" value="{{ $rw }}">
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama RT" value="{{ $nextId }}">
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama RT" value="{{ old('name', $nextRtNumber) }}">
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

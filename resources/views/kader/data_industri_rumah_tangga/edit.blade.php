@@ -24,7 +24,6 @@
                     <ul>
                         @foreach ($errors->all() as $error)
                         <li>{{  ($error)  }}</li>
-
                         @endforeach
                     </ul>
                 </div>
@@ -71,13 +70,12 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Nama</label>
+                        <label>Pilih Kepala Keluarga</label>
                         <select class="form-control" name="keluarga_id">
                                 <option value="{{ $keluarga->id }}" selected>
-                                    {{ $keluarga->nama_kepala_keluarga }}
+                                    {{ $keluarga->nama_kepala_keluarga }} - {{ $keluarga->nik_kepala_keluarga }}
                                 </option>
                         </select>
-
                         @error('keluarga_id')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

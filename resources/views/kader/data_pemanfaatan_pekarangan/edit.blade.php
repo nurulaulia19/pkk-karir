@@ -69,7 +69,7 @@
                     <div class="form-group @error('warga_id') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Nama Kepala Rumah Tangga</label>
                         <select class="form-control" id="rumah_tangga_id" name="rumah_tangga_id">
-                                <option selected  value="{{ $warga->id }}">{{ $warga->nama_kepala_rumah_tangga }} - {{$warga->no_ktp}}</option>
+                                <option selected  value="{{ $warga->id }}">{{ $warga->nama_kepala_rumah_tangga }} - {{$warga->nik_kepala_rumah_tangga}}</option>
                         </select>
                       </div>
                       @error('warga_id')
@@ -123,7 +123,7 @@
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary">Tambah</button>
+          <button type="submit" class="btn btn-primary">Edit</button>
           <a href="/data_pemanfaatan" class="btn btn-outline-primary">
             <span>Batalkan</span>
         </a>

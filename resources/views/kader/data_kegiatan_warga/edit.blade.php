@@ -107,6 +107,11 @@
                                                 value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('nama_kegiatan')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 </div>
                                 <div class="col-md-1 d-flex align-items-center mt-4">
                                     <a href="{{ route('data-kegiatan-warga-delete', ['id' => $wargaKeg->id]) }}"
@@ -124,7 +129,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
                     <a href="/data_kegiatan" class="btn btn-outline-primary">
                         <span>Batalkan</span>
                     </a>
@@ -136,8 +141,6 @@
 @endsection
 
 @push('script-addon')
-
-
         $(document).ready(function() {
             $('#id_kategori').on('change', function() {
                 var categoryID = $(this).val();

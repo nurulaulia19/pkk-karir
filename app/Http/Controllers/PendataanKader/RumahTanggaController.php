@@ -212,6 +212,25 @@ class RumahTanggaController extends Controller
             $kriteria_rumah_sehat = false;
         }
 
+        // Memeriksa Validasi Data Keluarga
+        // Periksa apakah setiap keluarga sudah divalidasi
+        $allKeluargaValid = true;
+        foreach ($request->keluarga as $keluargaId) {
+            $dataKeluarga = DataKeluarga::find($keluargaId);
+            if (!$dataKeluarga->is_valid) {
+                $allKeluargaValid = false;
+                break;
+            }
+        }
+
+        // Jika salah satu keluarga belum divalidasi, tampilkan pesan kesalahan
+        if (!$allKeluargaValid) {
+            return redirect()
+                ->back()
+                ->withErrors(['keluarga' => 'Salah satu atau beberapa keluarga belum divalidasi.'])
+                ->withInput();
+        }
+
         if (!isUnique($request->keluarga)) {
             return redirect()
                 ->back()

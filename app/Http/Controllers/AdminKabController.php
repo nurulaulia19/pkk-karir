@@ -45,32 +45,32 @@ class AdminKabController extends Controller
             ]);
             $dataWarga = DataWarga::with('kegiatan')->where('periode', $nowPeriode->tahun - 1)->get();
 
-foreach ($dataWarga as $warga) {
-    // Replicate DataWarga record
-    $wargaBaru = $warga->replicate();
-    $wargaBaru->periode = Carbon::now()->year; // Set current year
-    $wargaBaru->is_valid = null; // Reset is_valid
+            foreach ($dataWarga as $warga) {
+                // Replicate DataWarga record
+                $wargaBaru = $warga->replicate();
+                $wargaBaru->periode = Carbon::now()->year; // Set current year
+                $wargaBaru->is_valid = null; // Reset is_valid
 
-    echo "Periode Sebelum: " . $warga->periode . "\n"; // Print previous period
-    echo "Periode Sesudah: " . $wargaBaru->periode . "\n"; // Print new period
+                echo "Periode Sebelum: " . $warga->periode . "\n"; // Print previous period
+                echo "Periode Sesudah: " . $wargaBaru->periode . "\n"; // Print new period
 
-    // Save the new DataWarga record
-    $wargaBaru->save();
+                // Save the new DataWarga record
+                $wargaBaru->save();
 
-    // Check if there are related kegiatan
-    if ($warga->kegiatan) {
-        foreach ($warga->kegiatan as $kegiatan) {
-            // Replicate each kegiatan
-            $kegiatanBaru = $kegiatan->replicate();
-            $kegiatanBaru->warga_id = $wargaBaru->id; // Update warga_id to the new record's ID
-            $kegiatanBaru->periode = Carbon::now()->year; // Set current year
-            $kegiatanBaru->is_valid = null; // Reset is_valid
+                // Check if there are related kegiatan
+                if ($warga->kegiatan) {
+                    foreach ($warga->kegiatan as $kegiatan) {
+                        // Replicate each kegiatan
+                        $kegiatanBaru = $kegiatan->replicate();
+                        $kegiatanBaru->warga_id = $wargaBaru->id; // Update warga_id to the new record's ID
+                        $kegiatanBaru->periode = Carbon::now()->year; // Set current year
+                        $kegiatanBaru->is_valid = null; // Reset is_valid
 
-            // Save the new kegiatan record
-            $kegiatanBaru->save();
-        }
-    }
-}
+                        // Save the new kegiatan record
+                        $kegiatanBaru->save();
+                    }
+                }
+            }
             $datakeluarga = DataKeluarga::with('anggota.warga')->where('periode', $nowPeriode->tahun - 1 )->get();
 
             foreach ($datakeluarga as $keluarga) {
@@ -124,6 +124,7 @@ foreach ($dataWarga as $warga) {
 
 
         }
+        Alert::success('Berhasil', 'Data Berhasil di Migrate');
         return redirect('/dashboard_kab');
 
     }
@@ -137,6 +138,8 @@ foreach ($dataWarga as $warga) {
         $agenda = DataAgenda::count();
         $galeri = DataGaleri::count();
         $periode = Periode::where('tahun',now()->year)->first();
+        $currentYear = now()->year;
+        // dd($periode);
         $newPeriode = false;
         if(!$periode){
             $newPeriode = true;
@@ -144,7 +147,7 @@ foreach ($dataWarga as $warga) {
         // dd($newPeriode);
         // $kecamatan = DataKecamatan::count();
         // $user = User::count();
-        return view('admin_kab.dashboard_kab', compact('newPeriode','berita', 'desa', 'kecamatan', 'user', 'agenda', 'galeri'));
+        return view('admin_kab.dashboard_kab', compact('currentYear', 'newPeriode', 'periode', 'berita', 'desa', 'kecamatan', 'user', 'agenda', 'galeri'));
     }
 
     // halaman login admin kabupaten

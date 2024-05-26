@@ -347,62 +347,19 @@
                             <th>Penjelasan</th>
                         </tr>
                         <tr>
-                            <td>Dasa Wisma</td>
-                            <td>Di isi sesuai dengan nama dasawisma yang diikuti warga yang bersangkutan</td>
-
-                        </tr>
-                        <tr>
-                            <td>Nama Kepala Keluarga</td>
-                            <td>Di isi dengan nama Kepala Rumah Tangga pada rumah yang didata.
-                                Kepala Rumah Tangga adalah yang bertanggung jawab atas segala sesuatu yang terkait dengan
-                                kegiatan di dalam rumah yang sedang didata.</td>
-
-                        </tr>
-                        <tr>
-                            <td>Jumlah Balita</td>
-                            <td>Diisi dengan jumlah Balita yang ada pada rumah yang sedang didata</td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah PUS (Pasangan Usia Subur)</td>
-                            <td>Diisi dengan jumlah Pasangan Usia Subur yang ada pada rumah yang sedang didata</td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah WUS (Wanita Usia Subur)</td>
-                            <td>Diisi dengan jumlah Wanita Usia Subur yakni Usia antara 14 tahun hingga 50 tahun pada rumah
-                                yang sedang didata kecuali ada keterangan khusus. Misalnya terjadi manopouse dini karena
-                                penyakit tertentu, dll.</td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah 3 Buta</td>
-                            <td>Diisi dengan jumlah anggota rumah yang sedang didata
-                                yang mengalami ‘3 Buta’ pada usia diatas 13 tahun (Buta Baca, Buta Tulis, Buta Hitung)</td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah Ibu Hamil</td>
-                            <td>Diisi dengan jumlah ibu hamil pada rumah yang sedang didata</td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah Ibu Menyusui</td>
-                            <td>Diisi dengan jumlah ibu yang sedang menyusui bayi pada rumah yang sedang didata</td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah Lansia</td>
-                            <td>Diisi dengan jumlah orang tua lanjut usia pada rumah yang sedang didata</td>
-                        </tr>
-                        <tr>
-                            <td>Jumlah Kebutuhan Khusus</td>
-                            <td>Diisi dengan jumlah anggota keluarga berkebutuhan khusus pada rumah yang sedang didata</td>
-                        </tr>
-                        <tr>
-                            <td>Stiker P4K (Program Perencanaan Persalinan dan Pencegahan Komplikasi)</td>
-                            <td>Stiker P4K berisi data tentang : nama ibu hamil, taksiran persalinan, penolong persalinan,
-                                tempat persalinan, pendamping persalinan, transport yang digunakan dan calon donor darah.
+                            <td>Nama Pertama</td>
+                            <td>Di isi dengan nama kepala dalam satu keluarga pada rumah yang didata.
+                                Kepala Keluarga adalah yang bertanggung jawab atas segala sesuatu yang terkait dengan
+                                keluarga di dalam rumah yang sedang didata.
                             </td>
                         </tr>
                         <tr>
-                            <td>Aktivitas UP2K ( Upaya Peningkatan Pendapatan Keluarga )</td>
-                            <td>UP2K ( Upaya Peningkatan Pendapatan Keluarga ) adalah merupakan salah satu program
-                                penanggulangan kemiskinan khususnya bagi kaum perempuan.</td>
+                            <td>Nama Kedua dan Seterusnya</td>
+                            <td>Di isi dengan nama Anggota Keluarga pada rumah yang didata.</td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>Di isi dengan status dari masing-masing Anggota Keluarga pada rumah yang didata.</td>
                         </tr>
                     </table>
                 </div>

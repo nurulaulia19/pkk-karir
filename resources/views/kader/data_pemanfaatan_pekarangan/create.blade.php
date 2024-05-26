@@ -85,7 +85,7 @@
                         <select class="form-control" id="rumah_tangga_id" name="rumah_tangga_id">
                           <option disabled selected> Pilih Kepala Rumah Tangga</option>
                             @foreach ($krt as $rumahTangga)
-                                <option value="{{ $rumahTangga->id }}">{{ $rumahTangga->nama_kepala_rumah_tangga }} - {{$rumahTangga->no_ktp}}</option>
+                                <option value="{{ $rumahTangga->id }}">{{ $rumahTangga->nama_kepala_rumah_tangga }} - {{$rumahTangga->nik_kepala_rumah_tangga}}</option>
                             @endforeach
                           </select>
                       </div>

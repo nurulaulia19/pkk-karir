@@ -147,6 +147,7 @@ class DataPemanfaatanPekaranganController extends Controller
             $dataWarga = RumahTangga::find($request->rumah_tangga_id);
             if ($dataWarga) {
                 $dataWarga->is_pemanfaatan_lahan = true;
+                $dataWarga->is_valid_pemanfaatan_lahan = now();
                 $dataWarga->save();
             }
 
@@ -269,7 +270,14 @@ class DataPemanfaatanPekaranganController extends Controller
                 ->back()
                 ->withErrors(['data' => 'nama pemanfaatan tidak boleh sama']);
         }
+
         $rumah = RumahTangga::find($request->rumah_tangga_id);
+        if (!$rumah->is_valid) {
+            return redirect()
+                ->back()
+                ->withErrors(['rumah_tangga_id' => 'Data rumah tangga belum divalidasi.'])
+                ->withInput();
+        }
         // isi denan tanggal
         $rumah->is_valid_pemanfaatan_lahan = now();
         $rumah->update();

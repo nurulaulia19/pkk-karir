@@ -219,7 +219,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>No. KTP</label>
+                                            <label>No. KTP/NIK</label>
                                             {{-- No. KTP --}}
                                             <input type="text" class="form-control @error('no_ktp') is-invalid @enderror" name="no_ktp"
                                                 id="no_ktp"
@@ -557,7 +557,6 @@
                             <div class="col-md-4">
                                 <div class="form-group @error('ikut_kelompok_belajar') is-invalid @enderror">
                                     <label>Mengikuti Jenis Kelompok Belajar </label><br>
-                                    {{-- Pilih Pekejaan --}}
                                     <select class="form-control @error('ikut_kelompok_belajar') is-invalid @enderror"
                                         name="ikut_kelompok_belajar">
                                         <option hidden>Pilih Jenis Kelompok Belajar</option>
@@ -569,7 +568,7 @@
                                         <option value="KF (Keaksaraan Fungsional)">KF (Keaksaraan Fungsional)</option>
                                     </select>
                                 </div>
-                                @error('pekerjaan')
+                                @error('ikut_kelompok_belajar')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -786,18 +785,14 @@
                                         <th colspan="1">Point/Isian</th>
                                         <th>Penjelasan</th>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <td>Dasa Wisma</td>
                                         <td>Di isi sesuai dengan nama dasawisma yang diikuti warga yang bersangkutan
                                         </td>
-
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
-                                        <td>Nama Kepala Keluarga</td>
-                                        <td>Di isi dengan nama Kepala Rumah Tangga pada rumah yang didata.
-                                            Kepala Rumah Tangga adalah yang bertanggung jawab atas segala sesuatu yang
-                                            terkait dengan kegiatan di dalam rumah yang sedang didata.</td>
-
+                                        <td>Nama Warga</td>
+                                        <td>Di isi dengan nama warga pada rumah yang didata.</td>
                                     </tr>
                                     <tr>
                                         <td>No. Registrasi</td>
@@ -814,11 +809,11 @@
                                         <td>Jabatan</td>
                                         <td>Jabatan yang bersangkutan pada di struktural TP PKK</td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <td>Status Dalam Keluarga</td>
                                         <td>Diisi sesuai status yang bersangkutan didalam rumah yang sedang di data.
                                         </td>
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
                                         <td>Akseptor KB</td>
                                         <td>Diisi dengan apakah yang bersangkutan mengikuti program KB dan jenis
@@ -830,6 +825,16 @@
                                             tanaman keras, tanah dll
                                             sesuai dengan situasi kondisi masing-masing daerah</td>
                                     </tr>
+                                    <tr>
+                                        <td>Aktivitas UP2K ( Upaya Peningkatan Pendapatan Keluarga )</td>
+                                        <td>UP2K ( Upaya Peningkatan Pendapatan Keluarga ) adalah merupakan salah satu program
+                                            penanggulangan kemiskinan khususnya bagi kaum perempuan.</td>
+                                    </tr>
+                                    {{-- <tr>
+                                        <td>Jumlah 3 Buta</td>
+                                        <td>Diisi dengan jumlah anggota rumah yang sedang didata
+                                            yang mengalami ‘3 Buta’ pada usia diatas 13 tahun (Buta Baca, Buta Tulis, Buta Hitung)</td>
+                                    </tr> --}}
                                 </table>
                             </div>
                             <div class="modal-footer">

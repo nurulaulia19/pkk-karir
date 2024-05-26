@@ -290,10 +290,19 @@ class DataKeluargaController extends Controller
         ], [
             'nama_kepala_keluarga.unique' => 'Nama Kepala Keluarga sudah ada',
         ]);
-        // dd($request->all());
-        // if(!isUnique($request->warga)){
-        //     dd('harus usernya beda');
-        // }
+
+        foreach ($request->warga as $wargaId) {
+            $wargaValid = DataWarga::where('id', $wargaId)
+                ->value('is_valid');
+
+            if (!$wargaValid) {
+                return redirect()
+                    ->back()
+                    ->withErrors(['warga' => 'Salah satu nama warga tidak valid atau belum disetujui.'])
+                    ->withInput();
+            }
+        }
+
         if (!isUnique($request->warga)) {
             return redirect()
                 ->back()

@@ -261,11 +261,99 @@ class DataWargaController extends Controller
     }
 
 
+    // public function update(Request $request, DataWarga $data_warga)
+    // {
+    //     // proses mengubah untuk tambah data pendidikan
+    //     // dd($request->all());
+    //     // validasi data
+    //     $request->validate([
+    //         'id_desa' => 'required',
+    //         'id_kecamatan' => 'required',
+    //         'id_dasawisma' => 'required',
+    //         'no_registrasi' => 'required',
+    //         'no_ktp' => 'required|min:16',
+    //         'nama' => 'required',
+    //         'jabatan' => 'required',
+    //         'jenis_kelamin' => 'required',
+    //         'tempat_lahir' => 'required',
+    //         'tgl_lahir' => 'required',
+    //         'status_perkawinan' => 'required',
+    //         'agama' => 'required',
+    //         'alamat' => 'required',
+    //         'kabupaten' => 'required',
+    //         'provinsi' => 'required',
+    //         'pendidikan' => 'required',
+    //         'pekerjaan' => 'required',
+    //         'akseptor_kb' => 'required',
+    //         'aktif_posyandu' => 'required',
+    //         'ikut_bkb' => 'required',
+    //         'memiliki_tabungan' => 'required',
+    //         'ikut_kelompok_belajar' => 'required',
+    //         'ikut_paud_sejenis' => 'required',
+    //         'ikut_koperasi' => 'required',
+    //         'periode' => 'required',
+
+    //     ], [
+    //         'id_desa.required' => 'Lengkapi Alamat Desa Warga',
+    //         'id_kecamatan' => 'Lengkapi Alamat Kecamatan Warga',
+    //         'id_dasawisma.required' => 'Lengkapi Nama Dasawisma Yang Diikuti Warga',
+    //         // 'id_keluarga.required' => 'Lengkapi Nama Kepala Rumah Tangga',
+    //         'no_registrasi.required' => 'Lengkapi No. Registrasi',
+    //         'no_ktp.required' => 'Lengkapi No. KTP/NIK',
+    //         'nama.required' => 'Lengkapi Nama',
+    //         'jabatan.required' => 'Lengkapi Jabatan dalam Struktur TP PKK',
+    //         'jenis_kelamin.required' => 'Pilih Jenis Kelamin',
+    //         'tempat_lahir.required' => 'Lengkapi Jumlah Tempat Lahir',
+    //         'tgl_lahir.required' => 'Lengkapi Tanggal Lahir',
+    //         // 'umur.required' => 'Lengkapi Umur',
+    //         'status_perkawinan.required' => 'Pilih Status Perkawinan',
+    //         // 'status_keluarga.required' => 'Pilih Status Keluarga',
+    //         'agama.required' => 'Pilih Agama',
+    //         'alamat.required' => 'Lengkapi Alamat',
+    //         'kabupaten.required' => 'Lengkapi kabupaten',
+    //         'provinsi.required' => 'Lengkapi Provinsi',
+    //         'pendidikan.required' => 'Pilih Riwayat Pendidikan Warga',
+    //         'pekerjaan.required' => 'Pilih Pekerjaan Warga',
+    //         'akseptor_kb.required' => 'Pilih Akseptor KB Yang Diikuti Warga',
+    //         'aktif_posyandu.required' => 'Pilih Kegiatan Aktif Posyandu',
+    //         'ikut_bkb.required' => 'Pilih Kegiatan Mengikuti BKB (Bina Keluarga Balita)',
+    //         'memiliki_tabungan.required' => 'Pilih Memiliki Tabungan Warga',
+    //         'ikut_kelompok_belajar.required' => 'Pilih Kegiatan Kelompok Belajar Yang Diikuti',
+    //         'ikut_paud_sejenis.required' => 'Pilih Kegiatan PAUD/Sejenis Yang Diikuti',
+    //         'ikut_koperasi.required' => 'Pilih Kegiatan Koperasi Yang Diikuti',
+    //         'periode.required' => 'Pilih Periode',
+
+    //     ]);
+
+    //     // update data
+    //     $data_warga->update($request->all());
+    //     $data_warga->update([
+    //         'is_valid' => Carbon::now()
+    //     ]);
+    //         // Temukan ID keluarga terkait dengan DataWarga
+    //         $id_keluarga = DB::table('keluarga_has_warga')
+    //         ->where('warga_id', $data_warga->id)
+    //         ->value('keluarga_id');
+
+    //         // Periksa apakah ID keluarga ditemukan
+    //         if ($id_keluarga) {
+    //         // Update kolom nama_kepala_keluarga dengan nama yang baru
+    //         DB::table('data_keluarga')
+    //         ->where('id', $id_keluarga)
+    //         ->update([
+    //         'nama_kepala_keluarga' => $request->nama, // Menggunakan nama baru dari DataWarga
+    //         ]);
+    //     }
+
+    //     Alert::success('Berhasil', 'Data berhasil di ubah');
+    //     // dd($jml_kader);
+    //     return redirect('/data_warga');
+
+    // }
+
     public function update(Request $request, DataWarga $data_warga)
     {
-        // proses mengubah untuk tambah data pendidikan
-        // dd($request->all());
-        // validasi data
+        // Validasi data
         $request->validate([
             'id_desa' => 'required',
             'id_kecamatan' => 'required',
@@ -292,25 +380,22 @@ class DataWargaController extends Controller
             'ikut_paud_sejenis' => 'required',
             'ikut_koperasi' => 'required',
             'periode' => 'required',
-
         ], [
             'id_desa.required' => 'Lengkapi Alamat Desa Warga',
-            'id_kecamatan' => 'Lengkapi Alamat Kecamatan Warga',
+            'id_kecamatan.required' => 'Lengkapi Alamat Kecamatan Warga',
             'id_dasawisma.required' => 'Lengkapi Nama Dasawisma Yang Diikuti Warga',
-            // 'id_keluarga.required' => 'Lengkapi Nama Kepala Rumah Tangga',
             'no_registrasi.required' => 'Lengkapi No. Registrasi',
             'no_ktp.required' => 'Lengkapi No. KTP/NIK',
+            'no_ktp.min' => 'No. KTP/NIK harus terdiri dari 16 karakter',
             'nama.required' => 'Lengkapi Nama',
             'jabatan.required' => 'Lengkapi Jabatan dalam Struktur TP PKK',
             'jenis_kelamin.required' => 'Pilih Jenis Kelamin',
-            'tempat_lahir.required' => 'Lengkapi Jumlah Tempat Lahir',
+            'tempat_lahir.required' => 'Lengkapi Tempat Lahir',
             'tgl_lahir.required' => 'Lengkapi Tanggal Lahir',
-            // 'umur.required' => 'Lengkapi Umur',
             'status_perkawinan.required' => 'Pilih Status Perkawinan',
-            // 'status_keluarga.required' => 'Pilih Status Keluarga',
             'agama.required' => 'Pilih Agama',
             'alamat.required' => 'Lengkapi Alamat',
-            'kabupaten.required' => 'Lengkapi kabupaten',
+            'kabupaten.required' => 'Lengkapi Kabupaten',
             'provinsi.required' => 'Lengkapi Provinsi',
             'pendidikan.required' => 'Pilih Riwayat Pendidikan Warga',
             'pekerjaan.required' => 'Pilih Pekerjaan Warga',
@@ -322,33 +407,64 @@ class DataWargaController extends Controller
             'ikut_paud_sejenis.required' => 'Pilih Kegiatan PAUD/Sejenis Yang Diikuti',
             'ikut_koperasi.required' => 'Pilih Kegiatan Koperasi Yang Diikuti',
             'periode.required' => 'Pilih Periode',
-
         ]);
 
-        // update data
-        $data_warga->update($request->all());
-        $data_warga->update([
-            'is_valid' => Carbon::now()
-        ]);
-            // Temukan ID keluarga terkait dengan DataWarga
-            $id_keluarga = DB::table('keluarga_has_warga')
+        // Update data warga
+        $data_warga->update($request->only([
+            'id_desa',
+            'id_kecamatan',
+            'id_dasawisma',
+            'no_registrasi',
+            'no_ktp',
+            'nama',
+            'jabatan',
+            'jenis_kelamin',
+            'tempat_lahir',
+            'tgl_lahir',
+            'status_perkawinan',
+            'agama',
+            'alamat',
+            'kabupaten',
+            'provinsi',
+            'pendidikan',
+            'pekerjaan',
+            'akseptor_kb',
+            'aktif_posyandu',
+            'ikut_bkb',
+            'memiliki_tabungan',
+            'ikut_kelompok_belajar',
+            'ikut_paud_sejenis',
+            'ikut_koperasi',
+            'periode',
+        ]));
+
+        $data_warga->update(['is_valid' => Carbon::now()]);
+
+        // Temukan ID keluarga terkait dengan DataWarga
+        $id_keluarga = DB::table('keluarga_has_warga')
             ->where('warga_id', $data_warga->id)
             ->value('keluarga_id');
 
-            // Periksa apakah ID keluarga ditemukan
-            if ($id_keluarga) {
-            // Update kolom nama_kepala_keluarga dengan nama yang baru
-            DB::table('data_keluarga')
-            ->where('id', $id_keluarga)
-            ->update([
-            'nama_kepala_keluarga' => $request->nama, // Menggunakan nama baru dari DataWarga
-            ]);
+        // Periksa apakah ID keluarga ditemukan
+        if ($id_keluarga) {
+            // Cek status kepala keluarga sebelumnya
+            $currentKepalaKeluargaId = DB::table('keluarga_has_warga')
+                ->where('keluarga_id', $id_keluarga)
+                ->where('status', 'kepala-keluarga')
+                ->value('warga_id');
+
+            // Jika ID kepala keluarga berubah, update nama_kepala_keluarga
+            if ($currentKepalaKeluargaId == $data_warga->id) {
+                DB::table('data_keluarga')
+                    ->where('id', $id_keluarga)
+                    ->update([
+                        'nama_kepala_keluarga' => $request->nama,
+                    ]);
+            }
         }
 
-        Alert::success('Berhasil', 'Data berhasil di ubah');
-        // dd($jml_kader);
+        Alert::success('Berhasil', 'Data berhasil diubah');
         return redirect('/data_warga');
-
     }
 
 

@@ -194,7 +194,6 @@
                                 <ul>
                                     @foreach ($errors->all() as $error)
                                     <li>{{  ($error)  }}</li>
-
                                     @endforeach
                                 </ul>
                             </div>
@@ -203,20 +202,6 @@
                             @foreach ($data_keluarga->anggota as $index => $item)
                                 <div class="col-md-12">
                                     <div class="row">
-                                        {{-- <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Nama</label>
-                                                <select name="warga[]" id="js-example-basic-multiple"
-                                                    class="form-control js-example-basic-single" name="user_id[]">
-                                                        <option  value="{{ $item->warga->id }}">{{ $item->warga->nama }}</option>
-                                                </select>
-                                                @error('nama_kepala_keluarga')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nama</label>
@@ -316,7 +301,13 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="submit" class="btn btn-primary">
+                            @if ($data_keluarga->is_valid)
+                                Edit
+                            @else
+                                Validasi
+                            @endif
+                        </button>
                         <a href="/data_keluarga" class="btn btn-outline-primary">
                             <span>Batalkan</span>
                         </a>
@@ -381,6 +372,45 @@
 
         </div>
     </form>
+</div>
+<!-- Contoh Modal -->
+<div class="modal fade" id="modalSaya" tabindex="-1" role="dialog" aria-labelledby="modalSayaLabel"aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalSayaLabel">Info Keterangan Atribut </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <th colspan="1">Point/Isian</th>
+                        <th>Penjelasan</th>
+                    </tr>
+                    <tr>
+                        <td>Nama Pertama</td>
+                        <td>Di isi dengan nama kepala dalam satu keluarga pada rumah yang didata.
+                            Kepala Keluarga adalah yang bertanggung jawab atas segala sesuatu yang terkait dengan
+                            keluarga di dalam rumah yang sedang didata.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nama Kedua dan Seterusnya</td>
+                        <td>Di isi dengan nama Anggota Keluarga pada rumah yang didata.</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>Di isi dengan status dari masing-masing Anggota Keluarga pada rumah yang didata.</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Oke</button>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 

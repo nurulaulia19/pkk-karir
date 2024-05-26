@@ -34,17 +34,25 @@ class RwController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
-        $lastRW = Rw::latest()->first();
-        // Mengambil id dari entri terakhir, atau defaultkan ke 0 jika tabel kosong
-        $lastId = $lastRW ? $lastRW->id : 0;
-        // Menambahkan 1 untuk mendapatkan nomor berikutnya
-        $nextId = $lastId + 1;
+        $existingRwNumbers = Rw::pluck('name')->map(function($item) {
+            return (int) $item;
+        })->toArray();
+
+        // Cari nomor RW terkecil yang tidak ada di array
+        $nextRwNumber = 1;
+        while (in_array($nextRwNumber, $existingRwNumbers)) {
+            $nextRwNumber++;
+        }
         $dusun = Dusun::where('desa_id', $user->id_desa)->get();
-        return view('admin_desa.rw.create', compact('nextId', 'dusun'));
+        return view('admin_desa.rw.create', compact('dusun','nextRwNumber'));
     }
+
     public function store(Request $request)
     {
-        // dd($request->all());
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
         $user = Auth::user();
         // dd($user)
 ;        $request->validate([

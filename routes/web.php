@@ -244,7 +244,7 @@ Route::middleware(['user_type:admin_kabupaten'])->group(function(){
     Route::resource('/data_provinsi', DataProvinsiController::class);
 
     Route::resource('/data_kategori_industri', KategoriIndustriRumahController::class);
-    Route::resource('/data_kategori_pemanfaatan', KategoriPemanfaatanLahanController::class);
+    Route::resource('/data_kategori_pemanfaatan_lahan', KategoriPemanfaatanLahanController::class);
 });
 
 // halaman admin kecamatan

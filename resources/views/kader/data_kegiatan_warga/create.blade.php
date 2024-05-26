@@ -94,7 +94,7 @@
                                     {{-- nama warga --}}
                                     <option hidden> Pilih Nama Warga</option>
                                     @foreach ($warga as $c)
-                                        <option value="{{ $c->id }}"> {{ $c->no_ktp }}-{{ $c->nama }}
+                                        <option value="{{ $c->id }}"> {{ $c->nama }} - {{ $c->no_ktp }}
                                         </option>
                                     @endforeach
                                 </select>

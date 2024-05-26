@@ -74,7 +74,7 @@
                           {{-- nama warga --}}
                           <option hidden> Pilih Kepala Keluarga</option>
                             @foreach ($keluarga as $index)
-                                <option value="{{ $index->id }}">{{ $index->nama_kepala_keluarga }} - {{$index->no_ktp}}</option>
+                                <option value="{{ $index->id }}">{{ $index->nama_kepala_keluarga }} - {{$index->nik_kepala_keluarga}}</option>
                             @endforeach
                           </select>
                       </div>
@@ -88,23 +88,14 @@
                     <div class="form-group @error('kategori_industri_rumah_id') is-invalid @enderror">
                         <label>Kategori</label>
                         <select class="form-control" id="kategori_industri_rumah_id" name="kategori_industri_rumah_id">
-                            <option hidden> Pilih Kategori</option>
+                            <option selected disabled value="0"> Pilih Kategori</option>
                             @foreach ($kategoriIndustri as $item)
                                     <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
                             @endforeach
                         </select>
                       </div>
-                      @error('nama_kategori')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                      @enderror
                 </div>
             </div>
-
-
-
-
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group @error('periode') is-invalid @enderror">

@@ -161,7 +161,7 @@
                         </div>
                         @endif
                   </div>
-                  <a href="/rekap" class="small-box-footer">Lihat Selengkapnya
+                  <a href="/catatan_keluarga" class="small-box-footer">Lihat Selengkapnya
                     <i class="fas fa-arrow-circle-right"></i>
                 </a>
                 </div>

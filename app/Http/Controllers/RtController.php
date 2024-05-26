@@ -41,15 +41,19 @@ class RtController extends Controller
             dd('Tidak ada RW');
         }
         $rw = $rwData->name;
-        $lastRT = Rt::latest()->first();
-        // Mengambil id dari entri terakhir, atau defaultkan ke 0 jika tabel kosong
-        $lastId = $lastRT ? $lastRT->id : 0;
-        // Menambahkan 1 untuk mendapatkan nomor berikutnya
-        $nextId = $lastId + 1;
+        $existingRtNumbers = Rt::pluck('name')->map(function($item) {
+            return (int) $item;
+        })->toArray();
+
+        // Cari nomor RW terkecil yang tidak ada di array
+        $nextRtNumber = 1;
+        while (in_array($nextRtNumber, $existingRtNumbers)) {
+            $nextRtNumber++;
+        }
 
         $dusun = Dusun::where('desa_id', $user->id_desa)->get();
 
-        return view('admin_desa.rw.rt.create',compact('rw','nextId', 'dusun'));
+        return view('admin_desa.rw.rt.create',compact('rw','nextRtNumber', 'dusun'));
     }
     public function store(Request $request)
     {

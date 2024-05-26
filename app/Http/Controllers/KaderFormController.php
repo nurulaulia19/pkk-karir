@@ -96,28 +96,51 @@ class KaderFormController extends Controller
         ->where('is_valid', '=', null)
         ->count();
 
-        $kegiatan = DataWarga::with(['kegiatan.kegiatan'])
+        // $kegiatan = DataWarga::with(['kegiatan.kegiatan'])
+        // ->where('is_kegiatan', true)
+        // ->where('id_dasawisma', $user->id_dasawisma)
+        // ->where('periode', now()->year)
+        // ->get();
+        // // dd($kegiatan);
+        // $totalKegiatan = 0;
+        // $totalKegiatanBelumValid = 0;
+        // foreach($kegiatan as $kg){
+        //     foreach($kegiatan->kegiatan as $a){
+        //         if($a->is_valid){
+        //             $totalKegiatan++;
+        //         }else{
+        //             $totalKegiatanBelumValid++;
+        //         }
+        //     }
+        // }
+        $kegiatan = DataWarga::with('kegiatan')
         ->where('is_kegiatan', true)
         ->where('id_dasawisma', $user->id_dasawisma)
         ->where('periode', now()->year)
         ->get();
+
         $totalKegiatan = 0;
         $totalKegiatanBelumValid = 0;
-        foreach($kegiatan as $kg){
-            foreach($kegiatan->kegiatan as $a){
-                if($a->is_valid){
-                    $totalKegiatan++;
-                }else{
-                    $totalKegiatanBelumValid++;
+
+        foreach ($kegiatan as $kg) {
+            if ($kg->kegiatan) {
+                foreach ($kg->kegiatan as $a) {
+                    if (isset($a->is_valid) && $a->is_valid) {
+                        $totalKegiatan++;
+                    } else {
+                        $totalKegiatanBelumValid++;
+                    }
                 }
             }
         }
-        // $kegiatan = DataKegiatanWarga::
-        // where('is_valid','!=', null)
-        // ->where('id_dasawisma', $user->id_dasawisma)
-        // ->where('periode', now()->year)
-        // ->count();
 
+        $kegiatan = DataKegiatanWarga::
+        where('is_valid', '!=', null)
+        ->where('periode', now()->year)
+        ->whereHas('warga', function($query) use ($user) {
+            $query->where('id_dasawisma', $user->id_dasawisma);
+        })
+        ->count();
 
 
         $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')
@@ -157,18 +180,19 @@ class KaderFormController extends Controller
 
         return view('kader.dashboard', compact(
             'wargaBelumValid',
-            'warga', 'keluarga',
+            'warga',
+            'keluarga',
             'keluargaBelumValid',
             'krt',
             'krtBelumValid',
             'totalKegiatan',
             'totalKegiatanBelumValid',
-
             'pemanfaatan',
             'pemanfaatanBelumValid',
             'industri',
             'industriBelumValid',
-        'rekapBelumValid' ,   'rekap',
+            'rekapBelumValid' ,
+            'rekap',
         ));
     }
 

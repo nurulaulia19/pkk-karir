@@ -159,60 +159,60 @@
                 </a>
               </li>
 
-              <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
+              <li class="nav-item has-treeview {{ Request::is('kegiatan*','data_dusun*','rw*','data_dasawisma*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ Request::is('kegiatan*','data_dusun*','rw*','data_dasawisma*') ? 'active':'' }}">
                     <i class="nav-icon fas fa-book"></i>
                   <p>
-                        Data Master
+                    Data Master
                     <i class="fas fa-angle-left right"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="/kegiatan" class="nav-link {{ Request::is('kegiatan') ? 'active':'' }}">
+                    <a href="/kegiatan" class="nav-link {{ Request::is('kegiatan*') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Kegiatan</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/data_dusun" class="nav-link {{ Request::is('data_dusun') ? 'active':'' }}">
+                    <a href="/data_dusun" class="nav-link {{ Request::is('data_dusun*') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Dusun</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/rw" class="nav-link {{ Request::is('rw') ? 'active':'' }}">
+                    <a href="/rw" class="nav-link {{ Request::is('rw*') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>RT / RW</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/data_dasawisma" class="nav-link {{ Request::is('data_dasawisma') ? 'active':'' }}">
+                    <a href="/data_dasawisma" class="nav-link {{ Request::is('data_dasawisma*') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Data Dasawisma</p>
                     </a>
                   </li>
                 </ul>
               </li>
-              <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
+              <li class="nav-item has-treeview {{ Request::is('data_kelompok_dasa_wisma*','data_kelompok_pkk_rt*','data_kelompok_pkk_rw*','dusun*','rekap_desa*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ Request::is('data_kelompok_dasa_wisma*','data_kelompok_pkk_rt*','data_kelompok_pkk_rw*','dusun*','rekap_desa*') ? 'active':'' }}">
                     <i class="nav-icon fas fa-archive"></i>
-                  <p>
+                    <p>
                         Data Rekapitulasi
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
+                        <i class="fas fa-angle-left right"></i>
+                    </p>
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="/data_kelompok_dasa_wisma" class="nav-link {{ Request::is('data_kelompok_dasa_wisma') ? 'active':'' }}">
+                    <a href="/data_kelompok_dasa_wisma" class="nav-link {{ Request::is('data_kelompok_dasa_wisma*') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Data Kelompok Dasawisma</p>
+                      <p>Data Kelompok <br> Dasawisma</p>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a href="/data_kelompok_pkk_rt" class="nav-link {{ Request::is('data_kelompok_pkk_rt') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Data Kelompok PKK RT</p>
+                      <p>Data Kelompok RT</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -237,7 +237,7 @@
                   <li class="nav-item">
                     <a href="/rekap_desa" class="nav-link {{ Request::is('rekap_desa') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Data TP PKK Desa/Kelurahan</p>
+                      <p>Data TP PKK <br> Desa/Kelurahan</p>
                     </a>
                   </li>
                 </ul>

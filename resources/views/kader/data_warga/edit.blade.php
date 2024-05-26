@@ -581,7 +581,7 @@
                                     <label>Mengikuti Jenis Kelompok Belajar </label><br>
                                         <select class="form-control @error('ikut_kelompok_belajar') is-invalid @enderror"
                                             name="ikut_kelompok_belajar">
-                                            <option hidden>Pilih Jenis Kelompok Belajar</option>
+                                            <option value="0" selected disabled>Pilih Jenis Kelompok Belajar</option>
                                             <option value="Ya" {{ $data_warga->ikut_kelompok_belajar == 'Ya' ? 'selected' :'' }}>Ya</option>
                                             <option value="Tidak" {{ $data_warga->ikut_kelompok_belajar == 'Tidak' ? 'selected' :'' }}>Tidak
                                             </option>
@@ -803,9 +803,8 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">
-
                             @if ($data_warga->is_valid)
-                                edit
+                                Edit
                             @else
                                 Validasi
                             @endif
@@ -842,18 +841,14 @@
                                         <th colspan="1">Point/Isian</th>
                                         <th>Penjelasan</th>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <td>Dasa Wisma</td>
                                         <td>Di isi sesuai dengan nama dasawisma yang diikuti warga yang bersangkutan
                                         </td>
-
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
-                                        <td>Nama Kepala Keluarga</td>
-                                        <td>Di isi dengan nama Kepala Rumah Tangga pada rumah yang didata.
-                                            Kepala Rumah Tangga adalah yang bertanggung jawab atas segala sesuatu yang
-                                            terkait dengan kegiatan di dalam rumah yang sedang didata.</td>
-
+                                        <td>Nama Warga</td>
+                                        <td>Di isi dengan nama warga pada rumah yang didata.</td>
                                     </tr>
                                     <tr>
                                         <td>No. Registrasi</td>
@@ -870,11 +865,11 @@
                                         <td>Jabatan</td>
                                         <td>Jabatan yang bersangkutan pada di struktural TP PKK</td>
                                     </tr>
-                                    <tr>
+                                    {{-- <tr>
                                         <td>Status Dalam Keluarga</td>
                                         <td>Diisi sesuai status yang bersangkutan didalam rumah yang sedang di data.
                                         </td>
-                                    </tr>
+                                    </tr> --}}
                                     <tr>
                                         <td>Akseptor KB</td>
                                         <td>Diisi dengan apakah yang bersangkutan mengikuti program KB dan jenis
@@ -886,6 +881,16 @@
                                             tanaman keras, tanah dll
                                             sesuai dengan situasi kondisi masing-masing daerah</td>
                                     </tr>
+                                    <tr>
+                                        <td>Aktivitas UP2K ( Upaya Peningkatan Pendapatan Keluarga )</td>
+                                        <td>UP2K ( Upaya Peningkatan Pendapatan Keluarga ) adalah merupakan salah satu program
+                                            penanggulangan kemiskinan khususnya bagi kaum perempuan.</td>
+                                    </tr>
+                                    {{-- <tr>
+                                        <td>Jumlah 3 Buta</td>
+                                        <td>Diisi dengan jumlah anggota rumah yang sedang didata
+                                            yang mengalami ‘3 Buta’ pada usia diatas 13 tahun (Buta Baca, Buta Tulis, Buta Hitung)</td>
+                                    </tr> --}}
                                 </table>
                             </div>
                             <div class="modal-footer">

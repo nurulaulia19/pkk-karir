@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PendataanKader;
 use App\Http\Controllers\Controller;
 use App\Models\Data_Desa;
 use App\Models\DataKegiatan;
+use Illuminate\Validation\Rule;
 use App\Models\DataKegiatanWarga;
 use App\Models\DataKeluarga;
 use App\Models\DataWarga;
@@ -27,11 +28,11 @@ class DataKegiatanWargaController extends Controller
         if ($periode) {
             $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->
             where('periode', $periode)->
-            where('is_kegiatan', true)->where('id_dasawisma', $user->id_dasawisma)->get();
+            where('is_kegiatan', true)->where('id_dasawisma', $user->id_dasawisma)->orderBy('id', 'DESC')->get();
         } else {
             $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->
             where('periode', now()->year)->
-            where('is_kegiatan', true)->where('id_dasawisma', $user->id_dasawisma)->get();
+            where('is_kegiatan', true)->where('id_dasawisma', $user->id_dasawisma)->orderBy('id', 'DESC')->get();
         }
 
         $dataPeriode = Periode::all();
@@ -127,7 +128,7 @@ class DataKegiatanWargaController extends Controller
 
     public function edit($id)
     {
-        $kegiatan = DataKegiatan::with('detail_kegiatan')->get();
+        $kegiatan = DataKegiatan::get();
         // dd($kegiatan);
         $keg = $kegiatan;
         $desas = DB::table('data_desa')
@@ -142,6 +143,7 @@ class DataKegiatanWargaController extends Controller
         ->get();
 
         $kel = DataKeluarga::all();
+        $dataKegiatan = DataKegiatanWarga::get();
         $warga = DataWarga::with('kegiatan')->where('id', $id)
         ->where('is_kegiatan', true)
         ->first();
@@ -149,52 +151,10 @@ class DataKegiatanWargaController extends Controller
             abort(404,'not_found');
         }
         // $keg = KategoriKegiatan::all();
-        return view('kader.data_kegiatan_warga.edit', compact('keg', 'warga', 'desas', 'kec', 'kad', 'kel'));
+        return view('kader.data_kegiatan_warga.edit', compact('dataKegiatan', 'keg', 'warga', 'desas', 'kec', 'kad', 'kel'));
 
     }
 
-
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'id_warga' => 'required|exists:data_warga,id',
-    //         'periode' => 'required',
-    //         'nama_kegiatan' => 'required',
-
-    //     ], [
-    //         'id_warga.required' => 'Lengkapi Nama Warga Yang Didata',
-    //         'nama_kegiatan.required' => 'Pilih Kegiata',
-    //         'periode.required' => 'Pilih Periode',
-
-    //     ]);
-    //     // dd($request->all());
-
-    //      foreach ($request->nama_kegiatan as $key => $item) {
-    //         // dd($item);
-    //         if ($item !== null && $item !== '') {
-
-    //             $kegiatanWarga = DataKegiatanWarga::where('data_kegiatan_id', $item)->first();
-    //             if(!$kegiatanWarga){
-    //                 DataKegiatanWarga::create([
-    //                     'warga_id' => $request->id_warga,
-    //                     'data_kegiatan_id' => $item,
-    //                     'periode' => $request->periode,
-    //                 ]);
-    //             }
-
-    //         }
-    //      }
-
-    //      $dataWarga = DataWarga::find($request->id_warga);
-    //      if ($dataWarga) {
-    //          $dataWarga->is_kegiatan = true;
-    //          $dataWarga->save();
-    //      }
-
-    //      Alert::success('Berhasil', 'Data berhasil di tambahkan');
-    //      return redirect('/data_kegiatan');
-
-    // }
 
     public function update(Request $request, $id)
     {
@@ -208,6 +168,10 @@ class DataKegiatanWargaController extends Controller
             'periode.required' => 'Pilih Periode',
         ]);
 
+        // Check for duplicate values in nama_kegiatan array
+        if (count($request->nama_kegiatan) !== count(array_unique($request->nama_kegiatan))) {
+            return redirect()->back()->withErrors(['nama_kegiatan' => 'Kegiatan tidak boleh sama']);
+        }
         // Mencari data kegiatan warga yang sudah ada
         $existingKegiatanWarga = DataKegiatanWarga::where('warga_id', $request->id_warga)->get();
 
@@ -227,6 +191,12 @@ class DataKegiatanWargaController extends Controller
         }
 
         $dataWarga = DataWarga::find($request->id_warga);
+        if (!$dataWarga->is_valid) {
+            return redirect()
+                ->back()
+                ->withErrors(['warga_id' => 'Data warga belum divalidasi.'])
+                ->withInput();
+        }
         if ($dataWarga) {
             $dataWarga->is_kegiatan = true;
             $dataWarga->save();
@@ -235,6 +205,8 @@ class DataKegiatanWargaController extends Controller
         Alert::success('Berhasil', 'Data berhasil diperbarui');
         return redirect('/data_kegiatan');
     }
+
+
 
 
     // public function destroy($id)
