@@ -167,6 +167,18 @@ class DataKegiatanWargaController extends Controller
             'nama_kegiatan.required' => 'Pilih Kegiata',
             'periode.required' => 'Pilih Periode',
         ]);
+        
+        $dataWarga = DataWarga::find($request->id_warga);
+        if (!$dataWarga->is_valid) {
+            return redirect()
+                ->back()
+                ->withErrors(['warga_id' => 'Data warga belum divalidasi.'])
+                ->withInput();
+        }
+        if ($dataWarga) {
+            $dataWarga->is_kegiatan = true;
+            $dataWarga->save();
+        }
 
         // Check for duplicate values in nama_kegiatan array
         if (count($request->nama_kegiatan) !== count(array_unique($request->nama_kegiatan))) {
@@ -190,17 +202,7 @@ class DataKegiatanWargaController extends Controller
             }
         }
 
-        $dataWarga = DataWarga::find($request->id_warga);
-        if (!$dataWarga->is_valid) {
-            return redirect()
-                ->back()
-                ->withErrors(['warga_id' => 'Data warga belum divalidasi.'])
-                ->withInput();
-        }
-        if ($dataWarga) {
-            $dataWarga->is_kegiatan = true;
-            $dataWarga->save();
-        }
+
 
         Alert::success('Berhasil', 'Data berhasil diperbarui');
         return redirect('/data_kegiatan');

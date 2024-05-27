@@ -87,68 +87,24 @@ class DataKeluargaController extends Controller
             ->where('id', auth()->user()->id)
             ->first();
 
-
         $warga = DataWarga::where('is_keluarga', false)
+            ->where('is_valid', '!=', false)
             ->where('periode', now()->year)
             ->get();
+
         $dasawisma = DataKelompokDasawisma::all();
         $kabupaten = DataKabupaten::first();
         $provinsi = DataProvinsi::first();
         return view('kader.data_keluarga.create', compact('warga', 'kec', 'desas', 'kad', 'dasawisma', 'kader', 'kabupaten', 'provinsi'));
     }
 
-
-
-    // public function store(Request $request)
-    // {
-    //     if (!isUnique($request->warga)) {
-    //         return redirect()
-    //             ->back()
-    //             ->withErrors(['warga' => 'Nama warga tidak boleh sama']);
-    //     }
-
-    //     $kepalaKeluarga = DataWarga::find($request->warga[0]);
-
-
-    //     $keluarga = DataKeluarga::create([
-    //         'nama_kepala_keluarga' => $kepalaKeluarga->nama,
-    //         // 'punya_jamban' => $request->punya_jamban,
-    //         'rt' => $request->rt,
-    //         'rw' => $request->rw,
-    //         'dusun' => $request->dusun,
-    //         'provinsi' => $request->provinsi,
-    //         'id_dasawisma' => $request->id_dasawisma,
-    //         'periode' => $request->periode,
-    //     ]);
-
-    //     // Mengatur is_keluarga menjadi true untuk kepala keluarga
-    //     $kepalaKeluarga->is_keluarga = true;
-    //     $kepalaKeluarga->save();
-
-    //     for ($i = 0; $i < count($request->warga); $i++) {
-    //         $datawarga = DataWarga::find($request->warga[$i]);
-    //         $datawarga->is_keluarga = true;
-    //         $datawarga->save();
-
-    //         Keluargahaswarga::create([
-    //             'keluarga_id' => $keluarga->id,
-    //             'warga_id' => $request->warga[$i],
-    //             'status' => $request->status[$i],
-    //         ]);
-    //     }
-
-    //     // Pernyataan akhir setelah penyimpanan berhasil
-    //     Alert::success('Berhasil', 'Data berhasil di tambahkan');
-    //     return redirect('/data_keluarga');
-    // }
-
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kepala_keluarga' => 'required|unique:data_keluarga,nama_kepala_keluarga', // Replace table_name and column_name with your actual table and column names
+            'warga' => 'required|unique:data_keluarga,nama_kepala_keluarga', // Replace table_name and column_name with your actual table and column names
         ], [
-            'nama_kepala_keluarga.required' => 'Lengkapi Nama Kepala Keluarga Yang Didata',
-            'nama_kepala_keluarga.unique' => 'Nama Kepala Keluarga sudah ada',
+            'warga.required' => 'Lengkapi Nama Kepala Keluarga Yang Didata',
+            'warga.unique' => 'Nama Kepala Keluarga sudah ada',
         ]);
 
         // Mendapatkan kepala keluarga dari data warga pertama
@@ -177,12 +133,14 @@ class DataKeluargaController extends Controller
         // Buat data keluarga baru
         $keluarga = DataKeluarga::create([
             'nama_kepala_keluarga' => $kepalaKeluarga->nama,
+            'nik_kepala_keluarga' => $kepalaKeluarga->no_ktp,
             'rt' => $request->rt,
             'rw' => $request->rw,
             // 'dusun' => $request->dusun,
             'provinsi' => $request->provinsi,
             'id_dasawisma' => $request->id_dasawisma,
             'periode' => $request->periode,
+            'is_valid' => Carbon::now(),
         ]);
 
         // Mengatur is_keluarga menjadi true untuk kepala keluarga
@@ -203,6 +161,7 @@ class DataKeluargaController extends Controller
             ]);
         }
 
+        // dd($keluarga);
         // Pernyataan akhir setelah penyimpanan berhasil
         Alert::success('Berhasil', 'Data berhasil ditambahkan');
         return redirect('/data_keluarga');
@@ -261,26 +220,6 @@ class DataKeluargaController extends Controller
         return view('kader.data_keluarga.edit', compact('data_keluarga', 'data_warga', 'kel', 'desas', 'kec', 'kad', 'dasawisma', 'kader', 'kabupaten', 'provinsi'));
     }
 
-    // public function update(Request $request, DataKeluarga $data_keluarga)
-    // {
-    //     // proses mengubah untuk data keluarga
-    //     // dd($request->all());
-
-    //     $request->validate([
-    //         'punya_jamban' => 'required',
-    //         // 'periode' => 'required',
-
-    //     ], [
-    //         'punya_jamban.required' => 'Pilih Mempunyai Jamban dan Jumlah Yang Mempunyai Jamban',
-    //         // 'periode.required' => 'Pilih Periode',
-
-    //     ]);
-    //         $data_keluarga->update($request->all());
-    //         Alert::success('Berhasil', 'Data berhasil di ubah');
-    //         return redirect('/data_keluarga');
-
-    // }
-
     public function update(Request $request, DataKeluarga $data_keluarga)
     {
         $request->validate([
@@ -334,6 +273,7 @@ class DataKeluargaController extends Controller
             'provinsi' => $request->provinsi,
             'id_dasawisma' => $request->id_dasawisma,
             'nama_kepala_keluarga' => $kepalaKeluarga->nama,
+            'nik_kepala_keluarga' => $kepalaKeluarga->no_ktp,
             'periode' => $request->periode,
             // tambahkan atribut lainnya sesuai kebutuhan
         ]);

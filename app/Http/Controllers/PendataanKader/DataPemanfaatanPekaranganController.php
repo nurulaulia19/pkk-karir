@@ -47,13 +47,15 @@ class DataPemanfaatanPekaranganController extends Controller
         if ($periode) {
             $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')->
             where('periode', $periode)->
-            where('is_pemanfaatan_lahan',1)->
-            get();
+            where('is_pemanfaatan_lahan',1)
+            ->orderBy('id', 'DESC')
+            ->get();
         } else {
             $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')->
             where('periode', now()->year)->
-            where('is_pemanfaatan_lahan',1)->
-            get();
+            where('is_pemanfaatan_lahan',1)
+            ->orderBy('id', 'DESC')
+            ->get();
         }
         $dataPeriode = Periode::all();
 

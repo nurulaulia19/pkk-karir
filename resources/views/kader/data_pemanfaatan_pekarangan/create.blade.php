@@ -82,8 +82,8 @@
                 <div class="col-md-6">
                     <div class="form-group @error('rumah_tangga_id') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Nama Kepala Rumah Tangga</label>
-                        <select class="form-control" id="rumah_tangga_id" name="rumah_tangga_id">
-                          <option disabled selected> Pilih Kepala Rumah Tangga</option>
+                        <select class="form-control select-state" id="rumah_tangga_id" name="rumah_tangga_id" placeholder="Type to search..">
+                          <option value=""> Pilih Kepala Rumah Tangga</option>
                             @foreach ($krt as $rumahTangga)
                                 <option value="{{ $rumahTangga->id }}">{{ $rumahTangga->nama_kepala_rumah_tangga }} - {{$rumahTangga->nik_kepala_rumah_tangga}}</option>
                             @endforeach
@@ -271,6 +271,14 @@ console.log('kategoriPemanfaatanLahan :>> ', kategoriPemanfaatanLahan);
         });
 
 
+    });
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+<script>
+    $(document).ready(function() {
+        $('.select-state').selectize();
     });
 </script>
 @endpush

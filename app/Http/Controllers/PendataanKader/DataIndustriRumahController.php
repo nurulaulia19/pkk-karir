@@ -31,7 +31,8 @@ class DataIndustriRumahController extends Controller
         if ($periode) {
             $industri = DataKeluarga::with('industri')
             ->where('periode', $periode)
-            ->where('id_dasawisma', $user->id_dasawisma)->where('industri_id' ,'!=' , "0")->get();
+            ->where('id_dasawisma', $user->id_dasawisma)->where('industri_id' ,'!=' , "0")
+            ->get();
 
         } else {
             $industri = DataKeluarga::with('industri')

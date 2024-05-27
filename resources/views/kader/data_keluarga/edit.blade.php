@@ -205,8 +205,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nama</label>
-                                                <select name="warga[]" class="form-control js-example-basic-single">
-                                                    <option value="" disabled selected>Pilih Nama Warga</option>
+                                                <select name="warga[]" class="form-control js-example-basic-single select-state" placeholder="Type to search...">
+                                                    <option value="">Pilih Nama Warga</option>
                                                     @foreach ($data_keluarga->anggota as $warga)
                                                         <option value="{{ $warga->warga->id }}" {{ $item->warga->id == $warga->warga->id ? 'selected' : '' }}>{{ $warga->warga->nama }} - {{ $warga->warga->no_ktp }}</option>
                                                     @endforeach
@@ -542,7 +542,8 @@
         });
     });
 
-    // Fungsi untuk menambahkan row saat tombol diklik
+
+
     // $('#addRow').on('click', function() {
     //     var container = $('#container');
     //     var rownew = $('<div class="row w-100"></div>');
@@ -565,7 +566,7 @@
     //                     </div>
     //                 </div>
     //                 <div class="col-md-1 d-flex align-items-center">
-    //                     <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+    //                     <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">Delete</button>
     //                 </div>
     //             </div>
     //         </div>
@@ -579,15 +580,15 @@
     //         data.forEach(function(item) {
     //             var option = $('<option></option>');
     //             option.val(item.id);
-    //             option.text(item.nama);
+    //             option.text(`${item.nama} - ${item.no_ktp}`)
     //             selectElement.append(option);
     //         });
     //     }
 
     //     // Mengecek apakah ini adalah baris pertama atau bukan
-    //     if (warga === 1) {
+    //     if ($('#container .status-select').length === 0) {
     //         // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
-    //         rownew.find('.status-select').append('<option value="kepala">Kepala Keluarga</option>');
+    //         rownew.find('.status-select').append('<option value="kepala-keluarga">Kepala Keluarga</option>');
     //     } else {
     //         // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
     //         var statusSelect = rownew.find('.status-select');
@@ -608,8 +609,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Nama</label>
-                            <select id="warga${warga}" class="form-control js-example-basic-single" name="warga[]">
-                                <option selected disabled value="AL">Type to search</option>
+                            <select id="warga${warga}" placeholder="Type to search..." class="form-control js-example-basic-single" name="warga[]">
+                                <option value="">Type to search</option>
                             </select>
                         </div>
                     </div>
@@ -621,7 +622,7 @@
                         </div>
                     </div>
                     <div class="col-md-1 d-flex align-items-center">
-                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">Delete</button>
+                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
                     </div>
                 </div>
             </div>
@@ -652,22 +653,34 @@
             statusSelect.append('<option value="lainnya">Lainnya</option>');
         }
 
+        // Menambahkan fungsi selectize ke elemen <select> baru
+        selectElement.selectize();
+
         warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
     });
-
-
-
 
     function onDelete(id){
         $(`#warga${id}`).closest('.row').remove();
     }
 </script>
 
-
-
-
 <script>
     // Mencetak data yang dikirim dari controller ke konsol
     console.log(@json($data_keluarga));
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+
+{{-- <script>
+    $(document).ready(function() {
+        $('#select-state').selectize();
+    });
+</script> --}}
+<script>
+    $(document).ready(function() {
+        $('.select-state').selectize();
+    });
 </script>
 @endpush

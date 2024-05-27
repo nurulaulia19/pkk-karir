@@ -21,9 +21,9 @@ return new class extends Migration
             $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan')->onUpdate('cascade');
             // misal data warga
             $table->bigInteger('rumah_tangga_id')->unsigned();
-            $table->foreign('rumah_tangga_id')->references('id')->on('rumah_tanggas');
+            $table->foreign('rumah_tangga_id')->references('id')->on('rumah_tanggas')->onDelete('cascade');
             $table->bigInteger('kategori_id')->unsigned();
-            $table->foreign('kategori_id')->references('id')->on('kategori_pemanfaatan_lahan');
+            $table->foreign('kategori_id')->references('id')->on('kategori_pemanfaatan_lahan')->onDelete('cascade');
             $table->integer('periode');
             $table->date('is_valid')->nullable();
             $table->timestamps();

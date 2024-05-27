@@ -70,9 +70,9 @@
                 <div class="col-md-6">
                     <div class="form-group @error('keluarga_id') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Nama Keluarga</label>
-                        <select class="form-control" id="keluarga_id" name="keluarga_id">
+                        <select class="form-control select-state" id="keluarga_id" name="keluarga_id" placeholder="Type to search..">
                           {{-- nama warga --}}
-                          <option hidden> Pilih Kepala Keluarga</option>
+                          <option value=""> Pilih Kepala Keluarga</option>
                             @foreach ($keluarga as $index)
                                 <option value="{{ $index->id }}">{{ $index->nama_kepala_keluarga }} - {{$index->nik_kepala_keluarga}}</option>
                             @endforeach
@@ -139,4 +139,15 @@
     <!-- /.card -->
   </div>
 @endsection
+@push('script-addon')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+<script>
+    $(document).ready(function() {
+        $('.select-state').selectize();
+    });
+</script>
+@endpush
+
 

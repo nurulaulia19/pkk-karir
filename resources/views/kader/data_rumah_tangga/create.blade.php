@@ -246,8 +246,8 @@
                                             <div class="form-group">
                                                 <label>Nama</label>
                                                 <select name="keluarga[]" id="js-example-basic-multiple"
-                                                    class="form-control js-example-basic-single" >
-                                                    <option selected disabled>Pilih Nama Kepala Rumah Tangga</option>
+                                                    class="form-control js-example-basic-single select-state" placeholder="Type to search..">
+                                                    <option value="">Pilih Nama Kepala Rumah Tangga</option>
                                                     @foreach ($kk as $kepala)
                                                         <option value="{{ $kepala->id }}">{{ $kepala->nama_kepala_keluarga }} - {{ $kepala->nik_kepala_keluarga }}</option>
                                                     @endforeach
@@ -628,6 +628,51 @@
         });
 
     // Fungsi untuk menambahkan row saat tombol diklik
+    // document.getElementById('addRow').addEventListener('click', function() {
+    //     var container = document.getElementById('containerz');
+    //     var rownew = document.createElement('div');
+    //     rownew.className = 'row w-100';
+    //     rownew.innerHTML = `
+    //         <div class="col-md-12">
+    //             <div class="row">
+    //                 <div class="col-md-6">
+    //                     <div class="form-group">
+    //                         <label>Nama</label>
+    //                         <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
+    //                             <option selected disabled value="AL">Type to search</option>
+    //                         </select>
+    //                     </div>
+    //                 </div>
+    //                 <div class="col-md-5">
+    //                     <div class="form-group">
+    //                         <label>Dasawisma</label>
+    //                         <select class="form-control" name="status[]">
+    //                             <option value="kepala-keluarga">Kepala Keluarga</option>
+    //                         </select>
+    //                     </div>
+    //                 </div>
+    //                 <div class="col-md-1 d-flex align-items-center">
+    //                     <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     `;
+    //     container.appendChild(rownew);
+
+    //     var selectElement = document.getElementById(`warga${warga}`);
+    //     // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
+    //     if (data) {
+    //         data.forEach(function(item) {
+    //             var option = document.createElement('option');
+    //             option.value = item.id;
+    //             option.textContent = item.nama_kepala_keluarga + ' - ' + item.nik_kepala_keluarga;
+    //             selectElement.appendChild(option);
+    //         });
+    //     }
+    //     selectElement.selectize();
+    //     warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
+    // });
+
     document.getElementById('addRow').addEventListener('click', function() {
         var container = document.getElementById('containerz');
         var rownew = document.createElement('div');
@@ -639,7 +684,7 @@
                         <div class="form-group">
                             <label>Nama</label>
                             <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
-                                <option selected disabled value="AL">Type to search</option>
+                                <option selected disabled value="">Type to search</option>
                             </select>
                         </div>
                     </div>
@@ -660,17 +705,21 @@
         container.appendChild(rownew);
 
         var selectElement = document.getElementById(`warga${warga}`);
+        var selectizeInstance = $(selectElement).selectize({
+            // Konfigurasi opsional selectize di sini
+        });
+
         // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
         if (data) {
             data.forEach(function(item) {
-                var option = document.createElement('option');
-                option.value = item.id;
-                option.textContent = item.nama_kepala_keluarga + ' - ' + item.nik_kepala_keluarga;
-                selectElement.appendChild(option);
+                selectizeInstance[0].selectize.addOption({value: item.id, text: item.nama_kepala_keluarga + ' - ' + item.nik_kepala_keluarga});
             });
         }
+
         warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
     });
+
+
     function onDelete(id) {
         var elementToRemove = document.getElementById(`warga${id}`).closest('.row');
         elementToRemove.parentNode.removeChild(elementToRemove);
@@ -692,4 +741,13 @@
             // $('.js-example-basic-multiple').select2();
         });
     </script> --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+
+    <script>
+        $(document).ready(function() {
+            $('.select-state').selectize();
+        });
+    </script>
 @endpush

@@ -213,6 +213,8 @@ class DataWargaController extends Controller
 
         // Simpan data menggunakan model
         $warga = DataWarga::create($data);
+        $warga->is_valid = Carbon::now();
+        $warga->save();
 
         Alert::success('Berhasil', 'Data berhasil ditambahkan');
         return redirect('/data_warga');
