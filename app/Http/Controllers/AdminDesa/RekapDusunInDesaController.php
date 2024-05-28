@@ -506,10 +506,13 @@ class RekapDusunInDesaController extends Controller
                 foreach ($dasawisma->rumahtangga as $rumahtangga) {
                     // $totalRumahTangga++;
                     if ($rumahtangga->periode == $periode) {
+
                         if(!$rumahtangga->is_valid){
                             return redirect()->route('belum.vaidasi');
                         }
                         $totalRumahTangga++;
+                        // dd($totalRumahTangga++);
+
                         if ($rumahtangga->pemanfaatanlahan) {
                             foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
                                 $totalKegiatanPemanfaatanPekarangan++;
@@ -724,8 +727,8 @@ class RekapDusunInDesaController extends Controller
                             foreach ($dasawisma->rumahtangga as $rumahtangga) {
                                 if ($rumahtangga->periode == $periode) {
                                 // $totalRumahTangga++;
-
                                     $totalRumahTangga++;
+                                    // dd($totalRumahTangga);
                                     if ($rumahtangga->pemanfaatanlahan) {
                                         foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
                                             $totalKegiatanPemanfaatanPekarangan++;
@@ -861,7 +864,7 @@ class RekapDusunInDesaController extends Controller
                         'total_makan_beras' => $totalMakanBeras,
                         'total_makan_non_beras' => $totalMakanNonBeras,
                         'total_anggota_balita_laki' => $totalAnggotaBalitaLaki,
-                        'total_kegiatan_lingkungan' => $totalKegiatanLingkungan,
+                        'total_kesehatan_lingkungan' => $totalKegiatanLingkungan,
                         'total_anggota_perempuan' => $totalAnggotaPerempuan,
                         'total_anggota_wus' => $totalAnggotaWUS,
                         'total_anggota_balita_perempuan' => $totalAnggotaBalitaPerempuan,
@@ -911,8 +914,10 @@ class RekapDusunInDesaController extends Controller
                                 foreach ($item->dasawisma as $dasawisma) {
                                     $totalDasawisma++;
                                     foreach ($dasawisma->rumahtangga as $rumahtangga) {
-                                        if ($rumahtangga) {
+                                        // if ($rumahtangga) {
+                                        if ($rumahtangga->periode == $periode) {
                                             $totalRumahTangga++;
+                                            // dd($totalRumahTangga);
                                             if ($rumahtangga->pemanfaatanlahan) {
                                                 foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
                                                     $totalKegiatanPemanfaatanPekarangan++;
@@ -1049,7 +1054,7 @@ class RekapDusunInDesaController extends Controller
                         'total_makan_beras' => $totalMakanBeras,
                         'total_makan_non_beras' => $totalMakanNonBeras,
                         'total_anggota_balita_laki' => $totalAnggotaBalitaLaki,
-                        'total_kegiatan_lingkungan' => $totalKegiatanLingkungan,
+                        'total_kesehatan_lingkungan' => $totalKegiatanLingkungan,
                         'total_anggota_perempuan' => $totalAnggotaPerempuan,
                         'total_anggota_wus' => $totalAnggotaWUS,
                         'total_anggota_balita_perempuan' => $totalAnggotaBalitaPerempuan,
@@ -1105,8 +1110,9 @@ class RekapDusunInDesaController extends Controller
                             foreach ($item->dasawisma as $dasawisma) {
                                 $totalDasawisma++;
                                 foreach ($dasawisma->rumahtangga as $rumahtangga) {
-                                    if ($rumahtangga) {
+                                    if ($rumahtangga->periode == $periode) {
                                         $totalRumahTangga++;
+                                        // dd($totalRumahTangga);
                                         if ($rumahtangga->pemanfaatanlahan) {
                                             foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
                                                 $totalKegiatanPemanfaatanPekarangan++;
@@ -1242,12 +1248,13 @@ class RekapDusunInDesaController extends Controller
                         'total_makan_beras' => $totalMakanBeras,
                         'total_makan_non_beras' => $totalMakanNonBeras,
                         'total_anggota_balita_laki' => $totalAnggotaBalitaLaki,
-                        'total_kegiatan_lingkungan' => $totalKegiatanLingkungan,
+                        // 'total_kesehatan_lingkungan' => $totalKegiatanLingkungan,
                         'total_anggota_perempuan' => $totalAnggotaPerempuan,
                         'total_anggota_wus' => $totalAnggotaWUS,
                         'total_anggota_balita_perempuan' => $totalAnggotaBalitaPerempuan,
                         'total_anggota_pus' => $totalAnggotaPUS,
                         'total_anggota_laki' => $totalAnggotaLaki,
+                        'total_kesehatan_lingkungan' => $totalKegiatanLingkungan,
                         'rt' => $rt,
                     ];
 

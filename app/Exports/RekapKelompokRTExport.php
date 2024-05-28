@@ -95,7 +95,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
         foreach ($dasa_wisma as $dasawisma) {
             $counts = app(
                 'App\Http\Controllers\AdminController',
-            )->countRekapitulasiDasawismaInRt($dasawisma->id,2023);
+            )->countRekapitulasiDasawismaInRt($dasawisma->id, $this->periode);
             $data = [
                 '_index' => $i,
                 'nama' => $dasawisma->nama_dasawisma,
@@ -204,6 +204,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
             '',
             '',
             '',
+            'KETERANGAN'
         ];
 
         $headings2 = [
@@ -266,6 +267,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->mergeCells('AE9:AE10');
                 $lastRow = count($this->dasa_wisma) + 11; // Nomor baris terakhir data + 11 (sesuaikan dengan kebutuhan)
                 // Lakukan merge langsung pada objek lembar kerja (worksheet)
                 $event->sheet->mergeCells('A'.$lastRow.':B'.$lastRow);
@@ -317,6 +319,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
             ],
         ];
     }
+
 
     public function styles(Worksheet $sheet){
         $sheet->getStyle('A9:' . $sheet->getHighestColumn() . $sheet->getHighestRow())->applyFromArray($this->getBorderStyles());

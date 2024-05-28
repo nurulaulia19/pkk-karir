@@ -220,6 +220,7 @@ public function __construct(array $data)
             '',
             '',
             '',
+            'KETERANGAN',
         ];
 
         $headings2 = [
@@ -289,6 +290,7 @@ public function __construct(array $data)
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->mergeCells('AH9:AH10');
                 $lastRow = count($this->dusun) + 11;
                 $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
                 $highestRow = $event->sheet->getHighestRow();

@@ -134,7 +134,7 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
         }
 
         $result[] = [
-            '_index' => 'Jumlah',
+            '_index' => 'JUMLAH',
             'rt' => null,
             'jumlah_dasa_wisma' => $this->totalDasawisma ?: '0',
             'jumlah_KRT' => $this->totalJmlKRT ?: '0',
@@ -206,7 +206,8 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
             '',
             '',
             '',
-            '',
+            'KETERANGAN'
+
         ];
 
         $headings2 = [
@@ -251,6 +252,12 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
             [
                 'RW : ' . strtoupper($this->dasa_wisma->first()->rw->name),
             ],
+
+            [
+                'DUSUN: ' . ($this->dasa_wisma->isNotEmpty() && optional($this->dasa_wisma->first()->rw)->dusun && optional($this->dasa_wisma->first()->rw->dusun)->name ? strtoupper($this->dasa_wisma->first()->rw->dusun->name) : ''),
+                // Add other elements to the array here
+            ],
+
             [
                 'DESA/KELURAHAN : ' . strtoupper($this->dasa_wisma->first()->desa->nama_desa),
             ],
@@ -295,7 +302,8 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
 
                 // $lastRow = count($this->rt) + 10;
                 // $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
-                $lastRow = count($this->dasa_wisma) + 10; // Nomor baris terakhir data + 11 (sesuaikan dengan kebutuhan)
+                $event->sheet->getDelegate()->mergeCells('AF9:AF10');
+                $lastRow = count($this->dasa_wisma) + 11; // Nomor baris terakhir data + 11 (sesuaikan dengan kebutuhan)
                 // Lakukan merge langsung pada objek lembar kerja (worksheet)
                 $event->sheet->mergeCells('A'.$lastRow.':B'.$lastRow);
 
@@ -349,7 +357,7 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
     }
 
     public function styles(Worksheet $sheet){
-        $sheet->getStyle('A8:' . $sheet->getHighestColumn() . $sheet->getHighestRow())->applyFromArray($this->getBorderStyles());
+        $sheet->getStyle('A9:' . $sheet->getHighestColumn() . $sheet->getHighestRow())->applyFromArray($this->getBorderStyles());
         // Menggabungkan semua sel pada baris 1 (dari kolom A sampai kolom terakhir yang berisi data)
         $lastColumn = $sheet->getHighestColumn();
         // // Menggabungkan semua sel pada baris 1 (dari kolom A sampai kolom terakhir yang berisi data)
@@ -362,12 +370,13 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
         $sheet->mergeCells('A4:' . $lastColumn . '4');
         $sheet->mergeCells('A5:' . $lastColumn . '5');
         $sheet->mergeCells('A6:' . $lastColumn . '6');
+        $sheet->mergeCells('A7:' . $lastColumn . '7');
 
         // Mengatur horizontal alignment (penyelarasan horizontal) pada sel A1 sampai A6 ke tengah
-        $sheet->getStyle('A1:A6')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A1:A7')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         // Mengatur teks pada baris 1 hingga 7 menjadi tebal (bold)
-        $sheet->getStyle('1:8')->getFont()->setBold(true);
+        $sheet->getStyle('1:9')->getFont()->setBold(true);
 
         $lastColumnIndex = Coordinate::columnIndexFromString($lastColumn);
 
@@ -393,11 +402,11 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
             $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-            $sheet->mergeCells('F8:P8');
-            $sheet->mergeCells('Q8:V8');
-            $sheet->mergeCells('W8:Y8');
-            $sheet->mergeCells('Z8:AA8');
-            $sheet->mergeCells('AB8:AE8');
+            $sheet->mergeCells('F9:P9');
+            $sheet->mergeCells('Q9:V9');
+            $sheet->mergeCells('W9:Y9');
+            $sheet->mergeCells('Z9:AA9');
+            $sheet->mergeCells('AB9:AE9');
 
         }
 
@@ -405,16 +414,16 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
 
         for ($col = 'A'; $col <= 'E'; $col++) {
             // Simpan nilai sel sebelum digabungkan
-            $value = $sheet->getCell($col . '9')->getValue();
+            $value = $sheet->getCell($col . '10')->getValue();
 
             // Pindahkan nilai sel ke sel atas
-            $sheet->setCellValue($col . '8', $value);
+            $sheet->setCellValue($col . '9', $value);
 
             // Gabungkan sel secara vertikal
-            $sheet->mergeCells($col . '8:' . $col . '9');
+            $sheet->mergeCells($col . '9:' . $col . '10');
 
             // Atur penyelarasan vertikal ke tengah
-            $sheet->getStyle($col . '8:' . $col . '9')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+            $sheet->getStyle($col . '9:' . $col . '10')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
         }
 
     }

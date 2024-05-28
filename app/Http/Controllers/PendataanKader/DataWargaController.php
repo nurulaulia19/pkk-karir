@@ -79,66 +79,6 @@ class DataWargaController extends Controller
 
  }
 
-    // public function store(Request $request)
-    // {
-    //     // Validasi data
-    //     $request->validate([
-    //         // Kolom lainnya...
-    //         'aktivitas_UP2K' => 'required|boolean',
-    //         'aktivitas_kesehatan_lingkungan' => 'required|boolean',
-    //     ], [
-    //         // Pesan error validasi disesuaikan dengan kebutuhan
-    //     ]);
-
-
-
-    //     // Proses penyimpanan data
-    //     $data = $request->only([
-    //         'id_desa',
-    //         'id_kecamatan',
-    //         'id_dasawisma',
-    //         'no_registrasi',
-    //         'no_ktp',
-    //         'nama',
-    //         'jabatan',
-    //         'jenis_kelamin',
-    //         'tempat_lahir',
-    //         'tgl_lahir',
-    //         'status_perkawinan',
-    //         'agama',
-    //         'alamat',
-    //         'kabupaten',
-    //         'provinsi',
-    //         'pendidikan',
-    //         'pekerjaan',
-    //         'akseptor_kb',
-    //         'aktif_posyandu',
-    //         'ikut_bkb',
-    //         'memiliki_tabungan',
-    //         'ikut_kelompok_belajar',
-    //         'ikut_paud_sejenis',
-    //         'ikut_koperasi',
-    //         'periode',
-    //         'berkebutuhan_khusus',
-    //         'makan_beras',
-    //         'provinsi',
-    //         'aktivitas_UP2K',
-    //         'aktivitas_kesehatan_lingkungan',
-    //     ]);
-
-    //     // Menambahkan kolom yang baru
-    //     $data['pasangan_usia_subur'] = $request->pasangan_usia_subur === '1' ? true : false;
-    //     // $data['tiga_buta'] = $request->tiga_buta === '1' ? true : false;
-    //     $data['ibu_hamil'] = $request->ibu_hamil === '1' ? true : false;
-    //     $data['ibu_menyusui'] = $request->ibu_menyusui === '1' ? true : false;
-    //     $data['aktivitas_UP2K'] = $request->aktivitas_UP2K === '1' ? true : false;;
-    //     $data['aktivitas_kesehatan_lingkungan'] = $request->aktivitas_kesehatan_lingkungan === '1' ? true : false;;
-
-    //     // Simpan data
-    //     $warga = DataWarga::create($data);
-
-    //     return redirect('/data_warga')->with('success', 'Data berhasil ditambahkan.');
-    // }
 
     public function store(Request $request)
     {
@@ -263,96 +203,6 @@ class DataWargaController extends Controller
     }
 
 
-    // public function update(Request $request, DataWarga $data_warga)
-    // {
-    //     // proses mengubah untuk tambah data pendidikan
-    //     // dd($request->all());
-    //     // validasi data
-    //     $request->validate([
-    //         'id_desa' => 'required',
-    //         'id_kecamatan' => 'required',
-    //         'id_dasawisma' => 'required',
-    //         'no_registrasi' => 'required',
-    //         'no_ktp' => 'required|min:16',
-    //         'nama' => 'required',
-    //         'jabatan' => 'required',
-    //         'jenis_kelamin' => 'required',
-    //         'tempat_lahir' => 'required',
-    //         'tgl_lahir' => 'required',
-    //         'status_perkawinan' => 'required',
-    //         'agama' => 'required',
-    //         'alamat' => 'required',
-    //         'kabupaten' => 'required',
-    //         'provinsi' => 'required',
-    //         'pendidikan' => 'required',
-    //         'pekerjaan' => 'required',
-    //         'akseptor_kb' => 'required',
-    //         'aktif_posyandu' => 'required',
-    //         'ikut_bkb' => 'required',
-    //         'memiliki_tabungan' => 'required',
-    //         'ikut_kelompok_belajar' => 'required',
-    //         'ikut_paud_sejenis' => 'required',
-    //         'ikut_koperasi' => 'required',
-    //         'periode' => 'required',
-
-    //     ], [
-    //         'id_desa.required' => 'Lengkapi Alamat Desa Warga',
-    //         'id_kecamatan' => 'Lengkapi Alamat Kecamatan Warga',
-    //         'id_dasawisma.required' => 'Lengkapi Nama Dasawisma Yang Diikuti Warga',
-    //         // 'id_keluarga.required' => 'Lengkapi Nama Kepala Rumah Tangga',
-    //         'no_registrasi.required' => 'Lengkapi No. Registrasi',
-    //         'no_ktp.required' => 'Lengkapi No. KTP/NIK',
-    //         'nama.required' => 'Lengkapi Nama',
-    //         'jabatan.required' => 'Lengkapi Jabatan dalam Struktur TP PKK',
-    //         'jenis_kelamin.required' => 'Pilih Jenis Kelamin',
-    //         'tempat_lahir.required' => 'Lengkapi Jumlah Tempat Lahir',
-    //         'tgl_lahir.required' => 'Lengkapi Tanggal Lahir',
-    //         // 'umur.required' => 'Lengkapi Umur',
-    //         'status_perkawinan.required' => 'Pilih Status Perkawinan',
-    //         // 'status_keluarga.required' => 'Pilih Status Keluarga',
-    //         'agama.required' => 'Pilih Agama',
-    //         'alamat.required' => 'Lengkapi Alamat',
-    //         'kabupaten.required' => 'Lengkapi kabupaten',
-    //         'provinsi.required' => 'Lengkapi Provinsi',
-    //         'pendidikan.required' => 'Pilih Riwayat Pendidikan Warga',
-    //         'pekerjaan.required' => 'Pilih Pekerjaan Warga',
-    //         'akseptor_kb.required' => 'Pilih Akseptor KB Yang Diikuti Warga',
-    //         'aktif_posyandu.required' => 'Pilih Kegiatan Aktif Posyandu',
-    //         'ikut_bkb.required' => 'Pilih Kegiatan Mengikuti BKB (Bina Keluarga Balita)',
-    //         'memiliki_tabungan.required' => 'Pilih Memiliki Tabungan Warga',
-    //         'ikut_kelompok_belajar.required' => 'Pilih Kegiatan Kelompok Belajar Yang Diikuti',
-    //         'ikut_paud_sejenis.required' => 'Pilih Kegiatan PAUD/Sejenis Yang Diikuti',
-    //         'ikut_koperasi.required' => 'Pilih Kegiatan Koperasi Yang Diikuti',
-    //         'periode.required' => 'Pilih Periode',
-
-    //     ]);
-
-    //     // update data
-    //     $data_warga->update($request->all());
-    //     $data_warga->update([
-    //         'is_valid' => Carbon::now()
-    //     ]);
-    //         // Temukan ID keluarga terkait dengan DataWarga
-    //         $id_keluarga = DB::table('keluarga_has_warga')
-    //         ->where('warga_id', $data_warga->id)
-    //         ->value('keluarga_id');
-
-    //         // Periksa apakah ID keluarga ditemukan
-    //         if ($id_keluarga) {
-    //         // Update kolom nama_kepala_keluarga dengan nama yang baru
-    //         DB::table('data_keluarga')
-    //         ->where('id', $id_keluarga)
-    //         ->update([
-    //         'nama_kepala_keluarga' => $request->nama, // Menggunakan nama baru dari DataWarga
-    //         ]);
-    //     }
-
-    //     Alert::success('Berhasil', 'Data berhasil di ubah');
-    //     // dd($jml_kader);
-    //     return redirect('/data_warga');
-
-    // }
-
     public function update(Request $request, DataWarga $data_warga)
     {
         // Validasi data
@@ -381,7 +231,12 @@ class DataWargaController extends Controller
             'ikut_kelompok_belajar' => 'required',
             'ikut_paud_sejenis' => 'required',
             'ikut_koperasi' => 'required',
+            'berkebutuhan_khusus' => 'required',
+            'makan_beras' => 'required',
+            'aktivitas_UP2K' => 'required',
+            'aktivitas_kesehatan_lingkungan' => 'required',
             'periode' => 'required',
+
         ], [
             'id_desa.required' => 'Lengkapi Alamat Desa Warga',
             'id_kecamatan.required' => 'Lengkapi Alamat Kecamatan Warga',
@@ -395,6 +250,7 @@ class DataWargaController extends Controller
             'tempat_lahir.required' => 'Lengkapi Tempat Lahir',
             'tgl_lahir.required' => 'Lengkapi Tanggal Lahir',
             'status_perkawinan.required' => 'Pilih Status Perkawinan',
+            'berkebutuhan_khusus.required' => 'Pilih Berkebutuhan Khusus',
             'agama.required' => 'Pilih Agama',
             'alamat.required' => 'Lengkapi Alamat',
             'kabupaten.required' => 'Lengkapi Kabupaten',
@@ -408,6 +264,9 @@ class DataWargaController extends Controller
             'ikut_kelompok_belajar.required' => 'Pilih Kegiatan Kelompok Belajar Yang Diikuti',
             'ikut_paud_sejenis.required' => 'Pilih Kegiatan PAUD/Sejenis Yang Diikuti',
             'ikut_koperasi.required' => 'Pilih Kegiatan Koperasi Yang Diikuti',
+            'makan_beras.required' => 'Pilih Makanan Pokok',
+            'aktivitas_UP2K.required' => 'Pilih Aktivitas UP2K yang diikuti',
+            'aktivitas_kesehatan_lingkungan.required' => 'Pilih Aktivitas Kesehatan Lingkungan yang diikuti',
             'periode.required' => 'Pilih Periode',
         ]);
 
@@ -425,6 +284,7 @@ class DataWargaController extends Controller
             'tgl_lahir',
             'status_perkawinan',
             'agama',
+            'makan_beras',
             'alamat',
             'kabupaten',
             'provinsi',
@@ -437,6 +297,9 @@ class DataWargaController extends Controller
             'ikut_kelompok_belajar',
             'ikut_paud_sejenis',
             'ikut_koperasi',
+            'aktivitas_UP2K',
+            'aktivitas_kesehatan_lingkungan',
+            'berkebutuhan_khusus',
             'periode',
         ]));
 

@@ -212,7 +212,7 @@
                   <li class="nav-item">
                     <a href="/data_kelompok_pkk_rt" class="nav-link {{ Request::is('data_kelompok_pkk_rt') ? 'active':'' }}">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Data Kelompok RT</p>
+                      <p>Data Kelompok PKK RT</p>
                     </a>
                   </li>
                   <li class="nav-item">

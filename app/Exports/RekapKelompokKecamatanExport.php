@@ -215,7 +215,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
             '',
             '',
             '',
-            '',
+            'KETERANGAN',
         ];
 
         $headings2 = [
@@ -273,6 +273,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->mergeCells('AH9:AH10');
                 $lastRow = count($this->desaa) + 11;
                 $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
                 $event->sheet->getStyle('A'.$lastRow)->applyFromArray([

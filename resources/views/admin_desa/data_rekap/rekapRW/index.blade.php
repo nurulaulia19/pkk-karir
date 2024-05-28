@@ -25,9 +25,9 @@
                                     <h6>RW :
                                         {{ $dasa_wisma->first()->rw->name }}
                                     </h6>
+                                    <h6>Dusun: {{ $dasa_wisma->isNotEmpty() && $dasa_wisma->first()->rw && $dasa_wisma->first()->rw->dusun && $dasa_wisma->first()->rw->dusun->name ? $dasa_wisma->first()->rw->dusun->name : '' }}</h6>
                                     <h6>Desa/Kel :
                                         {{ $dasa_wisma->first()->desa->nama_desa }}
-
                                     </h6>
                                     <h6>Tahun :
                                         {{ $periode }}

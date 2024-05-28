@@ -201,6 +201,7 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
             '',
             '',
             '',
+            'KETERANGAN'
         ];
 
         $headings2 = [
@@ -235,6 +236,12 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
             'KESEHATAN LINGKUNGAN',
         ];
 
+        // $endHeadings = [
+        //     'KETERANGAN'
+        // ];
+
+        //  // Gabungkan array judul kolom
+        // $allHeadings = array_merge($memberHeadings, $endHeadings);
 
         return [
             ['REKAPITULASI'],
@@ -248,6 +255,7 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
             [],
             $headings,
             $headings2,
+            // $endHeadings,
         ];
     }
 
@@ -255,6 +263,7 @@ class RekapKelompokDasaWismaExport implements FromArray, WithHeadings, WithEvent
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
+                $event->sheet->getDelegate()->mergeCells('AD10:AD11');
                 $lastRow = count($this->rumahtangga) + 12; // Nomor baris terakhir data + 11 (sesuaikan dengan kebutuhan)
 
                 // Lakukan merge langsung pada objek lembar kerja (worksheet)

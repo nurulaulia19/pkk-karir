@@ -253,26 +253,86 @@ class DataPemanfaatanPekaranganController extends Controller
     //      return redirect('/data_pemanfaatan');
     // }
 
+    // public function update(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'rumah_tangga_id' => 'required|exists:rumah_tanggas,id',
+    //         'periode' => 'required',
+    //         'kategori_id' => 'required',
+
+    //     ], [
+    //         'rumah_tangga_id.required' => 'Lengkapi Warga Yang Didata',
+    //         'kategori_id.required' => 'Pilih Kegiatan',
+    //         'periode.required' => 'Pilih Periode',
+
+    //     ]);
+
+    //     if (!isUnique($request->kategori_id)) {
+    //         return redirect()
+    //             ->back()
+    //             ->withErrors(['data' => 'nama pemanfaatan tidak boleh sama']);
+    //     }
+
+    //     $rumah = RumahTangga::find($request->rumah_tangga_id);
+    //     if (!$rumah->is_valid) {
+    //         return redirect()
+    //             ->back()
+    //             ->withErrors(['rumah_tangga_id' => 'Data rumah tangga belum divalidasi.'])
+    //             ->withInput();
+    //     }
+    //     // isi denan tanggal
+    //     $rumah->is_valid_pemanfaatan_lahan = now();
+    //     $rumah->update();
+
+    //     // Delete existing data for the given rumah_tangga_id and periode
+    //     DataPemanfaatanPekarangan::where('rumah_tangga_id', $request->rumah_tangga_id)
+    //         ->where('periode', $request->periode)
+    //         ->delete();
+
+    //     // Create new data for each kategori_id value
+    //     foreach ($request->kategori_id as $key => $item) {
+    //         if ($item !== null && $item !== '') {
+    //             $checkDataAavilable = DataPemanfaatanPekarangan::where('rumah_tangga_id', $request->rumah_tangga_id)->
+    //             where('kategori_id', $request->kategori_id)->first();
+    //             if(!$checkDataAavilable){
+
+    //             DataPemanfaatanPekarangan::create([
+    //                 'id_desa' => 1,
+    //                 'id_kecamatan' => 1,
+    //                 'rumah_tangga_id' => $request->rumah_tangga_id,
+    //                 'kategori_id' => $item,
+    //                 'periode' => $request->periode,
+    //                 'is_valid' => now()
+    //             ]);
+    //         }
+
+    //         }
+    //     }
+
+    //     Alert::success('Berhasil', 'Data berhasil di tambahkan');
+    //     return redirect('/data_pemanfaatan');
+    // }
     public function update(Request $request, $id)
     {
+        // Validate the request
         $request->validate([
             'rumah_tangga_id' => 'required|exists:rumah_tanggas,id',
             'periode' => 'required',
             'kategori_id' => 'required',
-
         ], [
-            'rumah_tangga_id.required' => 'Lengkapi Warga Yang Didata',
+            'rumah_tangga_id.required' => 'Lengkapi Kepala Rumah Tangga Yang Didata',
             'kategori_id.required' => 'Pilih Kegiatan',
             'periode.required' => 'Pilih Periode',
-
         ]);
 
+        // Check for unique kategori_id
         if (!isUnique($request->kategori_id)) {
             return redirect()
                 ->back()
                 ->withErrors(['data' => 'nama pemanfaatan tidak boleh sama']);
         }
 
+        // Find the related RumahTangga and ensure it is valid
         $rumah = RumahTangga::find($request->rumah_tangga_id);
         if (!$rumah->is_valid) {
             return redirect()
@@ -280,38 +340,48 @@ class DataPemanfaatanPekaranganController extends Controller
                 ->withErrors(['rumah_tangga_id' => 'Data rumah tangga belum divalidasi.'])
                 ->withInput();
         }
-        // isi denan tanggal
-        $rumah->is_valid_pemanfaatan_lahan = now();
-        $rumah->update();
 
-        // Delete existing data for the given rumah_tangga_id and periode
+        // Mark the RumahTangga as having valid pemanfaatan lahan
+        $rumah->is_valid_pemanfaatan_lahan = now();
+        $rumah->save();
+
+        // Delete existing DataPemanfaatanPekarangan for the given rumah_tangga_id and periode
         DataPemanfaatanPekarangan::where('rumah_tangga_id', $request->rumah_tangga_id)
             ->where('periode', $request->periode)
             ->delete();
 
-        // Create new data for each kategori_id value
+        // Create new DataPemanfaatanPekarangan records for each kategori_id
         foreach ($request->kategori_id as $key => $item) {
             if ($item !== null && $item !== '') {
-                $checkDataAavilable = DataPemanfaatanPekarangan::where('rumah_tangga_id', $request->rumah_tangga_id)->
-                where('kategori_id', $request->kategori_id)->first();
-                if(!$checkDataAavilable){
+                $checkDataAvailable = DataPemanfaatanPekarangan::where('rumah_tangga_id', $request->rumah_tangga_id)
+                    ->where('kategori_id', $item)
+                    ->first();
 
-                DataPemanfaatanPekarangan::create([
-                    'id_desa' => 1,
-                    'id_kecamatan' => 1,
-                    'rumah_tangga_id' => $request->rumah_tangga_id,
-                    'kategori_id' => $item,
-                    'periode' => $request->periode,
-                    'is_valid' => now()
-                ]);
+                if (!$checkDataAvailable) {
+                    DataPemanfaatanPekarangan::create([
+                        'id_desa' => 1,
+                        'id_kecamatan' => 1,
+                        'rumah_tangga_id' => $request->rumah_tangga_id,
+                        'kategori_id' => $item,
+                        'periode' => $request->periode,
+                        'is_valid' => now(),
+                    ]);
+                }
             }
+        }
 
-            }
+        // Mark the RumahTangga as having pemanfaatan lahan
+        $dataWarga = RumahTangga::find($request->rumah_tangga_id);
+        if ($dataWarga) {
+            $dataWarga->is_pemanfaatan_lahan = true;
+            $dataWarga->is_valid_pemanfaatan_lahan = now();
+            $dataWarga->save();
         }
 
         Alert::success('Berhasil', 'Data berhasil di tambahkan');
         return redirect('/data_pemanfaatan');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -614,32 +614,62 @@ class AdminController extends Controller
 
         $today = Carbon::now();
         foreach ($dasa_wisma as $index){
+            // foreach ($index->rumahtangga as $rumahtangga) {
+            //     if ($rumahtangga->sumber_air_pdam) {
+            //         $totalAirPDAM++;
+            //     }
+            //     if ($rumahtangga->sumber_air_sumur) {
+            //         $totalAirSumur++;
+            //     }
+            //     if ($rumahtangga->sumber_air_lainnya) {
+            //         $totalAirLainnya++;
+            //     }
+            //     if ($rumahtangga->tempel_stiker) {
+            //         $totalStiker++;
+            //     }
+            //     if ($rumahtangga->punya_jamban) {
+            //         $totalJamban++;
+            //     }
+            //     if ($rumahtangga->punya_tempat_sampah) {
+            //         $totalPemSampah++;
+            //     }
+            //     if ($rumahtangga->saluran_pembuangan_air_limbah) {
+            //         $totalSPAL++;
+            //     }
+            //     if ($rumahtangga->punya_jamban && $rumahtangga->punya_tempat_sampah && $rumahtangga->saluran_pembuangan_air_limbah) {
+            //         $totalSheatLayakHuni++;
+            //     } else {
+            //         $totalTidakSheatLayakHuni++;
+            //     }
+            // }
             foreach ($index->rumahtangga as $rumahtangga) {
-                if ($rumahtangga->sumber_air_pdam) {
-                    $totalAirPDAM++;
-                }
-                if ($rumahtangga->sumber_air_sumur) {
-                    $totalAirSumur++;
-                }
-                if ($rumahtangga->sumber_air_lainnya) {
-                    $totalAirLainnya++;
-                }
-                if ($rumahtangga->tempel_stiker) {
-                    $totalStiker++;
-                }
-                if ($rumahtangga->punya_jamban) {
-                    $totalJamban++;
-                }
-                if ($rumahtangga->punya_tempat_sampah) {
-                    $totalPemSampah++;
-                }
-                if ($rumahtangga->saluran_pembuangan_air_limbah) {
-                    $totalSPAL++;
-                }
-                if ($rumahtangga->punya_jamban && $rumahtangga->punya_tempat_sampah && $rumahtangga->saluran_pembuangan_air_limbah) {
-                    $totalSheatLayakHuni++;
-                } else {
-                    $totalTidakSheatLayakHuni++;
+                if ($rumahtangga->periode == $periode) {
+                    if ($rumahtangga->sumber_air_pdam) {
+                        $totalAirPDAM++;
+                    }
+                    if ($rumahtangga->sumber_air_sumur) {
+                        $totalAirSumur++;
+                    }
+                    if ($rumahtangga->sumber_air_lainnya) {
+                        $totalAirLainnya++;
+                    }
+                    if ($rumahtangga->tempel_stiker) {
+                        $totalStiker++;
+                    }
+                    if ($rumahtangga->punya_jamban) {
+                        $totalJamban++;
+                    }
+                    if ($rumahtangga->punya_tempat_sampah) {
+                        $totalPemSampah++;
+                    }
+                    if ($rumahtangga->saluran_pembuangan_air_limbah) {
+                        $totalSPAL++;
+                    }
+                    if ($rumahtangga->punya_jamban && $rumahtangga->punya_tempat_sampah && $rumahtangga->saluran_pembuangan_air_limbah) {
+                        $totalSheatLayakHuni++;
+                    } else {
+                        $totalTidakSheatLayakHuni++;
+                    }
                 }
             }
             $totalDasawisma = $dasa_wisma->count();
@@ -650,7 +680,7 @@ class AdminController extends Controller
             foreach ($index->rumahtangga as $rumahtangga) {
                 if($rumahtangga->periode == $periode){
                     if(!$rumahtangga->is_valid){
-                        return redirect()->route('belum.vaidasi');
+                        return redirect()->route('belum.validasi');
                     }
                     foreach($rumahtangga->pemanfaatanlahan as $lahan){
                         $totalKegiatanPemanfaatanPekarangan++;
@@ -795,9 +825,6 @@ class AdminController extends Controller
 
         $today = Carbon::now();
         foreach ($dasa_wisma as $index){
-
-
-
             $totalDasawisma = $dasa_wisma->count();
             $totalKepalaRumahTangga++;
             // foreach($index->anggotaRT as $tangg){
@@ -807,30 +834,30 @@ class AdminController extends Controller
                     if ($rumahtangga->sumber_air_pdam) {
                         $totalAirPDAM++;
                     }
-    if ($rumahtangga->sumber_air_sumur) {
+                    if ($rumahtangga->sumber_air_sumur) {
                         $totalAirSumur++;
                     }
-    if ($rumahtangga->sumber_air_lainnya) {
+                    if ($rumahtangga->sumber_air_lainnya) {
                         $totalAirLainnya++;
                     }
-    if ($rumahtangga->tempel_stiker) {
+                    if ($rumahtangga->tempel_stiker) {
                         $totalStiker++;
                     }
-    if ($rumahtangga->punya_jamban) {
+                    if ($rumahtangga->punya_jamban) {
                         $totalJamban++;
                     }
-    if ($rumahtangga->punya_tempat_sampah) {
+                    if ($rumahtangga->punya_tempat_sampah) {
                         $totalPemSampah++;
                     }
-    if ($rumahtangga->punya_jamban && $rumahtangga->punya_tempat_sampah && $rumahtangga->saluran_pembuangan_air_limbah) {
+                    if ($rumahtangga->punya_jamban && $rumahtangga->punya_tempat_sampah && $rumahtangga->saluran_pembuangan_air_limbah) {
                         $totalSheatLayakHuni++;
                     } else {
                         $totalTidakSheatLayakHuni++;
                     }
-    if ($rumahtangga->saluran_pembuangan_air_limbah) {
+                    if ($rumahtangga->saluran_pembuangan_air_limbah) {
                         $totalSPAL++;
                     }
-    if ($rumahtangga->pemanfaatanlahan) {
+                    if ($rumahtangga->pemanfaatanlahan) {
                         foreach($rumahtangga->pemanfaatanlahan as $pemanfaatan){
                             if($pemanfaatan){
                                 $totalKegiatanPemanfaatanPekarangan++;
@@ -839,6 +866,7 @@ class AdminController extends Controller
                     }
                     if ($rumahtangga->anggotaRT) {
                         $totalJmlKRT++;
+
                         foreach ($rumahtangga->anggotaRT as $keluarga) {
                             // Periksa apakah rumah tangga memiliki setidaknya satu kepala keluarga
                             if ($keluarga->keluarga->nama_kepala_keluarga) {
@@ -2223,7 +2251,7 @@ class AdminController extends Controller
         $rumah = RumahTangga::where('id_dasawisma', $id)
         ->where('periode',$periode)
         ->get();
-
+        
         foreach ($rumah as $keluarga) {
             foreach ($keluarga->pemanfaatanlahan as $pemanfaatan) {
                         if ($pemanfaatan) {

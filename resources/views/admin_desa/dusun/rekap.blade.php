@@ -49,8 +49,8 @@
                                                 <th>Total P</th>
                                                 <th>Balita L</th>
                                                 <th>Balita P</th>
-                                                <th>3 Buta L</th>
-                                                <th>3 Buta P</th>
+                                                <th>3 Buta</th>
+                                                {{-- <th>3 Buta P</th> --}}
                                                 <th>PUS</th>
                                                 <th>WUS</th>
                                                 <th>Ibu Hamil</th>
@@ -129,9 +129,9 @@
                                                     <td>
                                                         0
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         0
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         {{ $dsn->total_anggota_pus }}
                                                     </td>
@@ -197,8 +197,7 @@
                                                         {{ $dsn->total_kegiatan_industri }}
                                                     </td>
                                                     <td>
-                                                        {{-- {{ $rw->jumlah_have_kegiatan }} --}}
-                                                        0
+                                                        {{ $dsn->total_kesehatan_lingkungan }}
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -214,7 +213,7 @@
                                                 <td> {{ $totalAnggotaBalitaLaki }} </td>
                                                 <td> {{ $totalAnggotaBalitaPerempuan }} </td>
                                                 <td> 0 </td>
-                                                <td> 0 </td>
+                                                {{-- <td> 0 </td> --}}
                                                 <td> {{ $totalAnggotaPUS }} </td>
                                                 <td> {{ $totalAnggotaWUS }} </td>
                                                 <td> {{ $totalAnggotaIbuHamil }} </td>
@@ -224,19 +223,19 @@
                                                 <td> {{ $totalSheatLayakHuni }} </td>
                                                 <td> {{ $totalTidakSheatLayakHuni }} </td>
                                                 <td>{{ $totalPemSampah }}</td>
-        <td>{{ $totalSPAL }}</td>
-        <td>{{ $totalStiker }}</td>
-        <td>{{ $totalAirPDAM }}</td>
-        <td>{{ $totalAirSumur }}</td>
-        <td>0</td>
-        <td>{{ $totalAirLainnya }}</td>
-        <td>{{ $totalJamban }}</td>
-        <td>{{ $totalMakanBeras }}</td>
-        <td>{{ $totalMakanNonBeras }}</td>
-        <td>{{ $totalKegiatanUP2K }}</td>
-        <td>{{ $totalKegiatanPemanfaatanPekarangan }}</td>
-        <td>{{ $totalKegiatanIndustri }}</td>
-        <td>{{ $totalKegiatanLingkungan }}</td>
+                                                <td>{{ $totalSPAL }}</td>
+                                                <td>{{ $totalStiker }}</td>
+                                                <td>{{ $totalAirPDAM }}</td>
+                                                <td>{{ $totalAirSumur }}</td>
+                                                <td>0</td>
+                                                <td>{{ $totalAirLainnya }}</td>
+                                                <td>{{ $totalJamban }}</td>
+                                                <td>{{ $totalMakanBeras }}</td>
+                                                <td>{{ $totalMakanNonBeras }}</td>
+                                                <td>{{ $totalKegiatanUP2K }}</td>
+                                                <td>{{ $totalKegiatanPemanfaatanPekarangan }}</td>
+                                                <td>{{ $totalKegiatanIndustri }}</td>
+                                                <td>{{ $totalKegiatanLingkungan }}</td>
                                             </tr>
                                         </tbody>
 
