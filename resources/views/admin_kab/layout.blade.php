@@ -164,8 +164,8 @@
                 </a>
               </li>
 
-              <li class="nav-item has-treeview {{ Request::is('data_desa*','data_kecamatan*') ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link {{ Request::is('data_desa*','data_kecamatan*') ? 'active':'' }}">
+              <li class="nav-item has-treeview {{ Request::is('data_desa*','data_kecamatan*','data_kabupaten*','data_provinsi*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ Request::is('data_desa*','data_kecamatan*','data_kabupaten*','data_provinsi*') ? 'active':'' }}">
                   <i class="nav-icon fas fa-map"></i>
                   <p>
                     Data Wilayah
@@ -201,8 +201,8 @@
                     </li>
                 </ul>
               </li>
-                <li class="nav-item has-treeview {{ Request::is('data_kategori_pemanfaatan_lahan*','data_kategori_industri*','data_kabupaten*','data_provinsi*') ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link {{ Request::is('data_kategori_pemanfaatan_lahan*','data_kategori_industri*','data_kabupaten*','data_provinsi*') ? 'active' : '' }}">
+                <li class="nav-item has-treeview {{ Request::is('data_kategori_pemanfaatan_lahan*','data_kategori_industri*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ Request::is('data_kategori_pemanfaatan_lahan*','data_kategori_industri*') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-copy"></i>
                   <p>
                     Data Dasawisma

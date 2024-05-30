@@ -82,7 +82,8 @@ class RumahTanggaController extends Controller
         ->where('is_rumah_tangga', false)->get();
         //  dd($kk);
         $warga = DataWarga::all();
-        $dasawisma = DataKelompokDasawisma::all();
+        $user = Auth::user();
+        $dasawisma = DataKelompokDasawisma::where('id', $user->id_dasawisma)->get();
 
         $kabupaten = DataKabupaten::first();
         $provinsi = DataProvinsi::first();
@@ -188,7 +189,8 @@ class RumahTanggaController extends Controller
         $kk = DataKeluarga::where('is_rumah_tangga', true)->get();
         //  dd($kk);
         $warga = DataWarga::all();
-        $dasawisma = DataKelompokDasawisma::all();
+        $user = Auth::user();
+        $dasawisma = DataKelompokDasawisma::where('id', $user->id_dasawisma)->get();
         $data_rumah_tangga = RumahTangga::findOrFail($id);
         //  dd($data_rumah_tangga);
 

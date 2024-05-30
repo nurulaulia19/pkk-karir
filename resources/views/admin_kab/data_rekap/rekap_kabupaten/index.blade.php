@@ -16,8 +16,8 @@
                         <div class="card-body">
                             <center>
                                 <h6><strong>CATATAN DATA KEGIATAN WARGA</strong></h6>
-                                <h6>TP PKK KABUPATEN</h6>
-                                <h6>TAHUN {{$periode}}</h6><br>
+                                <h6><strong>TP PKK KABUPATEN</strong></h6>
+                                <h6><strong>TAHUN {{$periode}}</strong></h6>
                                 <h6><strong>KAB/KOTA : INDRAMAYU</strong> </h6>
                                 <h6><strong>PROVINSI : JAWA BARAT</strong> </h6>
                             </center>
@@ -58,7 +58,7 @@
                                         <th>Tidak Sehat</th>
                                         <th>Memiliki Tmp. Pemb. Sampah</th>
                                         <th>Memiliki SPAL</th>
-                                        <th>Memiliki jamban</th>
+                                        <th>Memiliki Jamban Keluarga</th>
                                         <th>Menempel Stiker P4K</th>
                                         <th>PDAM</th>
                                         <th>Sumur</th>

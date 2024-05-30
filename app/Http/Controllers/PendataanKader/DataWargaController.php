@@ -71,7 +71,9 @@ class DataWargaController extends Controller
         ->first();
 
      $kel = DataKeluarga::all();
-     $dasawisma = DataKelompokDasawisma::all();
+     //  $dasawisma = DataKelompokDasawisma::all();
+     $user = Auth::user();
+     $dasawisma = DataKelompokDasawisma::where('id', $user->id_dasawisma)->get();
      $kabupaten = DataKabupaten::first();
      $provinsi = DataProvinsi::first();
 
@@ -189,8 +191,10 @@ class DataWargaController extends Controller
         ->where('id', auth()->user()->id)
         ->get();
 
+        $user = Auth::user();
         $kel = DataKeluarga::all();
-        $dasawisma = DataKelompokDasawisma::all();
+        $dasawisma = DataKelompokDasawisma::where('id', $user->id_dasawisma)->get();
+        // dd($dasawisma);
         $kader = User::with('dasawisma.rt.rw')
         ->where('id', auth()->user()->id)
         ->first();
@@ -344,7 +348,10 @@ class DataWargaController extends Controller
     }
 
     public function warga(Request $request){
+        $user = Auth::user();
         $warga = DataWarga::where('is_keluarga',false)->
+        where('id_dasawisma', $user->id_dasawisma)->
+        where('is_keluarga', false)->
         where('periode',now()->year)->
         get();
         return response()->json([

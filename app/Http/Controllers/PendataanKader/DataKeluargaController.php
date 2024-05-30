@@ -87,12 +87,15 @@ class DataKeluargaController extends Controller
             ->where('id', auth()->user()->id)
             ->first();
 
+        $user = Auth::user();
         $warga = DataWarga::where('is_keluarga', false)
+            ->where('id_dasawisma', $user->id_dasawisma)
             ->where('is_valid', '!=', false)
             ->where('periode', now()->year)
             ->get();
 
-        $dasawisma = DataKelompokDasawisma::all();
+        $user = Auth::user();
+        $dasawisma = DataKelompokDasawisma::where('id', $user->id_dasawisma)->get();
         $kabupaten = DataKabupaten::first();
         $provinsi = DataProvinsi::first();
         return view('kader.data_keluarga.create', compact('warga', 'kec', 'desas', 'kad', 'dasawisma', 'kader', 'kabupaten', 'provinsi'));
@@ -212,7 +215,8 @@ class DataKeluargaController extends Controller
         $data_warga = DataWarga::all();
         // dd($warga);
         $kel = DataKeluarga::all();
-        $dasawisma = DataKelompokDasawisma::all();
+        $user = Auth::user();
+        $dasawisma = DataKelompokDasawisma::where('id', $user->id_dasawisma)->get();
 
         $kabupaten = DataKabupaten::first();
         $provinsi = DataProvinsi::first();

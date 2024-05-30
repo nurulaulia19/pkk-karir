@@ -12,13 +12,24 @@
             <div class="row">
                 <div class="col-12 col-lg-12">
                     <div class="card">
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
-                                    <div class="row">
+                                    <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
                                             <a href="{{ url('data_dasawisma/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                        </div>
+                                        <div style="margin-bottom: 20px">
+                                            <div class="dropdown">
+                                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Rekap
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        @foreach ($periodes as $item)
+                                                        <a class="dropdown-item" href="{{ url('data_dasawisma') }}?periode={{ $item->tahun }}">{{ $item->tahun }}</a>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
                                         </div>
                                     </div>
                                     <thead>

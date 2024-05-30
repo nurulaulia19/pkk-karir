@@ -10,6 +10,7 @@ use App\Models\DataKelompokDasawisma;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Periode;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -32,23 +33,37 @@ class KelompokDasawismaController extends Controller
 
     //     return view('admin_desa.data_kelompok_dasawisma', compact('dasawisma'));
     // }
-    public function index()
+    public function index(Request $request)
     {
         // Get the authenticated user
+        // $user = Auth::user();
+
+        // // Get the user's ID
+        // $userId = $user->id;
+
+        // // Get the desa ID associated with the user
+        // $desaId = $user->id_desa;
+
+        // // Get all records from DataKelompokDasawisma table where id_desa matches the logged-in user's desa ID
+        // $dasawisma = DataKelompokDasawisma::where('id_desa', $desaId)->with(['rw', 'rt'])->get();
+        // // dd($dasawisma);
+
+        // // Pass the variables to the view
+        // return view('admin_desa.dasawisma.index', compact('dasawisma'));
         $user = Auth::user();
-
-        // Get the user's ID
-        $userId = $user->id;
-
-        // Get the desa ID associated with the user
         $desaId = $user->id_desa;
 
-        // Get all records from DataKelompokDasawisma table where id_desa matches the logged-in user's desa ID
-        $dasawisma = DataKelompokDasawisma::where('id_desa', $desaId)->with(['rw', 'rt'])->get();
-        // dd($dasawisma);
+        $query = DataKelompokDasawisma::where('id_desa', $desaId)->with(['rw', 'rt']);
 
-        // Pass the variables to the view
-        return view('admin_desa.dasawisma.index', compact('dasawisma'));
+        if ($request->has('periode')) {
+            $periode = $request->input('periode');
+            $query->where('periode', '<=', $periode); // Sesuaikan dengan kolom periode_id pada tabel DataKelompokDasawisma
+        }
+
+        $dasawisma = $query->get();
+        $periodes = Periode::all(); // Mengambil semua data periode
+
+        return view('admin_desa.dasawisma.index', compact('dasawisma', 'periodes'));
     }
 
 

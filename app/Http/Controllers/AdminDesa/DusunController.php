@@ -13,6 +13,7 @@ use App\Models\Rw;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DateTime;
 
 class DusunController extends Controller
 {
@@ -69,7 +70,8 @@ class DusunController extends Controller
         foreach ($dataRt as $rt) {
             $dasawisma = DasaWisma::where('id_rt', $rt->id)->get();
             foreach ($dasawisma as $item) {
-                # code...
+                if($item->periode <= $periode) {
+                    # code...
                 $countKK += DataKeluarga::where('id_dasawisma', $item->id)
                 ->where('periode',$periode)
                 ->count()
@@ -183,19 +185,33 @@ class DusunController extends Controller
                                     $countbalitaPerempuan++;
                                 }
                             }
-                            if ($anggota->warga->status_perkawinan === 'menikah') {
-                                if ($anggota->warga->jenis_kelamin === 'laki-laki') {
-                                    $countPUS++;
-                                } else {
-                                    $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                    $umur = $tgl_lahir->diffInYears($today);
-                                    if ($umur >= 15 && $umur <= 49) {
-                                        $countPUS++;
-                                    }
-                                }
-                            }
+                            // if ($anggota->warga->status_perkawinan === 'menikah') {
+                            //     if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+                            //         $countPUS++;
+                            //     } else {
+                            //         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                            //         $umur = $tgl_lahir->diffInYears($today);
+                            //         if ($umur >= 15 && $umur <= 49) {
+                            //             $countPUS++;
+                            //         }
+                            //     }
+                            // }
                         }
+                        $hitung = $anggotaRumah->keluarga->anggota->first(function($anggota) {
+                            // Calculate age based on birthdate
+                            $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                            $today = new DateTime();
+                            $age = $today->diff($birthdate)->y;
+
+                            // Check if the member is married and female, and age is between 15 and 49
+                            return $anggota->warga->status_perkawinan === 'menikah' &&
+                                   $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                   $age >= 15 && $age <= 49;
+                        }) ? 1 : 0;
+                        $countPUS += $hitung;
+
                     }
+                }
                 }
             }
         }

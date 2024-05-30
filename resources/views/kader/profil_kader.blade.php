@@ -38,8 +38,8 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Edit Nama Akun</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Edit Kata Sandi</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Edit Akun</a></li>
+                  {{-- <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Edit Kata Sandi</a></li> --}}
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
@@ -52,7 +52,7 @@
                         <div class="form-group row">
                           <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" placeholder="Nama" name="name" value="{{ old('name', Auth::user()->name) }}" required>
+                            <input type="text" class="form-control" id="name" placeholder="Nama" name="name" value="{{ old('name', Auth::user()->name) }}" readonly>
                           </div>
                         </div>
                         <div class="form-group row">
@@ -79,7 +79,7 @@
 
                   </div>
                   <!-- /.tab-pane -->
-                  <div class="tab-pane" id="timeline">
+                  {{-- <div class="tab-pane" id="timeline">
                     <!-- The timeline -->
                       <!-- timeline time label -->
                       <form class="form-horizontal" action="{{ url ('/profil/update/' . $data_kader->id . '/password') }}" method="POST">
@@ -126,7 +126,7 @@
                           </a>
                         </div>
                       </form>
-                  </div>
+                  </div> --}}
                   <!-- /.tab-pane -->
                 </div>
                 <!-- /.tab-content -->

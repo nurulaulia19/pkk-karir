@@ -525,21 +525,21 @@ class KaderFormController extends Controller
 
     public function update_profil(Request $request, $id = null){
         // dd($request->all());
-        $request->validate([
-            'name' => 'required',
-            // 'email' => 'required',
-            // 'password' => 'required',
-            // 'user_type' => 'required',
-            // 'id_desa' => 'required',
-            // 'id_kecamatan' => 'required',
+        // $request->validate([
+        //     'name' => 'required',
+        //     // 'email' => 'required',
+        //     // 'password' => 'required',
+        //     // 'user_type' => 'required',
+        //     // 'id_desa' => 'required',
+        //     // 'id_kecamatan' => 'required',
 
-        ]);
+        // ]);
         $data_kader = Auth::user();
-        $data_kader->name = $request->name;
-        $data_kader->email = $request->email;
-        if ($request->password) {
-            $data_kader->password = Hash::make($request->password);
-        }
+        // $data_kader->name = $request->name;
+        // $data_kader->email = $request->email;
+        // if ($request->password) {
+        //     $data_kader->password = Hash::make($request->password);
+        // }
 
         if ($request->hasFile('foto')) {
             if ($data_kader->foto && Storage::disk('public')->exists($data_kader->foto)) {

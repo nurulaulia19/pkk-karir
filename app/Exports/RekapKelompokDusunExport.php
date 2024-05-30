@@ -53,6 +53,7 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
     protected $totalAnggotaPUS;
 
 
+
     public function __construct(array $data)
     {
         $this->dusun = $data['dusun'] ?? [];
@@ -92,6 +93,7 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
 
     public function array(): array
     {
+        // dd($this->periode);
         // $result = [];
         $i = 1;
         $dusun = $this->dusun;
@@ -108,8 +110,8 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
                 'jumlah_perempuan' => $dsn->total_anggota_perempuan ?: '0',
                 'jumlah_balita_laki' => $dsn->total_anggota_balita_laki ?: '0',
                 'jumlah_balita_perempuan' => $dsn->total_anggota_balita_perempuan ?: '0',
-                'jumlah_3_buta_laki' => '0',
-                'jumlah_3_buta_perempuan' => '0',
+                'jumlah_3_buta' => '0',
+                // 'jumlah_3_buta_perempuan' => '0',
                 'jumlah_PUS' => $dsn->total_anggota_pus ?: '0' ,
                 'jumlah_WUS' => $dsn->total_anggota_wus ?: '0' ,
                 'jumlah_ibu_hamil' => $dsn->total_anggota_ibu_hamil ?: '0' ,
@@ -120,12 +122,13 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
                 'tidak_sehat_layak_huni' => $dsn->total_tidak_sheat_layak_huni ?: '0' ,
                 'punya_tempat_sampah' => $dsn->total_pem_sampah ?: '0' ,
                 'punya_saluran_air' => $dsn->total_spal ?: '0' ,
+                'jumlah_punya_jamban' => $dsn->total_jamban ?: '0' ,
                 'tempel_stiker' => $dsn->total_stiker ?: '0' ,
                 'sumber_air' => $dsn->total_air_pdam ?: '0' ,
                 'sumber_air_2' => $dsn->total_air_sumur ?: '0' ,
-                'sumber_air_3' => '0' ,
-                'sumber_air_4' => $dsn->total_air_lainnya ?: '0' ,
-                'jumlah_punya_jamban' => $dsn->total_jamban ?: '0' ,
+                // 'sumber_air_3' => '0' ,
+                'sumber_air_3' => $dsn->total_air_lainnya ?: '0' ,
+                // 'jumlah_punya_jamban' => $dsn->total_jamban ?: '0' ,
                 'makanan_pokok' => $dsn->total_makan_beras ?: '0' ,
                 'makanan_pokok_0' => $dsn->total_makan_non_beras ?: '0' ,
                 'aktivitas_UP2K' => $dsn->total_kegiatan_up2k ?: '0' ,
@@ -150,8 +153,8 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             'jumlah_perempuan' => $this->totalAnggotaPerempuan ?: '0',
             'jumlah_balita_laki' => $this->totalAnggotaBalitaLaki ?: '0',
             'jumlah_balita_perempuan' => $this->totalAnggotaBalitaPerempuan ?: '0',
-            'jumlah_3_buta_laki' => '0',
-            'jumlah_3_buta_perempuan' => '0',
+            'jumlah_3_buta' => '0',
+            // 'jumlah_3_buta_perempuan' => '0',
             'jumlah_PUS' => $this->totalAnggotaPUS ?: '0',
             'jumlah_WUS' => $this->totalAnggotaWUS ?: '0',
             'jumlah_ibu_hamil' => $this->totalAnggotaIbuHamil ?: '0',
@@ -162,12 +165,13 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             'tidak_sehat_layak_huni' => $this->totalTidakSheatLayakHuni ?: '0',
             'punya_tempat_sampah' => $this->totalPemSampah ?: '0',
             'punya_saluran_air' => $this->totalSPAL ?: '0',
+            'jumlah_punya_jamban' => $this->totalJamban ?: '0',
             'tempel_stiker' => $this->totalStiker ?: '0',
             'sumber_air' => $this->totalAirPDAM ?: '0',
             'sumber_air_2' => $this->totalAirSumur ?: '0',
-            'sumber_air_3' =>  '0',
-            'sumber_air_4' => $this->totalAirLainnya?: '0',
-            'jumlah_punya_jamban' => $this->totalJamban ?: '0',
+            // 'sumber_air_3' =>  '0',
+            'sumber_air_3' => $this->totalAirLainnya?: '0',
+            // 'jumlah_punya_jamban' => $this->totalJamban ?: '0',
             'makanan_pokok' => $this->totalMakanBeras ?: '0',
             'makanan_pokok_0' => $this->totalMakanNonBeras ?: '0',
             'aktivitas_UP2K' => $this->totalKegiatanUP2K ?: '0',
@@ -199,8 +203,9 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             '',
             '',
             '',
-            '',
+            // '',
             'KRITERIA RUMAH',
+            '',
             '',
             '',
             '',
@@ -208,8 +213,8 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             'SUMBER AIR KELUARGA',
             '',
             '',
-            '',
-            'JUMLAH JAMBAN KELUARGA',
+            // '',
+            // 'JUMLAH JAMBAN KELUARGA',
             'MAKANAN POKOK',
             '',
             'WARGA MENGIKUTI KEGIATAN',
@@ -230,8 +235,8 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             'Total P',
             'Balita L',
             'Balita P',
-            '3 Buta Laki-laki',
-            '3 Buta Perempuan',
+            '3 Buta',
+            // '3 Buta Perempuan',
             'PUS',
             'WUS',
             'Ibu Hamil',
@@ -242,12 +247,13 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             'Tidak Sehat',
             'Memiliki Tmp. Pemb. Sampah',
             'Memiliki SPAL',
+            'Jumlah Jamban Keluarga',
             'Menempel Stiker P4K',
             'PDAM',
             'Sumur',
-            'Sungai',
+            // 'Sungai',
             'DLL',
-            '',
+            // '',
             'Beras',
             'Non Beras',
             'UP2K',
@@ -311,14 +317,16 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
                 // $event->sheet->getDelegate()->mergeCells('A6:AI6');
 
                 // $event->sheet->getDelegate()->getStyle('A1:A6')->getAlignment()->setHorizontal('center');
-                $event->sheet->getDelegate()->mergeCells('AI8:AI9');
+                // BENER
+
                 $event->sheet->getDelegate()->mergeCells('A8:A9');
                 $event->sheet->getDelegate()->mergeCells('B8:B9');
                 $event->sheet->getDelegate()->mergeCells('C8:C9');
                 $event->sheet->getDelegate()->mergeCells('D8:D9');
                 $event->sheet->getDelegate()->mergeCells('E8:E9');
                 $event->sheet->getDelegate()->mergeCells('F8:F9');
-                $event->sheet->getDelegate()->mergeCells('AB8:AB9');
+                $event->sheet->getDelegate()->mergeCells('AG8:AG9');
+                // $event->sheet->getDelegate()->mergeCells('AB8:AB9');
 
                 // $event->sheet->getDelegate()->mergeCells('G8:R8');
                 // $event->sheet->getDelegate()->mergeCells('S8:W8');
@@ -393,11 +401,11 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-            $sheet->mergeCells('G8:R8');
-            $sheet->mergeCells('S8:W8');
-            $sheet->mergeCells('X8:AA8');
-            $sheet->mergeCells('AC8:AD8');
-            $sheet->mergeCells('AE8:AH8');
+            $sheet->mergeCells('H8:Q8');
+            $sheet->mergeCells('R8:W8');
+            $sheet->mergeCells('X8:Z8');
+            $sheet->mergeCells('AA8:AB8');
+            $sheet->mergeCells('AC8:AF8');
 
         }
 

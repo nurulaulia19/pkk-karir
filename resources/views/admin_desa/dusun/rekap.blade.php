@@ -36,10 +36,10 @@
                                                 <th rowspan="3" style="text-align: center;">Jumlah Dasa Wisma</th>
                                                 <th rowspan="3" style="text-align: center;">Jumlah KRT</th>
                                                 <th rowspan="3" style="text-align: center;">Jumlah KK</th>
-                                                <th colspan="12" style="text-align:center;">Jumlah Anggota Keluarga</th>
-                                                <th colspan="5" style="text-align:center;">Kriteria Rumah</th>
-                                                <th colspan="4" style="text-align:center;">Sumber Air Keluarga</th>
-                                                <th rowspan="3" style="text-align:center;">Jumlah Jamban Keluarga</th>
+                                                <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
+                                                <th colspan="6" style="text-align:center;">Kriteria Rumah</th>
+                                                <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
+                                                {{-- <th rowspan="3" style="text-align:center;">Jumlah Jamban Keluarga</th> --}}
                                                 <th colspan="2" style="text-align:center;">Makanan Pokok</th>
                                                 <th colspan="6" style="text-align:center;">Warga Mengikuti Kegiatan</th>
                                                 {{-- <th rowspan="3" style="text-align: center;">Ket</th> --}}
@@ -61,10 +61,11 @@
                                                 <th>Tidak Sehat Layak Huni</th>
                                                 <th>Memiliki Tmp. Pemb. Sampah</th>
                                                 <th>Memiliki SPAL</th>
+                                                <th>Jumlah Jamban Keluarga</th>
                                                 <th>Menempel Stiker P4K</th>
                                                 <th>PDAM</th>
                                                 <th>Sumur</th>
-                                                <th>Sungai</th>
+                                                {{-- <th>Sungai</th> --}}
                                                 <th>DLL</th>
                                                 <th>Beras</th>
                                                 <th>Non Beras</th>
@@ -164,6 +165,9 @@
                                                         {{ $dsn->total_spal }}
                                                     </td>
                                                     <td>
+                                                        {{ $dsn->total_jamban }}
+                                                    </td>
+                                                    <td>
                                                         {{ $dsn->total_stiker }}
                                                     </td>
                                                     <td>
@@ -172,15 +176,15 @@
                                                     <td>
                                                         {{ $dsn->total_air_sumur }}
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         0
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         {{ $dsn->total_air_lainnya }}
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         {{ $dsn->total_jamban }}
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                         {{ $dsn->total_makan_beras }}
                                                     </td>
@@ -224,12 +228,13 @@
                                                 <td> {{ $totalTidakSheatLayakHuni }} </td>
                                                 <td>{{ $totalPemSampah }}</td>
                                                 <td>{{ $totalSPAL }}</td>
+                                                <td>{{ $totalJamban }}</td>
                                                 <td>{{ $totalStiker }}</td>
                                                 <td>{{ $totalAirPDAM }}</td>
                                                 <td>{{ $totalAirSumur }}</td>
                                                 <td>0</td>
                                                 <td>{{ $totalAirLainnya }}</td>
-                                                <td>{{ $totalJamban }}</td>
+                                                {{-- <td>{{ $totalJamban }}</td> --}}
                                                 <td>{{ $totalMakanBeras }}</td>
                                                 <td>{{ $totalMakanNonBeras }}</td>
                                                 <td>{{ $totalKegiatanUP2K }}</td>
@@ -244,7 +249,7 @@
                                 </div>
                                 {{-- <a href="" target="_blank" class="btn btn-success" type="button" role="button">
                                 <i class="fas fa-print"></i> Cetak ke Excel </a> --}}
-                                <a href="{{ url('export_rekap_dusun',['id' => $dusun_data->id]) }}tahun?={{$periode}}" target="_blank" class="btn btn-success" role="button">
+                                <a href="{{ url('export_rekap_dusun',['id' => $dusun_data->id]) }}?periode={{$periode}}" target="_blank" class="btn btn-success" role="button">
                                     <i class="fas fa-print"></i> Cetak ke Excel
                                 </a>
                                 <br>

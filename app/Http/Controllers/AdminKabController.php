@@ -17,6 +17,7 @@ use App\Models\DataPemanfaatanPekarangan;
 use App\Models\DataRekapDesa;
 use App\Models\DataRekapKecamatan;
 use App\Models\DataWarga;
+use DateTime;
 use App\Models\Keluargahaswarga;
 use App\Models\Periode;
 use App\Models\Rt;
@@ -274,11 +275,9 @@ class AdminKabController extends Controller
             foreach ($rws as $rw) {
                 $totalRT += Rt::where('rw_id', $rw->id)->count();
             }
-
-
             if ($des->dasawisma) {
                 foreach ($des->dasawisma as $dasawisma) {
-                    if ($dasawisma) {
+                    if ($dasawisma->periode <= $periode) {
                         $totalJmlKK += DataKeluarga::where('id_dasawisma', $dasawisma->id)
                         ->where('periode',$periode)->count();
                         $totalDasawisma++;
@@ -390,18 +389,30 @@ class AdminKabController extends Controller
                                                 $totalAnggotaBalitaPerempuan++;
                                             }
                                         }
-                                        if ($anggota->warga->status_perkawinan === 'menikah') {
-                                            if ($anggota->warga->jenis_kelamin === 'laki-laki') {
-                                                $totalAnggotaPUS++;
-                                            } else {
-                                                $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                $umur = $tgl_lahir->diffInYears($today);
-                                                if ($umur >= 15 && $umur <= 49) {
-                                                    $totalAnggotaPUS++;
-                                                }
-                                            }
-                                        }
+                                        // if ($anggota->warga->status_perkawinan === 'menikah') {
+                                        //     if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+                                        //         $totalAnggotaPUS++;
+                                        //     } else {
+                                        //         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                                        //         $umur = $tgl_lahir->diffInYears($today);
+                                        //         if ($umur >= 15 && $umur <= 49) {
+                                        //             $totalAnggotaPUS++;
+                                        //         }
+                                        //     }
+                                        // }
                                     }
+                                    $hitung = $keluarga->keluarga->anggota->first(function($anggota) {
+                                        // Calculate age based on birthdate
+                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                        $today = new DateTime();
+                                        $age = $today->diff($birthdate)->y;
+
+                                        // Check if the member is married and female, and age is between 15 and 49
+                                        return $anggota->warga->status_perkawinan === 'menikah' &&
+                                               $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                               $age >= 15 && $age <= 49;
+                                    }) ? 1 : 0;
+                                    $totalAnggotaPUS += $hitung;
                                 }
                             }
                         }
@@ -420,8 +431,6 @@ class AdminKabController extends Controller
     // export rekap kecamatan
     public function export_rekap_kec(Request $request,$id)
     {
-
-
         $user = Auth::user();
         if($request->periode){
             $periode = $request->periode;
@@ -483,7 +492,7 @@ class AdminKabController extends Controller
             }
             if ($des->dasawisma) {
                 foreach ($des->dasawisma as $dasawisma) {
-                    if ($dasawisma) {
+                    if ($dasawisma->periode <= $periode) {
                         $totalJmlKK += DataKeluarga::where('id_dasawisma', $dasawisma->id)
                         ->where('periode',$periode)->count();
                         $totalDasawisma++;
@@ -593,18 +602,31 @@ class AdminKabController extends Controller
                                                 $totalAnggotaBalitaPerempuan++;
                                             }
                                         }
-                                        if ($anggota->warga->status_perkawinan === 'menikah') {
-                                            if ($anggota->warga->jenis_kelamin === 'laki-laki') {
-                                                $totalAnggotaPUS++;
-                                            } else {
-                                                $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                $umur = $tgl_lahir->diffInYears($today);
-                                                if ($umur >= 15 && $umur <= 49) {
-                                                    $totalAnggotaPUS++;
-                                                }
-                                            }
-                                        }
+                                        // if ($anggota->warga->status_perkawinan === 'menikah') {
+                                        //     if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+                                        //         $totalAnggotaPUS++;
+                                        //     } else {
+                                        //         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                                        //         $umur = $tgl_lahir->diffInYears($today);
+                                        //         if ($umur >= 15 && $umur <= 49) {
+                                        //             $totalAnggotaPUS++;
+                                        //         }
+                                        //     }
+                                        // }
                                     }
+                                    $hitung = $anggota->keluarga->anggota->first(function($anggota) {
+                                        // Calculate age based on birthdate
+                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                        $today = new DateTime();
+                                        $age = $today->diff($birthdate)->y;
+
+                                        // Check if the member is married and female, and age is between 15 and 49
+                                        return $anggota->warga->status_perkawinan === 'menikah' &&
+                                               $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                               $age >= 15 && $age <= 49;
+                                    }) ? 1 : 0;
+                                    $totalAnggotaPUS += $hitung;
+
                                 }
                             }
                         }
@@ -692,7 +714,8 @@ class AdminKabController extends Controller
                     }
                     // rt  belum
                     foreach ($dasawisma as $item) {
-                        $totalKK += DataKeluarga::where('id_dasawisma', $item->id)->where('periode', $periode)->count();
+                        if($item->periode <= $periode) {
+                            $totalKK += DataKeluarga::where('id_dasawisma', $item->id)->where('periode', $periode)->count();
                         $totalDasawisma++;
                         $rumah = RumahTangga::where('id_dasawisma', $item->id)->where('periode', $periode)->get();
                         foreach ($rumah as $keluarga) {
@@ -798,19 +821,33 @@ class AdminKabController extends Controller
                                             $totalbalitaPerempuan++;
                                         }
                                     }
-                                    if ($anggota->warga->status_perkawinan === 'menikah') {
-                                        if ($anggota->warga->jenis_kelamin === 'laki-laki') {
-                                            $totalPUS++;
-                                        } else {
-                                            $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
-                                            if ($umur >= 15 && $umur <= 49) {
-                                                $totalPUS++;
-                                            }
-                                        }
-                                    }
+                                    // if ($anggota->warga->status_perkawinan === 'menikah') {
+                                    //     if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+                                    //         $totalPUS++;
+                                    //     } else {
+                                    //         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                                    //         $umur = $tgl_lahir->diffInYears($today);
+                                    //         if ($umur >= 15 && $umur <= 49) {
+                                    //             $totalPUS++;
+                                    //         }
+                                    //     }
+                                    // }
                                 }
+                                $hitung = $anggota->keluarga->anggota->first(function($anggota) {
+                                    // Calculate age based on birthdate
+                                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                    $today = new DateTime();
+                                    $age = $today->diff($birthdate)->y;
+
+                                    // Check if the member is married and female, and age is between 15 and 49
+                                    return $anggota->warga->status_perkawinan === 'menikah' &&
+                                           $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                           $age >= 15 && $age <= 49;
+                                }) ? 1 : 0;
+                                $totalPUS += $hitung;
+
                             }
+                        }
                         }
                     }
                 }
@@ -917,7 +954,8 @@ class AdminKabController extends Controller
                     }
                     // rt  belum
                     foreach ($dasawisma as $item) {
-                        // $periode = $item->periode;
+                        if($item->periode <= $periode) {
+                            // $periode = $item->periode;
                         $totalKK += DataKeluarga::where('id_dasawisma', $item->id)->where('periode', $periode)->count();
                         $totalDasawisma++;
                         $rumah = RumahTangga::where('id_dasawisma', $item->id)->where('periode', $periode)->get();
@@ -1021,19 +1059,33 @@ class AdminKabController extends Controller
                                             $totalbalitaPerempuan++;
                                         }
                                     }
-                                    if ($anggota->warga->status_perkawinan === 'menikah') {
-                                        if ($anggota->warga->jenis_kelamin === 'laki-laki') {
-                                            $totalPUS++;
-                                        } else {
-                                            $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
-                                            if ($umur >= 15 && $umur <= 49) {
-                                                $totalPUS++;
-                                            }
-                                        }
-                                    }
+                                    // if ($anggota->warga->status_perkawinan === 'menikah') {
+                                    //     if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+                                    //         $totalPUS++;
+                                    //     } else {
+                                    //         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                                    //         $umur = $tgl_lahir->diffInYears($today);
+                                    //         if ($umur >= 15 && $umur <= 49) {
+                                    //             $totalPUS++;
+                                    //         }
+                                    //     }
+                                    // }
                                 }
+                                $hitung = $anggotaRumah->keluarga->anggota->first(function($anggota) {
+                                    // Calculate age based on birthdate
+                                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                    $today = new DateTime();
+                                    $age = $today->diff($birthdate)->y;
+
+                                    // Check if the member is married and female, and age is between 15 and 49
+                                    return $anggota->warga->status_perkawinan === 'menikah' &&
+                                           $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                           $age >= 15 && $age <= 49;
+                                }) ? 1 : 0;
+                                $totalPUS += $hitung;
+
                             }
+                        }
                         }
                     }
                 }
@@ -1090,26 +1142,23 @@ class AdminKabController extends Controller
 
     public function update_profilAdminKabupaten(Request $request, $id = null)
     {
-        $request->validate([
-            'name' => 'required',
-        ]);
-
         $adminKabupaten = Auth::user();
         // dd($adminKabupaten);
-        $adminKabupaten->name = $request->name;
-        $adminKabupaten->email = $request->email;
+        // $adminKabupaten->name = $request->name;
+        // $adminKabupaten->email = $request->email;
 
-        if ($request->has('password')) {
-            $adminKabupaten->password = Hash::make($request->password);
-        }
+        // if ($request->has('password')) {
+        //     $adminKabupaten->password = Hash::make($request->password);
+        // }
 
         if ($request->hasFile('foto')) {
             $image = $request->file('foto');
             $profileImage = Str::random(5) . date('YmdHis') . '.' . $image->getClientOriginalExtension();
-            $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
-            $adminKabupaten->foto = $result;
+            $path = $image->storeAs('public/foto', $profileImage);
+            $adminKabupaten->foto = 'foto/' . $profileImage;
         }
 
+        // Simpan perubahan pada model adminKabupaten
         $adminKabupaten->save();
 
         Alert::success('Berhasil', 'Data berhasil diubah');
@@ -1188,132 +1237,146 @@ class AdminKabController extends Controller
         // dd($rt);
         // dd($dasawisma);
         foreach ($dasawisma as $item) {
-            # code...
-            $countKK += DataKeluarga::where('id_dasawisma', $item->id)->
-            where('periode',$periode)
-            ->count();
+           if ($item->periode <= $periode) {
+             # code...
+             $countKK += DataKeluarga::where('id_dasawisma', $item->id)->
+             where('periode',$periode)
+             ->count();
 
-            $countDasawisma++;
-            $rumah = RumahTangga::where('id_dasawisma', $item->id)->
-            where('periode',$periode)->get();
-            foreach ($rumah as $keluarga) {
-                          if ($keluarga->pemanfaatanlahan) {
-                                foreach ($keluarga->pemanfaatanlahan as $lahan){
-                                    if ($lahan) {
-                                        $data_pemanfaatan_pekarangan++;
-                                    }
-                                }
-                            }
-                $countRumahTangga++;
-                if ($keluarga->punya_tempat_sampah) {
-                    $countTempatSampah++;
-                }
-                if ($keluarga->saluran_pembuangan_air_limbah) {
-                    $countSPAL++;
-                }
-                if ($keluarga->punya_jamban) {
-                    $countJamban++;
-                }
-                if ($keluarga->tempel_stiker) {
-                    $countStiker++;
-                }
-                //pdam
-                if ($keluarga->sumber_air_pdam) {
-                    $countAirPDAM++;
-                }
-                if ($keluarga->sumber_air_sumur) {
-                    $countAirSumur++;
-                }
-                if ($keluarga->sumber_air_lainnya) {
-                    $countAirLainya++;
-                }
-                //pdam
-                if ($keluarga->punya_tempat_sampah && $keluarga->punya_jamban && $keluarga->saluran_pembuangan_air_limbah) {
-                    $countKriteriaRumahSehat++;
-                } else {
-                    $countKriteriaRumahNonSehat++;
-                }
+             $countDasawisma++;
+             $rumah = RumahTangga::where('id_dasawisma', $item->id)->
+             where('periode',$periode)->get();
+             foreach ($rumah as $keluarga) {
+                           if ($keluarga->pemanfaatanlahan) {
+                                 foreach ($keluarga->pemanfaatanlahan as $lahan){
+                                     if ($lahan) {
+                                         $data_pemanfaatan_pekarangan++;
+                                     }
+                                 }
+                             }
+                 $countRumahTangga++;
+                 if ($keluarga->punya_tempat_sampah) {
+                     $countTempatSampah++;
+                 }
+                 if ($keluarga->saluran_pembuangan_air_limbah) {
+                     $countSPAL++;
+                 }
+                 if ($keluarga->punya_jamban) {
+                     $countJamban++;
+                 }
+                 if ($keluarga->tempel_stiker) {
+                     $countStiker++;
+                 }
+                 //pdam
+                 if ($keluarga->sumber_air_pdam) {
+                     $countAirPDAM++;
+                 }
+                 if ($keluarga->sumber_air_sumur) {
+                     $countAirSumur++;
+                 }
+                 if ($keluarga->sumber_air_lainnya) {
+                     $countAirLainya++;
+                 }
+                 //pdam
+                 if ($keluarga->punya_tempat_sampah && $keluarga->punya_jamban && $keluarga->saluran_pembuangan_air_limbah) {
+                     $countKriteriaRumahSehat++;
+                 } else {
+                     $countKriteriaRumahNonSehat++;
+                 }
 
-                foreach ($keluarga->anggotaRT as $anggotaRumah) {
-                        if ($anggotaRumah->keluarga->industri_id != 0) {
-                                $industri_rumah_tangga++;
-                            }
-                    // $countKK++;
-                    foreach ($anggotaRumah->keluarga->anggota as $anggota) {
-                        // foreach ($anggota->warga->industri as $industri) {
-                        //     if ($industri) {
-                        //         $industri_rumah_tangga++;
-                        //     }
-                        // }
-                        // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                        //     if ($pemanfaatan) {
-                        //         $data_pemanfaatan_pekarangan++;
-                        //     }
-                        // }
-                        $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                        $umurz = $tgl_lahir->diffInYears($today);
+                 foreach ($keluarga->anggotaRT as $anggotaRumah) {
+                         if ($anggotaRumah->keluarga->industri_id != 0) {
+                                 $industri_rumah_tangga++;
+                             }
+                     // $countKK++;
+                     foreach ($anggotaRumah->keluarga->anggota as $anggota) {
+                         // foreach ($anggota->warga->industri as $industri) {
+                         //     if ($industri) {
+                         //         $industri_rumah_tangga++;
+                         //     }
+                         // }
+                         // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
+                         //     if ($pemanfaatan) {
+                         //         $data_pemanfaatan_pekarangan++;
+                         //     }
+                         // }
+                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                         $umurz = $tgl_lahir->diffInYears($today);
 
-                        if ($anggota->warga->makan_beras) {
-                            $countBeras++;
-                        } else {
-                            $countNonBeras++;
-                        }
-                        if ($umurz >= 45) {
-                            $countLansia++;
-                        }
-                        if ($anggota->warga->ibu_hamil) {
-                            $countIbuHamil++;
-                        }
-                        if ($anggota->warga->ibu_menyusui) {
-                            $countIbuMenyesui++;
-                        }
-                        if ($anggota->warga->aktivitas_kesehatan_lingkungan) {
-                            $aktivitasKesehatanLingkungan++;
-                        }
-                        if ($anggota->warga->aktivitas_UP2K) {
-                            $aktivitasUP2K++;
-                        }
-                        if ($anggota->warga->berkebutuhan_khusus != null && $anggota->warga->berkebutuhan_khusus != 'Tidak') {
-                            $countKebutuhanKhusus++;
-                        }
-                        if ($anggota->warga->makan_beras) {
-                            $countMakanBeras++;
-                        } else {
-                            $countMakanNNonBeras++;
-                        }
+                         if ($anggota->warga->makan_beras) {
+                             $countBeras++;
+                         } else {
+                             $countNonBeras++;
+                         }
+                         if ($umurz >= 45) {
+                             $countLansia++;
+                         }
+                         if ($anggota->warga->ibu_hamil) {
+                             $countIbuHamil++;
+                         }
+                         if ($anggota->warga->ibu_menyusui) {
+                             $countIbuMenyesui++;
+                         }
+                         if ($anggota->warga->aktivitas_kesehatan_lingkungan) {
+                             $aktivitasKesehatanLingkungan++;
+                         }
+                         if ($anggota->warga->aktivitas_UP2K) {
+                             $aktivitasUP2K++;
+                         }
+                         if ($anggota->warga->berkebutuhan_khusus != null && $anggota->warga->berkebutuhan_khusus != 'Tidak') {
+                             $countKebutuhanKhusus++;
+                         }
+                         if ($anggota->warga->makan_beras) {
+                             $countMakanBeras++;
+                         } else {
+                             $countMakanNNonBeras++;
+                         }
 
-                        if ($anggota->warga->jenis_kelamin === 'laki-laki') {
-                            $countLakiLaki++;
-                            $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                            $umur = $tgl_lahir->diffInYears($today);
-                            if ($umur <= 5) {
-                                $countbalitaLaki++;
-                            }
-                        } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
-                            $countPerempuan++;
-                            $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                            $umur = $tgl_lahir->diffInYears($today);
-                            if ($umur >= 15 && $umur <= 49) {
-                                $countWUS++;
-                            }
-                            if ($umur <= 5) {
-                                $countbalitaPerempuan++;
-                            }
-                        }
-                        if ($anggota->warga->status_perkawinan === 'menikah') {
-                            if ($anggota->warga->jenis_kelamin === 'laki-laki') {
-                                $countPUS++;
-                            } else {
-                                $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                $umur = $tgl_lahir->diffInYears($today);
-                                if ($umur >= 15 && $umur <= 49) {
-                                    $countPUS++;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+                         if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+                             $countLakiLaki++;
+                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                             $umur = $tgl_lahir->diffInYears($today);
+                             if ($umur <= 5) {
+                                 $countbalitaLaki++;
+                             }
+                         } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
+                             $countPerempuan++;
+                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                             $umur = $tgl_lahir->diffInYears($today);
+                             if ($umur >= 15 && $umur <= 49) {
+                                 $countWUS++;
+                             }
+                             if ($umur <= 5) {
+                                 $countbalitaPerempuan++;
+                             }
+                         }
+                         // if ($anggota->warga->status_perkawinan === 'menikah') {
+                         //     if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+                         //         $countPUS++;
+                         //     } else {
+                         //         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                         //         $umur = $tgl_lahir->diffInYears($today);
+                         //         if ($umur >= 15 && $umur <= 49) {
+                         //             $countPUS++;
+                         //         }
+                         //     }
+                         // }
+                     }
+                     $hitung = $anggota->keluarga->anggota->first(function($anggota) {
+                         // Calculate age based on birthdate
+                         $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                         $today = new DateTime();
+                         $age = $today->diff($birthdate)->y;
+
+                         // Check if the member is married and female, and age is between 15 and 49
+                         return $anggota->warga->status_perkawinan === 'menikah' &&
+                                $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                $age >= 15 && $age <= 49;
+                     }) ? 1 : 0;
+                     $countPUS += $hitung;
+                 }
+             }
+           }
         }
 
         return [
@@ -1407,6 +1470,7 @@ class AdminKabController extends Controller
                 }
                 // rt  belum
                 foreach ($dasawisma as $item) {
+                   if($item->periode <= $periode) {
                     $countKK += DataKeluarga::where('id_dasawisma', $item->id)->where('periode', $periode)->count();
                     $countDasawisma++;
                     $rumah = RumahTangga::where('id_dasawisma', $item->id)->where('periode', $periode)->get();
@@ -1514,20 +1578,33 @@ class AdminKabController extends Controller
                                         $countbalitaPerempuan++;
                                     }
                                 }
-                                if ($anggota->warga->status_perkawinan === 'menikah') {
-                                    if ($anggota->warga->jenis_kelamin === 'laki-laki') {
-                                        $countPUS++;
-                                    } else {
-                                        $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umur = $tgl_lahir->diffInYears($today);
-                                        if ($umur >= 15 && $umur <= 49) {
-                                            $countPUS++;
-                                        }
-                                    }
-                                }
+                                // if ($anggota->warga->status_perkawinan === 'menikah') {
+                                //     if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+                                //         $countPUS++;
+                                //     } else {
+                                //         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+                                //         $umur = $tgl_lahir->diffInYears($today);
+                                //         if ($umur >= 15 && $umur <= 49) {
+                                //             $countPUS++;
+                                //         }
+                                //     }
+                                // }
                             }
+                            $hitung = $anggotaRumah->keluarga->anggota->first(function($anggota) {
+                                // Calculate age based on birthdate
+                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                $today = new DateTime();
+                                $age = $today->diff($birthdate)->y;
+
+                                // Check if the member is married and female, and age is between 15 and 49
+                                return $anggota->warga->status_perkawinan === 'menikah' &&
+                                       $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                       $age >= 15 && $age <= 49;
+                            }) ? 1 : 0;
+                            $countPUS += $hitung;
                         }
                     }
+                   }
                 }
             }
         }

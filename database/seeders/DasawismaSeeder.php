@@ -34,7 +34,7 @@ class DasawismaSeeder extends Seeder
             'status' => 1,
             'id_rt' => 1,
             'id_rw' => 1,
-            'periode' => 2024,
+            'periode' => 2023,
             'dusun' => 'matahari',
         ]);
     }
