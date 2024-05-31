@@ -49,7 +49,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group ">
                                             <label>Dasa Wisma</label>
-                                            <select class="form-control" id="id_dasawisma" name="id_dasawisma" disabled>
+                                            <select class="form-control" id="id_dasawisma" name="id_dasawisma">
                                                 @foreach ($dasawisma as $c)
                                                     <option value="{{$c->id}}" {{ $c->id === $c->id_dasawisma ? 'selected' : '' }}>{{ $c->nama_dasawisma }}</option>
                                                 @endforeach

@@ -61,7 +61,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group ">
                                             <label>Dasawisma</label>
-                                            <select class="form-control" id="id_dasawisma" name="id_dasawisma" disabled>
+                                            <select class="form-control" id="id_dasawisma" name="id_dasawisma">
                                                 @foreach ($dasawisma as $c)
                                                     @if ($kader->id_dasawisma == $c->id)
                                                     <option selected value="{{$c->id}}">{{ $c->nama_dasawisma }}</option>

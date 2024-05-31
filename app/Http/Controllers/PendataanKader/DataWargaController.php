@@ -306,6 +306,7 @@ class DataWargaController extends Controller
             'berkebutuhan_khusus',
             'periode',
         ]));
+        // dd($data_warga);
 
         $data_warga->update(['is_valid' => Carbon::now()]);
 
