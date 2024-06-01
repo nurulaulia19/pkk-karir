@@ -49,14 +49,14 @@ class DataPemanfaatanPekaranganController extends Controller
             where('periode', $periode)->
             where('id_dasawisma',$user->id_dasawisma)->
             where('is_pemanfaatan_lahan',1)
-            ->orderBy('id', 'DESC')
+            ->orderBy('id', 'ASC')
             ->get();
         } else {
             $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')->
             where('periode', now()->year)->
             where('id_dasawisma',$user->id_dasawisma)->
             where('is_pemanfaatan_lahan',1)
-            ->orderBy('id', 'DESC')
+            ->orderBy('id', 'ASC')
             ->get();
         }
         $dataPeriode = Periode::all();
@@ -404,20 +404,15 @@ class DataPemanfaatanPekaranganController extends Controller
 
         $hasKeluarga->delete();
 
-
         $countPemanfaatan = DataPemanfaatanPekarangan::where('rumah_tangga_id', $rumahTanggaId)->count();
 
         // $anyKeluargaInRumah = RumahTanggaHasKeluarga::where('rumahtangga_id',$rumahTanggaId)->first();
         if($countPemanfaatan == 0){
             $dataKeluarga->is_pemanfaatan_lahan = false;
             $dataKeluarga->update();
-
-
+            Alert::success('Berhasil', 'Data berhasil di hapus');
             return redirect()->route('data_pemanfaatan.index');
-
         }
-
-
         return redirect()->route('data_pemanfaatan.edit', ['id' => $rumahTanggaId]);
 
     }

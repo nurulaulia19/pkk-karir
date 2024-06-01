@@ -9,6 +9,7 @@ use App\Models\Rw;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\Rule;
 
 class RtController extends Controller
 {
@@ -22,9 +23,11 @@ class RtController extends Controller
     public function show($id)
     {
         $rt = Rw::with('rt')->find($id);
+
         if(!$rt){
             dd('Tidak ada RT');
         }
+        // dd($rt);
 
         return view('admin_desa.rw.show_rt', compact('rt'));
     }
@@ -33,19 +36,26 @@ class RtController extends Controller
     {
         $user = Auth::user();
         $rwQuery = $request->input('rw');
+
         if(!$rwQuery){
             dd('Tidak ada RW');
         }
+
         $rwData = Rw::find($rwQuery);
+
         if(!$rwData){
             dd('Tidak ada RW');
         }
-        $rw = $rwData->name;
-        $existingRtNumbers = Rt::pluck('name')->map(function($item) {
+
+        $rw = $rwData->name; // Simpan nama RW yang dipilih
+        $rw_id = $rwData->id; // Mengambil id dari objek Rw yang ditemukan
+        // dd($rw_id);
+
+        $existingRtNumbers = Rt::where('rw_id', $rwQuery)->pluck('name')->map(function($item) {
             return (int) $item;
         })->toArray();
 
-        // Cari nomor RW terkecil yang tidak ada di array
+        // Cari nomor RT terkecil yang tidak ada di array
         $nextRtNumber = 1;
         while (in_array($nextRtNumber, $existingRtNumbers)) {
             $nextRtNumber++;
@@ -53,8 +63,9 @@ class RtController extends Controller
 
         $dusun = Dusun::where('desa_id', $user->id_desa)->get();
 
-        return view('admin_desa.rw.rt.create',compact('rw','nextRtNumber', 'dusun'));
+        return view('admin_desa.rw.rt.create',compact('rw','nextRtNumber', 'dusun', 'rw_id'));
     }
+
     public function store(Request $request)
     {
         $rwQuery = $request->input('rw');
@@ -68,12 +79,18 @@ class RtController extends Controller
         }
 
         $user = Auth::user();
-
-;        $request->validate([
-            'name' => 'required',
+        $request->validate([
+            'name' => [
+                'required',
+                Rule::unique('rts')->where(function ($query) use ($rw) {
+                    return $query->where('rw_id', $rw->id);
+                }),
+            ],
         ], [
-            'name.required' => 'Masukkan Nama RW',
+            'name.required' => 'Masukkan Nama RT',
+            'name.unique' => 'Nama RT sudah ada dalam RW ini, silakan masukkan yang lain',
         ]);
+        // dd($rw->id);
 
         Rt::create([
             'name' => $request->name,
@@ -92,20 +109,49 @@ class RtController extends Controller
     {
         $user = Auth::user();
         $dusun = Dusun::where('desa_id', $user->id_desa)->get();
-        return view('admin_desa.rw.rt.edit', compact('rt', 'dusun'));
+
+        // Mengambil data Rw terkait dengan $rt
+        $rwData = Rw::find($rt->rw_id);
+
+        // Pastikan $rwData ditemukan
+        if (!$rwData) {
+            return redirect()->back()->with('error', 'Data RW tidak ditemukan');
+        }
+
+        // Mengakses properti name dari $rwData
+        $rw = $rwData->name;
+        $rw_id = $rwData->id;
+        return view('admin_desa.rw.rt.edit', compact('rt', 'dusun', 'rw', 'rw_id'));
 
     }
 
     public function update(Request $request, RT $rt)
     {
+        $rwQuery = $request->input('rw');
+        if(!$rwQuery){
+            dd('Tidak ada RW');
+        }
+        $rw = Rw::where('name',$rwQuery)->first();
+
+        if(!$rw){
+            dd('Tidak ada RW');
+        }
+
         $request->validate([
-            'name' => 'required',
+            'name' => [
+                'required',
+            Rule::unique('rts')->where(function ($query) use ($rw) {
+            return $query->where('rw_id', $rw->id);
+        })->ignore($rt), // Mengabaikan RT yang sedang diperbarui
+            ],
         ], [
             'name.required' => 'Masukkan Nama RT',
+            'name.unique' => 'Nama RT sudah ada dalam RW ini, silakan masukkan yang lain',
         ]);
+        // dd($rw->id);
 
         $rt->name = $request->name;
-        // $rt->rw = $rw->id;
+        // $rt->rw = $request->rw_id;
         $rt->dusun_id = $request->dusun_id;
         $rt->update();
         Alert::success('Berhasil', 'Data berhasil di Ubah');

@@ -17,17 +17,6 @@
       <form action="{{ url('kegiatan', $kegiatan->id) }}" method="POST">
         @method('PUT')
         @csrf
-        @if (count($errors)>0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{  ($error)  }}</li>
-
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <div class="card-body">
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Nama Kegiatan</label>

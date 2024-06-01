@@ -82,7 +82,7 @@
                 <div class="col-md-6">
                     <div class="form-group @error('rumah_tangga_id') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Nama Kepala Rumah Tangga</label>
-                        <select class="form-control select-state" id="rumah_tangga_id" name="rumah_tangga_id" placeholder="Type to search..">
+                        <select class="form-control select-state @error('rumah_tangga_id') is-invalid @enderror" id="rumah_tangga_id" name="rumah_tangga_id" placeholder="Type to search.." required>
                           <option value=""> Pilih Kepala Rumah Tangga</option>
                             @foreach ($krt as $rumahTangga)
                                 <option value="{{ $rumahTangga->id }}">{{ $rumahTangga->nama_kepala_rumah_tangga }} - {{$rumahTangga->nik_kepala_rumah_tangga}}</option>
@@ -113,9 +113,9 @@
             {{-- tingting --}}
             <div class="form-group" id="formContainer">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" class="@error('kategori_id') is-invalid @enderror">
                         <label for="kategori_id">Nama Kategori Pemanfaatan</label>
-                        <select class="form-control selectNamaKegiatan" name="kategori_id[]">
+                        <select class="form-control selectNamaKegiatan @error('kategori_id') is-invalid @enderror" name="kategori_id[]" required>
                             <option disabled selected value="">Pilih Pemanfaatan Tanah Pekarangan</option>
                             @foreach ($kategoriPemanfaatan as $item)
                                 <option

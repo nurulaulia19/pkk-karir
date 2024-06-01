@@ -17,20 +17,10 @@
       <form action="{{ url('rt', $rt->id) }}" method="POST">
         @method('PUT')
         @csrf
-        @if (count($errors)>0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{  ($error)  }}</li>
-
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <div class="card-body">
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Nama RT</label>
+                <input type="hidden" name="rw" value="{{ $rw }}">
                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama Kegiatan" value="{{ old('name', $rt->name) }}">
                     @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -41,7 +31,7 @@
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Dusun</label>
                 <select class="form-control" id="dusun_id" name="dusun_id">
-                    <option value="0" {{ (!$rt->dusun_id) ? 'selected' : '' }}>Pilih Dusun</option>
+                    <option {{ (!$rt->dusun_id) ? 'selected' : '' }}>Tidak Memiliki Dusun</option>
                     @foreach ($dusun as $index)
                         <option value="{{ $index->id }}" {{ $index->id == $rt->dusun_id ? 'selected' : '' }}>
                             {{ $index->name }}
@@ -56,9 +46,9 @@
 
         <div class="card-footer">
           <button type="submit" class="btn btn-primary">Edit</button>
-          <a href="/rt" class="btn btn-outline-primary">
+          <a href="{{ route('rw.show', ['id' => $rw_id]) }}" class="btn btn-outline-primary">
             <span>Batalkan</span>
-        </a>
+         </a>
         </div>
       </form>
     </div>

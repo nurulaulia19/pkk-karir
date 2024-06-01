@@ -80,16 +80,10 @@ class DataKegiatanWargaController extends Controller
 
         ], [
             'id_warga.required' => 'Lengkapi Nama Warga Yang Didata',
-            'nama_kegiatan.required' => 'Pilih Kegiata',
+            'nama_kegiatan.required' => 'Pilih Kegiatan',
             'periode.required' => 'Pilih Periode',
 
         ]);
-        // dd($request->all());
-        //  if (!isUnique($request->data_kegiatan_id)) {
-        //     return redirect()
-        //         ->back()
-        //         ->withErrors(['data_kegiatan_id' => 'nama pemanfaatan tidak boleh sama']);
-        // }
 
          foreach ($request->nama_kegiatan as $key => $item) {
             // dd($item);
@@ -113,10 +107,6 @@ class DataKegiatanWargaController extends Controller
             }
 
             Alert::success('Berhasil', 'Data berhasil di tambahkan');
-            return redirect('/data_kegiatan');
-
-            Alert::success('Berhasil', 'Data berhasil di tambahkan');
-
             return redirect('/data_kegiatan');
     }
 
@@ -167,7 +157,7 @@ class DataKegiatanWargaController extends Controller
             'nama_kegiatan.required' => 'Pilih Kegiata',
             'periode.required' => 'Pilih Periode',
         ]);
-        
+
         $dataWarga = DataWarga::find($request->id_warga);
         if (!$dataWarga->is_valid) {
             return redirect()
@@ -251,14 +241,10 @@ class DataKegiatanWargaController extends Controller
         // Hapus DataWarga jika perlu
         // $warga->delete(); // Uncomment ini jika Anda ingin menghapus DataWarga setelah semua kegiatannya dihapus
 
+        Alert::success('Berhasil', 'Data berhasil di hapus');
         // Redirect kembali dengan pesan sukses
         return redirect('/data_kegiatan')->with('success', 'Data kegiatan berhasil dihapus');
     }
-
-
-
-    // }
-
 
     public function kegiatanDesa($id){
         $kegiatan = DataKegiatan::where('desa_id', $id)->get();
@@ -295,7 +281,8 @@ class DataKegiatanWargaController extends Controller
             $warga->save();
         }
 
-        return redirect()->back()->with('success', 'Kegiatan deleted successfully');
+        Alert::success('Berhasil', 'Data berhasil di hapus');
+        return redirect('/data_kegiatan')->with('success', 'Kegiatan deleted successfully');
     }
 
 

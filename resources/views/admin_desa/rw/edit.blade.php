@@ -14,17 +14,6 @@
       <form action="{{ url('rw', $rw->id) }}" method="POST">
         @method('PUT')
         @csrf
-        @if (count($errors)>0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{  ($error)  }}</li>
-
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <div class="card-body">
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Nama RW</label>
@@ -38,7 +27,7 @@
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Dusun</label>
                 <select class="form-control" id="dusun_id" name="dusun_id">
-                    <option value="0" {{ (!$rw->dusun_id) ? 'selected' : '' }}>Pilih Dusun</option>
+                    <option value="0" {{ !$rw->dusun_id ? 'selected' : '' }}>Tidak Memiliki Dusun</option>
                     @foreach ($dusun as $index)
                         <option value="{{ $index->id }}" {{ $index->id == $rw->dusun_id ? 'selected' : '' }}>
                             {{ $index->name }}

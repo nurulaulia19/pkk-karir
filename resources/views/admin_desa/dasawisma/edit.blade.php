@@ -34,7 +34,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Nama Dasawisma</label>
-                                        <input type="text" class="form-control @error('nama_dasawisma') is-invalid @enderror" name="nama_dasawisma" id="nama_dasawisma" placeholder="Isi Nama Dasawisma" value="{{$data_dasawisma->nama_dasawisma}}">
+                                        <input type="text" class="form-control @error('nama_dasawisma') is-invalid @enderror" name="nama_dasawisma" id="nama_dasawisma" placeholder="Isi Nama Dasawisma" value="{{$data_dasawisma->nama_dasawisma}}" required>
                                         @error('nama_dasawisma')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Alamat Dasawisma</label>
                                     {{-- nama Alamat --}}
-                                        <input type="text" class="form-control @error('alamat_dasawisma') is-invalid @enderror" name="alamat_dasawisma" id="alamat_dasawisma" placeholder="Isi Alamat Dasawisma" value="{{ $data_dasawisma->alamat_dasawisma }}">
+                                        <input type="text" class="form-control @error('alamat_dasawisma') is-invalid @enderror" name="alamat_dasawisma" id="alamat_dasawisma" placeholder="Isi Alamat Dasawisma" value="{{ $data_dasawisma->alamat_dasawisma }}" required>
                                         @error('alamat_dasawisma')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -90,10 +90,10 @@
                             <div class="col-sm-3">
                                 <div class="form-group @error('status') is-invalid @enderror">
                                     <label>Status</label>
-                                    <select class="form-control @error('status') is-invalid @enderror" name="status">
-                                        <option hidden> Pilih Status Dasawisma</option>
-                                        <option value="1" {{ $data_dasawisma->status == '1' ? 'selected' :'' }}>Aktif</option>
-                                        <option value="0" {{ $data_dasawisma->status == '0' ? 'selected' :''}}>Tidak Aktif</option>
+                                    <select class="form-control @error('status') is-invalid @enderror" name="status" required>
+                                        <option hidden>Pilih Status Dasawisma</option>
+                                        <option value=1 {{ $data_dasawisma->status == 1 ? 'selected' :'' }}>Aktif</option>
+                                        <option value=0 {{ $data_dasawisma->status == 0 ? 'selected' :''}}>Tidak Aktif</option>
                                     </select>
                                     @error('status')
                                         <span class="invalid-feedback" role="alert">
@@ -111,25 +111,10 @@
                                 <label>Nama Kecamatan</label>
                                 <input type="text" readonly class="form-control" name="id_kecamatan" id="id_kecamatan" placeholder="Masukkan Nama Kader" required value="{{ Auth::user()->kecamatan->nama_kecamatan }}">
                             </div>
-                            {{-- <div class="col-md-2">
-                                <div class="form-group @error('periode') is-invalid @enderror">
-                                    <label>Periode</label>
-                                    <select readonly style="cursor:pointer;" class="form-control" id="periode" name="periode">
-                                        <option value="{{ $data_dasawisma->periode }}"
-                                            {{ $data_dasawisma->periode ? 'selected' : '' }}>{{ $data_dasawisma->periode }}
-                                        </option>
-                                    </select>
-                                </div>
-                                @error('periode')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div> --}}
                             <div class="col-md-2">
                                 <div class="form-group @error('periode') is-invalid @enderror">
                                     <label>Periode</label>
-                                    <input type="text" readonly class="form-control" id="periode" name="periode" value="{{ $data_dasawisma->periode }}">
+                                    <input type="text" readonly class="form-control" id="periode" name="periode" value="{{ $data_dasawisma->periode }}" required>
                                 </div>
                                 @error('periode')
                                     <span class="invalid-feedback" role="alert">

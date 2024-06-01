@@ -32,18 +32,6 @@
                         </div>
                     @endif
                     <div class="row">
-                        {{-- <div class="col-md-6">
-                            <div class="form-group @error('id_desa') is-invalid @enderror">
-                                <label for="exampleFormControlSelect1">Desa</label>
-                                <input type="text" disabled class="form-control" name="id_desa" id="id_desa"
-                                    placeholder="Masukkan Nama Desa" required value="curut">
-                            </div>
-                            @error('id_desa')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div> --}}
                         <div class="col-md-6">
                             <div class="form-group @error('id_desa') is-invalid @enderror">
                                 <label for="exampleFormControlSelect1">Desa</label>
@@ -90,11 +78,12 @@
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Nama Warga</label>
                                 <select class="form-control @error('id_warga') is-invalid @enderror select-state" id="id_warga"
-                                    name="id_warga" placeholder="Type to search..">
+                                    name="id_warga" placeholder="Type to search.." required>
                                     {{-- nama warga --}}
                                     <option value=""> Pilih Nama Warga</option>
                                     @foreach ($warga as $c)
-                                        <option value="{{ $c->id }}"> {{ $c->nama }} - {{ $c->no_ktp }}
+                                        <option value="{{ $c->id }}">
+                                            {{ $c->nama }} - {{ $c->no_ktp }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -115,19 +104,23 @@
                             </div>
                         </div>
                     </div>
-
-                    {{-- tingting --}}
                     <div class="form-group" id="formContainer">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 @error('nama_kegiatan') is-invalid @enderror">
                                     <label for="nama_kegiatan">Nama Kegiatan</label>
-                                    <select class="form-control selectNamaKegiatan" name="nama_kegiatan[]">
+                                    <select class="form-control selectNamaKegiatan" name="nama_kegiatan[]" required>
                                         <option selected disabled value="">Pilih Kegiatan</option>
                                         @foreach ($keg as $item)
                                             <option
-                                                value="{{ $item->id }}">{{ $item->name }}</option>
+                                                value="{{ $item->id }}">{{ $item->name }}
+                                            </option>
                                         @endforeach
                                     </select>
+                                    @error('nama_kegiatan')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-1 d-flex align-items-center mt-4">
                                     {{-- <a href="{{ route('data-kegiatan-warga-delete', ['id' => $wargaKeg->id]) }}"

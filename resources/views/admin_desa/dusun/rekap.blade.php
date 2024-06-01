@@ -232,7 +232,6 @@
                                                 <td>{{ $totalStiker }}</td>
                                                 <td>{{ $totalAirPDAM }}</td>
                                                 <td>{{ $totalAirSumur }}</td>
-                                                <td>0</td>
                                                 <td>{{ $totalAirLainnya }}</td>
                                                 {{-- <td>{{ $totalJamban }}</td> --}}
                                                 <td>{{ $totalMakanBeras }}</td>

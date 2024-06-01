@@ -8,15 +8,13 @@
         <ul class="nav nav-tabs" id="dataKeluargaTabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="dasawisma-tab" data-toggle="tab" href="#dasawisma" role="tab"
-                    aria-controls="dasawisma" aria-selected="true">Data Dasawisma</a>
+                    aria-controls="dasawisma" aria-selected="true">Data Dasawisma
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="keluarga-tab" data-toggle="tab" href="#keluarga" role="tab"
                     aria-controls="keluarga" aria-selected="false">Data Keluarga</a>
             </li>
-            {{-- <li class="nav-item">
-                <a class="nav-link" id="kondisi-keluarga-tab" data-toggle="tab" href="#kondisi-keluarga" role="tab" aria-controls="kondisi-keluarga" aria-selected="false">Data Kondisi Keluarga</a>
-            </li> --}}
         </ul>
         <form action="{{ route('data_keluarga.store') }}" method="POST">
             @csrf
@@ -84,20 +82,6 @@
                                                 <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rt->name }}">
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-6">
-                                            <div class="form-group @error('rw') is-invalid @enderror">
-                                                <label for="exampleFormControlSelect1">Dusun</label>
-                                                <input type="text"
-                                                    class="form-control @error('dusun') is-invalid @enderror" name="dusun"
-                                                    id="dusun" placeholder="Masukkan Nama Dusun"
-                                                    value="{{ old('dusun') }}">
-                                            </div>
-                                            @error('dusun')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-group @error('id_desa') is-invalid @enderror">
                                                 <label for="exampleFormControlSelect1">Desa</label>
@@ -194,7 +178,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="button" data-action="next" class="btn btn-primary">Next</button>
+                            <button type="button" class="btn btn-primary" data-action="next">Next</button>
                         </div>
                     </div>
                 </div>
@@ -224,31 +208,13 @@
                             <div class="row" id="container">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        {{-- <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Nama</label>
-                                                <select name="warga[]" id="js-example-basic-multiple"
-                                                    class="form-control js-example-basic-single">
-                                                    <option selected disabled>Type to search</option>
-                                                    @foreach ($warga as $warga)
-                                                        <option value="{{ $warga->id }}">{{ $warga->nama }} - {{$warga->no_ktp}}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('warga')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group @error('warga') is-invalid @enderror">
                                                 <label>Nama</label>
-                                                <select name="warga[]" placeholder="Type to search..."
-                                                    class="form-control js-example-basic-single select-state">
+                                                <select name="warga[]" placeholder="Type to search..." class="form-control js-example-basic-single select-state @error('warga') is-invalid @enderror" required>
                                                     <option value="">Pilih Nama Warga</option>
                                                     @foreach ($warga as $warga)
-                                                        <option value="{{ $warga->id }}">{{ $warga->nama }} - {{$warga->no_ktp}}</option>
+                                                        <option value="{{ $warga->id }}" {{ (collect(old('warga'))->contains($warga->id)) ? 'selected' : '' }}>{{ $warga->nama }} - {{$warga->no_ktp}}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('warga')
@@ -258,8 +224,6 @@
                                                 @enderror
                                             </div>
                                         </div>
-
-
                                         <div class="col-md-6">
                                             <div class="form-group ">
                                                 <label>Status</label>
@@ -335,7 +299,7 @@
 @endsection
 
 @push('script-addon')
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         $(function() {
 
             $("#datepicker").datepicker({
@@ -363,11 +327,11 @@
             });
 
         }
-    </script>
+    </script> --}}
 
 
     <!-- Skrip JavaScript untuk menangani tombol "Next" -->
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             // Tangkap klik pada tombol "Next" dengan data-action="next"
             $(document).on('click', '[data-action="next"]', function (e) {
@@ -390,164 +354,182 @@
                 }
             });
         });
-    </script>
+    </script> --}}
+    <script>
+        $(document).on('click', '[data-action="next"]', function (e) {
+            var $active = $('#dataKeluargaTabs .nav-link.active');
+            var hasError = false;
 
+            $($active.attr('href')).find('input[required]').each(function () {
+                // Periksa input yang tidak disabled atau readonly
+                if (!$(this).prop('disabled') && !$(this).prop('readonly') && !$(this).val()) {
+                    $(this).addClass('is-invalid');
+                    hasError = true;
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
 
-<script>
-    let data; // Variabel untuk menyimpan data warga
-    let warga = 1; // Variabel untuk menyimpan nomor select
-
-    // Fungsi untuk melakukan permintaan API sekali saja di awal
-    $(document).ready(function() {
-        $.ajax({
-            url: "/warga",
-            type: "GET",
-            success: function(response) {
-                console.log(response);
-                data = response.warga; // Simpan data warga dalam variabel
-            },
-            error: function(xhr) {
-                console.error(xhr.responseText);
+            if (!hasError) {
+                // Temukan tab berikutnya dan aktifkan
+                var $nextTab = $active.parent().next().find('a');
+                if ($nextTab.length > 0) {
+                    $nextTab.tab('show');
+                }
             }
         });
-    });
+    </script>
+
+    <script>
+        let data; // Variabel untuk menyimpan data warga
+        let warga = 1; // Variabel untuk menyimpan nomor select
+
+        // Fungsi untuk melakukan permintaan API sekali saja di awal
+        $(document).ready(function() {
+            $.ajax({
+                url: "/warga",
+                type: "GET",
+                success: function(response) {
+                    console.log(response);
+                    data = response.warga; // Simpan data warga dalam variabel
+                },
+                error: function(xhr) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
 
 
-    // $('#addRow').on('click', function() {
-    //     var container = $('#container');
-    //     var rownew = $('<div class="row w-100"></div>');
-    //     rownew.html(`
-    //         <div class="col-md-12">
-    //             <div class="row">
-    //                 <div class="col-md-6">
-    //                     <div class="form-group">
-    //                         <label>Nama</label>
-    //                         <select id="warga${warga}" placeholder="Type to search..." class="form-control js-example-basic-single" name="warga[]">
-    //                             <option selected disabled value="AL">Type to search</option>
-    //                         </select>
-    //                     </div>
-    //                 </div>
-    //                 <div class="col-md-5">
-    //                     <div class="form-group">
-    //                         <label>Status</label>
-    //                         <select class="form-control status-select" name="status[]">
-    //                         </select>
-    //                     </div>
-    //                 </div>
-    //                 <div class="col-md-1 d-flex align-items-center">
-    //                     <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     `);
-    //     container.append(rownew);
+        // $('#addRow').on('click', function() {
+        //     var container = $('#container');
+        //     var rownew = $('<div class="row w-100"></div>');
+        //     rownew.html(`
+        //         <div class="col-md-12">
+        //             <div class="row">
+        //                 <div class="col-md-6">
+        //                     <div class="form-group">
+        //                         <label>Nama</label>
+        //                         <select id="warga${warga}" placeholder="Type to search..." class="form-control js-example-basic-single" name="warga[]">
+        //                             <option selected disabled value="AL">Type to search</option>
+        //                         </select>
+        //                     </div>
+        //                 </div>
+        //                 <div class="col-md-5">
+        //                     <div class="form-group">
+        //                         <label>Status</label>
+        //                         <select class="form-control status-select" name="status[]">
+        //                         </select>
+        //                     </div>
+        //                 </div>
+        //                 <div class="col-md-1 d-flex align-items-center">
+        //                     <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     `);
+        //     container.append(rownew);
 
-    //     var selectElement = $(`#warga${warga}`);
-    //     // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
-    //     console.log('aul',data)
-    //     if (data) {
-    //         data.forEach(function(item) {
-    //             var option = $('<option></option>');
-    //             option.val(item.id);
-    //             option.text(`${item.nama} - ${item.no_ktp}`)
-    //             selectElement.append(option);
-    //         });
-    //     }
+        //     var selectElement = $(`#warga${warga}`);
+        //     // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
+        //     console.log('aul',data)
+        //     if (data) {
+        //         data.forEach(function(item) {
+        //             var option = $('<option></option>');
+        //             option.val(item.id);
+        //             option.text(`${item.nama} - ${item.no_ktp}`)
+        //             selectElement.append(option);
+        //         });
+        //     }
 
-    //     // Mengecek apakah ini adalah baris pertama atau bukan
-    //     if ($('#container .status-select').length === 0) {
-    //         // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
-    //         rownew.find('.status-select').append('<option value="kepala-keluarga">Kepala Keluarga</option>');
-    //     } else {
-    //         // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
-    //         var statusSelect = rownew.find('.status-select');
-    //         statusSelect.append('<option value="ibu">Ibu</option>');
-    //         statusSelect.append('<option value="anak">Anak</option>');
-    //         statusSelect.append('<option value="lainnya">Lainnya</option>');
-    //     }
+        //     // Mengecek apakah ini adalah baris pertama atau bukan
+        //     if ($('#container .status-select').length === 0) {
+        //         // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
+        //         rownew.find('.status-select').append('<option value="kepala-keluarga">Kepala Keluarga</option>');
+        //     } else {
+        //         // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
+        //         var statusSelect = rownew.find('.status-select');
+        //         statusSelect.append('<option value="ibu">Ibu</option>');
+        //         statusSelect.append('<option value="anak">Anak</option>');
+        //         statusSelect.append('<option value="lainnya">Lainnya</option>');
+        //     }
 
-    //     warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
-    // });
-    $('#addRow').on('click', function() {
-        var container = $('#container');
-        var rownew = $('<div class="row w-100"></div>');
-        rownew.html(`
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Nama</label>
-                            <select id="warga${warga}" placeholder="Type to search..." class="form-control js-example-basic-single" name="warga[]">
-                                <option value="">Type to search</option>
-                            </select>
+        //     warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
+        // });
+        $('#addRow').on('click', function() {
+            var container = $('#container');
+            var rownew = $('<div class="row w-100"></div>');
+            rownew.html(`
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group @error('warga') is-invalid @enderror">
+                                <label>Nama</label>
+                                <select id="warga${warga}" placeholder="Type to search..." class="form-control js-example-basic-single @error('warga') is-invalid @enderror" name="warga[]" required>
+                                    <option value="">Type to search</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label>Status</label>
-                            <select class="form-control status-select" name="status[]">
-                            </select>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control status-select" name="status[]">
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-1 d-flex align-items-center">
-                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+                        <div class="col-md-1 d-flex align-items-center">
+                            <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `);
-        container.append(rownew);
+            `);
+            container.append(rownew);
 
-        var selectElement = $(`#warga${warga}`);
-        // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
-        console.log('aul',data)
-        if (data) {
-            data.forEach(function(item) {
-                var option = $('<option></option>');
-                option.val(item.id);
-                option.text(`${item.nama} - ${item.no_ktp}`)
-                selectElement.append(option);
-            });
+            var selectElement = $(`#warga${warga}`);
+            // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
+            console.log('aul',data)
+            if (data) {
+                data.forEach(function(item) {
+                    var option = $('<option></option>');
+                    option.val(item.id);
+                    option.text(`${item.nama} - ${item.no_ktp}`)
+                    selectElement.append(option);
+                });
+            }
+
+            // Mengecek apakah ini adalah baris pertama atau bukan
+            if ($('#container .status-select').length === 0) {
+                // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
+                rownew.find('.status-select').append('<option value="kepala-keluarga">Kepala Keluarga</option>');
+            } else {
+                // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
+                var statusSelect = rownew.find('.status-select');
+                statusSelect.append('<option value="ibu">Ibu</option>');
+                statusSelect.append('<option value="anak">Anak</option>');
+                statusSelect.append('<option value="lainnya">Lainnya</option>');
+            }
+
+            // Menambahkan fungsi selectize ke elemen <select> baru
+            selectElement.selectize();
+
+            warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
+        });
+
+
+
+        function onDelete(id){
+            $(`#warga${id}`).closest('.row').remove();
         }
 
-        // Mengecek apakah ini adalah baris pertama atau bukan
-        if ($('#container .status-select').length === 0) {
-            // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
-            rownew.find('.status-select').append('<option value="kepala-keluarga">Kepala Keluarga</option>');
-        } else {
-            // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
-            var statusSelect = rownew.find('.status-select');
-            statusSelect.append('<option value="ibu">Ibu</option>');
-            statusSelect.append('<option value="anak">Anak</option>');
-            statusSelect.append('<option value="lainnya">Lainnya</option>');
-        }
+    </script>
 
-        // Menambahkan fungsi selectize ke elemen <select> baru
-        selectElement.selectize();
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
 
-        warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
-    });
-
-
-
-    function onDelete(id){
-        $(`#warga${id}`).closest('.row').remove();
-    }
-
-</script>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
-
-{{-- <script>
-    $(document).ready(function() {
-        $('#select-state').selectize();
-    });
-</script> --}}
-<script>
-    $(document).ready(function() {
-        $('.select-state').selectize();
-    });
-</script>
+    <script>
+        $(document).ready(function() {
+            $('.select-state').selectize();
+        });
+    </script>
 
 @endpush

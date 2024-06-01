@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\AdminDesa;
 use App\Http\Controllers\Controller;
 use App\Models\DataKegiatan;
-use App\Models\KeteranganKegiatan;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\Rule;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,9 +49,10 @@ class KeteranganKegiatanController extends Controller
         $user = Auth::user();
         // dd($user);
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:data_kegiatan', // 'kegiatans' adalah nama tabel
         ], [
             'name.required' => 'Masukkan Nama Kegiatan',
+            'name.unique' => 'Nama Kegiatan sudah ada, silakan masukkan yang lain',
         ]);
 
         $kegiatan = new DataKegiatan();
@@ -101,10 +102,15 @@ class KeteranganKegiatanController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => [
+                'required',
+                Rule::unique('data_kegiatan')->ignore($id),
+            ],
         ], [
             'name.required' => 'Masukkan Nama Kegiatan',
+            'name.unique' => 'Nama Kegiatan sudah ada, silakan masukkan yang lain',
         ]);
+
         $kegiatan = DataKegiatan::find($id);
         $kegiatan->name = $request->name;
         $kegiatan->update();

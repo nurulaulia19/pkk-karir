@@ -16,27 +16,16 @@
 
       <form action="{{ route('data_dusun.store') }}" method="POST">
         @csrf
-        @if (count($errors)>0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{  ($error)  }}</li>
-
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Nama Dusun</label>
                         {{-- nama Nama Dusun --}}
                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama Dusun">
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                 </div>
             </div>
         </div>

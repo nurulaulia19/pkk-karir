@@ -329,7 +329,6 @@
 
     </script>
 
-
     @stack('script-addon')
     @include('sweetalert::alert')
 

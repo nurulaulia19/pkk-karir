@@ -96,7 +96,16 @@ class RumahTanggaController extends Controller
             'punya_jamban' => 'required|boolean',
             'punya_tempat_sampah' => 'required|boolean',
             'saluran_pembuangan_air_limbah' => 'required|boolean',
+            'tempel_stiker' => 'required|boolean',
+            'sumber_air' => 'required|array|min:1',
+            'sumber_air.*' => 'in:pdam,sumur,lainnya',
         ]);
+
+        $sumberAir = [
+            'sumber_air_pdam' => in_array('pdam', $validatedData['sumber_air']) ? 1 : 0,
+            'sumber_air_sumur' => in_array('sumur', $validatedData['sumber_air']) ? 1 : 0,
+            'sumber_air_lainnya' => in_array('lainnya', $validatedData['sumber_air']) ? 1 : 0,
+        ];
 
         $keluargaKetua = DataKeluarga::find($request->keluarga[0]);
         // dd($keluargaKetua);
@@ -128,11 +137,13 @@ class RumahTanggaController extends Controller
             'saluran_pembuangan_air_limbah' => $validatedData['saluran_pembuangan_air_limbah'],
             'kriteria_rumah_sehat' => $kriteria_rumah_sehat,
             'tempel_stiker' => $request->tempel_stiker,
-            // 'saluran_pembuangan_air_limbah' => $request->saluran_pembuangan_air_limbah,
             'periode' => $request->periode,
-            'sumber_air_pdam' => $request->has('sumber_air_pdam') ? 1 : 0,
-            'sumber_air_sumur' => $request->has('sumber_air_sumur') ? 1 : 0,
-            'sumber_air_lainnya' => $request->has('sumber_air_lainnya') ? 1 : 0,
+            'sumber_air_pdam' => $sumberAir['sumber_air_pdam'],
+            'sumber_air_sumur' => $sumberAir['sumber_air_sumur'],
+            'sumber_air_lainnya' => $sumberAir['sumber_air_lainnya'],
+            // 'sumber_air_pdam' => $request->has('sumber_air_pdam') ? 1 : 0,
+            // 'sumber_air_sumur' => $request->has('sumber_air_sumur') ? 1 : 0,
+            // 'sumber_air_lainnya' => $request->has('sumber_air_lainnya') ? 1 : 0,
             'is_valid' => now(),
 
         ]);
@@ -205,7 +216,16 @@ class RumahTanggaController extends Controller
             'punya_jamban' => 'required|boolean',
             'punya_tempat_sampah' => 'required|boolean',
             'saluran_pembuangan_air_limbah' => 'required|boolean',
+            'tempel_stiker' => 'required|boolean',
+            'sumber_air' => 'required|array|min:1',
+            'sumber_air.*' => 'in:pdam,sumur,lainnya',
         ]);
+
+        $sumberAir = [
+            'sumber_air_pdam' => in_array('pdam', $validatedData['sumber_air']) ? 1 : 0,
+            'sumber_air_sumur' => in_array('sumur', $validatedData['sumber_air']) ? 1 : 0,
+            'sumber_air_lainnya' => in_array('lainnya', $validatedData['sumber_air']) ? 1 : 0,
+        ];
 
         // Tentukan nilai kriteria rumah sehat berdasarkan kondisi
         $kriteria_rumah_sehat = true;
@@ -258,9 +278,12 @@ class RumahTanggaController extends Controller
             'tempel_stiker' => $request->tempel_stiker,
             // 'saluran_pembuangan_air_limbah' => $request->saluran_pembuangan_air_limbah,
             'periode' => $request->periode,
-            'sumber_air_pdam' => $request->has('sumber_air_pdam') ? 1 : 0,
-            'sumber_air_sumur' => $request->has('sumber_air_sumur') ? 1 : 0,
-            'sumber_air_lainnya' => $request->has('sumber_air_lainnya') ? 1 : 0,
+            'sumber_air_pdam' => $sumberAir['sumber_air_pdam'],
+            'sumber_air_sumur' => $sumberAir['sumber_air_sumur'],
+            'sumber_air_lainnya' => $sumberAir['sumber_air_lainnya'],
+            // 'sumber_air_pdam' => $request->has('sumber_air_pdam') ? 1 : 0,
+            // 'sumber_air_sumur' => $request->has('sumber_air_sumur') ? 1 : 0,
+            // 'sumber_air_lainnya' => $request->has('sumber_air_lainnya') ? 1 : 0,
             'is_valid' => now(),
         ]);
 

@@ -16,28 +16,7 @@
 
       <form action="{{ route('kegiatan.store') }}" method="POST">
         @csrf
-        @if (count($errors)>0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{  ($error)  }}</li>
-
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         <div class="card-body">
-            {{-- <div class="form-group ">
-                <label>Nama Kegiatan</label>
-                <select class="form-control" id="id_kegiatan" name="id_kegiatan">
-                    <option hidden> Pilih Kegiatan</option>
-                    @foreach ($kegiatan as $c)
-                        <option value="{{$c->id}}">{{ $c->name }}</option>
-                    @endforeach
-                </select>
-            </div> --}}
-
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Nama Kegiatan</label>
                     {{-- nama Nama Kegiatan --}}

@@ -5,7 +5,7 @@
 @section('bread', 'Edit Data Rumah Tangga')
 @section('container')
     <div class="container">
-        <ul class="nav nav-tabs" id="dataKeluargaTabs" role="tablist">
+        <ul class="nav nav-tabs" id="dataRumahTanggaTabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="dasawisma-tab" data-toggle="tab" href="#dasawisma" role="tab"
                     aria-controls="dasawisma" aria-selected="true">Data Dasa Wisma</a>
@@ -407,7 +407,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label>Sumber Air:</label><br>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="sumber_air_pdam" name="sumber_air_pdam" value="1" @if(old('sumber_air_pdam', $krt->sumber_air_pdam) == 1) checked @endif>
@@ -421,9 +421,23 @@
                                                     <input class="form-check-input" type="checkbox" id="sumber_air_lainnya" name="sumber_air_lainnya" value="1" @if(old('sumber_air_lainnya', $krt->sumber_air_lainnya) == 1) checked @endif>
                                                     <label class="form-check-label" for="sumber_air_lainnya">Lainnya</label>
                                                 </div>
+                                            </div> --}}
+                                            <div class="form-group">
+                                                <label for="">Sumber Air: </label> <br>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_pdam" name="sumber_air[]" value="pdam" @if(isset($krt->sumber_air_pdam) && $krt->sumber_air_pdam) checked @endif>
+                                                    <label class="form-check-label" for="sumber_air_pdam">PDAM</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_sumur" name="sumber_air[]" value="sumur" @if(isset($krt->sumber_air_sumur) && $krt->sumber_air_sumur) checked @endif>
+                                                    <label class="form-check-label" for="sumber_air_sumur">Sumur</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_lainnya" name="sumber_air[]" value="lainnya" @if(isset($krt->sumber_air_lainnya) && $krt->sumber_air_lainnya) checked @endif>
+                                                    <label class="form-check-label" for="sumber_air_lainnya">Lainnya</label>
+                                                </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -577,27 +591,27 @@
         });
     </script> --}}
     <script>
-        $(document).ready(function() {
-            // Tangkap klik pada tombol "Next" dengan data-action="next"
-            $(document).on('click', '[data-action="next"]', function (e) {
-                e.preventDefault(); // Menghentikan perilaku default dari tombol
+        $(document).on('click', '[data-action="next"]', function (e) {
+            var $active = $('#dataRumahTanggaTabs .nav-link.active');
+            var hasError = false;
 
-                // Cari tab yang sedang aktif
-                var $activeTab = $('.nav-link.active');
-
-                // Ambil tab berikutnya dalam daftar tab
-                var $nextTab = $activeTab.parent().next().find('.nav-link');
-
-                // Periksa apakah masih ada tab berikutnya
-                if ($nextTab.length > 0) {
-                    // Aktifkan tab berikutnya
-                    $nextTab.tab('show');
+            $($active.attr('href')).find('input[required]').each(function () {
+                // Periksa input yang tidak disabled atau readonly
+                if (!$(this).prop('disabled') && !$(this).prop('readonly') && !$(this).val()) {
+                    $(this).addClass('is-invalid');
+                    hasError = true;
                 } else {
-                    // Jika tidak ada tab berikutnya, kembalikan ke tab pertama (opsional)
-                    var $firstTab = $('.nav-link').first();
-                    $firstTab.tab('show');
+                    $(this).removeClass('is-invalid');
                 }
             });
+
+            if (!hasError) {
+                // Temukan tab berikutnya dan aktifkan
+                var $nextTab = $active.parent().next().find('a');
+                if ($nextTab.length > 0) {
+                    $nextTab.tab('show');
+                }
+            }
         });
     </script>
 
@@ -717,7 +731,7 @@
         }
 
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
 

@@ -35,21 +35,6 @@ class KelompokDasawismaController extends Controller
     // }
     public function index(Request $request)
     {
-        // Get the authenticated user
-        // $user = Auth::user();
-
-        // // Get the user's ID
-        // $userId = $user->id;
-
-        // // Get the desa ID associated with the user
-        // $desaId = $user->id_desa;
-
-        // // Get all records from DataKelompokDasawisma table where id_desa matches the logged-in user's desa ID
-        // $dasawisma = DataKelompokDasawisma::where('id_desa', $desaId)->with(['rw', 'rt'])->get();
-        // // dd($dasawisma);
-
-        // // Pass the variables to the view
-        // return view('admin_desa.dasawisma.index', compact('dasawisma'));
         $user = Auth::user();
         $desaId = $user->id_desa;
 
@@ -127,9 +112,39 @@ class KelompokDasawismaController extends Controller
 
     public function store(Request $request)
     {
+        // $request->validate([
+        //     // Validation rules for Dasawisma data
+        //     'nama_dasawisma' => 'required',
+        //     'alamat_dasawisma' => 'required',
+        //     'dusun' => 'required',
+        //     'status' => 'required',
+        //     'id_rt' => 'required',
+        //     'id_rw' => 'required',
+
+        //     // Validation rules for Kader data
+        //     'name' => 'required',
+        //     'email' => 'required|unique:users',
+        //     'password' => 'required|min:8',
+        //     'user_type' => 'required',
+        //     'id_desa' => 'required',
+        //     'id_kecamatan' => 'required',
+        // ], [
+        //     // Validation messages for Dasawisma data
+        //     'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
+        //     'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
+        //     'dusun.required' => 'Masukkan Dusun Dasawisma',
+        //     'status.required' => 'Pilih Status',
+
+        //     // Validation messages for Kader data
+        //     'name.required' => 'Masukkan Nama Pengguna',
+        //     'email.required' => 'Masukkan Email Pengguna',
+        //     'email.unique' => 'Email sudah digunakan',
+        //     'password.required' => 'Masukkan Password Pengguna',
+        //     'user_type.required' => 'Lengkapi Deskripsi Berita yang ingin dipublish',
+        // ]);
         $request->validate([
             // Validation rules for Dasawisma data
-            'nama_dasawisma' => 'required',
+            'nama_dasawisma' => 'required|unique:data_dasawisma',
             'alamat_dasawisma' => 'required',
             'dusun' => 'required',
             'status' => 'required',
@@ -146,6 +161,7 @@ class KelompokDasawismaController extends Controller
         ], [
             // Validation messages for Dasawisma data
             'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
+            'nama_dasawisma.unique' => 'Nama Dasawisma sudah ada, harap isi nama yang lain',
             'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
             'dusun.required' => 'Masukkan Dusun Dasawisma',
             'status.required' => 'Pilih Status',
@@ -286,7 +302,10 @@ class KelompokDasawismaController extends Controller
 
         $request->validate([
             // Aturan validasi untuk Dasawisma data
-            'nama_dasawisma' => 'required',
+            'nama_dasawisma' =>  [
+                'required',
+                Rule::unique('data_dasawisma')->ignore($data_dasawisma),
+            ],
             'alamat_dasawisma' => 'required',
             'dusun' => 'required',
             'status' => 'required',
@@ -306,6 +325,7 @@ class KelompokDasawismaController extends Controller
         ], [
             // Pesan validasi untuk Dasawisma data
             'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
+            'nama_dasawisma.unique' => 'Nama Dasawisma sudah ada, harap isi nama yang lain',
             'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
             'dusun.required' => 'Masukkan Dusun Dasawisma',
             'status.required' => 'Pilih Status',

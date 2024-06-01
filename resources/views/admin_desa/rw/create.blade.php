@@ -16,16 +16,6 @@
 
       <form action="{{ route('rw.store') }}" method="POST">
         @csrf
-        @if (count($errors)>0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{  ($error)  }}</li>
-
-                    @endforeach
-                </ul>
-            </div>
-        @endif
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Nama RW</label>
@@ -39,7 +29,7 @@
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Dusun</label>
                     <select class="form-control" id="dusun_id" name="dusun_id">
-                        <option value="0">Pilih Dusun</option>
+                        <option value="0" selected>Tidak Memiliki Dusun</option>
                         @foreach ($dusun as $c)
                             <option value="{{ $c->id }}">{{ $c->name }}</option>
                         @endforeach

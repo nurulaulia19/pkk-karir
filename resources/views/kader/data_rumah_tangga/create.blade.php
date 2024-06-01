@@ -5,7 +5,7 @@
 @section('bread', 'Tambah Data Keluarga')
 @section('container')
     <div class="container">
-        <ul class="nav nav-tabs" id="dataKeluargaTabs" role="tablist">
+        <ul class="nav nav-tabs" id="dataRumahTanggaTabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="dasawisma-tab" data-toggle="tab" href="#dasawisma" role="tab"
                     aria-controls="dasawisma" aria-selected="true">Data Dasa Wisma</a>
@@ -194,7 +194,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="button" data-action="next" class="btn btn-primary">Next</button>
+                            <button type="button" class="btn btn-primary" data-action="next">Next</button>
                         </div>
 
                     </div>
@@ -243,13 +243,13 @@
                                             </div>
                                         </div> --}}
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group @error('keluarga') is-invalid @enderror">
                                                 <label>Nama</label>
                                                 <select name="keluarga[]" id="js-example-basic-multiple"
-                                                    class="form-control js-example-basic-single select-state" placeholder="Type to search..">
+                                                    class="form-control js-example-basic-single select-state @error('keluarga') is-invalid @enderror" placeholder="Type to search.." required>
                                                     <option value="">Pilih Nama Kepala Rumah Tangga</option>
                                                     @foreach ($kk as $kepala)
-                                                        <option value="{{ $kepala->id }}">{{ $kepala->nama_kepala_keluarga }} - {{ $kepala->nik_kepala_keluarga }}</option>
+                                                        <option value="{{ $kepala->id }}" {{ (collect(old('keluarga'))->contains($kepala->id)) ? 'selected' : '' }}>{{ $kepala->nama_kepala_keluarga }} - {{ $kepala->nik_kepala_keluarga }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('nama_kepala_rumah_tangga')
@@ -331,27 +331,26 @@
                                         <div class="col-md-4">
                                             <div class="form-group @error('punya_tempat_sampah') is-invalid @enderror">
                                                 {{-- pilih punya tempat pembuangan sampah --}}
-                                                <label>Memiliki Tempat Pembuangan Sampah</label><br>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="punya_tempat_sampah" value=1 class="form-check-input">Ya
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="punya_tempat_sampah" value=0 class="form-check-input">Tidak
-                                                        </label>
-                                                    </div>
+                                                <label class="@error('punya_tempat_sampah') is-invalid @enderror">Memiliki Tempat Pembuangan Sampah</label><br>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="punya_tempat_sampah" value="1" class="form-check-input" {{ old('punya_tempat_sampah') == '1' ? 'checked' : '' }}>Ya
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="punya_tempat_sampah" value="0" class="form-check-input" {{ old('punya_tempat_sampah') == '0' ? 'checked' : '' }}>Tidak
+                                                    </label>
+                                                </div>
+                                                @error('punya_tempat_sampah')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
-                                            @error('punya_tempat_sampah')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group @error('saluran_pembuangan_air_limbah') is-invalid @enderror">
-                                                {{-- pilih punya saluran pembuangan air limbah --}}
+                                            {{-- <div class="form-group @error('saluran_pembuangan_air_limbah') is-invalid @enderror">
                                                 <label>Mempunyai Saluran Pembuangan Air Limbah</label><br>
                                                     <div class="form-check form-check-inline">
                                                         <label class="form-check-label">
@@ -368,11 +367,29 @@
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
-                                            @enderror
+                                            @enderror --}}
+                                            <div class="form-group @error('saluran_pembuangan_air_limbah') is-invalid @enderror">
+                                                {{-- pilih punya saluran pembuangan air limbah --}}
+                                                <label class="@error('saluran_pembuangan_air_limbah') is-invalid @enderror">Mempunyai Saluran Pembuangan Air Limbah</label><br>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="saluran_pembuangan_air_limbah" value="1" class="form-check-input" {{ old('saluran_pembuangan_air_limbah') == '1' ? 'checked' : '' }}>Ya
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="saluran_pembuangan_air_limbah" value="0" class="form-check-input" {{ old('saluran_pembuangan_air_limbah') == '0' ? 'checked' : '' }}>Tidak
+                                                    </label>
+                                                </div>
+                                                @error('saluran_pembuangan_air_limbah')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <div class="form-group @error('tempel_stiker') is-invalid @enderror">
-                                                {{-- pilih stiker --}}
+                                            {{-- <div class="form-group @error('tempel_stiker') is-invalid @enderror">
                                                 <label>Menempel Stiker P4K</label><br>
                                                     <div class="form-check form-check-inline">
                                                         <label class="form-check-label">
@@ -389,7 +406,26 @@
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
-                                            @enderror
+                                            @enderror --}}
+                                            <div class="form-group @error('tempel_stiker') is-invalid @enderror">
+                                                {{-- pilih stiker --}}
+                                                <label class="@error('tempel_stiker') is-invalid @enderror">Menempel Stiker P4K</label><br>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="tempel_stiker" value="1" class="form-check-input" {{ old('tempel_stiker') == '1' ? 'checked' : '' }}>Ya
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" name="tempel_stiker" value="0" class="form-check-input" {{ old('tempel_stiker') == '0' ? 'checked' : '' }}>Tidak
+                                                    </label>
+                                                </div>
+                                                @error('tempel_stiker')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -397,8 +433,8 @@
                                     <div class="row">
                                         <div class="col-md-2">
                                             <div class="form-group @error('punya_jamban') is-invalid @enderror">
-                                                <label>Punya Jamban?</label>
-                                                <div class="row">
+                                                <label class="@error('punya_jamban') is-invalid @enderror">Punya Jamban?</label>
+                                                {{-- <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="radio" name="punya_jamban" id="punya_jamban_ya" value=1>
@@ -411,6 +447,20 @@
                                                             <label class="form-check-label" for="punya_jamban_tidak">Tidak</label>
                                                         </div>
                                                     </div>
+                                                </div> --}}
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="punya_jamban" id="punya_jamban_ya" value="1" {{ old('punya_jamban') == '1' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="punya_jamban_ya">Ya</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="punya_jamban" id="punya_jamban_tidak" value="0" {{ old('punya_jamban') == '0' ? 'checked' : '' }}>
+                                                            <label class="form-check-label" for="punya_jamban_tidak">Tidak</label>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 @error('punya_jamban')
                                                     <span class="invalid-feedback" role="alert">
@@ -420,7 +470,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label>Sumber Air:</label><br>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="sumber_air_pdam" name="sumber_air_pdam" value=1>
@@ -434,6 +484,26 @@
                                                     <input class="form-check-input" type="checkbox" id="sumber_air_lainnya" name="sumber_air_lainnya" value=1>
                                                     <label class="form-check-label" for="sumber_air_lainnya">Lainnya</label>
                                                 </div>
+                                            </div> --}}
+                                            <div class="form-group @error('sumber_air') is-invalid @enderror">
+                                                <label class="@error('sumber_air') is-invalid @enderror">Sumber Air:</label><br>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_pdam" name="sumber_air[]" value="pdam" {{ in_array('pdam', old('sumber_air', [])) ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="sumber_air_pdam">PDAM</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_sumur" name="sumber_air[]" value="sumur" {{ in_array('sumur', old('sumber_air', [])) ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="sumber_air_sumur">Sumur</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sumber_air_lainnya" name="sumber_air[]" value="lainnya" {{ in_array('lainnya', old('sumber_air', [])) ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="sumber_air_lainnya">Lainnya</label>
+                                                </div>
+                                                @error('sumber_air')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -443,7 +513,6 @@
                         <div class="card-footer">
                             {{-- <button type="button" data-action="next" class="btn btn-primary">Next</button> --}}
                             <button type="submit" class="ml-2 btn btn-success">Submit</button>
-
                         </div>
                     </div>
                 </div>
@@ -528,86 +597,32 @@
         }
     </script>
 
-    {{-- <script>
-        $(document).ready(function() {
-            $('#id_kecamatan').on('change', function() {
-                var categoryID = $(this).val();
-                console.log('cek data kecamatan');
-                if (categoryID) {
-                    console.log('cek get data desa');
-
-                    $.ajax({
-                        url: '/getDesa/' + categoryID,
-                        type: "GET",
-                        data: {
-                            "_token": "{{ csrf_token() }}"
-                        },
-                        dataType: "json",
-                        success: function(data) {
-                            console.log('sukses cek data desa');
-
-                            if (data) {
-                                $('#id_desa').empty();
-                                $('#id_desa').append(
-                                    '<option value="" hidden>Pilih Desa</option>');
-                                $.each(data, function(key, desas) {
-                                    $('select[name="id_desa"]').append(
-                                        '<option value="' + key + '">' + desas
-                                        .nama_desa + '</option>');
-                                });
-                            } else {
-                                $('#id_desa').empty();
-                            }
-                        }
-                    });
-                } else {
-                    $('#id_desa').empty();
-                }
-            });
-
-            $(document).on('click', '[data-action="next"]', function(e) {
-                var $active = $('#dataKeluargaTabs .active');
-                var hasError = false;
-
-                $($active.attr('href')).find('[name]').each(function() {
-                    if ((!$(this).prop('disabled') || !$(this).prop('readonly')) && !$(this)
-                        .val()) {
-                        $(this).addClass('is-invalid');
-                        hasError = true;
-                    }
-                });
-                if (!hasError) {
-                    $active.parent().next().find('a').click();
-                }
-            });
-        });
-    </script> --}}
-
-    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
     <script>
-        $(document).ready(function() {
-            // Tangkap klik pada tombol "Next" dengan data-action="next"
-            $(document).on('click', '[data-action="next"]', function (e) {
-                e.preventDefault(); // Menghentikan perilaku default dari tombol
+        $(document).on('click', '[data-action="next"]', function (e) {
+            var $active = $('#dataRumahTanggaTabs .nav-link.active');
+            var hasError = false;
 
-                // Cari tab yang sedang aktif
-                var $activeTab = $('.nav-link.active');
-
-                // Ambil tab berikutnya dalam daftar tab
-                var $nextTab = $activeTab.parent().next().find('.nav-link');
-
-                // Periksa apakah masih ada tab berikutnya
-                if ($nextTab.length > 0) {
-                    // Aktifkan tab berikutnya
-                    $nextTab.tab('show');
+            $($active.attr('href')).find('input[required]').each(function () {
+                // Periksa input yang tidak disabled atau readonly
+                if (!$(this).prop('disabled') && !$(this).prop('readonly') && !$(this).val()) {
+                    $(this).addClass('is-invalid');
+                    hasError = true;
                 } else {
-                    // Jika tidak ada tab berikutnya, kembalikan ke tab pertama (opsional)
-                    var $firstTab = $('.nav-link').first();
-                    $firstTab.tab('show');
+                    $(this).removeClass('is-invalid');
                 }
             });
+
+            if (!hasError) {
+                // Temukan tab berikutnya dan aktifkan
+                var $nextTab = $active.parent().next().find('a');
+                if ($nextTab.length > 0) {
+                    $nextTab.tab('show');
+                }
+            }
         });
     </script>
+
     <script>
         let data; // Variabel untuk menyimpan data warga
         let warga = 1; // Variabel untuk menyimpan nomor select
@@ -727,21 +742,7 @@
 
     </script>
 
-
-
-
-
-    {{-- <script>
-        $(document).ready(function() {
-
-            var $provinsiSelect = $('#js-example-basic-multiple');
-            $provinsiSelect.select2();
-
-
-            // $('.js-example-basic-multiple').select2();
-        });
-    </script> --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
 

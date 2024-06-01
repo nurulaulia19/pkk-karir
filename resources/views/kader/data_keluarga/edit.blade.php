@@ -203,9 +203,9 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group @error('warga') is-invalid @enderror">
                                                 <label>Nama</label>
-                                                <select name="warga[]" class="form-control js-example-basic-single select-state" placeholder="Type to search...">
+                                                <select name="warga[]" class="form-control js-example-basic-single select-state @error('warga') is-invalid @enderror" placeholder="Type to search..." required>
                                                     <option value="">Pilih Nama Warga</option>
                                                     @foreach ($data_keluarga->anggota as $warga)
                                                         <option value="{{ $warga->warga->id }}" {{ $item->warga->id == $warga->warga->id ? 'selected' : '' }}>{{ $warga->warga->nama }} - {{ $warga->warga->no_ktp }}</option>
@@ -499,29 +499,30 @@
 </script> --}}
 
 <script>
-    $(document).ready(function() {
-        // Tangkap klik pada tombol "Next" dengan data-action="next"
-        $(document).on('click', '[data-action="next"]', function (e) {
-            e.preventDefault(); // Menghentikan perilaku default dari tombol
+    $(document).on('click', '[data-action="next"]', function (e) {
+        var $active = $('#dataKeluargaTabs .nav-link.active');
+        var hasError = false;
 
-            // Cari tab yang sedang aktif
-            var $activeTab = $('.nav-link.active');
-
-            // Ambil tab berikutnya dalam daftar tab
-            var $nextTab = $activeTab.parent().next().find('.nav-link');
-
-            // Periksa apakah masih ada tab berikutnya
-            if ($nextTab.length > 0) {
-                // Aktifkan tab berikutnya
-                $nextTab.tab('show');
+        $($active.attr('href')).find('input[required]').each(function () {
+            // Periksa input yang tidak disabled atau readonly
+            if (!$(this).prop('disabled') && !$(this).prop('readonly') && !$(this).val()) {
+                $(this).addClass('is-invalid');
+                hasError = true;
             } else {
-                // Jika tidak ada tab berikutnya, kembalikan ke tab pertama (opsional)
-                var $firstTab = $('.nav-link').first();
-                $firstTab.tab('show');
+                $(this).removeClass('is-invalid');
             }
         });
+
+        if (!hasError) {
+            // Temukan tab berikutnya dan aktifkan
+            var $nextTab = $active.parent().next().find('a');
+            if ($nextTab.length > 0) {
+                $nextTab.tab('show');
+            }
+        }
     });
 </script>
+
 
 <script>
     let data; // Variabel untuk menyimpan data warga
@@ -607,9 +608,9 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div class="form-group @error('warga') is-invalid @enderror">
                             <label>Nama</label>
-                            <select id="warga${warga}" placeholder="Type to search..." class="form-control js-example-basic-single" name="warga[]">
+                            <select id="warga${warga}" placeholder="Type to search..." class="form-control js-example-basic-single @error('warga') is-invalid @enderror" name="warga[]" required>
                                 <option value="">Type to search</option>
                             </select>
                         </div>
@@ -669,7 +670,7 @@
     console.log(@json($data_keluarga));
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
 

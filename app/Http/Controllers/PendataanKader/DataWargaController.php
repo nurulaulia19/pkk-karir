@@ -100,8 +100,8 @@ class DataWargaController extends Controller
             'status_perkawinan' => 'required',
             'agama' => 'required',
             'alamat' => 'required',
-            'kabupaten' => 'required',
-            'provinsi' => 'required',
+            // 'kabupaten' => 'required',
+            // 'provinsi' => 'required',
             'pendidikan' => 'required',
             'pekerjaan' => 'required',
             'akseptor_kb' => 'required',
@@ -114,7 +114,7 @@ class DataWargaController extends Controller
             'periode' => 'required',
             'berkebutuhan_khusus' => 'required',
             'makan_beras' => 'required',
-            'provinsi' => 'required',
+            // 'provinsi' => 'required',
             'aktivitas_UP2K' => 'required|boolean',
             'aktivitas_kesehatan_lingkungan' => 'required|boolean',
         ]);
@@ -134,8 +134,10 @@ class DataWargaController extends Controller
             'status_perkawinan' => $request->status_perkawinan,
             'agama' => $request->agama,
             'alamat' => $request->alamat,
-            'kabupaten' => $request->kabupaten,
-            'provinsi' => $request->provinsi,
+            // 'kabupaten' => $request->kabupaten,
+            // 'provinsi' => $request->provinsi,
+            'ibu_hamil' => $request->ibu_hamil,
+            'ibu_menyusui' => $request->ibu_menyusui,
             'pendidikan' => $request->pendidikan,
             'pekerjaan' => $request->pekerjaan,
             'akseptor_kb' => $request->akseptor_kb,
@@ -148,10 +150,14 @@ class DataWargaController extends Controller
             'periode' => $request->periode,
             'berkebutuhan_khusus' => $request->berkebutuhan_khusus,
             'makan_beras' => $request->makan_beras,
-            'provinsi' => $request->provinsi,
+            // 'provinsi' => $request->provinsi,
             'aktivitas_UP2K' => $request->aktivitas_UP2K,
             'aktivitas_kesehatan_lingkungan' => $request->aktivitas_kesehatan_lingkungan,
         ];
+        if ($request->jenis_kelamin == 'laki-laki') {
+            $data['ibu_hamil'] = false;
+            $data['ibu_menyusui'] = false;
+        }
 
         // Simpan data menggunakan model
         $warga = DataWarga::create($data);
@@ -294,6 +300,8 @@ class DataWargaController extends Controller
             'provinsi',
             'pendidikan',
             'pekerjaan',
+            'ibu_hamil',
+            'ibu_menyusui',
             'akseptor_kb',
             'aktif_posyandu',
             'ikut_bkb',
@@ -308,6 +316,10 @@ class DataWargaController extends Controller
         ]));
         // dd($data_warga);
 
+        if ($request->jenis_kelamin == 'laki-laki') {
+            $data_warga['ibu_hamil'] = false;
+            $data_warga['ibu_menyusui'] = false;
+        }
         $data_warga->update(['is_valid' => Carbon::now()]);
 
         // Temukan ID keluarga terkait dengan DataWarga

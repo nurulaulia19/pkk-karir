@@ -10,6 +10,7 @@ use FontLib\Table\Type\name;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\Rule;
 
 class RwController extends Controller
 {
@@ -24,6 +25,7 @@ class RwController extends Controller
     public function show($id)
     {
         $rt = Rw::with('rt')->find($id);
+        // dd($rt);
         if(!$rt){
             dd('tidak ada rw');
         }
@@ -50,18 +52,13 @@ class RwController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|unique:rws', // 'kegiatans' adalah nama tabel
+        ], [
+            'name.required' => 'Masukkan Nama RW',
+            'name.unique' => 'Nama RW sudah ada, silakan masukkan yang lain',
         ]);
 
         $user = Auth::user();
-        // dd($user)
-;        $request->validate([
-            'name' => 'required',
-        ], [
-            'name.required' => 'Masukkan Nama RW',
-        ]);
-
-
         $tahun = Carbon::now()->year;
 
         Rw::create([
@@ -87,9 +84,13 @@ class RwController extends Controller
     public function update(Request $request, RW $rw)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => [
+                'required',
+                Rule::unique('rws')->ignore($rw),
+            ],
         ], [
             'name.required' => 'Masukkan Nama RW',
+            'name.unique' => 'Nama RW sudah ada, silakan masukkan yang lain',
         ]);
 
         $rw->name = $request->name;

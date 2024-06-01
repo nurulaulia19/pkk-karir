@@ -37,7 +37,7 @@
                                             @if ($c->dusun)
                                                 {{ $c->dusun->name }}
                                             @else
-                                                Tidak ada dusun
+                                                Tidak memiliki dusun
                                             @endif
                                         </td>
                                         <td class="text-center">
