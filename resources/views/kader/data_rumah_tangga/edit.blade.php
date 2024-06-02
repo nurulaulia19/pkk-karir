@@ -689,7 +689,7 @@
                             <div class="form-group">
                                 <label>Nama</label>
                                 <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
-                                    <option selected disabled value="">Type to search</option>
+                                    <option selected disabled value="">Type to search...</option>
                                 </select>
                             </div>
                         </div>
@@ -713,7 +713,8 @@
             // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
             if (data) {
                 data.forEach(function(item) {
-                    var option = new Option(item.nama_kepala_keluarga, item.id);
+                    // var option = new Option(item.nama_kepala_keluarga, item.id);
+                    var option = new Option(`${item.nama_kepala_keluarga} - ${item.nik_kepala_keluarga}`, item.id);
                     selectElement.add(option);
                 });
             }

@@ -131,7 +131,7 @@
                 </div>
                 <div class="icon">
                     <i class="ion ion-home"></i>
-                    <div class="notification-badge">
+                    <div class="inner">
                         @if ($industriBelumValid > 0)
                         <div class="notification-badge">
                             {{ $industriBelumValid}}

@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('data_kegiatan_warga', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('warga_id')->unsigned();
-            $table->foreign('warga_id')->references('id')->on('data_warga');
+            $table->foreign('warga_id')->references('id')->on('data_warga')->onDelete('cascade');;
             $table->bigInteger('data_kegiatan_id')->unsigned();
-            $table->foreign('data_kegiatan_id')->references('id')->on('data_kegiatan');
+            $table->foreign('data_kegiatan_id')->references('id')->on('data_kegiatan')->onDelete('cascade');;
             $table->integer('periode');
             $table->date('is_valid')->nullable();
             $table->timestamps();

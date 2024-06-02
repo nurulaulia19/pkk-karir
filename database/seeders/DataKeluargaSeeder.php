@@ -50,7 +50,7 @@ class DataKeluargaSeeder extends Seeder
             Keluargahaswarga::create([
                 'keluarga_id' =>  $keluarga2->id,
                 'warga_id' => $kelapa->id,
-                'status' =>  'ibu',
+                'status' =>  'kepala-keluarga',
             ]);
     }
 }

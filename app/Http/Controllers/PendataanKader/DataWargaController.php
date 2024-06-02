@@ -9,7 +9,10 @@ use App\Models\DataKelompokDasawisma;
 use App\Models\DataKeluarga;
 use App\Models\DataProvinsi;
 use App\Models\DataWarga;
+use App\Models\Keluargahaswarga;
 use App\Models\Periode;
+use App\Models\RumahTangga;
+use App\Models\RumahTanggaHasKeluarga;
 use App\Models\Rw;
 use App\Models\User;
 use Carbon\Carbon;
@@ -349,16 +352,191 @@ class DataWargaController extends Controller
         return redirect('/data_warga');
     }
 
+    // ini yg bener
+    // public function destroy($data_warga, DataWarga $warg)
+    // {
+    //     //temukan id data warga
+    //     $warg::find($data_warga)->delete();
+    //     Alert::success('Berhasil', 'Data berhasil di Hapus');
+
+    //     return redirect('/data_warga');
+
+    // }
 
     public function destroy($data_warga, DataWarga $warg)
     {
-        //temukan id data warga
-        $warg::find($data_warga)->delete();
-        Alert::success('Berhasil', 'Data berhasil di Hapus');
+        // Find the warga to be deleted
+        $warga = $warg::find($data_warga);
+
+        if (!$warga) {
+            return redirect()->back()->withErrors(['error' => 'Warga tidak ditemukan']);
+        }
+
+        // Check if the warga is marked as a family
+        if ($warga->is_keluarga != 0) {
+            // If the warga is marked as a family, prevent deletion and show an error message
+            Alert::error('Gagal', 'Warga terkait dengan keluarga dan tidak bisa dihapus');
+        } else {
+            // Delete the warga
+            $warga->delete();
+            Alert::success('Berhasil', 'Data berhasil dihapus');
+        }
 
         return redirect('/data_warga');
-
     }
+
+
+
+    // public function destroy($data_warga, DataWarga $warg)
+    // {
+    //     // Find the warga to be deleted
+    //     $warga = $warg::find($data_warga);
+
+    //     if (!$warga) {
+    //         return redirect()->back()->withErrors(['error' => 'Warga tidak ditemukan']);
+    //     }
+
+    //     // Find the keluarga associated with this warga
+    //     $keluargahaswarga = Keluargahaswarga::where('warga_id', $warga->id)->first();
+
+    //     if ($keluargahaswarga) {
+    //         $keluarga = DataKeluarga::find($keluargahaswarga->keluarga_id);
+
+    //         if ($keluarga) {
+    //             // If the warga is the kepala keluarga
+    //             if ($keluarga->nama_kepala_keluarga == $warga->nama) {
+    //                 // Check if there are other members in the keluarga
+    //                 $otherMembers = Keluargahaswarga::where('keluarga_id', $keluarga->id)
+    //                                 ->where('warga_id', '!=', $warga->id)
+    //                                 ->get();
+
+    //                 if ($otherMembers->isEmpty()) {
+    //                     // If no other members, delete the keluarga
+    //                     $keluarga->delete();
+    //                 } else {
+    //                     // If there are other members, promote the first other member to kepala keluarga
+    //                     $newKepalaKeluarga = DataWarga::find($otherMembers->first()->warga_id);
+    //                     $keluarga->nama_kepala_keluarga = $newKepalaKeluarga->nama;
+    //                     $keluarga->nik_kepala_keluarga = $newKepalaKeluarga->no_ktp;
+    //                     $keluarga->save();
+
+    //                     // Update the status of the new kepala keluarga in Keluargahaswarga
+    //                     $newKepalaKeluargaRelation = Keluargahaswarga::where('keluarga_id', $keluarga->id)
+    //                                                                 ->where('warga_id', $newKepalaKeluarga->id)
+    //                                                                 ->first();
+    //                     $newKepalaKeluargaRelation->status = 'kepala-keluarga';
+    //                     $newKepalaKeluargaRelation->save();
+    //                 }
+    //             }
+
+    //             // Delete the Keluargahaswarga record for the deleted warga
+    //             $keluargahaswarga->delete();
+    //         }
+    //     }
+
+    //     // Delete the warga
+    //     $warga->delete();
+
+    //     Alert::success('Berhasil', 'Data berhasil di Hapus');
+    //     return redirect('/data_warga');
+    // }
+
+    // public function destroy($data_warga, DataWarga $warg)
+    // {
+    //     // Find the warga to be deleted
+    //     $warga = $warg::find($data_warga);
+
+    //     if (!$warga) {
+    //         return redirect()->back()->withErrors(['error' => 'Warga tidak ditemukan']);
+    //     }
+
+    //     // Find the keluarga associated with this warga
+    //     $keluargahaswarga = Keluargahaswarga::where('warga_id', $warga->id)->first();
+
+    //     if ($keluargahaswarga) {
+    //         $keluarga = DataKeluarga::find($keluargahaswarga->keluarga_id);
+
+    //         if ($keluarga) {
+    //             // Jika warga adalah kepala keluarga
+    //             if ($keluarga->nama_kepala_keluarga == $warga->nama) {
+    //                 // Check jika ada anggota lain dalam keluarga
+    //                 $otherMembers = Keluargahaswarga::where('keluarga_id', $keluarga->id)
+    //                                 ->where('warga_id', '!=', $warga->id)
+    //                                 ->get();
+
+    //                 if ($otherMembers->isEmpty()) {
+    //                     // Jika tidak ada anggota lain, hapus keluarga
+    //                     $keluarga->delete();
+    //                 } else {
+    //                     // Jika ada anggota lain, promosikan anggota pertama menjadi kepala keluarga
+    //                     $newKepalaKeluarga = DataWarga::find($otherMembers->first()->warga_id);
+    //                     $keluarga->nama_kepala_keluarga = $newKepalaKeluarga->nama;
+    //                     $keluarga->nik_kepala_keluarga = $newKepalaKeluarga->no_ktp;
+    //                     $keluarga->save();
+
+    //                     // Update status baru kepala keluarga di Keluargahaswarga
+    //                     $newKepalaKeluargaRelation = Keluargahaswarga::where('keluarga_id', $keluarga->id)
+    //                                                                 ->where('warga_id', $newKepalaKeluarga->id)
+    //                                                                 ->first();
+    //                     $newKepalaKeluargaRelation->status = 'kepala-keluarga';
+    //                     $newKepalaKeluargaRelation->save();
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     // Hapus rumah tangga yang terkait dengan warga (jika ada)
+    //     // if ($keluarga) {
+    //     //     // Dapatkan ID rumah tangga terkait
+    //     //     $rumahTangga = RumahTangga::where('nama_kepala_rumah_tangga', $warga->nama)->first();
+    //     //     if ($rumahTangga) {
+    //     //         // Hapus hubungan rumah tangga dengan keluarga
+    //     //         RumahTanggaHasKeluarga::where('rumahtangga_id', $rumahTangga->id)->delete();
+    //     //         // Hapus rumah tangga
+    //     //         $rumahTangga->delete();
+    //     //     }
+    //     // }
+
+    //     // Hapus rumah tangga yang terkait dengan warga (jika ada)
+    //     // Hapus rumah tangga yang terkait dengan warga (jika ada)
+    //     if ($keluarga) {
+    //         // Dapatkan ID rumah tangga terkait
+    //         $rumahTangga = RumahTangga::where('nama_kepala_rumah_tangga', $warga->nama)->first();
+    //         if ($rumahTangga) {
+    //             // Hapus hubungan rumah tangga dengan keluarga
+    //             RumahTanggaHasKeluarga::where('rumahtangga_id', $rumahTangga->id)->delete();
+    //             // Hapus rumah tangga
+    //             $rumahTangga->delete();
+    //         }
+
+    //         // Periksa apakah warga ini adalah kepala keluarga dalam keluarga ini
+    //         if ($keluarga->nama_kepala_keluarga == $warga->nama) {
+    //             // Update status kepala keluarga di pivot table RumahTanggaHasKeluarga
+    //             $rumahTanggaHasKeluarga = RumahTanggaHasKeluarga::where('keluarga_id', $keluarga->id)
+    //                                                             ->where('rumahtangga_id', $rumahTangga->id)
+    //                                                             ->first();
+    //             if ($rumahTanggaHasKeluarga) {
+    //                 $rumahTanggaHasKeluarga->status = 'kepala-rumah-tangga';
+    //                 $rumahTanggaHasKeluarga->save();
+    //             }
+
+    //             // // Update nama kepala rumah tangga di tabel RumahTangga
+    //             // $rumahTangga->nama_kepala_rumah_tangga = $warga->nama;
+    //             // $rumahTangga->save();
+    //         }
+    //     }
+
+
+    //     // Hapus semua hubungan keluarga dengan warga
+    //     Keluargahaswarga::where('warga_id', $warga->id)->delete();
+
+    //     // Hapus warga itu sendiri
+    //     $warga->delete();
+
+    //     Alert::success('Berhasil', 'Data berhasil dihapus');
+    //     return redirect('/data_warga');
+    // }
+
 
     public function warga(Request $request){
         $user = Auth::user();

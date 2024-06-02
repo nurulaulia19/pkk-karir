@@ -353,8 +353,8 @@
                                                     SMP/Sederajat</option>
                                                 <option value="SMA/Sederajat" {{ $data_warga->pendidikan == 'SMA/Sederajat' ? 'selected' :'' }}>
                                                     SMA/Sederajat</option>
-                                                <option value="konghucu" {{ $data_warga->pendidikan == 'konghucu' ? 'selected' :'' }}>Konghucu
-                                                </option>
+                                                {{-- <option value="konghucu" {{ $data_warga->pendidikan == 'konghucu' ? 'selected' :'' }}>Konghucu
+                                                </option> --}}
                                                 <option value="Diploma" {{ $data_warga->pendidikan == 'Diploma' ? 'selected' :'' }}>Diploma</option>
                                                 <option value="D4/S1" {{ $data_warga->pendidikan == 'D4/S1' ? 'selected' :'' }}>D4/S1</option>
                                                 <option value="S2" {{ $data_warga->pendidikan == 'S2' ? 'selected' :'' }}>S2</option>

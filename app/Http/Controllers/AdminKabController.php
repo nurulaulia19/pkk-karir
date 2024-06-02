@@ -84,9 +84,11 @@ class AdminKabController extends Controller
                 foreach($keluarga->anggota as $anggota){
                     $wargaFind = DataWarga::where('periode',now()->year)
                     ->where('no_ktp',$anggota->warga->no_ktp)->first();
+                    $status = $anggota->status;
                     Keluargahaswarga::create([
                         'keluarga_id' => $wargaBaru->id,
-                        'warga_id' => $wargaFind->id
+                        'warga_id' => $wargaFind->id,
+                        'status' => $status,
                     ]);
                 }
 

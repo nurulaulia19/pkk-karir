@@ -94,10 +94,6 @@ class DataKeluarga extends Model
         return $this->belongsTo(Data_Desa::class, 'id_desa');
     }
 
-    // public function warga(){
-    //     return $this->belongsTo(DataWarga::class, 'id_warga');
-    // }
-
     public function warga(){
         return $this->hasMany(DataWarga::class, 'id_keluarga');
     }

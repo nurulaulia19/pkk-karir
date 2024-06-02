@@ -14,6 +14,13 @@
                     <div class="col-12 col-md-12 col-lg-12 ">
                         <div class="card">
                             <div class="card-body">
+                                @if (count($errors)>0)
+                                    <div class="alert alert-danger">
+                                        @foreach ($errors->all() as $error)
+                                            {{  ($error)  }}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered data" id="add-row">
                                         <div class="row d-flex justify-content-between">

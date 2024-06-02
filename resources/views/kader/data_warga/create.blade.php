@@ -332,15 +332,6 @@
                                             <label>Pendidikan</label><br>
                                             {{-- Pilih Pendidikan --}}
                                             <select class="form-control @error('pendidikan') is-invalid @enderror" name="pendidikan" required>
-                                                {{-- <option hidden>Pilih Pendidikan</option>
-                                                <option value="Tidak Tamat SD">Tidak Tamat SD</option>
-                                                <option value="SD/MI">SD/MI</option>
-                                                <option value="SMP/Sederajat">SMP/Sederajat</option>
-                                                <option value="SMA/Sederajat">SMA/Sederajat</option>
-                                                <option value="Diploma">Diploma</option>
-                                                <option value="D4/S1">D4/S1</option>
-                                                <option value="S2">S2</option>
-                                                <option value="S3">S3</option> --}}
                                                 <option hidden>Pilih Pendidikan</option>
                                                 <option value="Tidak Tamat SD" {{ old('pendidikan') == 'Tidak Tamat SD' ? 'selected' : '' }}>Tidak Tamat SD</option>
                                                 <option value="SD/MI" {{ old('pendidikan') == 'SD/MI' ? 'selected' : '' }}>SD/MI</option>
