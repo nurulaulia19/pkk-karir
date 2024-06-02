@@ -45,6 +45,7 @@ class DesaController extends Controller
         $galeri = DataGaleri::count();
         // $kecamatan = DataKecamatan::count();
         // $user = User::count();
+        Alert::success('Berhasil', 'Selamat Datang');
         return view('admin_kec.dashboard_kec', compact('desaTotal','berita', 'desa', 'kecamatan', 'user', 'agenda', 'galeri'));
     }
 

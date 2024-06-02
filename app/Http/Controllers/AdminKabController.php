@@ -150,6 +150,7 @@ class AdminKabController extends Controller
         // dd($newPeriode);
         // $kecamatan = DataKecamatan::count();
         // $user = User::count();
+        Alert::success('Berhasil', 'Selamat Datang');
         return view('admin_kab.dashboard_kab', compact('currentYear', 'newPeriode', 'periode', 'berita', 'desa', 'kecamatan', 'user', 'agenda', 'galeri'));
     }
 
