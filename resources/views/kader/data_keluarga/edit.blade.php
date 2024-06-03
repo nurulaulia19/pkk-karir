@@ -33,6 +33,7 @@
                             </div>
                         </div>
 
+                        <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
                         @if (count($errors)>0)
                             <div class="alert alert-danger">
                                 <ul>
@@ -189,6 +190,7 @@
                             </div>
                         </div>
 
+                        <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
                         @if (count($errors)>0)
                             <div class="alert alert-danger">
                                 <ul>

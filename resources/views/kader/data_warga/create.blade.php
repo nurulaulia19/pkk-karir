@@ -30,7 +30,7 @@
                                 </button>
                             </div>
                         </div>
-
+                        <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
                         @if (count($errors)>0)
                             <div class="alert alert-danger">
                                 <ul>
@@ -171,6 +171,7 @@
                                 </button>
                             </div>
                         </div>
+                        <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
                         @if (count($errors)>0)
                             <div class="alert alert-danger">
                                 <ul>
@@ -231,8 +232,8 @@
                                         <div class="form-group @error('jenis_kelamin') is-invalid @enderror">
                                             <label class="form-label">Jenis Kelamin </label><br>
                                             {{-- pilih jenis kelamin --}}
-                                            <select class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" id="jenis_kelamin" required>
-                                                <option hidden>Pilih Jenis Kelamin</option>
+                                            <select class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" id="jenis_kelamin">
+                                                <option disabled selected>Pilih Jenis Kelamin</option>
                                                 <option value="laki-laki" {{ old('jenis_kelamin') == 'laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                                                 <option value="perempuan" {{ old('jenis_kelamin') == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
                                             </select>
@@ -292,9 +293,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group @error('status_perkawinan') is-invalid @enderror">
                                             <label>Status Perkawinan</label><br>
-                                            {{-- pilih status perkawinan --}}
                                             <select class="form-control @error('status_perkawinan') is-invalid @enderror" name="status_perkawinan" id="status_perkawinan" required>
-                                                <option hidden>Pilih Status Perkawinan</option>
+                                                <option disabled selected>Pilih Status Perkawinan</option>
                                                 <option value="menikah" {{ old('status_perkawinan') == 'menikah' ? 'selected' : '' }}>Menikah</option>
                                                 <option value="lajang" {{ old('status_perkawinan') == 'lajang' ? 'selected' : '' }}>Lajang</option>
                                                 <option value="janda" {{ old('status_perkawinan') == 'janda' ? 'selected' : '' }}>Janda</option>
@@ -311,8 +311,8 @@
                                         <div class="form-group @error('agama') is-invalid @enderror">
                                             <label>Agama</label><br>
                                             {{-- pilih agama --}}
-                                            <select class="form-control @error('agama') is-invalid @enderror" name="agama" required>
-                                                <option hidden>Pilih Agama</option>
+                                            <select class="form-control @error('agama') is-invalid @enderror" name="agama">
+                                                <option disabled selected>Pilih Agama</option>
                                                 <option value="islam" {{ old('agama') == 'islam' ? 'selected' : '' }}>Islam</option>
                                                 <option value="kristen" {{ old('agama') == 'kristen' ? 'selected' : '' }}>Kristen</option>
                                                 <option value="katolik" {{ old('agama') == 'katolik' ? 'selected' : '' }}>Katolik</option>
@@ -331,8 +331,8 @@
                                         <div class="form-group @error('pendidikan') is-invalid @enderror">
                                             <label>Pendidikan</label><br>
                                             {{-- Pilih Pendidikan --}}
-                                            <select class="form-control @error('pendidikan') is-invalid @enderror" name="pendidikan" required>
-                                                <option hidden>Pilih Pendidikan</option>
+                                            <select class="form-control @error('pendidikan') is-invalid @enderror" name="pendidikan">
+                                                <option selected disabled>Pilih Pendidikan</option>
                                                 <option value="Tidak Tamat SD" {{ old('pendidikan') == 'Tidak Tamat SD' ? 'selected' : '' }}>Tidak Tamat SD</option>
                                                 <option value="SD/MI" {{ old('pendidikan') == 'SD/MI' ? 'selected' : '' }}>SD/MI</option>
                                                 <option value="SMP/Sederajat" {{ old('pendidikan') == 'SMP/Sederajat' ? 'selected' : '' }}>SMP/Sederajat</option>
@@ -354,7 +354,7 @@
                                         <div class="form-group @error('pekerjaan') is-invalid @enderror">
                                             <label>Pekerjaan</label><br>
                                             {{-- Pilih Pekejaan --}}
-                                            <select class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan" required>
+                                            <select class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan">
                                                 {{-- <option hidden>Pilih Pekerjaan</option>
                                                 <option value="Petani">Petani</option>
                                                 <option value="Pedagang">Pedagang</option>
@@ -363,7 +363,7 @@
                                                 <option value="TNI Polri">TNI Polri</option>
                                                 <option value="PNS">PNS</option>
                                                 <option value="Lainnya">Lainnya</option> --}}
-                                                <option hidden>Pilih Pekerjaan</option>
+                                                <option selected disabled>Pilih Pekerjaan</option>
                                                 <option value="Petani" {{ old('pekerjaan') == 'Petani' ? 'selected' : '' }}>Petani</option>
                                                 <option value="Pedagang" {{ old('pekerjaan') == 'Pedagang' ? 'selected' : '' }}>Pedagang</option>
                                                 <option value="Swasta" {{ old('pekerjaan') == 'Swasta' ? 'selected' : '' }}>Swasta</option>
@@ -426,7 +426,7 @@
                                             {{-- pilih Makanan Pokok Sehari-hari--}}
                                             <label class="form-label">Makanan Pokok Sehari-hari </label><br>
                                             <select class="form-control @error('makan_beras') is-invalid @enderror" id="makan_beras" name="makan_beras">
-                                                <option value="" selected disabled>Pilih Makanan Pokok</option>
+                                                <option selected disabled>Pilih Makanan Pokok</option>
                                                 {{-- <option value=1>Beras</option>
                                                 <option value=0>Non Beras</option> --}}
                                                 <option value=1 {{ old('makan_beras') == 1 ? 'selected' : '' }}>Beras</option>
@@ -442,8 +442,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group @error('berkebutuhan_khusus') is-invalid @enderror">
                                             <label class="form-label">Berkebutuhan Khusus</label><br>
-                                            <select class="form-control @error('berkebutuhan_khusus') is-invalid @enderror" id="berkebutuhan_khusus" name="berkebutuhan_khusus" required>
-                                                <option value="" hidden>Pilih</option>
+                                            <select class="form-control @error('berkebutuhan_khusus') is-invalid @enderror" id="berkebutuhan_khusus" name="berkebutuhan_khusus">
+                                                <option selected disabled>Pilih</option>
                                                 @foreach(['Tidak' ,'Cacat Mental', 'Cacat Fisik', 'Lainnya'] as $option)
                                                     <option value="{{ $option }}" {{ old('berkebutuhan_khusus') == $option ? 'selected' : '' }}>{{ $option }}</option>
                                                 @endforeach
@@ -499,6 +499,7 @@
                                 </button>
                             </div>
                         </div>
+                        <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
                         @if (count($errors)>0)
                             <div class="alert alert-danger">
                                 <ul>
@@ -521,7 +522,7 @@
                                         <option value="Paket B">Paket B</option>
                                         <option value="Paket C">Paket C</option>
                                         <option value="KF (Keaksaraan Fungsional)">KF (Keaksaraan Fungsional)</option> --}}
-                                        <option hidden>Pilih Jenis Kelompok Belajar</option>
+                                        <option selected disabled>Pilih Jenis Kelompok Belajar</option>
                                         <option value="Ya" {{ old('ikut_kelompok_belajar') == 'Ya' ? 'selected' : '' }}>Ya</option>
                                         <option value="Tidak" {{ old('ikut_kelompok_belajar') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
                                         <option value="Paket A" {{ old('ikut_kelompok_belajar') == 'Paket A' ? 'selected' : '' }}>Paket A</option>

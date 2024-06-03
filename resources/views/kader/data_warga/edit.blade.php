@@ -32,7 +32,7 @@
                                 </button>
                             </div>
                         </div>
-
+                        <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
                         @if (count($errors)>0)
                             <div class="alert alert-danger">
                                 <ul>
@@ -186,6 +186,7 @@
                                 </button>
                             </div>
                         </div>
+                        <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
                         @if (count($errors)>0)
                             <div class="alert alert-danger">
                                 <ul>
@@ -250,7 +251,7 @@
                                             <label class="form-label">Jenis Kelamin </label><br>
                                             {{-- pilih jenis kelamin --}}
                                             <select class="form-control @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin" id="jenis_kelamin">
-                                                <option hidden>Pilih Jenis Kelamin</option>
+                                                <option selected disabled>Pilih Jenis Kelamin</option>
                                                 <option {{ $data_warga->jenis_kelamin == 'laki-laki' ? 'selected' : '' }} value="laki-laki">Laki-laki</option>
                                                 <option {{ $data_warga->jenis_kelamin == 'perempuan' ? 'selected' : '' }} value="perempuan">Perempuan</option>
                                             </select>
@@ -305,7 +306,7 @@
                                             <label>Status Perkawinan</label><br>
                                             {{-- pilih status perkawinan --}}
                                             <select class="form-control @error('status_perkawinan') is-invalid @enderror" name="status_perkawinan" id="status_perkawinan">
-                                                <option hidden>Pilih Status Perkawinan</option>
+                                                <option selected disabled>Pilih Status Perkawinan</option>
                                                 <option value="menikah" {{ $data_warga->status_perkawinan == 'menikah' ? 'selected' : '' }}>Menikah</option>
                                                 <option value="lajang" {{ $data_warga->status_perkawinan == 'lajang' ? 'selected' : '' }}>Lajang</option>
                                                 <option value="janda" {{ $data_warga->status_perkawinan == 'janda' ? 'selected' : '' }}>Janda</option>
@@ -323,7 +324,7 @@
                                             <label>Agama</label><br>
                                             {{-- pilih agama --}}
                                             <select class="form-control @error('agama') is-invalid @enderror" name="agama">
-                                                <option hidden>Pilih Agama</option>
+                                                <option selected disabled>Pilih Agama</option>
                                                 <option value="islam" {{ $data_warga->agama == 'islam' ? 'selected' :'' }}>Islam</option>
                                                 <option value="kristen" {{ $data_warga->agama == 'kristen' ? 'selected' :'' }}>Kristen</option>
                                                 <option value="katolik" {{ $data_warga->agama == 'katolik' ? 'selected' :'' }}>Katolik</option>
@@ -345,7 +346,7 @@
                                             <label>Pendidikan</label><br>
                                             {{-- Pilih Pendidikan --}}
                                             <select class="form-control @error('pendidikan') is-invalid @enderror" name="pendidikan">
-                                                <option hidden>Pilih Pendidikan</option>
+                                                <option selected disabled>Pilih Pendidikan</option>
                                                 <option value="Tidak Tamat SD" {{ $data_warga->pendidikan == 'Tidak Tamat SD' ? 'selected' :'' }}>
                                                     Tidak Tamat SD</option>
                                                 <option value="SD/MI" {{ $data_warga->pendidikan == 'SD/MI' ? 'selected' :'' }}>SD/MI</option>
@@ -373,7 +374,7 @@
                                             <label>Pekerjaan</label><br>
                                             {{-- Pilih Pekejaan --}}
                                             <select class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan">
-                                                <option hidden>Pilih Pekerjaan</option>
+                                                <option selected disabled>Pilih Pekerjaan</option>
                                                 <option value="Petani" {{ $data_warga->pekerjaan == 'Petani' ? 'selected' :'' }}>Petani</option>
                                                 <option value="Pedagang" {{ $data_warga->pekerjaan == 'Pedagang' ? 'selected' :'' }}>Pedagang
                                                 </option>
@@ -442,7 +443,7 @@
                                             {{-- pilih Makanan Pokok Sehari-hari--}}
                                             <label class="form-label">Makanan Pokok Sehari-hari </label><br>
                                             <select class="form-control @error('makan_beras') is-invalid @enderror" id="makan_beras" name="makan_beras">
-                                                <option value="" hidden>Pilih Makanan Pokok</option>
+                                                <option selected disabled>Pilih Makanan Pokok</option>
                                                 <option value=1 {{ old('makan_beras', $data_warga->makan_beras) == 1 ? 'selected' : '' }}>Beras</option>
                                                 <option value=0 {{ old('makan_beras', $data_warga->makan_beras) == 0 ? 'selected' : '' }}>Non Beras</option>
                                             </select>
@@ -457,7 +458,7 @@
                                         <div class="form-group @error('berkebutuhan_khusus') is-invalid @enderror">
                                             <label class="form-label">Berkebutuhan Khusus</label><br>
                                             <select class="form-control @error('berkebutuhan_khusus') is-invalid @enderror" id="berkebutuhan_khusus" name="berkebutuhan_khusus">
-                                                <option value="">Pilih</option>
+                                                <option selected disabled>Pilih</option>
                                                 @foreach(['Tidak', 'Cacat Mental', 'Cacat Fisik', 'Lainnya'] as $option)
                                                     <option value="{{ $option }}" {{ old('berkebutuhan_khusus', $data_warga->berkebutuhan_khusus) == $option ? 'selected' : '' }}>{{ $option }}</option>
                                                 @endforeach
@@ -522,7 +523,7 @@
                                 </button>
                             </div>
                         </div>
-
+                        <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
                         @if (count($errors)>0)
                             <div class="alert alert-danger">
                                 <ul>
@@ -539,7 +540,7 @@
                                     <label>Mengikuti Jenis Kelompok Belajar </label><br>
                                         <select class="form-control @error('ikut_kelompok_belajar') is-invalid @enderror"
                                             name="ikut_kelompok_belajar">
-                                            <option value="0" selected disabled>Pilih Jenis Kelompok Belajar</option>
+                                            <option selected disabled>Pilih Jenis Kelompok Belajar</option>
                                             <option value="Ya" {{ $data_warga->ikut_kelompok_belajar == 'Ya' ? 'selected' :'' }}>Ya</option>
                                             <option value="Tidak" {{ $data_warga->ikut_kelompok_belajar == 'Tidak' ? 'selected' :'' }}>Tidak
                                             </option>

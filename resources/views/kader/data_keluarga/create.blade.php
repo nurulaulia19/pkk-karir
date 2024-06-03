@@ -32,6 +32,7 @@
                                 </div>
                             </div>
 
+                            <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
                             @if (count($errors) > 0)
                                 <div class="alert alert-danger">
                                     <ul>
@@ -195,6 +196,7 @@
                                 </div>
                             </div>
 
+                            <h6 style="color: red">* Semua elemen atribut harus diisi</h6>
                             @if (count($errors) > 0)
                                 <div class="alert alert-danger">
                                     <ul>
@@ -211,7 +213,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group @error('warga') is-invalid @enderror">
                                                 <label>Nama</label>
-                                                <select name="warga[]" placeholder="Type to search..." class="form-control js-example-basic-single select-state @error('warga') is-invalid @enderror" required>
+                                                <select name="warga[]" class="form-control js-example-basic-single select-state @error('warga') is-invalid @enderror" placeholder="Type to search..." required>
                                                     <option value="">Pilih Nama Warga</option>
                                                     @foreach ($warga as $warga)
                                                         <option value="{{ $warga->id }}" {{ (collect(old('warga'))->contains($warga->id)) ? 'selected' : '' }}>{{ $warga->nama }} - {{$warga->no_ktp}}</option>
