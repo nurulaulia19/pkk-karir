@@ -27,26 +27,36 @@
                 @csrf
 
                 @if (count($errors)>0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{  ($error)  }}</li>
+                <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{  ($error)  }}</li>
 
-                @endforeach
-            </ul>
-        </div>
-    @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="form-group row">
                   <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" placeholder="Nama" name="name" value="{{$data_pengguna_super->name}}" required>
-                  </div>
+                  <div class="col-sm-10 @error('name') is-invalid @enderror">
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Nama" name="name" value="{{$data_pengguna_super->name}}">
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
                 </div>
                 <div class="form-group row">
                   <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                  <div class="col-sm-10">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email" value="{{$data_pengguna_super->email}}" required>
-                  </div>
+                  <div class="col-sm-10 @error('email') is-invalid @enderror">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email" name="email" value="{{$data_pengguna_super->email}}">
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
                 </div>
                 {{-- <div class="form-group row">
                     <label class="col-sm-2 col-form-label">User Type</label>

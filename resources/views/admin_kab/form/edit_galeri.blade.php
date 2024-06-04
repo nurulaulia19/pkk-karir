@@ -30,26 +30,51 @@
         <div class="card-body">
             <div class="form-group">
                 <label>Keterangan Gambar</label>
-                <input type="text" class="form-control" name="nama_gambar" id="nama_gambar" placeholder="Masukkan Keterangan Gambar" required value="{{ucfirst(old('nama_gambar', $galeriKeg->nama_gambar))}}">
+                <input type="text" class="form-control @error('nama_gambar') is-invalid @enderror" name="nama_gambar" id="nama_gambar" placeholder="Masukkan Keterangan Gambar" value="{{$galeriKeg->nama_gambar}}">
+                @error('nama_gambar')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="form-group">
                 <label>Nama Kegiatan</label>
-                <input type="text" class="form-control" name="nama_kegiatan" id="nama_kegiatan" placeholder="Masukkan Nama Kegiatan Gambar" required value="{{ucfirst(old('nama_kegiatan', $galeriKeg->nama_kegiatan))}}">
+                <input type="text" class="form-control @error('nama_kegiatan') is-invalid @enderror" name="nama_kegiatan" id="nama_kegiatan" placeholder="Masukkan Nama Kegiatan Gambar" value="{{$galeriKeg->nama_kegiatan}}">
+                @error('nama_kegiatan')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label>Tanggal Publish Gambar</label>
-                <input type="date" class="form-control" name="tgl_publish" id="tgl_publish" placeholder="Masukkan Tanggal Publish Gambar" required value="{{ucfirst(old('tgl_publish', $galeriKeg->tgl_publish))}}">
+                <input type="date" class="form-control @error('tgl_publish') is-invalid @enderror" name="tgl_publish" id="tgl_publish" placeholder="Masukkan Tanggal Publish Gambar" value="{{$galeriKeg->tgl_publish}}">
+                @error('tgl_publish')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="form-group">
                 <label>Pengirim Gambar</label>
-                <input type="text" class="form-control" name="pengirim" id="pengirim" placeholder="Masukkan Pengirim Gambar" required value="{{ucfirst(old('pengirim', $galeriKeg->pengirim))}}">
+                <input type="text" class="form-control @error('pengirim') is-invalid @enderror" name="pengirim" id="pengirim" placeholder="Masukkan Pengirim Gambar" value="{{$galeriKeg->pengirim}}">
+                @error('pengirim')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="form-group">
                 <label>Gambar Berita</label>
-                <input name="gambar" type="file" class="form-control-file" id="gambar" accept=".img, .jpg, .jpeg, .png">
+                <input name="gambar" type="file" class="form-control-file @error('gambar') is-invalid @enderror" id="gambar" accept=".img, .jpg, .jpeg, .png">
                 <img src="/galeri/{{($galeriKeg->gambar)}}" class="img-thumbnail" width="100px">
                 <input name="gambar" type="hidden" name="hidden_image" value="{{asset('galeri/'. $galeriKeg->gambar)}}" class="form-control-file" id="hidden_image">
+                @error('gambar')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
 
           </div>

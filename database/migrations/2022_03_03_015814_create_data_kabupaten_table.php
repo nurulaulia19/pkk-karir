@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('kode_kabupaten');
             $table->string('name');
             $table->bigInteger('provinsi_id')->unsigned();
-            $table->foreign('provinsi_id')->references('id')->on('data_provinsi');
+            $table->foreign('provinsi_id')->references('id')->on('data_provinsi')->onDelete('cascade');
             $table->timestamps();
         });
     }

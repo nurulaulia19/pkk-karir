@@ -113,6 +113,7 @@ class RumahTanggaController extends Controller
             // dd($request->keluarga);
             return redirect()
                 ->back()
+                ->withInput()
                 ->withErrors(['keluarga' => 'Nama kepala keluarga tidak boleh sama']);
             }
 

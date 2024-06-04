@@ -25,14 +25,14 @@ class UserController extends Controller
     public function index()
     {
         //halaman tampil data tabel user
-        $users = User::whereIn('user_type', ['superadmin', 'admin_desa', 'admin_kelurahan', 'admin_kecamatan', 'admin_kabupaten', 'kader_dasawisma', 'kader_desa'])
+        $users = User::whereIn('user_type', ['admin_desa', 'admin_kecamatan', 'admin_kabupaten', 'kader_dasawisma'])
         ->get();
         $desa = Data_Desa::all();
         $kec = DataKecamatan::all();
 
         // $users = User::with('desa','kecamatan')->get();
         // $desa = Data_Desa::with('kecamatan')->get();
-// dd($desa);
+        // dd($desa);
 
         return view('admin_kab.data_pengguna_super', compact('users', 'desa', 'kec'));
     }
@@ -65,13 +65,15 @@ class UserController extends Controller
             'email' => 'required',
             'password' => 'required|min:8',
             'user_type' => 'required',
-            // 'id_desa' => 'required',
-            // 'id_kecamatan' => 'required',
+            'id_desa' => 'required',
+            'id_kecamatan' => 'required',
         ], [
             'name.required' => 'Masukkan Nama Pengguna',
             'email.required' => 'Masukkan Email Pengguna',
             'password.required' => 'Masukkan Password Pengguna',
-            'user_type.required' => 'Lengkapi Deskripsi Berita yang ingin di publish',
+            'user_type.required' => 'Pilih Tipe Pengguna',
+            'id_desa.required' => 'Pilih Desa',
+            'id_kecamatan.required' => 'Pilih Kecamatan',
         ]);
 
 
@@ -139,13 +141,13 @@ class UserController extends Controller
         // dd($request->all());
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
             // 'password' => 'required',
             'user_type' => 'required',
-            // 'id_desa' => 'required',
-            // 'id_kecamatan' => 'required',
-
+            'id_desa' => 'required',
+            'id_kecamatan' => 'required',
         ]);
+
 
         $data_pengguna_super = User::findOrFail($id);
         $data_pengguna_super->name = $request->name;

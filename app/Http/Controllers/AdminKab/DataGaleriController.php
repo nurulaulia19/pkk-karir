@@ -123,10 +123,10 @@ class DataGaleriController extends Controller
             'tgl_publish' => 'required',
             'pengirim' => 'required',
         ], [
-                'nama_gambar.required' => 'Lengkapi Judul galeri yang ingin di publish',
-                'nama_kegiatan.required' => 'Lengkapi nama_kegiatanripsi galeri yang ingin di publish',
-                'tgl_publish.required' => 'Lengkapi Judul galeri yang ingin di publish',
-                'pengirim.required' => 'Lengkapi nama_kegiatanripsi galeri yang ingin di publish',
+                'nama_gambar.required' => 'Lengkapi Judul Galeri yang ingin di publish',
+                'nama_kegiatan.required' => 'Lengkapi Nama Kegiatan galeri yang ingin di publish',
+                'tgl_publish.required' => 'Lengkapi Judul Galeri yang ingin di publish',
+                'pengirim.required' => 'Lengkapi Pengirim Galeri yang ingin di publish',
 
         ]);
 

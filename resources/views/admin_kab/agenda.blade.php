@@ -33,7 +33,7 @@
                                         <th>Pukul</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
-                                    </tr>
+                                        </tr>
                                     </thead>
 
                                     <tbody>
@@ -50,9 +50,9 @@
                                             <td style="vertical-align: middle;"><button class="btn btn-danger">Belum Terlaksana</button></td>
                                         @elseif($c->status ==2)
                                             <td style="vertical-align: middle;"><button class="btn btn-success">Sedang Terlaksana</button></td>
-                                        @else{
+                                        @else
                                             <td style="vertical-align: middle;"><button class="btn btn-primary">Sudah Terlaksana</button></td>
-                                        }
+                                        
                                         @endif
 
                                         <td class="text-center">

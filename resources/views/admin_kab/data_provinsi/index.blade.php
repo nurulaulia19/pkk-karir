@@ -18,8 +18,10 @@
                             <div class="table-responsive">
 
                                 <table class="table table-striped table-bordered data" id="add-row">
-                                    <a href="{{ url('data_provinsi/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
-
+                                    {{-- <a href="{{ url('data_provinsi/create') }}" type="button" class="btn btn-success">Tambah</a><br><br> --}}
+                                    @if(count($provinsi) < 1)
+                                        <a href="{{ url('data_provinsi/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                    @endif
                                     <thead>
                                         <tr>
                                         <th>No</th>
@@ -39,16 +41,12 @@
                                         <td class="text-center">
                                             <form action="{{ route('data_provinsi.destroy',$c->id) }}" method="POST">
                                                 <a class="btn btn-primary btn-sm" href="{{ url('data_provinsi/'.$c->id.'/edit') }}">Edit</a>
-                                                @csrf
+                                                {{-- @csrf
                                                 @method('DELETE')
-
-                                                <button type="submit" class="btn btn-danger btn-sm delete" >Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-sm delete" >Delete</button> --}}
                                             </form>
                                         </td>
-
-
                                     </tr>
-
                                     @endforeach
                                     </tbody>
 

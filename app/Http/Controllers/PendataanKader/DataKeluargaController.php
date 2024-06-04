@@ -130,6 +130,7 @@ class DataKeluargaController extends Controller
         if (!isUnique($request->warga)) {
             return redirect()
                 ->back()
+                ->withInput()
                 ->withErrors(['warga' => 'Nama warga tidak boleh sama']);
         }
 

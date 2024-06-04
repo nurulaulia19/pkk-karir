@@ -53,7 +53,6 @@ class DataKabupatenController extends Controller
                 'provinsi_id.required' => 'Lengkapi Data Provinsi',
                 'kode_kabupaten.required' => 'Lengkapi Kode Kabupaten',
                 'name.required' => 'Lengkapi Nama Kabupaten',
-
         ]);
 
         // cara 1

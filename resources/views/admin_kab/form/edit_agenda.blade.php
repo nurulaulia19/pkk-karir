@@ -30,7 +30,7 @@
         <div class="card-body">
             <div class="form-group">
                 <label>Judul Agenda</label>
-                <input type="text" class="form-control @error('judul_agenda') is-invalid @enderror" name="judul_agenda" id="judul_agenda" placeholder="Masukkan Judul Agenda" value="{{ucfirst(old('judul_agenda', $agendaKeg->judul_agenda))}}">
+                <input type="text" class="form-control @error('judul_agenda') is-invalid @enderror" name="judul_agenda" id="judul_agenda" placeholder="Masukkan Judul Agenda" value="{{$agendaKeg->judul_agenda}}">
                     @error('judul_agenda')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -41,7 +41,7 @@
             <div class="form-group">
                 {{-- nama tema agenda --}}
                 <label>Tema</label>
-                    <input type="text" class="form-control @error('tema') is-invalid @enderror" name="tema" id="tema" placeholder="Masukkan Tema" value="{{ucfirst(old('tema', $agendaKeg->tema))}}">
+                    <input type="text" class="form-control @error('tema') is-invalid @enderror" name="tema" id="tema" placeholder="Masukkan Tema" value="{{$agendaKeg->tema}}">
                         @error('tema')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -52,7 +52,7 @@
             <div class="form-group">
                 {{-- nama tempat --}}
                 <label>Tempat</label>
-                    <input type="text" class="form-control @error('tempat') is-invalid @enderror" name="tempat" id="tempat" placeholder="Masukkan Tempat" value="{{ucfirst(old('tempat', $agendaKeg->tempat))}}">
+                    <input type="text" class="form-control @error('tempat') is-invalid @enderror" name="tempat" id="tempat" placeholder="Masukkan Tempat" value="{{$agendaKeg->tempat}}">
                         @error('tempat')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -63,7 +63,7 @@
             <div class="form-group">
                 {{-- nama pukul --}}
                 <label>Pukul</label>
-                    <input type="text" class="form-control @error('waktu') is-invalid @enderror" name="waktu" id="waktu" placeholder="Diisi dengan waktu Agenda" value="{{ucfirst(old('waktu', $agendaKeg->waktu))}}">
+                    <input type="text" class="form-control @error('waktu') is-invalid @enderror" name="waktu" id="waktu" placeholder="Diisi dengan waktu Agenda" value="{{$agendaKeg->waktu}}">
                         @error('waktu')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -73,7 +73,12 @@
 
             <div class="form-group">
                 <label>Tanggal</label>
-                <input type="date" class="form-control" name="tgl_pelaksana" id="tgl_pelaksana" placeholder="Masukkan Tanggal Berita" required value="{{ucfirst(old('tgl_pelaksana', $agendaKeg->tgl_pelaksana))}}">
+                <input type="date" class="form-control @error('tgl_pelaksana') is-invalid @enderror" name="tgl_pelaksana" id="tgl_pelaksana" placeholder="Masukkan Tanggal Berita" required value="{{$agendaKeg->tgl_pelaksana}}">
+                @error('tgl_pelaksana')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
 
             <div class="form-group">
@@ -84,6 +89,11 @@
                     <option value="2" {{ $agendaKeg->status == '2' ? 'selected':'' }}>Sedang Terlaksana</option>
                     <option value="3" {{ $agendaKeg->status == '3' ? 'selected':'' }}>Sudah Terlaksana</option>
                 </select>
+                @error('status')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
         </div>
         <!-- /.card-body -->

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('data_desa', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_kecamatan')->unsigned();
-            $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan');
+            $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan')->onDelete('cascade');
 
             $table->string('kode_desa');
             $table->string('nama_desa');

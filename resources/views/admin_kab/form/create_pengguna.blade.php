@@ -59,11 +59,10 @@
             @enderror
 
           </div>
-          <div class="form-group">
+          <div class="form-group @error('user_type') is-invalid @enderror">
             <label>User Type</label>
             <select class="form-control @error('user_type') is-invalid @enderror" name="user_type">
-                <option hidden>Pilih User Type</option>
-
+                <option selected disabled>Pilih User Type</option>
                 @foreach($user_type as $key => $val)
                     @if($key==old('user_type'))
                     <option value="{{ $key }}" selected>{{ $val }}</option>
@@ -87,7 +86,7 @@
                     <label>Nama Kecamatan</label>
                     <select class="form-control @error('id_kecamatan') is-invalid @enderror" id="id_kecamatan" name="id_kecamatan">
                         {{-- Pilih Kecamatan --}}
-                        <option hidden> Pilih Kecamatan</option>
+                        <option selected disabled> Pilih Kecamatan</option>
                         {{-- @foreach($kategori as $key => $val)
                             @if($key==old('nama_kategori'))
                             <option value="{{ $key }}" selected>{{ $val }}</option>
@@ -98,9 +97,14 @@
                         @foreach ($kec as $item)
                             <option value="{{ $item->id }}">{{ $item->nama_kecamatan }}</option>
                         @endforeach
+                        {{-- @foreach ($kec as $item)
+                            <option value="{{ $item->id }}" @if($item->id == old('id_kecamatan')) selected @endif>
+                                {{ $item->nama_kecamatan }}
+                            </option>
+                        @endforeach --}}
 
                     </select>
-                    @error('nama_kecamatan')
+                    @error('id_kecamatan')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -112,6 +116,11 @@
                     <label>Nama Desa</label>
                     <select class="form-control @error('id_desa') is-invalid @enderror" id="id_desa" name="id_desa">
                     </select>
+                    @error('id_desa')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </div>
           </div>
@@ -159,7 +168,7 @@
 
                  if(data){
                     $('#id_desa').empty();
-                    $('#id_desa').append('<option hidden>Pilih Desa</option>');
+                    $('#id_desa').append('<option selected disabled>Pilih Desa</option>');
                     $.each(data, function(key, desas){
                         $('select[name="id_desa"]').append('<option value="'+ desas.id +'">' + desas.nama_desa+ '</option>');
                     });

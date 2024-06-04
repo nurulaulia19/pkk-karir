@@ -55,6 +55,7 @@ class BeritaController extends Controller
                 'desk.required' => 'Lengkapi Deskripsi Berita yang ingin di publish',
                 'tgl_publish.required' => 'Lengkapi Judul Berita yang ingin di publish',
                 'penulis.required' => 'Lengkapi Deskripsi Berita yang ingin di publish',
+                'gambar.required' => 'Lengkapi Gambar Berita yang ingin di publish',
 
         ]);
         $input = $request->all();
@@ -125,11 +126,13 @@ class BeritaController extends Controller
             'desk' => 'required',
             'tgl_publish' => 'required',
             'penulis' => 'required',
+            'gambar' => 'required',
         ], [
                 'nama_berita.required' => 'Lengkapi Judul Berita yang ingin di publish',
                 'desk.required' => 'Lengkapi Deskripsi Berita yang ingin di publish',
                 'tgl_publish.required' => 'Lengkapi Judul Berita yang ingin di publish',
                 'penulis.required' => 'Lengkapi Deskripsi Berita yang ingin di publish',
+                'gambar.required' => 'Lengkapi Gambar Berita yang ingin di publish',
 
         ]);
             $beritaKab->nama_berita = $request->nama_berita;

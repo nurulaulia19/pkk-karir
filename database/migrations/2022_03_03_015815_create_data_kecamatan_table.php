@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('kode_kecamatan');
             $table->string('nama_kecamatan');
             $table->bigInteger('kabupaten_id')->unsigned();
-            $table->foreign('kabupaten_id')->references('id')->on('data_kabupaten');
+            $table->foreign('kabupaten_id')->references('id')->on('data_kabupaten')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -47,6 +47,7 @@ class DataAgendaKegiatanController extends Controller
             'tempat' => 'required',
             'tgl_pelaksana' => 'required',
             'waktu' => 'required',
+            'status' => 'required',
 
         ], [
             'judul_agenda.required' => 'Lengkapi Judul Agenda Kegiatan',
@@ -54,6 +55,7 @@ class DataAgendaKegiatanController extends Controller
             'tempat.required' => 'Lengkapi Tempat Agenda Kegiatan',
             'tgl_pelaksana.required' => 'Lengkapi Tanggal Pelaksana Agenda Kegiatan',
             'waktu.required' => 'Lengkapi Waktu Agenda Kegiatan',
+            'status' => 'Pilih Status Agenda Kegiatan',
 
         ]);
 
@@ -122,6 +124,7 @@ class DataAgendaKegiatanController extends Controller
             'tempat' => 'required',
             'tgl_pelaksana' => 'required',
             'waktu' => 'required',
+            'status' => 'required',
 
         ], [
             'judul_agenda.required' => 'Lengkapi Judul Agenda Kegiatan',
@@ -129,6 +132,7 @@ class DataAgendaKegiatanController extends Controller
             'tempat.required' => 'Lengkapi Tempat Agenda Kegiatan',
             'tgl_pelaksana.required' => 'Lengkapi Tanggal Pelaksana Agenda Kegiatan',
             'waktu.required' => 'Lengkapi Waktu Agenda Kegiatan',
+            'status' => 'Pilih Status Agenda Kegiatan',
 
         ]);
         // $update=DB::table('warung_pkk')->where('waktu', $request->waktu)->first();

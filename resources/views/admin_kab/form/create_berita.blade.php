@@ -29,7 +29,7 @@
             @endif
           <div class="form-group">
             <label>Nama Berita</label>
-            <input type="text" class="form-control" name="nama_berita" id="nama_berita" placeholder="Masukkan Nama Berita" required value="{{old('nama_berita')}}">
+            <input type="text" class="form-control @error('nama_berita') is-invalid @enderror" name="nama_berita" id="nama_berita" placeholder="Masukkan Nama Berita" required value="{{old('nama_berita')}}">
             @error('nama_berita')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -39,21 +39,41 @@
 
           <div class="form-group">
             <label>Tanggal Publish Berita</label>
-            <input type="date" class="form-control" name="tgl_publish" id="tgl_publish" placeholder="Masukkan Tanggal Berita" required value="{{old('date')}}">
+            <input type="date" class="form-control @error('tgl_publish') is-invalid @enderror" name="tgl_publish" id="tgl_publish" placeholder="Masukkan Tanggal Berita" required value="{{old('tgl_publish')}}">
+            @error('tgl_publish')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
           </div>
           <div class="form-group">
             <label>Penulis Berita</label>
-            <input type="text" class="form-control" name="penulis" id="penulis" placeholder="Masukkan Penulis Berita" required value="{{old('penulis')}}">
+            <input type="text" class="form-control @error('penulis') is-invalid @enderror" name="penulis" id="penulis" placeholder="Masukkan Penulis Berita" required value="{{old('penulis')}}">
+            @error('penulis')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
           </div>
           <div class="form-group">
-            <label>Gambar Berita</label>
-            <input name="gambar" type="file" class="form-control-file" id="gambar" accept=".img, .jpg, .jpeg, .png" value="{{old('gambar')}}">
+            <label>Gambar Berita</label> <br>
+            <input name="gambar" type="file" class="form-control-file @error('gambar') is-invalid @enderror" id="gambar" accept=".img, .jpg, .jpeg, .png" required>
+            @error('gambar')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
             {{-- <img src="{{asset('gambar/'. $c->logo)}}" class="img-thumbnail" width="100px"> --}}
             {{-- <input name="logo" type="hidden" name="hidden_image" value="{{asset('gambar/'. $c->logo)}}" class="form-control-file" id="hidden_image"> --}}
           </div>
           <div class="form-group">
             <label>Deskripsi Berita</label>
-            <textarea type="text" class="form-control" name="desk" id="desk" rows="5" placeholder="Masukkan Deskripsi Berita" required value="{{old('desk')}}"></textarea>
+            <textarea type="text" class="form-control @error('desk') is-invalid @enderror" name="desk" id="desk" rows="5" placeholder="Masukkan Deskripsi Berita" required>{{old('desk')}}</textarea>
+            @error('desk')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
           </div>
 
         </div>
