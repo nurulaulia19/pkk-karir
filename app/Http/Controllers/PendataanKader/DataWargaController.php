@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\Rule;
 
 class DataWargaController extends Controller
 {
@@ -30,24 +31,29 @@ class DataWargaController extends Controller
      */
     public function index(Request $request)
     {
-        $periode = $request->periode;
+
         // dd($periode);
         $user = Auth::user();
         // $warga=DataWarga::with('kepalaKeluarga')->where('id_dasawisma', $user->id_dasawisma)->get();
-        if ($periode) {
+        if ($request->periode) {
+            $periode = $request->periode;
             $warga = DataWarga::with('kepalaKeluarga.keluarga')
-        ->where('id_dasawisma', $user->id_dasawisma)
-        ->where('periode', $periode) // menambahkan kondisi where untuk tahun sekarang
-        ->get();
+                ->where('id_dasawisma', $user->id_dasawisma)
+                ->where('periode', $periode) // menambahkan kondisi where untuk tahun sekarang
+                ->get();
+
+            // $nowYear = true;
         } else {
             $warga = DataWarga::with('kepalaKeluarga.keluarga')
-        ->where('id_dasawisma', $user->id_dasawisma)
-        ->where('periode', now()->year) // menambahkan kondisi where untuk tahun sekarang
-        ->get();
+                ->where('id_dasawisma', $user->id_dasawisma)
+                ->where('periode', now()->year) // menambahkan kondisi where untuk tahun sekarang
+                ->get();
+            $periode = now()->year;
         }
         $dataPeriode = Periode::all();
+        $nowYear = now()->year;
 
-        return view('kader.data_warga.index', compact('warga', 'user','dataPeriode'));
+        return view('kader.data_warga.index', compact('warga', 'user', 'dataPeriode', 'nowYear', 'periode'));
     }
 
     /**
@@ -57,33 +63,30 @@ class DataWargaController extends Controller
      */
     public function create()
     {
-     $desas = DB::table('data_desa')
-     ->where('id', auth()->user()->id_desa)
-     ->get();
+        $desas = DB::table('data_desa')
+            ->where('id', auth()->user()->id_desa)
+            ->get();
 
+        $kec = DB::table('data_kecamatan')
+            ->where('id', auth()->user()->id_kecamatan)
+            ->get();
 
-     $kec = DB::table('data_kecamatan')
-     ->where('id', auth()->user()->id_kecamatan)
-     ->get();
+        $kad = DB::table('users')
+            ->where('id', auth()->user()->id)
+            ->get();
+        $kader = User::with('dasawisma.rt.rw')
+            ->where('id', auth()->user()->id)
+            ->first();
 
-     $kad = DB::table('users')
-        ->where('id', auth()->user()->id)
-        ->get();
-     $kader = User::with('dasawisma.rt.rw')
-        ->where('id', auth()->user()->id)
-        ->first();
+        $kel = DataKeluarga::all();
+        //  $dasawisma = DataKelompokDasawisma::all();
+        $user = Auth::user();
+        $dasawisma = DataKelompokDasawisma::where('id', $user->id_dasawisma)->get();
+        $kabupaten = DataKabupaten::first();
+        $provinsi = DataProvinsi::first();
 
-     $kel = DataKeluarga::all();
-     //  $dasawisma = DataKelompokDasawisma::all();
-     $user = Auth::user();
-     $dasawisma = DataKelompokDasawisma::where('id', $user->id_dasawisma)->get();
-     $kabupaten = DataKabupaten::first();
-     $provinsi = DataProvinsi::first();
-
-     return view('kader.data_warga.create', compact('desas', 'kader', 'kec', 'kel', 'kad', 'dasawisma','kabupaten','provinsi'));
-
- }
-
+        return view('kader.data_warga.create', compact('desas', 'kader', 'kec', 'kel', 'kad', 'dasawisma', 'kabupaten', 'provinsi'));
+    }
 
     public function store(Request $request)
     {
@@ -94,7 +97,8 @@ class DataWargaController extends Controller
             'id_kecamatan' => 'required',
             'id_dasawisma' => 'required',
             'no_registrasi' => 'required',
-            'no_ktp' => 'required',
+            // 'no_ktp' => 'required|unique:data_warga,no_ktp',
+            'no_ktp' => ['required', 'min:16', Rule::unique('data_warga', 'no_ktp')->where('periode', now()->year)],
             'nama' => 'required',
             'jabatan' => 'required',
             'jenis_kelamin' => 'required',
@@ -103,8 +107,6 @@ class DataWargaController extends Controller
             'status_perkawinan' => 'required',
             'agama' => 'required',
             'alamat' => 'required',
-            // 'kabupaten' => 'required',
-            // 'provinsi' => 'required',
             'pendidikan' => 'required',
             'pekerjaan' => 'required',
             'akseptor_kb' => 'required',
@@ -117,9 +119,17 @@ class DataWargaController extends Controller
             'periode' => 'required',
             'berkebutuhan_khusus' => 'required',
             'makan_beras' => 'required',
-            // 'provinsi' => 'required',
             'aktivitas_UP2K' => 'required|boolean',
             'aktivitas_kesehatan_lingkungan' => 'required|boolean',
+            'ibu_hamil' => 'required',
+            'ibu_menyusui' => 'required',
+            // 'no_ktp' => [
+            //     'required',
+            //     Rule::unique('data_warga', 'no_ktp')
+            //         ->where(function ($query) use ($request) {
+            //             return $query->where('periode', now()->year);
+            //         })
+            // ],
         ]);
 
         // Buat array data
@@ -171,17 +181,13 @@ class DataWargaController extends Controller
         return redirect('/data_warga');
     }
 
-
-
     public function show(DataWarga $data_warga)
     {
         // menampilkan data warga
         // $warga=DataWarga::all();
 
-        return view('kader.data_kegiatan.show.data_warga_show',compact('data_warga'));
-
+        return view('kader.data_kegiatan.show.data_warga_show', compact('data_warga'));
     }
-
 
     public function edit(DataWarga $data_warga)
     {
@@ -189,134 +195,113 @@ class DataWargaController extends Controller
         $desa = DataWarga::with('desa')->first(); // pemanggilan tabel data warga
 
         $desas = DB::table('data_desa')
-        ->where('id', auth()->user()->id_desa)
-        ->get();
+            ->where('id', auth()->user()->id_desa)
+            ->get();
 
         $kec = DB::table('data_kecamatan')
-        ->where('id', auth()->user()->id_kecamatan)
-        ->get();
+            ->where('id', auth()->user()->id_kecamatan)
+            ->get();
 
         $kad = DB::table('users')
-        ->where('id', auth()->user()->id)
-        ->get();
+            ->where('id', auth()->user()->id)
+            ->get();
 
         $user = Auth::user();
         $kel = DataKeluarga::all();
         $dasawisma = DataKelompokDasawisma::where('id', $user->id_dasawisma)->get();
         // dd($dasawisma);
         $kader = User::with('dasawisma.rt.rw')
-        ->where('id', auth()->user()->id)
-        ->first();
+            ->where('id', auth()->user()->id)
+            ->first();
 
         $kabupaten = DataKabupaten::first();
         $provinsi = DataProvinsi::first();
 
-        return view('kader.data_warga.edit', compact('data_warga','desa','desas','kec', 'kel', 'kad', 'dasawisma','kader','kabupaten','provinsi'));
-
+        return view('kader.data_warga.edit', compact('data_warga', 'desa', 'desas', 'kec', 'kel', 'kad', 'dasawisma', 'kader', 'kabupaten', 'provinsi'));
     }
-
 
     public function update(Request $request, DataWarga $data_warga)
     {
         // Validasi data
-        $request->validate([
-            'id_desa' => 'required',
-            'id_kecamatan' => 'required',
-            'id_dasawisma' => 'required',
-            'no_registrasi' => 'required',
-            'no_ktp' => 'required|min:16',
-            'nama' => 'required',
-            'jabatan' => 'required',
-            'jenis_kelamin' => 'required',
-            'tempat_lahir' => 'required',
-            'tgl_lahir' => 'required',
-            'status_perkawinan' => 'required',
-            'agama' => 'required',
-            'alamat' => 'required',
-            'kabupaten' => 'required',
-            'provinsi' => 'required',
-            'pendidikan' => 'required',
-            'pekerjaan' => 'required',
-            'akseptor_kb' => 'required',
-            'aktif_posyandu' => 'required',
-            'ikut_bkb' => 'required',
-            'memiliki_tabungan' => 'required',
-            'ikut_kelompok_belajar' => 'required',
-            'ikut_paud_sejenis' => 'required',
-            'ikut_koperasi' => 'required',
-            'berkebutuhan_khusus' => 'required',
-            'makan_beras' => 'required',
-            'aktivitas_UP2K' => 'required',
-            'aktivitas_kesehatan_lingkungan' => 'required',
-            'periode' => 'required',
-
-        ], [
-            'id_desa.required' => 'Lengkapi Alamat Desa Warga',
-            'id_kecamatan.required' => 'Lengkapi Alamat Kecamatan Warga',
-            'id_dasawisma.required' => 'Lengkapi Nama Dasawisma Yang Diikuti Warga',
-            'no_registrasi.required' => 'Lengkapi No. Registrasi',
-            'no_ktp.required' => 'Lengkapi No. KTP/NIK',
-            'no_ktp.min' => 'No. KTP/NIK harus terdiri dari 16 karakter',
-            'nama.required' => 'Lengkapi Nama',
-            'jabatan.required' => 'Lengkapi Jabatan dalam Struktur TP PKK',
-            'jenis_kelamin.required' => 'Pilih Jenis Kelamin',
-            'tempat_lahir.required' => 'Lengkapi Tempat Lahir',
-            'tgl_lahir.required' => 'Lengkapi Tanggal Lahir',
-            'status_perkawinan.required' => 'Pilih Status Perkawinan',
-            'berkebutuhan_khusus.required' => 'Pilih Berkebutuhan Khusus',
-            'agama.required' => 'Pilih Agama',
-            'alamat.required' => 'Lengkapi Alamat',
-            'kabupaten.required' => 'Lengkapi Kabupaten',
-            'provinsi.required' => 'Lengkapi Provinsi',
-            'pendidikan.required' => 'Pilih Riwayat Pendidikan Warga',
-            'pekerjaan.required' => 'Pilih Pekerjaan Warga',
-            'akseptor_kb.required' => 'Pilih Akseptor KB Yang Diikuti Warga',
-            'aktif_posyandu.required' => 'Pilih Kegiatan Aktif Posyandu',
-            'ikut_bkb.required' => 'Pilih Kegiatan Mengikuti BKB (Bina Keluarga Balita)',
-            'memiliki_tabungan.required' => 'Pilih Memiliki Tabungan Warga',
-            'ikut_kelompok_belajar.required' => 'Pilih Kegiatan Kelompok Belajar Yang Diikuti',
-            'ikut_paud_sejenis.required' => 'Pilih Kegiatan PAUD/Sejenis Yang Diikuti',
-            'ikut_koperasi.required' => 'Pilih Kegiatan Koperasi Yang Diikuti',
-            'makan_beras.required' => 'Pilih Makanan Pokok',
-            'aktivitas_UP2K.required' => 'Pilih Aktivitas UP2K yang diikuti',
-            'aktivitas_kesehatan_lingkungan.required' => 'Pilih Aktivitas Kesehatan Lingkungan yang diikuti',
-            'periode.required' => 'Pilih Periode',
-        ]);
+        $request->validate(
+            [
+                'id_desa' => 'required',
+                'id_kecamatan' => 'required',
+                'id_dasawisma' => 'required',
+                'no_registrasi' => 'required',
+                // 'no_ktp' => 'required|min:16',
+                'no_ktp' => [
+                    'required',
+                    'min:16',
+                    Rule::unique('data_warga', 'no_ktp')
+                        ->where('periode', now()->year)
+                        ->ignore($data_warga->id), // Assuming 'id' is the primary key of the 'data_warga' table
+                ],
+                'nama' => 'required',
+                'jabatan' => 'required',
+                'jenis_kelamin' => 'required',
+                'tempat_lahir' => 'required',
+                'tgl_lahir' => 'required',
+                'status_perkawinan' => 'required',
+                'agama' => 'required',
+                'alamat' => 'required',
+                'kabupaten' => 'required',
+                'provinsi' => 'required',
+                'pendidikan' => 'required',
+                'pekerjaan' => 'required',
+                'akseptor_kb' => 'required',
+                'aktif_posyandu' => 'required',
+                'ikut_bkb' => 'required',
+                'memiliki_tabungan' => 'required',
+                'ikut_kelompok_belajar' => 'required',
+                'ikut_paud_sejenis' => 'required',
+                'ikut_koperasi' => 'required',
+                'berkebutuhan_khusus' => 'required',
+                'makan_beras' => 'required',
+                'aktivitas_UP2K' => 'required',
+                'aktivitas_kesehatan_lingkungan' => 'required',
+                'periode' => 'required',
+                'ibu_hamil' => 'required',
+                'ibu_menyusui' => 'required',
+            ],
+            [
+                'id_desa.required' => 'Lengkapi Alamat Desa Warga',
+                'id_kecamatan.required' => 'Lengkapi Alamat Kecamatan Warga',
+                'id_dasawisma.required' => 'Lengkapi Nama Dasawisma Yang Diikuti Warga',
+                'no_registrasi.required' => 'Lengkapi No. Registrasi',
+                'no_ktp.required' => 'Lengkapi No. KTP/NIK',
+                'no_ktp.min' => 'No. KTP/NIK harus terdiri dari 16 karakter',
+                'nama.required' => 'Lengkapi Nama',
+                'jabatan.required' => 'Lengkapi Jabatan dalam Struktur TP PKK',
+                'jenis_kelamin.required' => 'Pilih Jenis Kelamin',
+                'tempat_lahir.required' => 'Lengkapi Tempat Lahir',
+                'tgl_lahir.required' => 'Lengkapi Tanggal Lahir',
+                'status_perkawinan.required' => 'Pilih Status Perkawinan',
+                'berkebutuhan_khusus.required' => 'Pilih Berkebutuhan Khusus',
+                'agama.required' => 'Pilih Agama',
+                'alamat.required' => 'Lengkapi Alamat',
+                'kabupaten.required' => 'Lengkapi Kabupaten',
+                'provinsi.required' => 'Lengkapi Provinsi',
+                'pendidikan.required' => 'Pilih Riwayat Pendidikan Warga',
+                'pekerjaan.required' => 'Pilih Pekerjaan Warga',
+                'akseptor_kb.required' => 'Pilih Akseptor KB Yang Diikuti Warga',
+                'aktif_posyandu.required' => 'Pilih Kegiatan Aktif Posyandu',
+                'ikut_bkb.required' => 'Pilih Kegiatan Mengikuti BKB (Bina Keluarga Balita)',
+                'memiliki_tabungan.required' => 'Pilih Memiliki Tabungan Warga',
+                'ikut_kelompok_belajar.required' => 'Pilih Kegiatan Kelompok Belajar Yang Diikuti',
+                'ikut_paud_sejenis.required' => 'Pilih Kegiatan PAUD/Sejenis Yang Diikuti',
+                'ikut_koperasi.required' => 'Pilih Kegiatan Koperasi Yang Diikuti',
+                'makan_beras.required' => 'Pilih Makanan Pokok',
+                'aktivitas_UP2K.required' => 'Pilih Aktivitas UP2K yang diikuti',
+                'aktivitas_kesehatan_lingkungan.required' => 'Pilih Aktivitas Kesehatan Lingkungan yang diikuti',
+                'periode.required' => 'Pilih Periode',
+                'ibu_hamil.required' => 'Pilih Kondisi',
+                'ibu_menyusui.required' => 'Pilih Kondisi',
+            ],
+        );
 
         // Update data warga
-        $data_warga->update($request->only([
-            'id_desa',
-            'id_kecamatan',
-            'id_dasawisma',
-            'no_registrasi',
-            'no_ktp',
-            'nama',
-            'jabatan',
-            'jenis_kelamin',
-            'tempat_lahir',
-            'tgl_lahir',
-            'status_perkawinan',
-            'agama',
-            'makan_beras',
-            'alamat',
-            'kabupaten',
-            'provinsi',
-            'pendidikan',
-            'pekerjaan',
-            'ibu_hamil',
-            'ibu_menyusui',
-            'akseptor_kb',
-            'aktif_posyandu',
-            'ikut_bkb',
-            'memiliki_tabungan',
-            'ikut_kelompok_belajar',
-            'ikut_paud_sejenis',
-            'ikut_koperasi',
-            'aktivitas_UP2K',
-            'aktivitas_kesehatan_lingkungan',
-            'berkebutuhan_khusus',
-            'periode',
-        ]));
+        $data_warga->update($request->only(['id_desa', 'id_kecamatan', 'id_dasawisma', 'no_registrasi', 'no_ktp', 'nama', 'jabatan', 'jenis_kelamin', 'tempat_lahir', 'tgl_lahir', 'status_perkawinan', 'agama', 'makan_beras', 'alamat', 'kabupaten', 'provinsi', 'pendidikan', 'pekerjaan', 'ibu_hamil', 'ibu_menyusui', 'akseptor_kb', 'aktif_posyandu', 'ikut_bkb', 'memiliki_tabungan', 'ikut_kelompok_belajar', 'ikut_paud_sejenis', 'ikut_koperasi', 'aktivitas_UP2K', 'aktivitas_kesehatan_lingkungan', 'berkebutuhan_khusus', 'periode']));
         // dd($data_warga);
 
         if ($request->jenis_kelamin == 'laki-laki') {
@@ -333,10 +318,7 @@ class DataWargaController extends Controller
         // Periksa apakah ID keluarga ditemukan
         if ($id_keluarga) {
             // Cek status kepala keluarga sebelumnya
-            $currentKepalaKeluargaId = DB::table('keluarga_has_warga')
-                ->where('keluarga_id', $id_keluarga)
-                ->where('status', 'kepala-keluarga')
-                ->value('warga_id');
+            $currentKepalaKeluargaId = DB::table('keluarga_has_warga')->where('keluarga_id', $id_keluarga)->where('status', 'kepala-keluarga')->value('warga_id');
 
             // Jika ID kepala keluarga berubah, update nama_kepala_keluarga
             if ($currentKepalaKeluargaId == $data_warga->id) {
@@ -363,7 +345,6 @@ class DataWargaController extends Controller
 
     // }
 
-
     // ini yang redirect
     // public function destroy($data_warga, DataWarga $warg)
     // {
@@ -386,8 +367,6 @@ class DataWargaController extends Controller
 
     //     return redirect('/data_warga');
     // }
-
-
 
     // public function destroy($data_warga, DataWarga $warg)
     // {
@@ -646,7 +625,9 @@ class DataWargaController extends Controller
         $warga = $warg::find($data_warga);
 
         if (!$warga) {
-            return redirect()->back()->withErrors(['error' => 'Warga tidak ditemukan']);
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Warga tidak ditemukan']);
         }
 
         // Find the keluarga associated with this warga
@@ -657,7 +638,8 @@ class DataWargaController extends Controller
 
             if ($keluarga) {
                 // Dapatkan ID rumah tangga terkait
-                $rumahTangga = RumahTangga::with('anggotaRT')->where('nama_kepala_rumah_tangga', $keluarga->nama_kepala_keluarga)
+                $rumahTangga = RumahTangga::with('anggotaRT')
+                    ->where('nama_kepala_rumah_tangga', $keluarga->nama_kepala_keluarga)
                     ->where('periode', now()->year)
                     ->where('nik_kepala_rumah_tangga', $keluarga->nik_kepala_keluarga)
                     ->first();
@@ -745,18 +727,17 @@ class DataWargaController extends Controller
         return redirect('/data_warga');
     }
 
-
-
-    public function warga(Request $request){
+    public function warga(Request $request)
+    {
         $user = Auth::user();
-        $warga = DataWarga::where('is_keluarga',false)->
-        where('id_dasawisma', $user->id_dasawisma)->
-        where('is_keluarga', false)->
-        where('periode',now()->year)->
-        where('is_valid', '!=', false)->
-        get();
+        $warga = DataWarga::where('is_keluarga', false)
+            ->where('id_dasawisma', $user->id_dasawisma)
+            ->where('is_keluarga', false)
+            ->where('periode', now()->year)
+            ->where('is_valid', '!=', false)
+            ->get();
         return response()->json([
-            'warga' => $warga
+            'warga' => $warga,
         ]);
     }
 }

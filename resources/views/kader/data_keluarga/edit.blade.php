@@ -220,20 +220,6 @@
                                                 @enderror
                                             </div>
                                         </div>
-
-                                        {{-- <div class="col-md-5">
-                                            <div class="form-group ">
-                                                <label>Status</label>
-                                                <select class="form-control" id="status" name="status[]">
-                                                    @if ($index == 0)
-                                                    <option value="kepala-keluarga">Kepala Keluarga</option>
-                                                        @else
-                                                        <option value="ibu" >Ibu</option>
-                                                        <option value="anak" >Anak</option>
-                                                        @endif
-                                                </select>
-                                            </div>
-                                        </div> --}}
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label>Status</label>
@@ -257,46 +243,6 @@
                                 </div>
                             @endforeach
                         </div>
-
-                        {{-- <div class="row" id="container">
-                            @foreach ($data_keluarga->anggota as $index => $item)
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Nama</label>
-                                                <select name="warga[]" class="form-control js-example-basic-single">
-                                                    <option value="" disabled selected>Pilih Nama Warga</option>
-                                                    @foreach ($data_warga as $warga)
-                                                        <option value="{{ $warga->id }}" {{ $item->warga->id == $warga->id ? 'selected' : '' }}>{{ $warga->nama }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('nama_kepala_keluarga')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label>Status</label>
-                                                <select class="form-control" name="status[]">
-                                                    <option value="" disabled selected>Pilih Status</option>
-                                                    <option value="kepala-keluarga" {{ $item->status == 'kepala-keluarga' ? 'selected' : '' }}>Kepala Keluarga</option>
-                                                    <option value="ibu" {{ $item->status == 'ibu' ? 'selected' : '' }}>Ibu</option>
-                                                    <option value="anak" {{ $item->status == 'anak' ? 'selected' : '' }}>Anak</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-1 d-flex align-items-center">
-                                            <a href="{{ route('keluarga-delete-warga', ['id' => $item->id]) }}" class="btn btn-danger btn-sm mt-2">delete</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div> --}}
 
                         <div class="d-flex justify-content-end">
                             <button id="addRow" type="button" class="btn btn-primary">ADD</button>

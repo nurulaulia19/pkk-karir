@@ -17,7 +17,9 @@
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
+                                            @if ($nowYear == $periode)
                                             <a href="{{ url('data_kegiatan/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                            @endif
                                         </div>
                                         <div class="form-group">
                                             <div class="dropdown">
@@ -38,7 +40,9 @@
                                             <th>Nama Warga</th>
                                             <th>Nama Kegiatan</th>
                                             <th>Periode</th>
+                                            @if ($nowYear == $periode)
                                             <th>Aksi</th>
+                                            @endif
                                         </tr>
                                     </thead>
 
@@ -50,7 +54,7 @@
                                         <td style="vertical-align: middle;">{{ $c->nama }}
                                             @if ($c->kegiatan->first() && !$c->kegiatan->first()->is_valid)
                                             <button class="btn btn-success btn-sm">
-                                                edit untuk validasi
+                                                Edit untuk validasi
                                             </button>
                                         @endif
 
@@ -67,6 +71,7 @@
                                         {{-- <td style="vertical-align: middle;">x</td> --}}
                                         {{-- <td style="vertical-align: middle;">x</td> --}}
                                         <td style="vertical-align: middle;">{{ $c->periode }}</td>
+                                        @if ($nowYear == $periode)
                                         <td class="text-center" width="100px" style="vertical-align: middle;">
                                            <div class="d-flex">
                                             <a class="btn btn-primary btn-sm" href="{{ url('data_kegiatan/'.$c->id.'/edit') }}">Edit</a>
@@ -77,7 +82,7 @@
                                             </form>
                                            </div>
                                         </td>
-
+                                        @endif
                                     </tr>
 
                                     @endforeach

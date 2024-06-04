@@ -52,25 +52,18 @@
                                             <td style="vertical-align: middle;"><button class="btn btn-success">Sedang Terlaksana</button></td>
                                         @else
                                             <td style="vertical-align: middle;"><button class="btn btn-primary">Sudah Terlaksana</button></td>
-                                        
+
                                         @endif
 
-                                        <td class="text-center">
+                                        <td style="vertical-align: middle;" class="text-center">
                                             <form action="{{ route('agendaKeg.destroy',$c->id) }}" method="POST">
-
-                                            {{-- <a class="btn btn-info btn-sm" href="{{ route('sisw.show',$siswa->id) }}">Show</a> --}}
-
                                                 <a class="btn btn-primary btn-sm" href="{{ url('agendaKeg/'.$c->id.'/edit') }}">Edit</a>
-
                                                 @csrf
                                                 @method('DELETE')
-
                                                 <button type="submit" class="btn btn-danger btn-sm delete" >Delete</button>
                                             </form>
                                         </td>
-
                                     </tr>
-
                                     @endforeach
                                     </tbody>
 

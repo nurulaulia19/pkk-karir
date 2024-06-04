@@ -70,11 +70,11 @@
                 <div class="col-md-6">
                     <div class="form-group @error('keluarga_id') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Nama Keluarga</label>
-                        <select class="form-control select-state @error('keluarga_id') is-invalid @enderror" id="keluarga_id" name="keluarga_id" placeholder="Type to search.." required>
+                        <select class="form-control select-state @error('keluarga_id') is-invalid @enderror" id="keluarga_id" name="keluarga_id" placeholder="Type to search..">
                           {{-- nama warga --}}
                           <option value=""> Pilih Kepala Keluarga</option>
                             @foreach ($keluarga as $index)
-                                <option value="{{ $index->id }}">{{ $index->nama_kepala_keluarga }} - {{$index->nik_kepala_keluarga}}</option>
+                                <option value="{{ $index->id }}" {{ (collect(old('keluarga_id'))->contains($index->id)) ? 'selected' : '' }}>{{ $index->nama_kepala_keluarga }} - {{$index->nik_kepala_keluarga}}</option>
                             @endforeach
                           </select>
                           @error('keluarga_id')

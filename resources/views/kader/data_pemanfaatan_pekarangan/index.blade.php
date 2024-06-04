@@ -17,7 +17,9 @@
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
+                                        @if ($nowYear == $periode)
                                             <a href="{{ url('data_pemanfaatan/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                        @endif
                                         </div>
                                         <div class="form-group">
                                             <div class="dropdown">
@@ -40,7 +42,9 @@
                                             <th>Nama Kepala Rumah Tangga</th>
                                             <th>Kategori Pemanfaatan</th>
                                             <th>Periode</th>
+                                            @if ($nowYear == $periode)
                                             <th>Aksi</th>
+                                            @endif
                                         </tr>
                                     </thead>
 
@@ -59,21 +63,6 @@
                                             </button>
                                         @endif
                                         </td>
-                                        {{-- <td style="vertical-align: middle;">{{ucfirst($c->keluarga->nama_kepala_rumah_tangga) }}</td> --}}
-                                        {{-- @if ($c->nama_kategori == 1)
-                                            <td style="vertical-align: middle;">Peternakan</td>
-                                        @elseif($c->nama_kategori == 2)
-                                            <td style="vertical-align: middle;">Perikanan</td>
-                                        @elseif($c->nama_kategori == 3)
-                                            <td style="vertical-align: middle;">Warung Hidup</td>
-                                        @elseif($c->nama_kategori == 4)
-                                            <td style="vertical-align: middle;">TOGA (Tanaman Obat Keluarga)</td>
-                                        @elseif($c->nama_kategori == 5)
-                                            <td style="vertical-align: middle;">Tanaman Keras</td>
-                                        @elseif($c->nama_kategori == 6)
-                                            <td style="vertical-align: middle;">Lainnya</td>
-
-                                        @endif --}}
                                         <td style="vertical-align: middle;">
                                             <ul >
                                                 @foreach ($c->pemanfaatanlahan as $item)
@@ -85,6 +74,7 @@
                                             </ul>
                                         </td>
                                         <td style="vertical-align: middle;">{{ucfirst($c->periode)}}</td>
+                                        @if ($nowYear == $periode)
                                         <td class="text-center" width="100px" style="vertical-align: middle;">
                                             <div class="d-flex">
                                                 <a class="btn btn-primary btn-sm" href="{{ url('data_pemanfaatan/'.$c->id.'/edit') }}">Edit</a>
@@ -95,6 +85,7 @@
                                                 </form>
                                             </div>
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                     </tbody>

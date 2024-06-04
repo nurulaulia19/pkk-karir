@@ -33,11 +33,13 @@ class DataKegiatanWargaController extends Controller
             $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->
             where('periode', now()->year)->
             where('is_kegiatan', true)->where('id_dasawisma', $user->id_dasawisma)->orderBy('id', 'DESC')->get();
+            $periode = now()->year;
         }
 
         $dataPeriode = Periode::all();
+        $nowYear = now()->year;
         // dd($kegiatan);
-        return view('kader.data_kegiatan_warga.index', compact('kegiatan','dataPeriode'));
+        return view('kader.data_kegiatan_warga.index', compact('kegiatan','dataPeriode','nowYear','periode'));
     }
     public function create()
     {

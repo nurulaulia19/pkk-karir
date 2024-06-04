@@ -126,7 +126,7 @@
       <!-- /.navbar -->
 
       <!-- Main Sidebar Container -->
-      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #254336">
         <!-- Brand Logo -->
         <a href="/dashboard_kader" class="brand-link">
           <img
@@ -243,7 +243,7 @@
 
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class="content-wrapper " style="background-color: #e4fff1">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">

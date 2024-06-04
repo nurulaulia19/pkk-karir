@@ -25,8 +25,10 @@
                                     <table class="table table-striped table-bordered data" id="add-row">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
+                                                @if ($nowYear == $periode)
                                                 <a href="{{ url('data_warga/create') }}" type="button"
                                                     class="btn btn-success">Tambah</a><br><br>
+                                                @endif
                                             </div>
 
                                             <div class="col-md-1">
@@ -57,7 +59,9 @@
                                                 <th>Jabatan</th>
                                                 <th>Jenis Kelamin</th>
                                                 <th>Periode</th>
+                                                @if ($nowYear == $periode)
                                                 <th>Aksi</th>
+                                                @endif
                                             </tr>
                                         </thead>
 
@@ -71,12 +75,10 @@
                                                         {{ ucfirst($c->nama) }} <br>
                                                         @if (!$c->is_valid)
                                                             <button class="btn btn-success btn-sm">
-                                                                edit untuk validasi
+                                                                Edit untuk validasi
                                                             </button>
                                                         @endif
-
                                                     </td>
-
                                                     <td style="vertical-align: middle;">
                                                         @if ($c->kepalaKeluarga->isNotEmpty())
                                                             @foreach ($c->kepalaKeluarga as $keluarga)
@@ -94,6 +96,7 @@
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->periode) }}</td>
 
+                                                    @if ($nowYear == $periode)
                                                     <td class="text-center" width="100px" style="vertical-align: middle;">
                                                         <div class="d-flex">
                                                             <button type="button" class="btn btn-warning btn-sm"
@@ -112,6 +115,7 @@
                                                             </form>
                                                         </div>
                                                     </td>
+                                                    @endif
 
                                                 </tr>
                                             @endforeach

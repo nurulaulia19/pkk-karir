@@ -1,4 +1,4 @@
-@extends('admin_desa.layout')
+@extends('admin_kab.layout')
 
 @section('title', 'Edit Data Agenda Kegiatan | Admin Kabupaten PKK Kab. Indramayu')
 

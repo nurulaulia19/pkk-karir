@@ -38,12 +38,13 @@ class DataIndustriRumahController extends Controller
             $industri = DataKeluarga::with('industri')
             ->where('periode', now()->year)
             ->where('id_dasawisma', $user->id_dasawisma)->where('industri_id' ,'!=' , "0")->get();
-
+            $periode = now()->year;
         }
         $dataPeriode = Periode::all();
+        $nowYear = now()->year;
 
         // dd($industri);
-       return view('kader.data_industri_rumah_tangga.index', compact('industri','dataPeriode'));
+       return view('kader.data_industri_rumah_tangga.index', compact('industri','dataPeriode','nowYear','periode'));
    }
 
 

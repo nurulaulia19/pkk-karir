@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\PendataanKader;
 
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Models\DasaWisma;
 use App\Models\DataDasaWisma;
@@ -24,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\Rule;
 
 function isUnique($arr)
 {
@@ -44,23 +44,21 @@ class DataKeluargaController extends Controller
         // dd($periode);
         // $warga=DataWarga::with('kepalaKeluarga')->where('id_dasawisma', $user->id_dasawisma)->get();
         if ($periode) {
-        $keluarga = DataKeluarga::with('anggota.warga')->where('id_dasawisma', $user->id_dasawisma)
-        ->where('periode', $periode)
-        ->get();
-
+            $keluarga = DataKeluarga::with('anggota.warga')
+                ->where('id_dasawisma', $user->id_dasawisma)
+                ->where('periode', $periode)
+                ->get();
         } else {
-            $keluarga = DataKeluarga::with('anggota.warga')->where('id_dasawisma', $user->id_dasawisma)
-        ->where('periode', now()->year)
-        ->get();
+            $keluarga = DataKeluarga::with('anggota.warga')
+                ->where('id_dasawisma', $user->id_dasawisma)
+                ->where('periode', now()->year)
+                ->get();
+                $periode = now()->year;
         }
         $dataPeriode = Periode::all();
-        // dd($keluarga);
+        $nowYear = now()->year;
 
-
-        //halaman form data keluarga
-        // $keluarga = DataKeluarga::all()->where('id_user', $user->id);
-        // $dasawisma = DataKelompokDasawisma::all();
-        return view('kader.data_keluarga.index', compact('keluarga','dataPeriode'));
+        return view('kader.data_keluarga.index', compact('keluarga', 'dataPeriode', 'nowYear', 'periode'));
     }
 
     /**
@@ -103,12 +101,15 @@ class DataKeluargaController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'warga' => 'required|unique:data_keluarga,nama_kepala_keluarga', // Replace table_name and column_name with your actual table and column names
-        ], [
-            'warga.required' => 'Lengkapi Nama Kepala Keluarga Yang Didata',
-            'warga.unique' => 'Nama Kepala Keluarga sudah ada',
-        ]);
+        $request->validate(
+            [
+                'warga' => 'required|unique:data_keluarga,nama_kepala_keluarga', // Replace table_name and column_name with your actual table and column names
+            ],
+            [
+                'warga.required' => 'Lengkapi Nama Kepala Keluarga Yang Didata',
+                'warga.unique' => 'Nama Kepala Keluarga sudah ada',
+            ],
+        );
 
         // Mendapatkan kepala keluarga dari data warga pertama
         $kepalaKeluarga = DataWarga::find($request->warga[0]);
@@ -227,17 +228,17 @@ class DataKeluargaController extends Controller
 
     public function update(Request $request, DataKeluarga $data_keluarga)
     {
-        $request->validate([
-            'nama_kepala_keluarga' => [
-                Rule::unique('data_keluarga', 'nama_kepala_keluarga')->ignore($data_keluarga)
+        $request->validate(
+            [
+                'nama_kepala_keluarga' => [Rule::unique('data_keluarga', 'nama_kepala_keluarga')->ignore($data_keluarga)],
             ],
-        ], [
-            'nama_kepala_keluarga.unique' => 'Nama Kepala Keluarga sudah ada',
-        ]);
+            [
+                'nama_kepala_keluarga.unique' => 'Nama Kepala Keluarga sudah ada',
+            ],
+        );
 
         foreach ($request->warga as $wargaId) {
-            $wargaValid = DataWarga::where('id', $wargaId)
-                ->value('is_valid');
+            $wargaValid = DataWarga::where('id', $wargaId)->value('is_valid');
 
             if (!$wargaValid) {
                 return redirect()
@@ -362,7 +363,6 @@ class DataKeluargaController extends Controller
     //     Alert::success('Berhasil', 'Data berhasil dihapus');
     //     return redirect()->back();
     // }
-
 
     // public function destroy($id)
     // {
@@ -508,7 +508,9 @@ class DataKeluargaController extends Controller
         $keluarga = DataKeluarga::with('anggota.warga', 'rumah_tangga')->find($id);
 
         if (!$keluarga) {
-            return redirect()->back()->withErrors(['error' => 'Data keluarga tidak ditemukan']);
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Data keluarga tidak ditemukan']);
         }
 
         // Ubah status is_keluarga pada semua warga anggota keluarga
@@ -535,8 +537,7 @@ class DataKeluargaController extends Controller
                 ->where('nik_kepala_rumah_tangga', $nikKepalaKeluarga)
                 ->where('periode', now()->year)
                 ->whereDoesntHave('anggotaRT', function ($query) use ($keluarga) {
-                    $query->where('keluarga_id', '!=', $keluarga->id)
-                        ->where('status', 'kepala-keluarga');
+                    $query->where('keluarga_id', '!=', $keluarga->id)->where('status', 'kepala-keluarga');
                 })
                 ->first();
 
@@ -582,7 +583,7 @@ class DataKeluargaController extends Controller
     {
         $userKader = Auth::user();
 
-         // Ambil data keluarga berdasarkan ID
+        // Ambil data keluarga berdasarkan ID
         $keluarga = DataKeluarga::findOrFail($id);
 
         // Cari RumahTanggaHasKeluarga berdasarkan ID keluarga
@@ -594,7 +595,6 @@ class DataKeluargaController extends Controller
             Alert::error('Gagal', 'Isi keluarga pada data rumah tangga terlebih dahulu.');
             return redirect()->back();
             // return redirect()->back()->with('alert', 'Isi keluarga pada data rumah tangga terlebih dahulu.');
-
         }
 
         // Lakukan operasi pada data rumah tangga has keluarga jika ditemukan

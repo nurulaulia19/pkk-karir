@@ -48,30 +48,20 @@
                                         <td style="vertical-align: middle;"><img src="/gambar/{{$c->gambar}}" width="100px"></td>
                                         <td style="vertical-align: middle;">{{\Carbon\Carbon::parse($c->tgl_publish)->isoFormat('D MMMM Y')}}</td>
                                         <td style="vertical-align: middle;">{{$c->penulis}}</td>
-                                        <td class="text-center">
+                                        <td style="vertical-align: middle;" class="text-center">
                                             <form action="{{ route('beritaKab.destroy',$c->id) }}" method="POST">
-
-                                            {{-- <a class="btn btn-info btn-sm" href="{{ route('sisw.show',$siswa->id) }}">Show</a> --}}
-
                                                 <a class="btn btn-primary btn-sm" href="{{ url('beritaKab/'.$c->id.'/edit') }}">Edit</a>
-
                                                 @csrf
                                                 @method('DELETE')
-
                                                 <button type="submit" class="btn btn-danger btn-sm delete" >Delete</button>
                                             </form>
                                         </td>
-
                                     </tr>
-
                                     @endforeach
                                     </tbody>
-
                                 </table>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

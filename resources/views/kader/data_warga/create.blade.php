@@ -247,13 +247,13 @@
                                                     <label class="form-label">Ibu Hamil</label><br>
                                                     <div class="d-flex">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="ibu_hamil" id="ibu_hamil_ya" value=1 {{ old('ibu_hamil') == 1 ? 'checked' : '' }}>
+                                                            <input class="form-check-input @error('ibu_hamil') is-invalid @enderror" type="radio" name="ibu_hamil" id="ibu_hamil_ya" value=1 {{ old('ibu_hamil') == 1 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="ibu_hamil_ya">
                                                                 Ya
                                                             </label>
                                                         </div>
                                                         <div class="form-check ml-3">
-                                                            <input class="form-check-input" type="radio" name="ibu_hamil" id="ibu_hamil_tidak" value=0 {{ old('ibu_hamil') == 0 ? 'checked' : '' }}>
+                                                            <input class="form-check-input @error('ibu_hamil') is-invalid @enderror" type="radio" name="ibu_hamil" id="ibu_hamil_tidak" value=0 {{ old('ibu_hamil') == 0 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="ibu_hamil_tidak">
                                                                 Tidak
                                                             </label>
@@ -269,13 +269,13 @@
                                                     <label class="form-label">Ibu Menyusui</label><br>
                                                     <div class="d-flex">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="ibu_menyusui" id="ibu_menyusui_ya" value=1 {{ old('ibu_menyusui') == 1 ? 'checked' : '' }}>
+                                                            <input class="form-check-input @error('ibu_menyusui') is-invalid @enderror" type="radio" name="ibu_menyusui" id="ibu_menyusui_ya" value=1 {{ old('ibu_menyusui') == 1 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="ibu_menyusui_ya">
                                                                 Ya
                                                             </label>
                                                         </div>
                                                         <div class="form-check ml-3">
-                                                            <input class="form-check-input" type="radio" name="ibu_menyusui" id="ibu_menyusui_tidak" value=0 {{ old('ibu_menyusui') == 0 ? 'checked' : '' }}>
+                                                            <input class="form-check-input @error('ibu_menyusui') is-invalid @enderror" type="radio" name="ibu_menyusui" id="ibu_menyusui_tidak" value=0 {{ old('ibu_menyusui') == 0 ? 'checked' : '' }}>
                                                             <label class="form-check-label" for="ibu_menyusui_tidak">
                                                                 Tidak
                                                             </label>
@@ -1013,9 +1013,14 @@
     document.addEventListener("DOMContentLoaded", function() {
         // Mendapatkan elemen jenis_kelamin
         var jenisKelaminSelect = document.getElementById('jenis_kelamin');
-
-        // Mendapatkan elemen kondisi_khusus
         var kondisiKhususDiv = document.querySelector('.kondisi_khusus');
+
+        console.log(jenisKelaminSelect.value)
+        if(jenisKelaminSelect.value == 'perempuan'){
+            kondisiKhususDiv.style.display = 'block';
+
+        }
+        // Mendapatkan elemen kondisi_khusus
 
         // Tambahkan event listener untuk perubahan pada jenis_kelamin
         jenisKelaminSelect.addEventListener('change', function() {

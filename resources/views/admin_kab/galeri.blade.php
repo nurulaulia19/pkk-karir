@@ -47,7 +47,7 @@
                                         <td style="vertical-align: middle;">{{$c->pengirim}}</td>
 
 
-                                        <td class="text-center">
+                                        <td style="vertical-align: middle;" class="text-center">
                                             <form action="{{ route('galeriKeg.destroy',$c->id) }}" method="POST">
                                                 <a class="btn btn-primary btn-sm" href="{{ url('galeriKeg/'.$c->id.'/edit') }}">Edit</a>
 

@@ -58,12 +58,14 @@ class DataPemanfaatanPekaranganController extends Controller
             where('is_pemanfaatan_lahan',1)
             ->orderBy('id', 'ASC')
             ->get();
+            $periode = now()->year;
         }
         $dataPeriode = Periode::all();
+        $nowYear = now()->year;
 
         // dd($pemanfaatan);
         // $pemanfaatan = DataPemanfaatanPekarangan::all()->where('id_user', $user->id);
-        return view('kader.data_pemanfaatan_pekarangan.index', compact('pemanfaatan','dataPeriode'));
+        return view('kader.data_pemanfaatan_pekarangan.index', compact('pemanfaatan','dataPeriode','nowYear','periode'));
     }
 
     /**

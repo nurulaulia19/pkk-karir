@@ -13,13 +13,14 @@
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12">
                     <div class="card">
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
+                                            @if ($nowYear == $periode)
                                             <a href="{{ url('data_rumah_tangga/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                            @endif
                                         </div>
                                         <div class="form-group">
                                             <div class="dropdown">
@@ -34,7 +35,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -43,7 +43,9 @@
                                             <th>RT</th>
                                             <th>RW</th>
                                             <th>Tahun</th>
+                                            @if ($nowYear == $periode)
                                             <th>Aksi</th>
+                                            @endif
                                         </tr>
                                     </thead>
 
@@ -59,7 +61,7 @@
                                         <td style="vertical-align: middle;">{{ $c->nama_kepala_rumah_tangga}}
                                             @if (!$c->is_valid)
                                             <button class="btn btn-success btn-sm">
-                                                edit untuk validasi
+                                                Edit untuk validasi
                                             </button>
                                         @endif
                                         </td>
@@ -85,6 +87,7 @@
                                             @endif
                                         </td>
                                         <td style="vertical-align: middle;">{{ $c->periode}}</td>
+                                        @if ($nowYear == $periode)
                                         <td class="text-center" width="100px" style="vertical-align: middle;">
                                             <div class="d-flex">
                                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">
@@ -98,6 +101,7 @@
                                                 </form>
                                             </div>
                                         </td>
+                                        @endif
                                     </tr>
                                     @endforeach
                                     </tbody>

@@ -217,20 +217,57 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
+    document.addEventListener("DOMContentLoaded", function() {
+        // Mendapatkan elemen jenis_kelamin
+        var jenisKelaminSelect = document.getElementById('rw');
+        var rtttt = document.getElementById('rt');
+        console.log('helo world')
+        console.log('helo selected rt', rtttt.selected)
+
+        console.log(jenisKelaminSelect.value)
+        if(jenisKelaminSelect.value) {
+                console.log('rwId',jenisKelaminSelect.value)
+                $.ajax({
+                    url: '{{ route("get.rt.by.rw") }}', // Sesuaikan dengan rute yang Anda gunakan
+                    type: 'GET',
+                    data: {rw_id: jenisKelaminSelect.value},
+                    dataType: 'json',
+                    success: function(data) {
+                        // $('#rt').val(response.id_rt)
+                        $('#rt').empty();
+                        $('#rt').append('<option value="" selected disabled>Pilih RT</option>');
+                        $.each(data, function(key, value) {
+                            console.log(key);
+                            console.log(value);
+                            //disini bakal selected jika jenisKelaminSelect.value == key
+                            $('#rt').append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#rt').empty();
+                $('#rt').append('<option value="" selected disabled>Pilih RT</option>');
+            }
+        $(document).ready(function() {
+
         $('#rw').on('change', function() {
             var rwId = $(this).val();
             if(rwId) {
+                console.log('rwId',rwId)
                 $.ajax({
                     url: '{{ route("get.rt.by.rw") }}', // Sesuaikan dengan rute yang Anda gunakan
                     type: 'GET',
                     data: {rw_id: rwId},
                     dataType: 'json',
                     success: function(data) {
+                        // $('#rt').val(response.id_rt)
                         $('#rt').empty();
                         $('#rt').append('<option value="" selected disabled>Pilih RT</option>');
                         $.each(data, function(key, value) {
-                            $('#rt').append('<option value="' + key + '">' + value + '</option>');
+                            console.log(key);
+                            console.log(value);
+                            //disini bakal selected jika jenisKelaminSelect.value == key
+                            $('#rt').append('<option value="' + key + '" >' + value + '</option>');
                         });
                     }
                 });
@@ -240,6 +277,8 @@
             }
         });
     });
+    });
+
 </script>
 
 @endpush
