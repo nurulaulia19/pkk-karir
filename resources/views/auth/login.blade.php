@@ -51,4 +51,16 @@
       </div>
     </div>
   </div>
+  <script>
+    // Function to clear browser history
+    function preventBack() {
+            window.history.pushState(null, "", window.location.href);
+            window.onpopstate = function () {
+                window.history.pushState(null, "", window.location.href);
+            };
+        }
+
+        // Call the function to prevent back navigation on page load
+        preventBack();
+</script>
 @endsection

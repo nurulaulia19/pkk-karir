@@ -65,7 +65,7 @@ class DataPemanfaatanPekaranganController extends Controller
 
         // dd($pemanfaatan);
         // $pemanfaatan = DataPemanfaatanPekarangan::all()->where('id_user', $user->id);
-        return view('kader.data_pemanfaatan_pekarangan.index', compact('pemanfaatan','dataPeriode','nowYear','periode'));
+        return view('kader.data_pemanfaatan_pekarangan.index', compact('pemanfaatan','dataPeriode','nowYear','periode','user'));
     }
 
     /**

@@ -75,8 +75,15 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group @error('dusun') is-invalid @enderror">
-                                    <label>Dusun</label>
-                                    <input type="text" class="form-control @error('dusun') is-invalid @enderror" name="dusun" id="dusun" placeholder="Isi Nama Dusun" required value="{{ old('dusun') }}">
+                                    {{-- <label>Dusun</label>
+                                    <input type="text" class="form-control @error('dusun') is-invalid @enderror" name="dusun" id="dusun" placeholder="Isi Nama Dusun" required value="{{ old('dusun') }}"> --}}
+                                    <label for="exampleFormControlSelect1">Dusun</label>
+                                    <select class="form-control" id="dusun" name="dusun">
+                                        <option value="0" selected>Tidak Memiliki Dusun</option>
+                                        @foreach ($dusun as $c)
+                                            <option value="{{ $c->id }}">{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('dusun')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -88,9 +95,9 @@
                                 <div class="form-group @error('status') is-invalid @enderror">
                                     <label>Status</label>
                                     <select name="status" id="status" class="form-control" required>
-                                        <option hidden> Pilih Status Dasawisma</option>
+                                        <option selected disabled value="0"> Pilih Status Dasawisma</option>
                                         <option value=1 {{ old('status') == 1 ? 'selected' : '' }}>Aktif</option>
-                                        <option value=0 {{ old('status') == 0 ? 'selected' : '' }}>Tidak Aktif</option>
+                                        <option value=0 {{ old('status') === 0 ? 'selected' : '' }}>Tidak Aktif</option>
                                     </select>
                                     @error('status')
                                         <span class="invalid-feedback" role="alert">
@@ -215,14 +222,14 @@
 
 </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Mendapatkan elemen jenis_kelamin
         var jenisKelaminSelect = document.getElementById('rw');
         var rtttt = document.getElementById('rt');
         console.log('helo world')
-        console.log('helo selected rt', rtttt.selected)
+        console.log('helo selected rt', rtttt.value)
 
         console.log(jenisKelaminSelect.value)
         if(jenisKelaminSelect.value) {
@@ -236,11 +243,14 @@
                         // $('#rt').val(response.id_rt)
                         $('#rt').empty();
                         $('#rt').append('<option value="" selected disabled>Pilih RT</option>');
+                        var id_rt = "{{ old('id_rt') }}";
+
                         $.each(data, function(key, value) {
                             console.log(key);
                             console.log(value);
-                            //disini bakal selected jika jenisKelaminSelect.value == key
-                            $('#rt').append('<option value="' + key + '">' + value + '</option>');
+                            // Disini bakal selected jika id_rt == key
+                            var isSelected = id_rt == key ? 'selected' : '';
+                            $('#rt').append('<option ' + isSelected + ' value="' + key + '">' + value + '</option>');
                         });
                     }
                 });

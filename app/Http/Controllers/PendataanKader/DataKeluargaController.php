@@ -58,7 +58,7 @@ class DataKeluargaController extends Controller
         $dataPeriode = Periode::all();
         $nowYear = now()->year;
 
-        return view('kader.data_keluarga.index', compact('keluarga', 'dataPeriode', 'nowYear', 'periode'));
+        return view('kader.data_keluarga.index', compact('keluarga', 'dataPeriode', 'nowYear', 'periode', 'user'));
     }
 
     /**

@@ -25,7 +25,7 @@
                                     <table class="table table-striped table-bordered data" id="add-row">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
-                                                @if ($nowYear == $periode)
+                                                @if ($nowYear == $periode && $user->dasawisma->status)     
                                                 <a href="{{ url('data_warga/create') }}" type="button"
                                                     class="btn btn-success">Tambah</a><br><br>
                                                 @endif
@@ -59,7 +59,7 @@
                                                 <th>Jabatan</th>
                                                 <th>Jenis Kelamin</th>
                                                 <th>Periode</th>
-                                                @if ($nowYear == $periode)
+                                                @if ($nowYear == $periode && $user->dasawisma->status)     
                                                 <th>Aksi</th>
                                                 @endif
                                             </tr>
@@ -95,9 +95,8 @@
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->jenis_kelamin) }}
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->periode) }}</td>
-
-                                                    @if ($nowYear == $periode)
-                                                    <td class="text-center" width="100px" style="vertical-align: middle;">
+                                                    @if ($nowYear == $periode && $user->dasawisma->status) 
+                                                    <td class="text-center" width="100px" style="vertical-align: middle;">    
                                                         <div class="d-flex">
                                                             <button type="button" class="btn btn-warning btn-sm"
                                                                 data-toggle="modal"

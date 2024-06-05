@@ -18,7 +18,7 @@
                                     <table class="table table-striped table-bordered data" id="add-row">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
-                                                @if ($nowYear == $periode)
+                                                @if ($nowYear == $periode && $user->dasawisma->status)
                                                     <a href="{{ url('data_industri/create') }}" type="button"
                                                         class="btn btn-success">Tambah</a><br><br>
                                                 @endif
@@ -46,7 +46,7 @@
                                                 <th>Nama Keluarga</th>
                                                 <th>Kategori</th>
                                                 <th>Periode</th>
-                                                @if ($nowYear == $periode)
+                                                @if ($nowYear == $periode && $user->dasawisma->status)
                                                     <th>Aksi</th>
                                                 @endif
                                             </tr>
@@ -71,7 +71,7 @@
                                                         @endif
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->periode) }}</td>
-                                                    @if ($nowYear == $periode)
+                                                    @if ($nowYear == $periode && $user->dasawisma->status)
                                                         <td class="text-center" width="100px"
                                                             style="vertical-align: middle;">
                                                             <div class="d-flex">

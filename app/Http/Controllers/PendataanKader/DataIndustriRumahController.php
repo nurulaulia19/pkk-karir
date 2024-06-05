@@ -44,7 +44,7 @@ class DataIndustriRumahController extends Controller
         $nowYear = now()->year;
 
         // dd($industri);
-       return view('kader.data_industri_rumah_tangga.index', compact('industri','dataPeriode','nowYear','periode'));
+       return view('kader.data_industri_rumah_tangga.index', compact('industri','dataPeriode','nowYear','periode','user'));
    }
 
 

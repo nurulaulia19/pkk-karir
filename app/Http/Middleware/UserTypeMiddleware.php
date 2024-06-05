@@ -21,6 +21,7 @@ class UserTypeMiddleware
         if (Auth::check()) {
             $user = Auth::user();
 
+
             // Jika user sesuai dengan tipe yang diizinkan
             if ($user->user_type === $userType) {
                 return $next($request);
@@ -70,6 +71,9 @@ class UserTypeMiddleware
         }
 
         // Jika user belum login, lewati middleware dan biarkan sistem menangani sesuai kebutuhan
-        return $next($request);
+        // return $next($request);
+
+        return redirect('/login');
+
     }
 }

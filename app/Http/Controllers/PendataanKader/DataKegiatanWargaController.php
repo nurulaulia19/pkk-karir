@@ -39,7 +39,7 @@ class DataKegiatanWargaController extends Controller
         $dataPeriode = Periode::all();
         $nowYear = now()->year;
         // dd($kegiatan);
-        return view('kader.data_kegiatan_warga.index', compact('kegiatan','dataPeriode','nowYear','periode'));
+        return view('kader.data_kegiatan_warga.index', compact('kegiatan','dataPeriode','nowYear','periode', 'user'));
     }
     public function create()
     {

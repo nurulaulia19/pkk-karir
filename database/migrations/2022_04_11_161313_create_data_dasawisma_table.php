@@ -25,8 +25,8 @@ return new class extends Migration
             $table->foreign('id_rw')->references('id')->on('data_kecamatan');
             $table->string('nama_dasawisma');
             $table->string('alamat_dasawisma');
-            $table->boolean('status')->default(false);
-            $table->string('dusun');
+            $table->boolean('status')->default(true);
+            $table->integer('dusun')->default(0);
             // $table->integer('rt');
             // $table->integer('rw');
             $table->integer('periode');

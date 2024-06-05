@@ -18,7 +18,7 @@
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
-                                            @if ($nowYear == $periode)
+                                            @if ($nowYear == $periode && $user->dasawisma->status)
                                             <a href="{{ url('data_rumah_tangga/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
                                             @endif
                                         </div>
@@ -43,7 +43,7 @@
                                             <th>RT</th>
                                             <th>RW</th>
                                             <th>Tahun</th>
-                                            @if ($nowYear == $periode)
+                                            @if ($nowYear == $periode && $user->dasawisma->status)
                                             <th>Aksi</th>
                                             @endif
                                         </tr>
@@ -87,7 +87,7 @@
                                             @endif
                                         </td>
                                         <td style="vertical-align: middle;">{{ $c->periode}}</td>
-                                        @if ($nowYear == $periode)
+                                        @if ($nowYear == $periode && $user->dasawisma->status)
                                         <td class="text-center" width="100px" style="vertical-align: middle;">
                                             <div class="d-flex">
                                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">

@@ -45,6 +45,9 @@ class DataKelompokDasawisma extends Model
         return $this->belongsTo(Rt::class, 'id_rt');
     }
 
+    public function dusunData(){
+        return $this->belongsTo(Dusun::class, 'dusun');
 
+    }
 
 }

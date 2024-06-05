@@ -100,7 +100,7 @@
                 <i class="ion ion-folder"></i>
                 {{-- <div class="notification-badge">3</div> --}}
               </div>
-              <a href="/data_kelompok_pkk_dusun" class="small-box-footer"
+              <a href="/dusun" class="small-box-footer"
                 >Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i
               ></a>
             </div>

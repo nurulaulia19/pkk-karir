@@ -18,9 +18,9 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row d-flex justify-content-between">
-                                        <div class="col-md-1">
+                                        {{-- <div class="col-md-1">
                                             <a href="{{ url('data_keluarga/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
-                                        </div>
+                                        </div> --}}
                                         <div class="form-group">
                                             <div class="dropdown">
                                                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,19 +50,10 @@
                                         </td>
                                         <td style="vertical-align: middle;">
                                             {{ucfirst($c->nama_kepala_keluarga) }}
-                                            {{-- @if (!$c->is_valid)
-                                                            <a
-                                                            href="{{ url('data_rumah_tangga/'.$c->id.'/edit') }}"
-                                                            class="btn btn-success btn-sm">
-                                                                edit untuk validasi
-                                                            </a>
-                                                        @endif --}}
                                         </td>
                                         <td class="text-center">
                                             @if ($c->is_valid)
                                             <a class="btn btn-success btn-sm" href="{{ url('rekap_data_warga/'.$c->id.'/rekap_data_warga') }}">Rekap Data Warga</a>
-
-
                                             <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >
                                                 Catatan Keluarga
                                             </a>

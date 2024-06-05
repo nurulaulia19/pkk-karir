@@ -55,7 +55,7 @@ class RumahTanggaController extends Controller
         //halaman form data keluarga
         // $keluarga = DataKeluarga::all()->where('id_user', $user->id);
         // $dasawisma = DataKelompokDasawisma::all();
-        return view('kader.data_rumah_tangga.index', compact('krt', 'keluarga', 'dataPeriode', 'nowYear', 'periode'));
+        return view('kader.data_rumah_tangga.index', compact('krt', 'keluarga', 'dataPeriode', 'nowYear', 'periode', 'user'));
     }
 
     public function create()

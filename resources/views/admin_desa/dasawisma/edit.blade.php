@@ -78,11 +78,18 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group @error('dusun') is-invalid @enderror">
-                                    <label>Dusun</label>
-                                    <input type="text" class="form-control @error('dusun') is-invalid @enderror" name="dusun" id="dusun" placeholder="Isi Nama Dusun" required value="{{ $data_dasawisma->dusun }}">
+                                    {{-- <label>Dusun</label>
+                                    <input type="text" class="form-control @error('dusun') is-invalid @enderror" name="dusun" id="dusun" placeholder="Isi Nama Dusun" required value="{{ $data_dasawisma->dusun }}"> --}}
+                                    <label for="exampleFormControlSelect1">Dusun</label>
+                                    <select class="form-control" id="dusun" name="dusun">
+                                        <option value="0" selected>Tidak Memiliki Dusun</option>
+                                        @foreach ($dusun as $c)
+                                            <option {{ $data_dasawisma->dusun == $c->id ? 'selected' : '' }} value="{{ $c->id }}">{{ $c->name }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('dusun')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ old('dusun')}} {{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -137,26 +144,26 @@
                           <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Masukkan Nama Kader" required value="{{$kader->name}}">
                           @error('name')
                               <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
+                                  <strong> {{ old('name')}} {{ $message }}</strong>
                               </span>
                           @enderror
 
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Masukkan Email Pengguna" value="{{ old('email', $kader->email) }}" required>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Masukkan Email Pengguna" value="{{  $kader->email }}" required>
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong> {{ old('email')}} {{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="form-group">
                           <label>Password</label>
-                          <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Masukkan Password" required value="{{$kader->password}}">
+                          <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Masukkan Password Jika Ingin diubah">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
+                                    <strong>{{ old('password')}} {{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
@@ -224,7 +231,7 @@
 
 </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <script>
     $(document).ready(function() {
         $('#rw').on('change', function() {

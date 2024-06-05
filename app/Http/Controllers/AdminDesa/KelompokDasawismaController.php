@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Data_Desa;
 use App\Models\DataKecamatan;
 use App\Models\Rw;
+use App\Models\Dusun;
 use App\Models\Rt;
 use App\Models\DataKelompokDasawisma;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -38,7 +39,7 @@ class KelompokDasawismaController extends Controller
         $user = Auth::user();
         $desaId = $user->id_desa;
 
-        $query = DataKelompokDasawisma::where('id_desa', $desaId)->with(['rw', 'rt']);
+        $query = DataKelompokDasawisma::where('id_desa', $desaId)->with(['rw', 'rt', 'dusunData']);
 
         if ($request->has('periode')) {
             $periode = $request->input('periode');
@@ -63,7 +64,9 @@ class KelompokDasawismaController extends Controller
         $desa = Data_Desa::all();
         $kec = DataKecamatan::all();
         $rws = Rw::all();
-        return view('admin_desa.dasawisma.create', compact('desa', 'kec','rws'));
+        $dusun = Dusun::where('desa_id',Auth::user()->id_desa)->get();
+        // dd(Auth::user()->id_desa);
+        return view('admin_desa.dasawisma.create', compact('desa', 'kec','rws','dusun'));
     }
 
     /**
@@ -186,6 +189,7 @@ class KelompokDasawismaController extends Controller
         $dasawisma->id_kecamatan = auth()->user()->id_kecamatan;
         $dasawisma->periode = $request->periode;
         $dasawisma->save();
+        // dd($dasawisma);
 
         // Store Kader data
         $kader = new User;
@@ -196,6 +200,8 @@ class KelompokDasawismaController extends Controller
         $kader->id_desa = auth()->user()->id_desa;
         $kader->id_kecamatan = auth()->user()->id_kecamatan;
         $kader->id_dasawisma = $dasawisma->id; // Assign Dasawisma ID to Kader
+        $kader->save();
+        // dd($kader);
 
         if ($request->hasFile('foto')) {
             $image = $request->file('foto');
@@ -249,8 +255,10 @@ class KelompokDasawismaController extends Controller
         $kader = User::where('id_dasawisma', $data_dasawisma->id)->first();
         $rws = Rw::all();
         $rts = Rt::all();
+        $dusun = Dusun::where('desa_id',Auth::user()->id_desa)->get();
+
         // Kirim kedua data tersebut ke tampilan untuk diedit
-        return view('admin_desa.dasawisma.edit', compact('data_dasawisma', 'kader','rws','rts'));
+        return view('admin_desa.dasawisma.edit', compact('data_dasawisma', 'kader','rws','rts','dusun'));
     }
 
 
@@ -353,11 +361,12 @@ class KelompokDasawismaController extends Controller
         $kader->update([
             'name' => $request->name,
             'user_type' => $request->user_type,
-            'id_desa' => $request->id_desa,
-            'id_kecamatan' => $request->id_kecamatan,
+            'id_desa' => Auth::user()->id_desa,
+            'id_kecamatan' => Auth::user()->id_kecamatan,
         ]);
+        // dd($kader);
 
-        // Jika email diisi dan berbeda dengan email yang ada, lakukan pembaruan email Kader
+         // Jika email diisi dan berbeda dengan email yang ada, lakukan pembaruan email Kader
         if ($request->filled('email') && $request->email !== $kader->email) {
             $kader->update([
                 'email' => $request->email,

@@ -32,21 +32,21 @@ class LoginController extends Controller
     // protected $redirectTo = RouteServiceProvider::HOME;
     // protected $redirectTo = RouteServiceProvider::dashboard;
     public function authenticated(){
-        if (Auth::user()->user_type == 'superadmin') {
-            return redirect('/dashboard_super')->with('sukses', 'selamat datang');
+        if (Auth::user()->user_type == 'admin_kabupaten') {
+            Alert::success('Berhasil', 'Selamat Datang');
+            return redirect('/dashboard_kab')->with('sukses', 'selamat datang');
+
         }
         elseif (Auth::user()->user_type == 'admin_desa') {
+            Alert::success('Berhasil', 'Selamat Datang');
             return redirect('/dashboard')->with('sukses', 'selamat datang');
         }
         elseif ( Auth::user()->user_type == 'admin_kecamatan') {
+            Alert::success('Berhasil', 'Selamat datang');
             return redirect('/dashboard_kec')->with('sukses', 'selamat datang');
         }
-        // elseif ( Auth::guard('kader')->user->user_type == 'kader_desa') {
-        //     return redirect('/dashboard_kader')->with('status', 'selamat datang');
-        // }
         elseif ( Auth::user()->user_type == 'kader_dasawisma') {
             Alert::success('Berhasil', 'Selamat datang');
-
             return redirect('/dashboard_kader');
         }
         else {

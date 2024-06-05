@@ -27,5 +27,6 @@ class DasaWisma extends Model
     public function desa(){
         return $this->belongsTo(Data_Desa::class, 'id_desa');
     }
+   
 
 }

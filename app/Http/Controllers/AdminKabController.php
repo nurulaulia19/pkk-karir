@@ -17,6 +17,8 @@ use App\Models\DataPemanfaatanPekarangan;
 use App\Models\DataRekapDesa;
 use App\Models\DataRekapKecamatan;
 use App\Models\DataWarga;
+use App\Models\KategoriIndustriRumah;
+use App\Models\KategoriPemanfaatanLahan;
 use DateTime;
 use App\Models\Keluargahaswarga;
 use App\Models\Periode;
@@ -141,17 +143,15 @@ class AdminKabController extends Controller
         $agenda = DataAgenda::count();
         $galeri = DataGaleri::count();
         $periode = Periode::where('tahun',now()->year)->first();
+        $pengguna = User::count();
+        $pemanfaatan = KategoriPemanfaatanLahan::count();
+        $industri = KategoriIndustriRumah::count();
         $currentYear = now()->year;
-        // dd($periode);
         $newPeriode = false;
         if(!$periode){
             $newPeriode = true;
         }
-        // dd($newPeriode);
-        // $kecamatan = DataKecamatan::count();
-        // $user = User::count();
-        Alert::success('Berhasil', 'Selamat Datang');
-        return view('admin_kab.dashboard_kab', compact('currentYear', 'newPeriode', 'periode', 'berita', 'desa', 'kecamatan', 'user', 'agenda', 'galeri'));
+        return view('admin_kab.dashboard_kab', compact('currentYear', 'newPeriode', 'periode', 'berita', 'desa', 'kecamatan', 'user', 'agenda', 'galeri', 'pengguna', 'pemanfaatan', 'industri'));
     }
 
     // halaman login admin kabupaten
@@ -228,7 +228,7 @@ class AdminKabController extends Controller
             ->where('id_kecamatan', $id)
             ->get();
         if ($desaa->isEmpty()) {
-            dd('data rt masih belum ada jadi gada rekap');
+            abort(404, 'Data RT masih belum ada, jadi tidak ada rekap yang tersedia.');
         }
 
         // dd($desaa);
@@ -289,7 +289,8 @@ class AdminKabController extends Controller
                         foreach ($dasawisma->rumahtangga as $rumahtangga) {
                             if ($rumahtangga->periode == $periode) {
                                 if(!$rumahtangga->is_valid){
-                                    return redirect()->route('belum.vaidasi');
+                                    abort(404, 'Data belum divalidasi, jadi tidak ada rekap yang tersedia.');
+                                    // return redirect()->route('belum.vaidasi');
                                 }
                                 if($rumahtangga->pemanfaatanlahan){
                                     foreach ($rumahtangga->pemanfaatanlahan as $lahan){
@@ -423,8 +424,8 @@ class AdminKabController extends Controller
                 }
             }
         }
-        if($totalDasawisma <= 0){
-                dd('dasawisma masih belum ada jadi gada rekap');
+        if ($totalDasawisma <= 0) {
+            abort(404, 'Dasawisma masih belum ada, jadi tidak ada rekap yang tersedia.');
         }
         // dd($desaa);
 
@@ -444,7 +445,9 @@ class AdminKabController extends Controller
             ->where('id_kecamatan', $id)
             ->get();
         if ($desaa->isEmpty()) {
-            dd('data rt masih belum ada jadi gada rekap');
+            // dd('data rt masih belum ada jadi gada rekap');
+            abort(404, 'Data RT divalidasi, jadi tidak ada rekap yang tersedia.');
+
         }
         // dd($desa);
 
@@ -724,7 +727,8 @@ class AdminKabController extends Controller
                         foreach ($rumah as $keluarga) {
                             if($keluarga->pemanfaatanlahan){
                                 if(!$keluarga->is_valid){
-                                    return redirect()->route('belum.vaidasi');
+                                    // return redirect()->route('belum.vaidasi');
+                                    abort(404, 'Data belum divalidasi, jadi tidak ada rekap yang tersedia.');
                                 }
                                 foreach ($keluarga->pemanfaatanlahan as $lahan) {
                                         if ($lahan) {

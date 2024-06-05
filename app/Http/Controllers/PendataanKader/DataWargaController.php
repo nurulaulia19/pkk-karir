@@ -34,6 +34,7 @@ class DataWargaController extends Controller
 
         // dd($periode);
         $user = Auth::user();
+        // dd($user->dasawisma);
         // $warga=DataWarga::with('kepalaKeluarga')->where('id_dasawisma', $user->id_dasawisma)->get();
         if ($request->periode) {
             $periode = $request->periode;

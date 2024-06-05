@@ -33,19 +33,13 @@ class DesaController extends Controller
 {
     public function dashboard_kec(){
         $user = Auth::user();
-        // $desaAll = Data_Desa::where('id_kecamatan',$user->id_kecamatan)->get();
         $desaTotal = Data_Desa::where('id_kecamatan',$user->id_kecamatan)->count();
-
-        // dd($desaAll);
         $berita = BeritaKab::count();
         $desa = Data_Desa::count();
         $kecamatan = DataKecamatan::count();
         $user = User::count();
         $agenda = DataAgenda::count();
         $galeri = DataGaleri::count();
-        // $kecamatan = DataKecamatan::count();
-        // $user = User::count();
-        Alert::success('Berhasil', 'Selamat Datang');
         return view('admin_kec.dashboard_kec', compact('desaTotal','berita', 'desa', 'kecamatan', 'user', 'agenda', 'galeri'));
     }
 

@@ -27,6 +27,7 @@
                                         <th>No</th>
                                         <th>Kode Kecamatan</th>
                                         <th>Nama Kecamatan</th>
+                                        <th>Nama Kabupaten</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
@@ -38,7 +39,7 @@
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td style="vertical-align: middle;">{{$c->kode_kecamatan}}</td>
                                         <td style="vertical-align: middle;">{{$c->nama_kecamatan}}</td>
-
+                                        <td style="vertical-align: middle;">{{$c->kabupaten->name}}</td>
                                         <td class="text-center">
                                             <form action="{{ route('data_kecamatan.destroy',$c->id) }}" method="POST">
 

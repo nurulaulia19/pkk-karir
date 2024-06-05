@@ -43,7 +43,6 @@ class AdminController extends Controller
             ->count();
 
         $dasaWismas = DataKelompokDasawisma::count();
-        Alert::success('Berhasil', 'Selamat Datang');
         return view('admin_desa.dashboard', compact('kader', 'dasaWismas'));
     }
 

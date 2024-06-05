@@ -23,6 +23,7 @@
                                     <thead>
                                         <tr>
                                         <th>No</th>
+                                        <th>Kode Kabupaten</th>
                                         <th>Kabupaten</th>
                                         <th>Provinsi</th>
                                         <th>Aksi</th>
@@ -34,6 +35,7 @@
                                         @foreach ($kabupaten as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
+                                        <td style="vertical-align: middle;">{{$c->kode_kabupaten}}</td>
                                         <td style="vertical-align: middle;">{{$c->name}}</td>
                                         <td style="vertical-align: middle;">{{$c->provinsi->name}}</td>
                                         <td class="text-center">

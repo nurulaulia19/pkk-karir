@@ -35,40 +35,11 @@ class KaderFormController extends Controller
     // halaman dashboard
     public function dashboard_kader(){
         $user = Auth::user();
-        // $keluarga = DataKeluarga::
-        // where('id_user', $user->id)
-        // ->get()->count();
-        // $keluargaUpdate = DataKeluarga::
-        // where('id_user', $user->id)->where('dilihat',false)
-        // ->get()->count();
-
-        // $warga = DataWarga::
-        // where('id_user', $user->id)
-        // ->get()->count();
-
-        // $kegiatan = DataKegiatanWarga::
-        // where('id_user', $user->id)
-        // ->get()->count();
-
-        // $pemanfaatan = DataPemanfaatanPekarangan::
-        // where('id_user', $user->id)
-        // ->get()->count();
-
-        // $industri = DataIndustriRumah::
-        // where('id_user', $user->id)
-        // ->get()->count();
-
-        // $rekap = DataWarga::with('keluarga')
-        // ->where('id_user', $user->id)
-        // ->get()->count();
         $rekap = 0;
-        // dd($user);
         $warga = 0;
         $kegiatan = 0;
         $pemanfaatan = 0;
         $industri = 0;
-
-
         $warga = DataWarga::where('id_dasawisma', $user->id_dasawisma)
         ->where('periode', now()->year)
         ->where('is_valid', '!=', null)
@@ -96,23 +67,6 @@ class KaderFormController extends Controller
         ->where('is_valid', '=', null)
         ->count();
 
-        // $kegiatan = DataWarga::with(['kegiatan.kegiatan'])
-        // ->where('is_kegiatan', true)
-        // ->where('id_dasawisma', $user->id_dasawisma)
-        // ->where('periode', now()->year)
-        // ->get();
-        // // dd($kegiatan);
-        // $totalKegiatan = 0;
-        // $totalKegiatanBelumValid = 0;
-        // foreach($kegiatan as $kg){
-        //     foreach($kegiatan->kegiatan as $a){
-        //         if($a->is_valid){
-        //             $totalKegiatan++;
-        //         }else{
-        //             $totalKegiatanBelumValid++;
-        //         }
-        //     }
-        // }
         $kegiatan = DataWarga::with('kegiatan')
         ->where('is_kegiatan', true)
         ->where('id_dasawisma', $user->id_dasawisma)
@@ -175,8 +129,6 @@ class KaderFormController extends Controller
         ->where('is_valid', '=', null)
         ->where('periode', now()->year)
         ->count();
-
-
 
         return view('kader.dashboard', compact(
             'wargaBelumValid',
