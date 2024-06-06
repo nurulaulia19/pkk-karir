@@ -401,7 +401,7 @@ class DataPemanfaatanPekaranganController extends Controller
         // dd($dataKeluarga);
 
         if (!$hasKeluarga) {
-            abort(404, 'Not Found');
+            return redirect()->back()->with('error', 'Data tidak ditemukan');
         }
 
         $hasKeluarga->delete();

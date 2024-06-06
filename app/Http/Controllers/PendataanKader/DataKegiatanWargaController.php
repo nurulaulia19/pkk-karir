@@ -140,7 +140,7 @@ class DataKegiatanWargaController extends Controller
         ->where('is_kegiatan', true)
         ->first();
         if(!$warga){
-            abort(404,'not_found');
+            return redirect()->route('not-found')->with('error', 'Data warga tidak ditemukan');
         }
         // $keg = KategoriKegiatan::all();
         return view('kader.data_kegiatan_warga.edit', compact('dataKegiatan', 'keg', 'warga', 'desas', 'kec', 'kad', 'kel'));
@@ -223,7 +223,7 @@ class DataKegiatanWargaController extends Controller
 
         // Periksa apakah DataWarga ditemukan
         if (!$warga) {
-            return redirect()->back()->with('error', 'Data warga not found');
+            return redirect()->back()->with('error', 'Data warga tidak ditemukan');
         }
 
         // Loop melalui semua kegiatan yang terkait dengan DataWarga

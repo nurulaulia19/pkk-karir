@@ -228,7 +228,8 @@ class AdminKabController extends Controller
             ->where('id_kecamatan', $id)
             ->get();
         if ($desaa->isEmpty()) {
-            abort(404, 'Data RT masih belum ada, jadi tidak ada rekap yang tersedia.');
+            // abort(404, 'Data RT masih belum ada, jadi tidak ada rekap yang tersedia.');
+            return redirect()->route('not-found')->with('error', 'Data RT tidak tersedia');;
         }
 
         // dd($desaa);
@@ -289,8 +290,9 @@ class AdminKabController extends Controller
                         foreach ($dasawisma->rumahtangga as $rumahtangga) {
                             if ($rumahtangga->periode == $periode) {
                                 if(!$rumahtangga->is_valid){
-                                    abort(404, 'Data belum divalidasi, jadi tidak ada rekap yang tersedia.');
+                                    // abort(404, 'Data belum divalidasi, jadi tidak ada rekap yang tersedia.');
                                     // return redirect()->route('belum.vaidasi');
+                                    return redirect()->route('not-found')->with('error', 'Data belum divalidasi');;
                                 }
                                 if($rumahtangga->pemanfaatanlahan){
                                     foreach ($rumahtangga->pemanfaatanlahan as $lahan){
@@ -425,7 +427,8 @@ class AdminKabController extends Controller
             }
         }
         if ($totalDasawisma <= 0) {
-            abort(404, 'Dasawisma masih belum ada, jadi tidak ada rekap yang tersedia.');
+            // abort(404, 'Dasawisma masih belum ada, jadi tidak ada rekap yang tersedia.');
+            return redirect()->route('not-found')->with('error', 'Data dasawisma tidak tersedia');;
         }
         // dd($desaa);
 
@@ -446,7 +449,8 @@ class AdminKabController extends Controller
             ->get();
         if ($desaa->isEmpty()) {
             // dd('data rt masih belum ada jadi gada rekap');
-            abort(404, 'Data RT divalidasi, jadi tidak ada rekap yang tersedia.');
+            // abort(404, 'Data RT divalidasi, jadi tidak ada rekap yang tersedia.');
+            return redirect()->route('not-found')->with('error', 'Data RT tidak tersedia');;
 
         }
         // dd($desa);
@@ -728,7 +732,8 @@ class AdminKabController extends Controller
                             if($keluarga->pemanfaatanlahan){
                                 if(!$keluarga->is_valid){
                                     // return redirect()->route('belum.vaidasi');
-                                    abort(404, 'Data belum divalidasi, jadi tidak ada rekap yang tersedia.');
+                                    // abort(404, 'Data belum divalidasi, jadi tidak ada rekap yang tersedia.');
+                                    return redirect()->route('not-found')->with('error', 'Data belum divalidasi');;
                                 }
                                 foreach ($keluarga->pemanfaatanlahan as $lahan) {
                                         if ($lahan) {

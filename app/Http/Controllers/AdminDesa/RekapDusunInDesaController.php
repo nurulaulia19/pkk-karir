@@ -83,7 +83,7 @@ class RekapDusunInDesaController extends Controller
                 foreach ($rumah as $keluarga) {
                     if($keluarga){
                         if(!$keluarga->is_valid){
-                            return redirect()->route('belum.vaidasi');
+                            return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
                         }
                         $totalRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {
@@ -525,7 +525,7 @@ class RekapDusunInDesaController extends Controller
                     if ($rumahtangga->periode == $periode) {
 
                         if(!$rumahtangga->is_valid){
-                            return redirect()->route('belum.vaidasi');
+                            return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
                         }
                         $totalRumahTangga++;
                         // dd($totalRumahTangga++);

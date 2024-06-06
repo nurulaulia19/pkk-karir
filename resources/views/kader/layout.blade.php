@@ -163,8 +163,8 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item has-treeview {{ Request::is('data_warga*','data_keluarga*','data_rumah_tangga*','data_kegiatan*','data_pemanfaatan*','data_industri*') ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link {{ Request::is('data_warga*','data_keluarga*','data_rumah_tangga*','data_kegiatan*','data_pemanfaatan*','data_industri*') ? 'active' : '' }}">
+              <li class="nav-item has-treeview {{ Request::is('data_warga*','data_keluarga','data_rumah_tangga*','data_kegiatan*','data_pemanfaatan*','data_industri*') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ Request::is('data_warga*','data_keluarga','data_rumah_tangga*','data_kegiatan*','data_pemanfaatan*','data_industri*') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-edit"></i>
                     <p>
                         Pendataan Keluarga <br> dan Kegiatan Warga
@@ -179,7 +179,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/data_keluarga" class="nav-link {{ Request::is('data_keluarga*') ? 'active':'' }}">
+                        <a href="/data_keluarga" class="nav-link {{ Request::is('data_keluarga') ? 'active':'' }}">
                           <i class="far fa-circle nav-icon"></i>
                           <p>Data Keluarga</p>
                         </a>

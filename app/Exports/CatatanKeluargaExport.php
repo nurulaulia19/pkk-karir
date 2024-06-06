@@ -48,16 +48,26 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             ];
 
             // Tambahkan kegiatan untuk setiap anggota keluarga
+            // foreach ($this->dataKegiatan as $kegiatan) {
+            //     $ada = false;
+            //     foreach ($data_warga->warga->kegiatan as $wargaKegiatan) {
+            //         if ($wargaKegiatan->data_kegiatan_id == $kegiatan->id) {
+            //             $ada = true;
+            //             break;
+            //         }
+            //     }
+            //     $memberInfo[$kegiatan->name] = $ada ? ' ✓' : '0';
+
+            // }
             foreach ($this->dataKegiatan as $kegiatan) {
                 $ada = false;
                 foreach ($data_warga->warga->kegiatan as $wargaKegiatan) {
-                    if ($wargaKegiatan->data_kegiatan_id == $kegiatan->id) {
+                    if ($wargaKegiatan->data_kegiatan_id == $kegiatan->id && $wargaKegiatan->is_valid) {
                         $ada = true;
                         break;
                     }
                 }
                 $memberInfo[$kegiatan->name] = $ada ? ' ✓' : '0';
-
             }
 
             // Tambahkan informasi anggota keluarga ke koleksi data
@@ -80,7 +90,7 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
         $air = trim($pdam . ' ' . $sumur . ' ' . $lainnya);
 
         $headings = [
-            'CATATAN KELUARGA DARI: ' . $this->keluarga->nama_kepala_keluarga,
+            'CATATAN KELUARGA DARI: ' . ucwords(strtoupper($this->keluarga->nama_kepala_keluarga)),
             '',
             '',
             '',
@@ -100,7 +110,7 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             'KRITERIA RUMAH: ' . ($rumahTangga->kriteria_rumah_sehat ? 'LAYAK HUNI' : 'TIDAK LAYAK HUNI'),
         ];
         $headings2 = [
-            'ANGGOTA KELOMPOK DASAWISMA: ' . $this->dasawisma->nama_dasawisma,
+            'ANGGOTA KELOMPOK DASAWISMA: ' . ucwords(strtoupper($this->dasawisma->nama_dasawisma)),
             '',
             '',
             '',
@@ -202,7 +212,7 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
         $allHeadings = array_merge($memberHeadings, $endHeadings);
 
         return [
-            ['CATATAN KELUARGA ' . strtoupper($this->keluarga->nama_kepala_keluarga)],
+            ['CATATAN KELUARGA'],
             $headings,
             $headings2,
             $headings3,

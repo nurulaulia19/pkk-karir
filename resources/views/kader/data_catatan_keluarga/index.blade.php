@@ -145,26 +145,6 @@
                                                         {{ $data_warga->warga->berkebutuhan_khusus }}
                                                     </td>
                                                     {{-- @foreach ($dataKegiatan as $item)
-
-                                                        @php
-                                                            $ada = false;
-                                                        @endphp
-                                                        @foreach ($data_warga->warga->kegiatan as $kegiatan)
-                                                            @if ($item->id == $kegiatan->data_kegiatan_id )
-                                                                @php
-                                                                $ada = true;
-                                                            @endphp
-                                                            @endif
-
-                                                        @endforeach
-                                                        <td style="vertical-align: middle; width:130px;">
-                                                            {{ $ada ? '1' : '' }}
-                                                        </td>
-                                                        @php
-                                                            $ada = false;
-                                                        @endphp
-                                                    @endforeach --}}
-                                                    @foreach ($dataKegiatan as $item)
                                                         @php
                                                             $ada = false;
                                                         @endphp
@@ -182,7 +162,26 @@
                                                                 0
                                                             @endif
                                                         </td>
+                                                    @endforeach --}}
+                                                    @foreach ($dataKegiatan as $item)
+                                                    @php
+                                                        $ada = false;
+                                                    @endphp
+                                                    @foreach ($data_warga->warga->kegiatan as $kegiatan)
+                                                        @if ($item->id == $kegiatan->data_kegiatan_id && $kegiatan->is_valid)
+                                                            @php
+                                                                $ada = true;
+                                                            @endphp
+                                                        @endif
                                                     @endforeach
+                                                    <td style="vertical-align: middle; width: 130px;">
+                                                        @if ($ada)
+                                                            ✓
+                                                        @else
+                                                            0
+                                                        @endif
+                                                    </td>
+                                                @endforeach
                                                 </tr>
                                             @endforeach
 

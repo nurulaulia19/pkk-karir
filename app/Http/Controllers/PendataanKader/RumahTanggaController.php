@@ -334,7 +334,7 @@ class RumahTanggaController extends Controller
         // dd($dataKeluarga);
 
         if (!$hasKeluarga) {
-            abort(404, 'Not Found');
+            return redirect()->back()->with('error', 'Data tidak ditemukan');
         }
 
         $dataKeluarga->is_rumah_tangga = false;

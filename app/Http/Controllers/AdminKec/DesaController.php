@@ -342,7 +342,7 @@ class DesaController extends Controller
                       $totalRumahTangga++;
                       if ($keluarga->pemanfaatanlahan) {
                           if(!$keluarga->is_valid){
-                              return redirect()->route('belum.vaidasi');
+                              return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
                           }
                           foreach ($keluarga->pemanfaatanlahan as $lahan) {
                               if ($lahan) {

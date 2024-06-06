@@ -166,7 +166,7 @@ class AdminController extends Controller
         $today = Carbon::now();
         foreach ($rumahtangga as $tangga){
             if(!$tangga->is_valid ){
-                return redirect()->route('belum.vaidasi');
+                return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
             }
 
             foreach($tangga->pemanfaatanlahan as $pemanfaatan){
@@ -705,7 +705,7 @@ class AdminController extends Controller
             foreach ($index->rumahtangga as $rumahtangga) {
                 if($rumahtangga->periode == $periode){
                     if(!$rumahtangga->is_valid){
-                        return redirect()->route('belum.validasi');
+                        return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
                     }
                     foreach($rumahtangga->pemanfaatanlahan as $lahan){
                         $totalKegiatanPemanfaatanPekarangan++;
@@ -1045,7 +1045,8 @@ class AdminController extends Controller
             ->get();
         // dd($dasa_wisma);
         if ($dasa_wisma->isEmpty()) {
-            dd('data rt masih belum ada jadi gada rekap');
+            // dd('data rt masih belum ada jadi gada rekap');
+            return redirect()->route('not-found')->with('error', 'Data RT tidak tersedia');
         }
 
         // $rumahtangga = RumahTangga::with(['anggotaRT.keluarga.anggota.warga.pemanfaatan','anggotaRT.keluarga.anggota.warga.industri'])
@@ -1095,7 +1096,7 @@ class AdminController extends Controller
 
                 if($rumahtangga->periode == $periode){
                     if(!$rumahtangga->is_valid){
-                        return redirect()->route('belum.vaidasi');
+                        return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
                     }
                     if ($rumahtangga->sumber_air_pdam) {
                         $totalAirPDAM++;
@@ -1264,7 +1265,8 @@ class AdminController extends Controller
             ->get();
 
         if ($dasa_wisma->isEmpty()) {
-            dd('data rt masih belum ada jadi gada rekap');
+            // dd('data rt masih belum ada jadi gada rekap');
+            return redirect()->route('not-found')->with('error', 'Data RT tidak tersedia');
         }
 
         $totalKepalaRumahTangga = 0;
@@ -1498,7 +1500,8 @@ class AdminController extends Controller
 
         // dd($dasa_wisma);
         if ($dasa_wisma->isEmpty()) {
-            dd('data rt masih belum ada jadi gada rekap');
+            // dd('data rt masih belum ada jadi gada rekap');
+            return redirect()->route('not-found')->with('error', 'Data RT tidak tersedia');
         }
 
         // Hitung Total

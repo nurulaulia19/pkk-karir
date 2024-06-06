@@ -116,9 +116,9 @@ Route::get('/pokja4', [PokjaController::class, 'pokja4']);
 Route::get('/sekretariat', [PokjaController::class, 'sekretariat']);
 // Route::get('/data_umum', [PokjaController::class, 'data_umum']);
 
-Route::get('/belum-di-validasi', function () {
-    return view('error.belum-divalidasi');
-})->name('belum.vaidasi');
+Route::get('/data_not_found', function () {
+    return view('error.not-found');
+})->name('not-found');
 
 // halaman admin desa
 Route::post('/admin_desa/logout', [AdminController::class, 'logoutPost'])->name('admin_desa.logout');
@@ -340,3 +340,5 @@ Route::middleware(['disableBack'])->group(function () {
 Route::get('/get-rt-by-rw', [RtController::class, 'getRTByRW'])->name('get.rt.by.rw');
 Route::get('/rw/{id}', [RwController::class, 'show'])->name('rw.show');
 Route::get('/keluarga_has_warga', [KeluargaHasWargaController::class, 'getDataKeluargaHasWarga']);
+
+
