@@ -41,7 +41,7 @@
                                         <th>Dusun</th>
                                         <th>Status</th>
                                         <th>Nama Desa</th>
-                                        <th>Nama Kecamatan</th>
+                                        {{-- <th>Nama Kecamatan</th> --}}
                                         <th>Periode</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -60,20 +60,20 @@
                                         <td style="vertical-align: middle;">
                                             {{-- {{$c->dusun->name}} --}}
                                             @if($c->dusun == 0)
-                                                <td style="vertical-align: middle;">Tidak ada dusun</td>
+                                                Tidak ada dusun
                                             @else
-                                                <td style="vertical-align: middle;">
                                                 {{$c->dusunData->name}}
-                                                </td>
                                             @endif
                                         </td>
-                                        @if($c->status == 1)
-                                            <td style="vertical-align: middle;">Aktif</td>
-                                        @else
-                                            <td style="vertical-align: middle;">Tidak Aktif</td>
-                                        @endif
+                                        <td style="vertical-align: middle;">
+                                            @if($c->status == 1)
+                                                Aktif
+                                            @else
+                                                Tidak Aktif
+                                            @endif
+                                        </td>
                                         <td style="vertical-align: middle;">{{$c->desa->nama_desa}}</td>
-                                        <td style="vertical-align: middle;">{{$c->kecamatan->nama_kecamatan}}</td>
+                                        {{-- <td style="vertical-align: middle;">{{$c->kecamatan->nama_kecamatan}}</td> --}}
                                         <td style="vertical-align: middle;">{{$c->periode}}</td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center">

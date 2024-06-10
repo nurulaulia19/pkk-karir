@@ -95,7 +95,7 @@
                                                 <th>Beras</th>
                                                 <th>Non Beras</th>
                                                 <th>UP2K</th>
-                                                <th>Pemanfaatan dan Pekarangan</th>
+                                                <th>Pemanfaatan Pekarangan</th>
                                                 <th>Industri Rumah Tangga</th>
                                                 <th>Kesehatan Lingkungan</th>
                                             </tr>

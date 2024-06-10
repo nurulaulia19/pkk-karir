@@ -284,6 +284,8 @@ class DataKeluargaController extends Controller
             // tambahkan atribut lainnya sesuai kebutuhan
         ]);
 
+    
+
         // Memperbarui status is_keluarga untuk anggota keluarga yang terkait
         foreach ($request->warga as $key => $wargaId) {
             if ($key == 0) {

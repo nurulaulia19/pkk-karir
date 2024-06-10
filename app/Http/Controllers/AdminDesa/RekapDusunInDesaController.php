@@ -88,7 +88,10 @@ class RekapDusunInDesaController extends Controller
                         $totalRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {
                         foreach ($keluarga->pemanfaatanlahan as $lahan) {
-                            if ($lahan) {
+                            // if ($lahan) {
+                            //     $totalPemanfaatanPekarangan++;
+                            // }
+                            if ($lahan && $lahan->is_valid != null) {
                                 $totalPemanfaatanPekarangan++;
                             }
                         }
@@ -124,7 +127,10 @@ class RekapDusunInDesaController extends Controller
 
                     foreach ($keluarga->anggotaRT as $anggotaRumah) {
                         // $countKK++;
-                        if ($anggotaRumah->keluarga->industri_id != 0) {
+                        // if ($anggotaRumah->keluarga->industri_id != 0) {
+                        //     $totalIndustri++;
+                        // }
+                        if ($anggotaRumah->keluarga->industri_id != 0 && $anggotaRumah->keluarga->is_valid_industri != null) {
                             $totalIndustri++;
                         }
                         foreach ($anggotaRumah->keluarga->anggota as $anggota) {
@@ -308,7 +314,10 @@ class RekapDusunInDesaController extends Controller
                     $countRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {
                         foreach ($keluarga->pemanfaatanlahan as $lahan) {
-                            if ($lahan) {
+                            // if ($lahan) {
+                            //     $data_pemanfaatan_pekarangan++;
+                            // }
+                            if ($lahan && $lahan->is_valid != null) {
                                 $data_pemanfaatan_pekarangan++;
                             }
                         }
@@ -344,7 +353,10 @@ class RekapDusunInDesaController extends Controller
 
                     foreach ($keluarga->anggotaRT as $anggotaRumah) {
                         // $countKK++;
-                        if ($anggotaRumah->keluarga->industri_id != 0) {
+                        // if ($anggotaRumah->keluarga->industri_id != 0) {
+                        //     $industri_rumah_tangga++;
+                        // }
+                        if ($anggotaRumah->keluarga->industri_id != 0 && $anggotaRumah->keluarga->is_valid_industri != null) {
                             $industri_rumah_tangga++;
                         }
                         foreach ($anggotaRumah->keluarga->anggota as $anggota) {
@@ -531,8 +543,13 @@ class RekapDusunInDesaController extends Controller
                         // dd($totalRumahTangga++);
 
                         if ($rumahtangga->pemanfaatanlahan) {
+                            // foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
+                            //     $totalKegiatanPemanfaatanPekarangan++;
+                            // }
                             foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
-                                $totalKegiatanPemanfaatanPekarangan++;
+                                if ($pemanfaatan->is_valid != null) {
+                                    $totalKegiatanPemanfaatanPekarangan++;
+                                }
                             }
                         }
 
@@ -572,7 +589,10 @@ class RekapDusunInDesaController extends Controller
                             if ($keluarga->keluarga && $keluarga->keluarga->nama_kepala_keluarga) {
                                 $totalJmlKK++;
                             }
-                            if ($keluarga->keluarga->industri_id != 0) {
+                            // if ($keluarga->keluarga->industri_id != 0) {
+                            //     $totalKegiatanIndustri++;
+                            // }
+                            if ($keluarga->keluarga->industri_id != 0 && $keluarga->keluarga->is_valid_industri != null) {
                                 $totalKegiatanIndustri++;
                             }
                             // Iterasi melalui setiap anggota keluarga
@@ -692,7 +712,6 @@ class RekapDusunInDesaController extends Controller
 
     }
 
-
     public function rtrwdusun($id,$periode)
     {
         $rwInRtDusun = [];
@@ -761,11 +780,15 @@ class RekapDusunInDesaController extends Controller
                                     $totalRumahTangga++;
                                     // dd($totalRumahTangga);
                                     if ($rumahtangga->pemanfaatanlahan) {
+                                        // foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
+                                        //     $totalKegiatanPemanfaatanPekarangan++;
+                                        // }
                                         foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
-                                            $totalKegiatanPemanfaatanPekarangan++;
+                                            if ($pemanfaatan->is_valid != null) {
+                                                $totalKegiatanPemanfaatanPekarangan++;
+                                            }
                                         }
                                     }
-
                                     // Hitung jumlah KRT (Kepala Rumah Tangga)
                                     if ($rumahtangga->sumber_air_pdam) {
                                         $totalAirPDAM++;
@@ -802,7 +825,10 @@ class RekapDusunInDesaController extends Controller
                                         if ($keluarga->keluarga && $keluarga->keluarga->nama_kepala_keluarga) {
                                             $totalJmlKK++;
                                         }
-                                        if ($keluarga->keluarga->industri_id != 0) {
+                                        // if ($keluarga->keluarga->industri_id != 0) {
+                                        //     $totalKegiatanIndustri++;
+                                        // }
+                                        if ($keluarga->keluarga->industri_id != 0 && $keluarga->keluarga->is_valid_industri != null) {
                                             $totalKegiatanIndustri++;
                                         }
                                         // Iterasi melalui setiap anggota keluarga
@@ -964,8 +990,13 @@ class RekapDusunInDesaController extends Controller
                                             $totalRumahTangga++;
                                             // dd($totalRumahTangga);
                                             if ($rumahtangga->pemanfaatanlahan) {
+                                                // foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
+                                                //     $totalKegiatanPemanfaatanPekarangan++;
+                                                // }
                                                 foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
-                                                    $totalKegiatanPemanfaatanPekarangan++;
+                                                    if ($pemanfaatan->is_valid != null) {
+                                                        $totalKegiatanPemanfaatanPekarangan++;
+                                                    }
                                                 }
                                             }
 
@@ -1005,7 +1036,10 @@ class RekapDusunInDesaController extends Controller
                                                 if ($keluarga->keluarga && $keluarga->keluarga->nama_kepala_keluarga) {
                                                     $totalJmlKK++;
                                                 }
-                                                if ($keluarga->keluarga->industri_id != 0) {
+                                                // if ($keluarga->keluarga->industri_id != 0) {
+                                                //     $totalKegiatanIndustri++;
+                                                // }
+                                                if ($keluarga->keluarga->industri_id != 0 && $keluarga->keluarga->is_valid_industri != null) {
                                                     $totalKegiatanIndustri++;
                                                 }
                                                 // Iterasi melalui setiap anggota keluarga
@@ -1159,8 +1193,13 @@ class RekapDusunInDesaController extends Controller
                                         $totalRumahTangga++;
                                         // dd($totalRumahTangga);
                                         if ($rumahtangga->pemanfaatanlahan) {
+                                            // foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
+                                            //     $totalKegiatanPemanfaatanPekarangan++;
+                                            // }
                                             foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
-                                                $totalKegiatanPemanfaatanPekarangan++;
+                                                if ($pemanfaatan->is_valid != null) {
+                                                    $totalKegiatanPemanfaatanPekarangan++;
+                                                }
                                             }
                                         }
 
@@ -1200,7 +1239,10 @@ class RekapDusunInDesaController extends Controller
                                             if ($keluarga->keluarga && $keluarga->keluarga->nama_kepala_keluarga) {
                                                 $totalJmlKK++;
                                             }
-                                            if ($keluarga->keluarga->industri_id != 0) {
+                                            // if ($keluarga->keluarga->industri_id != 0) {
+                                            //     $totalKegiatanIndustri++;
+                                            // }
+                                            if ($keluarga->keluarga->industri_id != 0 && $keluarga->keluarga->is_valid != null) {
                                                 $totalKegiatanIndustri++;
                                             }
                                             // Iterasi melalui setiap anggota keluarga
@@ -1357,22 +1399,11 @@ class RekapDusunInDesaController extends Controller
         $countRt = 0;
         $today = Carbon::now();
 
-        // $rws = Rw::where('desa_id', $id)->get();
-        // $idw = $rws->first()->id;
-        // dd($idw);
-        // $dasawisma = DasaWisma::where('id_rw', $id)->get();
-        // $firstRw = $rws->first();
-        // $rw = Rw::where('dusun_id', '!=', 0)->get();
-        // dd($rw);
-        // data dusun?
-        // data rw yg punya dusun?
-
         $rw = Rw::find($id);
         $dataRt = Rt::with('dasawisma')
             ->where('rw_id', $rw->id)
             ->get();
-        // dd($dataRt);
-        // dd($dasawisma);
+
         foreach ($dataRt as $drt) {
             $countRt++;
             foreach ($drt->dasawisma as $item) {
@@ -1385,7 +1416,10 @@ class RekapDusunInDesaController extends Controller
                     $countRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {
                         foreach ($keluarga->pemanfaatanlahan as $lahan) {
-                            if ($lahan) {
+                            // if ($lahan) {
+                            //     $data_pemanfaatan_pekarangan++;
+                            // }
+                            if ($lahan && $lahan->is_valid != null) {
                                 $data_pemanfaatan_pekarangan++;
                             }
                         }
@@ -1421,20 +1455,13 @@ class RekapDusunInDesaController extends Controller
 
                     foreach ($keluarga->anggotaRT as $anggotaRumah) {
                         // $countKK++;
-                        if ($anggotaRumah->keluarga->industri_id != 0) {
+                        // if ($anggotaRumah->keluarga->industri_id != 0) {
+                        //     $industri_rumah_tangga++;
+                        // }
+                        if ($anggotaRumah->keluarga->industri_id != 0 && $anggotaRumah->keluarga->is_valid_industri != null) {
                             $industri_rumah_tangga++;
                         }
                         foreach ($anggotaRumah->keluarga->anggota as $anggota) {
-                            // foreach ($anggota->warga->industri as $industri) {
-                            //     if ($industri) {
-                            //         $industri_rumah_tangga++;
-                            //     }
-                            // }
-                            // foreach ($anggota->warga->pemanfaatan as $pemanfaatan) {
-                            //     if ($pemanfaatan) {
-                            //         $data_pemanfaatan_pekarangan++;
-                            //     }
-                            // }
                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
                             $umurz = $tgl_lahir->diffInYears($today);
 
@@ -1591,8 +1618,13 @@ class RekapDusunInDesaController extends Controller
                     if ($rumahtangga->periode == $periode) {
                         $totalRumahTangga++;
                         if ($rumahtangga->pemanfaatanlahan) {
+                            // foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
+                            //     $totalKegiatanPemanfaatanPekarangan++;
+                            // }
                             foreach ($rumahtangga->pemanfaatanlahan as $pemanfaatan) {
-                                $totalKegiatanPemanfaatanPekarangan++;
+                                if ($pemanfaatan->is_valid != null) {
+                                    $totalKegiatanPemanfaatanPekarangan++;
+                                }
                             }
                         }
 
@@ -1632,7 +1664,10 @@ class RekapDusunInDesaController extends Controller
                             if ($keluarga->keluarga && $keluarga->keluarga->nama_kepala_keluarga) {
                                 $totalJmlKK++;
                             }
-                            if ($keluarga->keluarga->industri_id != 0) {
+                            // if ($keluarga->keluarga->industri_id != 0) {
+                            //     $totalKegiatanIndustri++;
+                            // }
+                            if ($keluarga->keluarga->industri_id != 0 && $keluarga->keluarga->is_valid_industri != null) {
                                 $totalKegiatanIndustri++;
                             }
                             // Iterasi melalui setiap anggota keluarga

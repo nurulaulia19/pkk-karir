@@ -85,7 +85,10 @@ class DusunController extends Controller
                     $countRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {
                         foreach ($keluarga->pemanfaatanlahan as $lahan) {
-                            if ($lahan) {
+                            // if ($lahan) {
+                            //     $data_pemanfaatan_pekarangan++;
+                            // }
+                            if ($lahan && $lahan->is_valid != null) {
                                 $data_pemanfaatan_pekarangan++;
                             }
                         }
@@ -121,7 +124,10 @@ class DusunController extends Controller
 
                     foreach ($keluarga->anggotaRT as $anggotaRumah) {
                         // $countKK++;
-                        if ($anggotaRumah->keluarga->industri_id != 0) {
+                        // if ($anggotaRumah->keluarga->industri_id != 0) {
+                        //     $industri_rumah_tangga++;
+                        // }
+                        if ($anggotaRumah->keluarga->industri_id != 0 && $anggotaRumah->keluarga->is_valid_industri != null) {
                             $industri_rumah_tangga++;
                         }
                         foreach ($anggotaRumah->keluarga->anggota as $anggota) {

@@ -296,7 +296,10 @@ class AdminKabController extends Controller
                                 }
                                 if($rumahtangga->pemanfaatanlahan){
                                     foreach ($rumahtangga->pemanfaatanlahan as $lahan){
-                                        if($lahan){
+                                        // if($lahan){
+                                        //     $totalKegiatanPemanfaatanPekarangan++;
+                                        // }
+                                        if ($lahan && $lahan->is_valid != null) {
                                             $totalKegiatanPemanfaatanPekarangan++;
                                         }
                                     }
@@ -336,9 +339,12 @@ class AdminKabController extends Controller
                                 foreach ($rumahtangga->anggotaRT as $keluarga) {
                                     // $totalJmlKK++;
 
-                                     if ($keluarga->keluarga->industri_id != 0) {
-                                            $totalKegiatanIndustri++;
-                                        }
+                                    //  if ($keluarga->keluarga->industri_id != 0) {
+                                    //         $totalKegiatanIndustri++;
+                                    //     }
+                                    if ($keluarga->keluarga->industri_id != 0 && $keluarga->keluarga->is_valid_industri != null) {
+                                        $totalKegiatanIndustri++;
+                                    }
                                     // Iterasi melalui setiap anggota keluarga
                                     foreach ($keluarga->keluarga->anggota as $anggota) {
                                         // Hitung jumlah kegiatan industri dari setiap anggota
@@ -512,7 +518,10 @@ class AdminKabController extends Controller
                             if ($rumahtangga->periode == $periode) {
                                 if($rumahtangga->pemanfaatanlahan){
                                     foreach ($rumahtangga->pemanfaatanlahan as $lahan){
-                                        if($lahan){
+                                        // if($lahan){
+                                        //     $totalKegiatanPemanfaatanPekarangan++;
+                                        // }
+                                        if ($lahan && $lahan->is_valid != null) {
                                             $totalKegiatanPemanfaatanPekarangan++;
                                         }
                                     }
@@ -553,9 +562,12 @@ class AdminKabController extends Controller
                                     // if ($keluarga->keluarga) {
                                     //     $totalJmlKK++;
                                     // }
-                                     if ($keluarga->keluarga->industri_id != 0) {
-                                            $totalKegiatanIndustri++;
-                                        }
+                                    //  if ($keluarga->keluarga->industri_id != 0) {
+                                    //         $totalKegiatanIndustri++;
+                                    //     }
+                                    if ($keluarga->keluarga->industri_id != 0 && $keluarga->keluarga->is_valid_industri != null) {
+                                        $totalKegiatanIndustri++;
+                                    }
                                     // Iterasi melalui setiap anggota keluarga
                                     foreach ($keluarga->keluarga->anggota as $anggota) {
                                         // Hitung jumlah kegiatan industri dari setiap anggota
@@ -736,7 +748,10 @@ class AdminKabController extends Controller
                                     return redirect()->route('not-found')->with('error', 'Data belum divalidasi');;
                                 }
                                 foreach ($keluarga->pemanfaatanlahan as $lahan) {
-                                        if ($lahan) {
+                                        // if ($lahan) {
+                                        //     $totalPemanfaatanPekarangan++;
+                                        // }
+                                        if ($lahan && $lahan->is_valid != null) {
                                             $totalPemanfaatanPekarangan++;
                                         }
                                     }
@@ -772,9 +787,12 @@ class AdminKabController extends Controller
                             }
 
                             foreach ($keluarga->anggotaRT as $anggotaRumah) {
-                                      if ($anggotaRumah->keluarga->industri_id != 0) {
-                                            $totalIndustri++;
-                                        }
+                                    //   if ($anggotaRumah->keluarga->industri_id != 0) {
+                                    //         $totalIndustri++;
+                                    //     }
+                                    if ($anggotaRumah->keluarga->industri_id != 0 && $anggotaRumah->keluarga->is_valid_industri != null) {
+                                        $totalIndustri++;
+                                    }
                                 // $countKK++;
                                 foreach ($anggotaRumah->keluarga->anggota as $anggota) {
                                     // foreach ($anggota->warga->industri as $industri) {
@@ -974,7 +992,10 @@ class AdminKabController extends Controller
                         foreach ($rumah as $keluarga) {
                             if($keluarga->pemanfaatanlahan){
                                 foreach ($keluarga->pemanfaatanlahan as $pemanfaatan){
-                                    if($pemanfaatan){
+                                    // if($pemanfaatan){
+                                    //     $totalPemanfaatanPekarangan++;
+                                    // }
+                                    if ($pemanfaatan && $pemanfaatan->is_valid != null) {
                                         $totalPemanfaatanPekarangan++;
                                     }
                                 }
@@ -1010,7 +1031,10 @@ class AdminKabController extends Controller
                             }
 
                             foreach ($keluarga->anggotaRT as $anggotaRumah) {
-                                if($anggotaRumah->keluarga->industri_id != 0){
+                                // if($anggotaRumah->keluarga->industri_id != 0){
+                                //     $totalIndustri++;
+                                // }
+                                if ($anggotaRumah->keluarga->industri_id != 0 && $anggotaRumah->keluarga->is_valid_industri != null) {
                                     $totalIndustri++;
                                 }
                                 // $countKK++;
@@ -1261,9 +1285,12 @@ class AdminKabController extends Controller
              foreach ($rumah as $keluarga) {
                            if ($keluarga->pemanfaatanlahan) {
                                  foreach ($keluarga->pemanfaatanlahan as $lahan){
-                                     if ($lahan) {
-                                         $data_pemanfaatan_pekarangan++;
-                                     }
+                                    //  if ($lahan) {
+                                    //      $data_pemanfaatan_pekarangan++;
+                                    //  }
+                                    if ($lahan && $lahan->is_valid != null) {
+                                        $data_pemanfaatan_pekarangan++;
+                                    }
                                  }
                              }
                  $countRumahTangga++;
@@ -1297,9 +1324,12 @@ class AdminKabController extends Controller
                  }
 
                  foreach ($keluarga->anggotaRT as $anggotaRumah) {
-                         if ($anggotaRumah->keluarga->industri_id != 0) {
-                                 $industri_rumah_tangga++;
-                             }
+                        //  if ($anggotaRumah->keluarga->industri_id != 0) {
+                        //          $industri_rumah_tangga++;
+                        //      }
+                        if ($anggotaRumah->keluarga->industri_id != 0 && $anggotaRumah->keluarga->is_valid_industri != null) {
+                            $industri_rumah_tangga++;
+                        }
                      // $countKK++;
                      foreach ($anggotaRumah->keluarga->anggota as $anggota) {
                          // foreach ($anggota->warga->industri as $industri) {
@@ -1489,7 +1519,10 @@ class AdminKabController extends Controller
                     foreach ($rumah as $keluarga) {
                         if($keluarga->pemanfaatanlahan){
                             foreach ($keluarga->pemanfaatanlahan as $lahan) {
-                                    if ($lahan) {
+                                    // if ($lahan) {
+                                    //     $data_pemanfaatan_pekarangan++;
+                                    // }
+                                    if ($lahan && $lahan->is_valid != null) {
                                         $data_pemanfaatan_pekarangan++;
                                     }
                                 }
@@ -1525,7 +1558,10 @@ class AdminKabController extends Controller
                         }
 
                         foreach ($keluarga->anggotaRT as $anggotaRumah) {
-                            if($anggotaRumah->keluarga->industri_id != 0){
+                            // if($anggotaRumah->keluarga->industri_id != 0){
+                            //     $industri_rumah_tangga++;
+                            // }
+                            if ($anggotaRumah->keluarga->industri_id != 0 && $anggotaRumah->keluarga->is_valid_industri != null) {
                                 $industri_rumah_tangga++;
                             }
                             // $countKK++;

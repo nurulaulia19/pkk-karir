@@ -235,7 +235,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
             'BERAS',
             'NON BERAS',
             'UP2K',
-            'PEMANFAATAN DAN PEKARANGAN',
+            'PEMANFAATAN PEKARANGAN',
             'INDUSTRI RUMAH TANGGA',
             'KESEHATAN LINGKUNGAN',
         ];

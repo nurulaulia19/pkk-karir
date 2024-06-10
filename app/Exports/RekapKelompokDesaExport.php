@@ -255,7 +255,7 @@ public function __construct(array $data)
             'BERAS',
             'NON BERAS',
             'UP2K',
-            'PEMANFAATAN DAN PEKARANGAN',
+            'PEMANFAATAN PEKARANGAN',
             'INDUSTRI RUMAH TANGGA',
             'KESEHATAN LINGKUNGAN',
         ];

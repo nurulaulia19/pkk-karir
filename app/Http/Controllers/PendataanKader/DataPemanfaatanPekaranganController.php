@@ -316,6 +316,7 @@ class DataPemanfaatanPekaranganController extends Controller
     //     Alert::success('Berhasil', 'Data berhasil di tambahkan');
     //     return redirect('/data_pemanfaatan');
     // }
+    // ini bener
     public function update(Request $request, $id)
     {
         // Validate the request
@@ -346,7 +347,7 @@ class DataPemanfaatanPekaranganController extends Controller
         }
 
         // Mark the RumahTangga as having valid pemanfaatan lahan
-        $rumah->is_valid_pemanfaatan_lahan = now();
+        $rumah->is_valid_pemanfaatan_lahan = Carbon::now();
         $rumah->save();
 
         // Delete existing DataPemanfaatanPekarangan for the given rumah_tangga_id and periode
@@ -363,13 +364,14 @@ class DataPemanfaatanPekaranganController extends Controller
 
                 if (!$checkDataAvailable) {
                     DataPemanfaatanPekarangan::create([
-                        'id_desa' => 1,
-                        'id_kecamatan' => 1,
+                        'id_desa' => $request->id_desa,
+                        'id_kecamatan' => $request->id_kecamatan,
                         'rumah_tangga_id' => $request->rumah_tangga_id,
                         'kategori_id' => $item,
                         'periode' => $request->periode,
-                        'is_valid' => now(),
+                        'is_valid' => Carbon::now(),
                     ]);
+                    dd($request->periode);
                 }
             }
         }
@@ -378,7 +380,7 @@ class DataPemanfaatanPekaranganController extends Controller
         $dataWarga = RumahTangga::find($request->rumah_tangga_id);
         if ($dataWarga) {
             $dataWarga->is_pemanfaatan_lahan = true;
-            $dataWarga->is_valid_pemanfaatan_lahan = now();
+            $dataWarga->is_valid_pemanfaatan_lahan = Carbon::now();
             $dataWarga->save();
         }
 

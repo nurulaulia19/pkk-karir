@@ -194,7 +194,7 @@ class DataIndustriRumahController extends Controller
         $dataIndustriRumah->id_kecamatan = $request->id_kecamatan;
         $dataIndustriRumah->kategori_industri_rumah_id = $request->kategori_industri_rumah_id;
         $dataIndustriRumah->periode = $request->periode;
-        $dataIndustriRumah->is_valid = $request->is_valid;
+        $dataIndustriRumah->is_valid = Carbon::now();
         // Update other necessary fields here
         $dataIndustriRumah->save();
     }
