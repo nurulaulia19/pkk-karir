@@ -141,6 +141,7 @@
 @endsection
 
 @push('script-addon')
+    <script>
         $(document).ready(function() {
             $('#id_kategori').on('change', function() {
                 var categoryID = $(this).val();
@@ -179,10 +180,6 @@
             });
         });
     </script>
-
-
-
-
     <script>
         $(document).ready(function() {
             let data; // Variabel untuk menyimpan data kegiatan

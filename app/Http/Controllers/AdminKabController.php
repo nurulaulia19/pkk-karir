@@ -413,18 +413,37 @@ class AdminKabController extends Controller
                                         //     }
                                         // }
                                     }
-                                    $hitung = $keluarga->keluarga->anggota->first(function($anggota) {
-                                        // Calculate age based on birthdate
-                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                        $today = new DateTime();
-                                        $age = $today->diff($birthdate)->y;
+                                    $hasMarriedMen = $keluarga->keluarga->anggota->contains(function ($anggota) {
+                                        return $anggota->warga->jenis_kelamin === 'laki-laki' &&
+                                            $anggota->warga->status_perkawinan === 'menikah';
+                                    });
 
-                                        // Check if the member is married and female, and age is between 15 and 49
-                                        return $anggota->warga->status_perkawinan === 'menikah' &&
-                                               $anggota->warga->jenis_kelamin === 'perempuan' &&
-                                               $age >= 15 && $age <= 49;
-                                    }) ? 1 : 0;
+                                    // Menghitung jumlah PUS (Pasangan Usia Subur)
+                                    $hitung = 0;
+                                    if ($hasMarriedMen) {
+                                        $hitung = $keluarga->keluarga->anggota->filter(function ($anggota) {
+                                            $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                            $today = new DateTime();
+                                            $age = $today->diff($birthdate)->y;
+                                            return $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                                $age >= 15 &&
+                                                $age <= 49 &&
+                                                $anggota->warga->status_perkawinan === 'menikah';
+                                        })->count() ? 1 : 0;
+                                    }
                                     $totalAnggotaPUS += $hitung;
+                                    // $hitung = $keluarga->keluarga->anggota->first(function($anggota) {
+                                    //     // Calculate age based on birthdate
+                                    //     $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                    //     $today = new DateTime();
+                                    //     $age = $today->diff($birthdate)->y;
+
+                                    //     // Check if the member is married and female, and age is between 15 and 49
+                                    //     return $anggota->warga->status_perkawinan === 'menikah' &&
+                                    //            $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                    //            $age >= 15 && $age <= 49;
+                                    // }) ? 1 : 0;
+                                    // $totalAnggotaPUS += $hitung;
                                 }
                             }
                         }
@@ -636,18 +655,37 @@ class AdminKabController extends Controller
                                         //     }
                                         // }
                                     }
-                                    $hitung = $anggota->keluarga->anggota->first(function($anggota) {
-                                        // Calculate age based on birthdate
-                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                        $today = new DateTime();
-                                        $age = $today->diff($birthdate)->y;
+                                    $hasMarriedMen = $keluarga->keluarga->anggota->contains(function ($anggota) {
+                                        return $anggota->warga->jenis_kelamin === 'laki-laki' &&
+                                            $anggota->warga->status_perkawinan === 'menikah';
+                                    });
 
-                                        // Check if the member is married and female, and age is between 15 and 49
-                                        return $anggota->warga->status_perkawinan === 'menikah' &&
-                                               $anggota->warga->jenis_kelamin === 'perempuan' &&
-                                               $age >= 15 && $age <= 49;
-                                    }) ? 1 : 0;
+                                    // Menghitung jumlah PUS (Pasangan Usia Subur)
+                                    $hitung = 0;
+                                    if ($hasMarriedMen) {
+                                        $hitung = $keluarga->keluarga->anggota->filter(function ($anggota) {
+                                            $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                            $today = new DateTime();
+                                            $age = $today->diff($birthdate)->y;
+                                            return $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                                $age >= 15 &&
+                                                $age <= 49 &&
+                                                $anggota->warga->status_perkawinan === 'menikah';
+                                        })->count() ? 1 : 0;
+                                    }
                                     $totalAnggotaPUS += $hitung;
+                                    // $hitung = $anggota->keluarga->anggota->first(function($anggota) {
+                                    //     // Calculate age based on birthdate
+                                    //     $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                    //     $today = new DateTime();
+                                    //     $age = $today->diff($birthdate)->y;
+
+                                    //     // Check if the member is married and female, and age is between 15 and 49
+                                    //     return $anggota->warga->status_perkawinan === 'menikah' &&
+                                    //            $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                    //            $age >= 15 && $age <= 49;
+                                    // }) ? 1 : 0;
+                                    // $totalAnggotaPUS += $hitung;
 
                                 }
                             }
@@ -863,17 +901,36 @@ class AdminKabController extends Controller
                                     //     }
                                     // }
                                 }
-                                $hitung = $anggota->keluarga->anggota->first(function($anggota) {
-                                    // Calculate age based on birthdate
-                                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                    $today = new DateTime();
-                                    $age = $today->diff($birthdate)->y;
+                                // $hitung = $anggota->keluarga->anggota->first(function($anggota) {
+                                //     // Calculate age based on birthdate
+                                //     $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                //     $today = new DateTime();
+                                //     $age = $today->diff($birthdate)->y;
 
-                                    // Check if the member is married and female, and age is between 15 and 49
-                                    return $anggota->warga->status_perkawinan === 'menikah' &&
-                                           $anggota->warga->jenis_kelamin === 'perempuan' &&
-                                           $age >= 15 && $age <= 49;
-                                }) ? 1 : 0;
+                                //     // Check if the member is married and female, and age is between 15 and 49
+                                //     return $anggota->warga->status_perkawinan === 'menikah' &&
+                                //            $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                //            $age >= 15 && $age <= 49;
+                                // }) ? 1 : 0;
+                                // $totalPUS += $hitung;
+                                $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
+                                    return $anggota->warga->jenis_kelamin === 'laki-laki' &&
+                                        $anggota->warga->status_perkawinan === 'menikah';
+                                });
+
+                                // Menghitung jumlah PUS (Pasangan Usia Subur)
+                                $hitung = 0;
+                                if ($hasMarriedMen) {
+                                    $hitung = $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
+                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                        $today = new DateTime();
+                                        $age = $today->diff($birthdate)->y;
+                                        return $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                            $age >= 15 &&
+                                            $age <= 49 &&
+                                            $anggota->warga->status_perkawinan === 'menikah';
+                                    })->count() ? 1 : 0;
+                                }
                                 $totalPUS += $hitung;
 
                             }
@@ -1107,18 +1164,37 @@ class AdminKabController extends Controller
                                     //     }
                                     // }
                                 }
-                                $hitung = $anggotaRumah->keluarga->anggota->first(function($anggota) {
-                                    // Calculate age based on birthdate
-                                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                    $today = new DateTime();
-                                    $age = $today->diff($birthdate)->y;
+                                $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
+                                    return $anggota->warga->jenis_kelamin === 'laki-laki' &&
+                                        $anggota->warga->status_perkawinan === 'menikah';
+                                });
 
-                                    // Check if the member is married and female, and age is between 15 and 49
-                                    return $anggota->warga->status_perkawinan === 'menikah' &&
-                                           $anggota->warga->jenis_kelamin === 'perempuan' &&
-                                           $age >= 15 && $age <= 49;
-                                }) ? 1 : 0;
+                                // Menghitung jumlah PUS (Pasangan Usia Subur)
+                                $hitung = 0;
+                                if ($hasMarriedMen) {
+                                    $hitung = $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
+                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                        $today = new DateTime();
+                                        $age = $today->diff($birthdate)->y;
+                                        return $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                            $age >= 15 &&
+                                            $age <= 49 &&
+                                            $anggota->warga->status_perkawinan === 'menikah';
+                                    })->count() ? 1 : 0;
+                                }
                                 $totalPUS += $hitung;
+                                // $hitung = $anggotaRumah->keluarga->anggota->first(function($anggota) {
+                                //     // Calculate age based on birthdate
+                                //     $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                //     $today = new DateTime();
+                                //     $age = $today->diff($birthdate)->y;
+
+                                //     // Check if the member is married and female, and age is between 15 and 49
+                                //     return $anggota->warga->status_perkawinan === 'menikah' &&
+                                //            $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                //            $age >= 15 && $age <= 49;
+                                // }) ? 1 : 0;
+                                // $totalPUS += $hitung;
 
                             }
                         }
@@ -1404,18 +1480,37 @@ class AdminKabController extends Controller
                          //     }
                          // }
                      }
-                     $hitung = $anggota->keluarga->anggota->first(function($anggota) {
-                         // Calculate age based on birthdate
-                         $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                         $today = new DateTime();
-                         $age = $today->diff($birthdate)->y;
+                    //  $hitung = $anggota->keluarga->anggota->first(function($anggota) {
+                    //      // Calculate age based on birthdate
+                    //      $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                    //      $today = new DateTime();
+                    //      $age = $today->diff($birthdate)->y;
 
-                         // Check if the member is married and female, and age is between 15 and 49
-                         return $anggota->warga->status_perkawinan === 'menikah' &&
-                                $anggota->warga->jenis_kelamin === 'perempuan' &&
-                                $age >= 15 && $age <= 49;
-                     }) ? 1 : 0;
-                     $countPUS += $hitung;
+                    //      // Check if the member is married and female, and age is between 15 and 49
+                    //      return $anggota->warga->status_perkawinan === 'menikah' &&
+                    //             $anggota->warga->jenis_kelamin === 'perempuan' &&
+                    //             $age >= 15 && $age <= 49;
+                    //  }) ? 1 : 0;
+                    //  $countPUS += $hitung;
+                    $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
+                        return $anggota->warga->jenis_kelamin === 'laki-laki' &&
+                            $anggota->warga->status_perkawinan === 'menikah';
+                    });
+
+                    // Menghitung jumlah PUS (Pasangan Usia Subur)
+                    $hitung = 0;
+                    if ($hasMarriedMen) {
+                        $hitung = $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
+                            $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                            $today = new DateTime();
+                            $age = $today->diff($birthdate)->y;
+                            return $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                $age >= 15 &&
+                                $age <= 49 &&
+                                $anggota->warga->status_perkawinan === 'menikah';
+                        })->count() ? 1 : 0;
+                    }
+                    $countPUS += $hitung;
                  }
              }
            }
@@ -1638,17 +1733,36 @@ class AdminKabController extends Controller
                                 //     }
                                 // }
                             }
-                            $hitung = $anggotaRumah->keluarga->anggota->first(function($anggota) {
-                                // Calculate age based on birthdate
-                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                $today = new DateTime();
-                                $age = $today->diff($birthdate)->y;
+                            // $hitung = $anggotaRumah->keluarga->anggota->first(function($anggota) {
+                            //     // Calculate age based on birthdate
+                            //     $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                            //     $today = new DateTime();
+                            //     $age = $today->diff($birthdate)->y;
 
-                                // Check if the member is married and female, and age is between 15 and 49
-                                return $anggota->warga->status_perkawinan === 'menikah' &&
-                                       $anggota->warga->jenis_kelamin === 'perempuan' &&
-                                       $age >= 15 && $age <= 49;
-                            }) ? 1 : 0;
+                            //     // Check if the member is married and female, and age is between 15 and 49
+                            //     return $anggota->warga->status_perkawinan === 'menikah' &&
+                            //            $anggota->warga->jenis_kelamin === 'perempuan' &&
+                            //            $age >= 15 && $age <= 49;
+                            // }) ? 1 : 0;
+                            // $countPUS += $hitung;
+                            $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
+                                return $anggota->warga->jenis_kelamin === 'laki-laki' &&
+                                    $anggota->warga->status_perkawinan === 'menikah';
+                            });
+
+                            // Menghitung jumlah PUS (Pasangan Usia Subur)
+                            $hitung = 0;
+                            if ($hasMarriedMen) {
+                                $hitung = $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
+                                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                    $today = new DateTime();
+                                    $age = $today->diff($birthdate)->y;
+                                    return $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                        $age >= 15 &&
+                                        $age <= 49 &&
+                                        $anggota->warga->status_perkawinan === 'menikah';
+                                })->count() ? 1 : 0;
+                            }
                             $countPUS += $hitung;
                         }
                     }

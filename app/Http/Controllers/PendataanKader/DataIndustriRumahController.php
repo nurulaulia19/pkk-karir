@@ -32,12 +32,15 @@ class DataIndustriRumahController extends Controller
             $industri = DataKeluarga::with('industri')
             ->where('periode', $periode)
             ->where('id_dasawisma', $user->id_dasawisma)->where('industri_id' ,'!=' , "0")
+            ->orderBy('id', 'desc')
             ->get();
 
         } else {
             $industri = DataKeluarga::with('industri')
             ->where('periode', now()->year)
-            ->where('id_dasawisma', $user->id_dasawisma)->where('industri_id' ,'!=' , "0")->get();
+            ->where('id_dasawisma', $user->id_dasawisma)->where('industri_id' ,'!=' , "0")
+            ->orderBy('id', 'desc')
+            ->get();
             $periode = now()->year;
         }
         $dataPeriode = Periode::all();
@@ -216,6 +219,7 @@ class DataIndustriRumahController extends Controller
     if ($keluarga) {
         // Update the industri_id of DataKeluarga record
         $keluarga->industri_id = 0;
+        $keluarga->is_valid_industri = null;
         $keluarga->save();
 
         // Find and delete the corresponding DataIndustriRumah records

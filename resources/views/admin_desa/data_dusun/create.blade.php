@@ -33,7 +33,7 @@
 
         <div class="card-footer">
           <button type="submit" class="btn btn-primary">Tambah</button>
-            <a href="/dusun" class="btn btn-outline-primary">
+            <a href="/data_dusun" class="btn btn-outline-primary">
                 <span>Batalkan</span>
             </a>
         </div>

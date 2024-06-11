@@ -59,7 +59,7 @@
 
                                             @if (!$c->is_valid_pemanfaatan_lahan)
                                             <button class="btn btn-success btn-sm">
-                                                edit untuk validasi
+                                                Edit untuk validasi
                                             </button>
                                         @endif
                                         </td>

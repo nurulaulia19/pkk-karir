@@ -189,7 +189,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Tambah</button>
-                            <a href="/data_kader" class="btn btn-outline-primary">
+                            <a href="/data_dasawisma" class="btn btn-outline-primary">
                                 <span>Batalkan</span>
                             </a>
                     </div>
