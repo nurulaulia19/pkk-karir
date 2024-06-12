@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('data_berita', function (Blueprint $table) {
             $table->id();
             $table->string('nama_berita');
-            $table->string('desk');
+            $table->longText('desk');
             $table->string('gambar');
             $table->date('tgl_publish');
             $table->string('penulis');

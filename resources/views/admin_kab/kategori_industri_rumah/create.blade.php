@@ -31,7 +31,7 @@
 
         <div class="card-footer">
           <button type="submit" class="btn btn-primary">Tambah</button>
-          <a href="/data_industri_rumah" class="btn btn-outline-primary">
+          <a href="/data_kategori_industri" class="btn btn-outline-primary">
             <span>Batalkan</span>
         </a>
         </div>

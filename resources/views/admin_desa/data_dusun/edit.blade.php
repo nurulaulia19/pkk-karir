@@ -29,7 +29,7 @@
         </div>
         <!-- /.card-body -->
 
-        <div class="card-footer">
+        <div class="pl-2">
           <button type="submit" class="btn btn-primary">Edit</button>
           <a href="/data_dusun" class="btn btn-outline-primary">
             <span>Batalkan</span>

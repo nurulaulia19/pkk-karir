@@ -120,7 +120,7 @@
       <!-- /.navbar -->
 
       <!-- Main Sidebar Container -->
-      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <aside style="background-color: #446d6d" class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="/dashboard" class="brand-link">
           <img
@@ -265,8 +265,11 @@
 
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper" style="background-color: #e4fff1">
+{{-- <div class="content-wrapper" style="background-image: url('https://i.pinimg.com/564x/b4/da/d4/b4dad4cc85662b8e7a13c5c4d6c96c98.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;"> --}}
+    <div class="content-wrapper" style="background-image:  url('{{ asset('assets/img/background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
     <!-- Content Header (Page header) -->
+    <div style="background-color: rgba(0, 0, 0, 0.1); width: 100%; height: 100%;">
+        {{-- <div > --}}
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -283,7 +286,8 @@
       </div><!-- /.container-fluid -->
     </section>
 
-      @yield('container')
+        @yield('container')
+    </div>
 
 </div>
 

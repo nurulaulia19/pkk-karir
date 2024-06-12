@@ -129,7 +129,7 @@
             class="brand-image img-circle elevation-3"
             style="opacity: 0.8"
           />
-          <span class="brand-text font-weight-light">TP PKK Kecamtan</span>
+          <span class="brand-text font-weight-light">TP PKK Kecamatan</span>
         </a>
 
         <!-- Sidebar -->
@@ -158,7 +158,7 @@
                 </a>
               </li>
               <li class="nav-item has-treeview">
-                <a href="/dashboard_kec/desa" class="nav-link {{ Request::is('dashboard_kec.desa') ? 'active':'' }}">
+                <a href="/dashboard_kec/desa" class="nav-link {{ Request::is('dashboard_kec/desa') ? 'active':'' }}">
                   <i class="nav-icon fas fa-landmark"></i>
                   <p>
                     Data Desa
@@ -187,7 +187,7 @@
 
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class="content-wrapper" style="background-color: #e4fff1">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">

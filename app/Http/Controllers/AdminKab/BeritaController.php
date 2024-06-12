@@ -18,7 +18,7 @@ class BeritaController extends Controller
     public function index()
     {
         //halaman index berita
-        $beritaKab = BeritaKab::all();
+        $beritaKab = BeritaKab::orderBy('id', 'desc')->get();
         return view('admin_kab.berita', compact('beritaKab'));
 
     }
@@ -35,12 +35,6 @@ class BeritaController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         // proses penyimpanan untuk tambah data wilayah/desa
@@ -59,6 +53,7 @@ class BeritaController extends Controller
 
         ]);
         $input = $request->all();
+        // dd($input);
 
 
         // cara 1
@@ -136,7 +131,7 @@ class BeritaController extends Controller
 
         ]);
             $beritaKab->nama_berita = $request->nama_berita;
-            $beritaKab->desk = Str::limit($request->desk, 1000);
+            $beritaKab->desk = $request->desk;
             $beritaKab->tgl_publish =$request->tgl_publish;
             $beritaKab->penulis = $request->penulis;
 

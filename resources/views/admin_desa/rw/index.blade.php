@@ -43,11 +43,16 @@
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center">
                                                 <a class="btn btn-warning btn-sm" href="{{ url('rw/'.$c->id) }}">Data RT</a>
-                                                <a class="btn btn-primary btn-sm ml-1" href="{{ url('rw/'.$c->id.'/edit') }}">Edit</a>
+                                                <a class="btn btn-primary btn-sm ml-1" href="{{ url('rw/'.$c->id.'/edit') }}">
+                                                    <i class="fas fa-edit"></i>
+
+                                                </a>
                                                 <form action="{{ route('rw.destroy', $c->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
                                                 </form>
                                             </div>
                                         </td>

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('tempat');
             $table->date('tgl_pelaksana');
             $table->integer('status');
-            $table->string('waktu');
+            $table->time('waktu');
             $table->timestamps();
         });
     }

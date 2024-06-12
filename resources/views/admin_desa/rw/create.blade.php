@@ -8,7 +8,7 @@
 <div class="col-md-4">
     <!-- general form elements -->
     <div class="card card-primary">
-      <div class="card-header">
+      <div class="card-header" style="background-color: #79B3D7">
         <h3 class="card-title">Tambah RW</h3>
       </div>
       <!-- /.card-header -->
@@ -39,7 +39,7 @@
         </div>
         <!-- /.card-body -->
 
-        <div class="card-footer">
+        <div class="mr-2">
           <button type="submit" class="btn btn-primary">Tambah</button>
             <a href="/rw" class="btn btn-outline-primary">
                 <span>Batalkan</span>

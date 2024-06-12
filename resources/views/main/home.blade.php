@@ -114,7 +114,8 @@
                         <span class="post-author"> / {{$l->penulis}}</span>
                     </div>
                     <h3 class="post-title">{{ $l->nama_berita }}</h3>
-                    <p style="font-family: 'Times New Roman', Times, serif;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{!!$l->desk !!}</p>
+                    {{-- <p style="font-family: 'Times New Roman', Times, serif;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{!!$l->desk !!}</p> --}}
+                    <p style="font-family: 'Times New Roman', Times, serif; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{!! Str::limit($l->desk, 225, '...') !!}</p>
                     <a href="{{ url('berita/'.$l->id) }}" class="readmore stretched-link"><span>Baca Selengkapnya</span><i class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>

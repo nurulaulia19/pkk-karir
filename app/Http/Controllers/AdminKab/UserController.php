@@ -25,7 +25,7 @@ class UserController extends Controller
     public function index()
     {
         //halaman tampil data tabel user
-        $users = User::whereIn('user_type', ['admin_desa', 'admin_kecamatan', 'admin_kabupaten', 'kader_dasawisma'])
+        $users = User::whereIn('user_type', ['admin_desa', 'admin_kecamatan'])
         ->get();
         $desa = Data_Desa::all();
         $kec = DataKecamatan::all();
@@ -144,7 +144,6 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $id,
             // 'password' => 'required',
             'user_type' => 'required',
-            // 'id_desa' => 'required',
             'id_kecamatan' => 'required',
         ]);
 

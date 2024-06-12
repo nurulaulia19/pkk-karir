@@ -28,7 +28,7 @@
 
                 @endforeach
                 <div class="post-img">
-                  <img src="/gambar/{{$l->gambar}}" alt="" class="img-fluid">
+                  <img src="/gambar/{{$l->gambar}}" alt="" class="img-fluid" style="width: 100%;">
                 </div>
 
                 <h2 class="title">{{ $l->nama_berita }}</h2>

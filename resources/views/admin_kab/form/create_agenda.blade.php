@@ -62,7 +62,7 @@
                 <div class="form-group">
                     {{-- nama pukul --}}
                     <label>Pukul</label>
-                        <input type="text" class="form-control @error('waktu') is-invalid @enderror" name="waktu" id="waktu" placeholder="Diisi dengan waktu Agenda" value="{{old('waktu')}}" required>
+                        <input type="time" class="form-control @error('waktu') is-invalid @enderror" name="waktu" id="waktu" placeholder="Diisi dengan waktu Agenda" value="{{old('waktu')}}" required>
                             @error('waktu')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
