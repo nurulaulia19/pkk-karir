@@ -277,8 +277,8 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <button id="addRow" type="button" class="btn btn-primary">ADD</button>
-
+                                <button id="addRow" type="button" class="btn" style="background-color: #50A3B9; color:white"><i class="fas fa-plus-circle"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -513,7 +513,7 @@
                         </div>
                         <div class="card-footer">
                             {{-- <button type="button" data-action="next" class="btn btn-primary">Next</button> --}}
-                            <button type="submit" class="ml-2 btn btn-success">Submit</button>
+                            <button type="submit" class="ml-2 btn" style="background-color: #50A3B9; color:white">Tambah</button>
                         </div>
                     </div>
                 </div>
@@ -713,7 +713,7 @@
                         </div>
                     </div>
                     <div class="col-md-1 d-flex align-items-center">
-                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">Delete</button>
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@
     <div class="col-md-6">
         <!-- general form elements -->
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header" style="background-color: #50A3B9; color:white">
                 <h3 class="card-title">Edit Data Desa</h3>
             </div>
             <!-- /.card-header -->
@@ -46,7 +46,7 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Edit</button>
                     <a href="/data_desa" class="btn btn-outline-primary">
                         <span>Batalkan</span>
                     </a>

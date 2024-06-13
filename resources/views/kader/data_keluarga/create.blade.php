@@ -241,11 +241,12 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <button id="addRow" type="button" class="btn btn-primary">ADD</button>
+                                <button id="addRow" type="button" class="btn" style="background-color: #50A3B9; color:white"><i class="fas fa-plus-circle"></i>
+                                </button>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Tambah</button>
+                            <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Tambah</button>
                             <a href="/data_keluarga" class="btn btn-outline-primary">
                                 <span>Batalkan</span>
                             </a>
@@ -479,7 +480,7 @@
                             </div>
                         </div>
                         <div class="col-md-1 d-flex align-items-center">
-                            <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
+                            <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">Delete</button>
                         </div>
                     </div>
                 </div>

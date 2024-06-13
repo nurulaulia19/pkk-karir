@@ -41,12 +41,11 @@
 
                                     <div class="form-group">
                                         <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                {{$periode}}
+                                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
+                                                Rekap
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 @foreach ($dataPeriode as $item)
-
                                                     <a class="dropdown-item" href="{{ route('dashboard_kec.rekapitulasi',['id' =>$desa->id]) }}?periode={{$item->tahun}}">{{ $item->tahun }}</a>
                                                 @endforeach
                                             </div>

@@ -20,7 +20,6 @@
                                         <tr>
                                         <th>No</th>
                                         <th>Dusun</th>
-                                        {{-- <th>Periode</th> --}}
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
@@ -30,12 +29,9 @@
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td style="vertical-align: middle;">{{ucfirst($c->name)}}</td>
-                                        {{-- <td style="vertical-align: middle;">{{ucfirst($c->periode)}}</td> --}}
-
                                         <td class="text-center">
-                                            {{-- <a class="btn btn-success btn-sm" href="{{ route('dusun.rekap',['id' => $c->id])}}">Rekap</a> --}}
                                             <div class="dropdown">
-                                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
                                                     Rekap
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

@@ -17,7 +17,7 @@
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row">
                                         <div class="col-md-1">
-                                            <a href="{{ url('rw/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                            <a href="{{ url('rw/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                         </div>
                                     </div>
                                     <thead>
@@ -42,7 +42,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center">
-                                                <a class="btn btn-warning btn-sm" href="{{ url('rw/'.$c->id) }}">Data RT</a>
+                                                <a class="btn btn-warning btn-sm text-white" href="{{ url('rw/'.$c->id) }}">Data RT</a>
                                                 <a class="btn btn-primary btn-sm ml-1" href="{{ url('rw/'.$c->id.'/edit') }}">
                                                     <i class="fas fa-edit"></i>
 

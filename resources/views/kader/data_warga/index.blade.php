@@ -4,20 +4,18 @@
 
 @section('bread', 'Data Warga')
 @section('container')
-
     <!-- Main content -->
     <div class="main-content">
         <section class="section">
-
             <div class="section-body">
                 <div class="row w-full ">
                     <div class="col-12 col-md-12 col-lg-12 ">
                         <div class="card">
                             <div class="card-body">
-                                @if (count($errors)>0)
+                                @if (count($errors) > 0)
                                     <div class="alert alert-danger">
                                         @foreach ($errors->all() as $error)
-                                            {{  ($error)  }}
+                                            {{ $error }}
                                         @endforeach
                                     </div>
                                 @endif
@@ -25,30 +23,29 @@
                                     <table class="table table-striped table-bordered data" id="add-row">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
-                                                @if ($nowYear == $periode && $user->dasawisma->status)     
-                                                <a href="{{ url('data_warga/create') }}" type="button"
-                                                    class="btn btn-success">Tambah</a><br><br>
+                                                @if ($nowYear == $periode && $user->dasawisma->status)
+                                                    <a href="{{ url('data_warga/create') }}" type="button"
+                                                        class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                                 @endif
                                             </div>
-
                                             <div class="col-md-1">
                                                 <div class="form-group">
                                                     <div class="dropdown">
-                                                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <button class="btn dropdown-toggle" type="button"
+                                                            id="dropdownMenuButton" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false" style="background-color: #6e9ebb; color:white">
                                                             Pilihan
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                             @foreach ($dataPeriode as $item)
-                                                                <a class="dropdown-item" href="{{ url('data_warga?periode=' . $item->tahun) }}">{{ $item->tahun }}</a>
+                                                                <a class="dropdown-item"
+                                                                    href="{{ url('data_warga?periode=' . $item->tahun) }}">{{ $item->tahun }}</a>
                                                             @endforeach
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
-
                                         </div>
-
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -59,8 +56,8 @@
                                                 <th>Jabatan</th>
                                                 <th>Jenis Kelamin</th>
                                                 <th>Periode</th>
-                                                @if ($nowYear == $periode && $user->dasawisma->status)     
-                                                <th>Aksi</th>
+                                                @if ($nowYear == $periode && $user->dasawisma->status)
+                                                    <th>Aksi</th>
                                                 @endif
                                             </tr>
                                         </thead>
@@ -74,9 +71,9 @@
                                                     <td style="vertical-align: middle;">
                                                         {{ ucfirst($c->nama) }} <br>
                                                         @if (!$c->is_valid)
-                                                            <button class="btn btn-success btn-sm">
+                                                            <a href="{{ url('data_warga/' . $c->id . '/edit') }}" class="btn btn-sm" style="background-color: #50A3B9; color:white">
                                                                 Edit untuk validasi
-                                                            </button>
+                                                            </a>
                                                         @endif
                                                     </td>
                                                     <td style="vertical-align: middle;">
@@ -95,25 +92,26 @@
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->jenis_kelamin) }}
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->periode) }}</td>
-                                                    @if ($nowYear == $periode && $user->dasawisma->status) 
-                                                    <td class="text-center" width="100px" style="vertical-align: middle;">    
-                                                        <div class="d-flex">
-                                                            <button type="button" class="btn btn-warning btn-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#details-modal-{{ $c->id }}">
-                                                                Detail
-                                                            </button>
-                                                            <a class="btn btn-primary btn-sm ml-1"
-                                                                href="{{ url('data_warga/' . $c->id . '/edit') }}">Edit</a>
-                                                            <form action="{{ route('data_warga.destroy', $c->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-sm delete ml-1">Hapus</button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
+                                                    @if ($nowYear == $periode && $user->dasawisma->status)
+                                                        <td class="text-center" width="100px"
+                                                            style="vertical-align: middle;">
+                                                            <div class="d-flex">
+                                                                <button type="button" class="btn btn-warning btn-sm"
+                                                                    data-toggle="modal"
+                                                                    data-target="#details-modal-{{ $c->id }}">
+                                                                    <i class="fas fa-exclamation-triangle text-white"></i>
+                                                                </button>
+                                                                <a class="btn btn-primary btn-sm ml-1"
+                                                                    href="{{ url('data_warga/' . $c->id . '/edit') }}"><i class="fas fa-edit"></i></a>
+                                                                <form action="{{ route('data_warga.destroy', $c->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm delete ml-1"><i class="fas fa-trash"></i></button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
                                                     @endif
 
                                                 </tr>

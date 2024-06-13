@@ -112,8 +112,6 @@ class AdminController extends Controller
 
         // Pass the variables to the view
         return view('admin_desa.data_rekap.rekapDasawisma.data_dasawisma', compact('dasawisma','periode'));
-
-        // return view('admin_desa.data_rekap.data_kelompok_dasa_wisma');
     }
 
     // rekap catatan data dan kegiatan warga kelompok dasa wisma admin desa
@@ -641,7 +639,10 @@ class AdminController extends Controller
             ->where('periode','<=',$periode)
             ->with('desa')
             ->get();
-        // dd($dasa_wisma);
+        if ($dasa_wisma->isEmpty()) {
+            // dd('data rt masih belum ada jadi gada rekap');
+            return redirect()->route('not-found')->with('error', 'Data Rekapitulasi tidak tersedia');
+        }
 
         // $rumahtangga = RumahTangga::with(['anggotaRT.keluarga.anggota.warga.pemanfaatan','anggotaRT.keluarga.anggota.warga.industri'])
         //     ->where('id_dasawisma', $dasa_wisma->first()->id)
@@ -1079,7 +1080,7 @@ class AdminController extends Controller
         // dd($dasa_wisma);
         if ($dasa_wisma->isEmpty()) {
             // dd('data rt masih belum ada jadi gada rekap');
-            return redirect()->route('not-found')->with('error', 'Data RT tidak tersedia');
+            return redirect()->route('not-found')->with('error', 'Data Rekapitulasi tidak tersedia');
         }
 
         // $rumahtangga = RumahTangga::with(['anggotaRT.keluarga.anggota.warga.pemanfaatan','anggotaRT.keluarga.anggota.warga.industri'])
@@ -1310,7 +1311,7 @@ class AdminController extends Controller
 
         if ($dasa_wisma->isEmpty()) {
             // dd('data rt masih belum ada jadi gada rekap');
-            return redirect()->route('not-found')->with('error', 'Data RT tidak tersedia');
+            return redirect()->route('not-found')->with('error', 'Data Rekapitulasi tidak tersedia');
         }
 
         $totalKepalaRumahTangga = 0;
@@ -1559,7 +1560,7 @@ class AdminController extends Controller
         // dd($dasa_wisma);
         if ($dasa_wisma->isEmpty()) {
             // dd('data rt masih belum ada jadi gada rekap');
-            return redirect()->route('not-found')->with('error', 'Data RT tidak tersedia');
+            return redirect()->route('not-found')->with('error', 'Data Rekapitulasi tidak tersedia');
         }
 
         // Hitung Total

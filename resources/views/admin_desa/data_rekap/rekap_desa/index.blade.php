@@ -40,7 +40,7 @@
 
                                     <div style="margin-bottom: 20px">
                                         <div class="dropdown">
-                                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
                                                     Rekap
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

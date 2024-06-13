@@ -12,7 +12,6 @@
             <div class="row">
                 <div class="col-12 col-lg-12">
                     <div class="card">
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
@@ -57,7 +56,7 @@
                                             {{-- <a class="btn btn-primary btn-sm" href="{{ url('rekap_kelompok_dasa_wisma', ['id' => $c->id]) }}?periode=2023">Rekap</a> --}}
                                             <div class="form-group">
                                                 <div class="dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
                                                         Rekap
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -86,7 +85,6 @@
 
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

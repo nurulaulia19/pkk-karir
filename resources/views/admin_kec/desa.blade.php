@@ -8,11 +8,11 @@
   <div class="container-fluid">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
       @foreach ($desaAll as $desa)
-        @php
+        {{-- @php
           $randomColor = '#' . substr(str_shuffle('ABCDEF0123456789'), 0, 6); // Generate a random hex color
-        @endphp
+        @endphp --}}
         <div class="col">
-          <div class="small-box" style="background-color: {{ $randomColor }};">
+          <div class="small-box bg-info">
             <div class="inner">
               <p class="text-white text-bold">{{ $desa->nama_desa }}</p>
             </div>

@@ -760,7 +760,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn" style="background-color: #50A3B9; color:white">
                             @if ($data_warga->is_valid)
                                 Edit
                             @else

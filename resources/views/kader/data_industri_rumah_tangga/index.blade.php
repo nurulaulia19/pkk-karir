@@ -20,25 +20,26 @@
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
                                                     <a href="{{ url('data_industri/create') }}" type="button"
-                                                        class="btn btn-success">Tambah</a><br><br>
+                                                        class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                                 @endif
                                             </div>
-                                            <div class="form-group">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        Pilihan
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        @foreach ($dataPeriode as $item)
-                                                            <a class="dropdown-item"
-                                                                href="{{ url('data_industri?periode=' . $item->tahun) }}">{{ $item->tahun }}</a>
-                                                        @endforeach
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <div class="dropdown">
+                                                        <button class="btn dropdown-toggle" type="button"
+                                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false" style="background-color: #6e9ebb; color:white">
+                                                            Pilihan
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            @foreach ($dataPeriode as $item)
+                                                                <a class="dropdown-item"
+                                                                    href="{{ url('data_industri?periode=' . $item->tahun) }}">{{ $item->tahun }}</a>
+                                                            @endforeach
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <thead>
                                             <tr>
@@ -57,12 +58,11 @@
                                                     <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                                     {{-- nama desa yang login --}}
                                                     <td style="vertical-align: middle;">
-                                                        {{ ucfirst($c->nama_kepala_keluarga) }}
-
+                                                        {{ ucfirst($c->nama_kepala_keluarga) }} <br>
                                                         @if (!$c->is_valid_industri)
-                                                            <button class="btn btn-success btn-sm">
+                                                            <a href="{{ url('data_industri/' . $c->id . '/edit') }}" class="btn btn-sm" style="background-color: #50A3B9; color:white">
                                                                 Edit untuk validasi
-                                                            </button>
+                                                            </a>
                                                         @endif
                                                     </td>
                                                     <td style="vertical-align: middle;">
@@ -74,16 +74,16 @@
                                                     @if ($nowYear == $periode && $user->dasawisma->status)
                                                         <td class="text-center" width="100px"
                                                             style="vertical-align: middle;">
-                                                            <div class="d-flex">
+                                                            <div class="d-flex" style="justify-content: center">
                                                                 <a class="btn btn-primary btn-sm"
-                                                                    href="{{ url('data_industri/' . $c->id . '/edit') }}">Edit</a>
+                                                                    href="{{ url('data_industri/' . $c->id . '/edit') }}"><i class="fas fa-edit"></i></a>
                                                                 <form
                                                                     action="{{ route('data_industri.destroy', ['id' => $c->id]) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit"
-                                                                        class="btn btn-danger btn-sm delete ml-1">Hapus</button>
+                                                                        class="btn btn-danger btn-sm delete ml-1"><i class="fas fa-trash"></i></button>
                                                                 </form>
                                                             </div>
                                                         </td>

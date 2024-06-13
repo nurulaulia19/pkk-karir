@@ -17,7 +17,7 @@
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row">
                                         <div class="col-md-1">
-                                            <a href="{{ url('data_dusun/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                            <a href="{{ url('data_dusun/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                         </div>
                                     </div>
                                     <thead>
@@ -34,11 +34,11 @@
                                         <td style="vertical-align: middle;">{{$c->name}}</td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center">
-                                                <a class="btn btn-primary btn-sm ml-1" href="{{ url('data_dusun/'.$c->id.'/edit') }}">Edit</a>
+                                                <a class="btn btn-primary btn-sm ml-1" href="{{ url('data_dusun/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('data_dusun.destroy', $c->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1">Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </div>
                                         </td>

@@ -5,49 +5,46 @@
 @section('bread', 'Tambah RW')
 @section('container')
 
-<div class="col-md-4">
-    <!-- general form elements -->
-    <div class="card card-primary">
-      <div class="card-header" style="background-color: #79B3D7">
-        <h3 class="card-title">Tambah RW</h3>
-      </div>
-      <!-- /.card-header -->
-      <!-- form start -->
-
-      <form action="{{ route('rw.store') }}" method="POST">
-        @csrf
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Nama RW</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" placeholder="Isi Nama RW" value="{{ old('name', $nextRwNumber) }}">
-                    @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Dusun</label>
-                    <select class="form-control" id="dusun_id" name="dusun_id">
-                        <option value="0" selected>Tidak Memiliki Dusun</option>
-                        @foreach ($dusun as $c)
-                            <option value="{{ $c->id }}">{{ $c->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+    <div class="col-md-4">
+        <!-- general form elements -->
+        <div class="card card-primary">
+            <div class="card-header" style="background-color: #50A3B9">
+                <h3 class="card-title">Tambah RW</h3>
             </div>
-        </div>
-        <!-- /.card-body -->
+            <!-- /.card-header -->
+            <!-- form start -->
 
-        <div class="mr-2">
-          <button type="submit" class="btn btn-primary">Tambah</button>
-            <a href="/rw" class="btn btn-outline-primary">
-                <span>Batalkan</span>
-            </a>
+            <form action="{{ route('rw.store') }}" method="POST">
+                @csrf
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Nama RW</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                            id="name" placeholder="Isi Nama RW" value="{{ old('name', $nextRwNumber) }}">
+                        @error('name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Dusun</label>
+                        <select class="form-control" id="dusun_id" name="dusun_id">
+                            <option value="0" selected>Tidak Memiliki Dusun</option>
+                            @foreach ($dusun as $c)
+                                <option value="{{ $c->id }}">{{ $c->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Tambah</button>
+                    <a href="/rw" class="btn btn-outline-primary">
+                        <span>Batalkan</span>
+                    </a>
+                </div>
+            </form>
         </div>
-      </form>
+        <!-- /.card -->
     </div>
-    <!-- /.card -->
-  </div>
 @endsection
-

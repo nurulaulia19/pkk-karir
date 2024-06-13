@@ -22,7 +22,7 @@ class DataDesaController extends Controller
         // $desa = Data_Desa::paginate(20);
         return view('admin_kab.data_desa.index', compact('desa'));
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -105,7 +105,7 @@ class DataDesaController extends Controller
         $kec = Data_Desa::with('kecamatan')->first();
         $kecamatans = DataKecamatan::all();
 
-        return view('admin_kab.form.edit_desa', compact('data_desa', 'kec', 'kecamatans'));
+        return view('admin_kab.data_desa.edit', compact('data_desa', 'kec', 'kecamatans'));
 
     }
 

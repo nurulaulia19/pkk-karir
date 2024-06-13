@@ -32,22 +32,13 @@
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td style="vertical-align: middle;">{{$c->name}}</td>
-                                        {{-- <td class="text-center">
-                                            <a class="btn btn-success btn-sm" href="{{ url('rekap_kelompok_pkk_rt').'?'.http_build_query([
-                                                'rt' => $c->rt,
-                                                'rw' => $c->rw,
-                                                'periode' => $c->periode,
-                                                ]) }}">Rekap
-                                            </a>
-                                        </td> --}}
-
                                         <td class="text-center">
                                             <div class="form-group">
                                                 <div class="dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <button class="btn dropdown-toggle" style="background-color: #50A3B9; color:white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         Rekap
                                                     </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <div class="dropdown-menu dropup" aria-labelledby="dropdownMenuButton">
                                                         @foreach ($periode as $item)
                                                         <a class="dropdown-item" href="{{ url('rekap_kelompok_pkk_rt', ['id' => $c->id]) }}?periode={{ $item->tahun }}">{{ $item->tahun }}</a>
                                                         @endforeach

@@ -43,7 +43,7 @@ class KelompokDasawismaController extends Controller
 
         if ($request->has('periode')) {
             $periode = $request->input('periode');
-            $query->where('periode', '<=', $periode); // Sesuaikan dengan kolom periode_id pada tabel DataKelompokDasawisma
+            $query->where('periode', '=', $periode); // Sesuaikan dengan kolom periode_id pada tabel DataKelompokDasawisma
         }
 
         $dasawisma = $query->get();

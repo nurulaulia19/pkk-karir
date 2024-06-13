@@ -10,13 +10,6 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        {{-- @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-                <strong>{{ $message }}</strong>
-            </div>
-      @endif --}}
-    <!-- Small boxes (Stat box) -->
         <div class="row">
             <div class="col-lg-3 col-6">
                 <!-- small box -->
@@ -41,7 +34,7 @@
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-success">
+                <div class="small-box bg-info">
                 <div class="inner">
                     <h3>{{ $keluarga }}</h3>
                     <p>Data Keluarga</p>
@@ -81,7 +74,7 @@
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-primary">
+                <div class="small-box bg-info">
                 <div class="inner">
                     <h3>{{ $totalKegiatan }}</h3>
                     <p>Data Kegiatan Warga</p>
@@ -103,7 +96,7 @@
         <div class="row">
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-secondary">
+                <div class="small-box bg-info">
                   <div class="inner">
                     <h3>{{ $pemanfaatan }}</h3>
                     <p>Data Pemanfaatan Tanah Pekarangan</p>
@@ -124,7 +117,7 @@
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-warning">
+                <div class="small-box bg-info">
                 <div class="inner">
                     <h3>{{ $industri }}</h3>
                     <p>Data Industri Rumah Tangga</p>
@@ -146,7 +139,7 @@
             </div>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-danger">
+                <div class="small-box bg-info">
                   <div class="inner">
                     {{-- <h3>53<sup style="font-size: 20px">%</sup></h3> --}}
                     <h3>{{ $rekap }}</h3>

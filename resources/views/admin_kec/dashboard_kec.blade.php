@@ -8,7 +8,7 @@
   <div class="container-fluid">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
       <div class="col">
-        <div class="small-box bg-success">
+        <div class="small-box bg-info">
           <div class="inner">
             <h3>{{ $desaTotal }}</h3>
             <p>Total Desa</p>

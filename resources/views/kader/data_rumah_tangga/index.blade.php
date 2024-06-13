@@ -19,18 +19,20 @@
                                     <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
                                             @if ($nowYear == $periode && $user->dasawisma->status)
-                                            <a href="{{ url('data_rumah_tangga/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                            <a href="{{ url('data_rumah_tangga/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                             @endif
                                         </div>
-                                        <div class="form-group">
-                                            <div class="dropdown">
-                                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Pilihan
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    @foreach ($dataPeriode as $item)
-                                                        <a class="dropdown-item" href="{{ url('data_rumah_tangga?periode=' . $item->tahun) }}">{{ $item->tahun }}</a>
-                                                    @endforeach
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                <div class="dropdown">
+                                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #6e9ebb; color:white">
+                                                        Pilihan
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        @foreach ($dataPeriode as $item)
+                                                            <a class="dropdown-item" href="{{ url('data_rumah_tangga?periode=' . $item->tahun) }}">{{ $item->tahun }}</a>
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -58,11 +60,11 @@
                                         </td>
 
                                         {{-- nama desa yang login --}}
-                                        <td style="vertical-align: middle;">{{ $c->nama_kepala_rumah_tangga}}
+                                        <td style="vertical-align: middle;">{{ $c->nama_kepala_rumah_tangga}} <br>
                                             @if (!$c->is_valid)
-                                            <button class="btn btn-success btn-sm">
+                                            <a href="{{ url('data_rumah_tangga/'.$c->id.'/edit') }}" class="btn btn-sm" style="background-color: #50A3B9; color:white">
                                                 Edit untuk validasi
-                                            </button>
+                                            </a>
                                         @endif
                                         </td>
                                         <td style="vertical-align: middle;">
@@ -91,13 +93,13 @@
                                         <td class="text-center" width="100px" style="vertical-align: middle;">
                                             <div class="d-flex">
                                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">
-                                                    Detail
+                                                    <i class="fas fa-exclamation-triangle text-white"></i>
                                                 </button>
-                                                <a class="btn btn-primary btn-sm ml-1" href="{{ url('data_rumah_tangga/'.$c->id.'/edit') }}">Edit</a>
+                                                <a class="btn btn-primary btn-sm ml-1" href="{{ url('data_rumah_tangga/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('data_rumah_tangga.destroy',$c->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1">Hapus</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </div>
                                         </td>

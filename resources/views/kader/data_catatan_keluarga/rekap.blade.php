@@ -21,15 +21,17 @@
                                         {{-- <div class="col-md-1">
                                             <a href="{{ url('data_keluarga/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
                                         </div> --}}
-                                        <div class="form-group">
-                                            <div class="dropdown">
-                                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    Pilihan
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    @foreach ($dataPeriode as $item)
-                                                        <a class="dropdown-item" href="{{ url('catatan_keluarga?periode=' . $item->tahun) }}">{{ $item->tahun }}</a>
-                                                    @endforeach
+                                        <div class="col-md-1">
+                                            <div class="form-group">
+                                                <div class="dropdown">
+                                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
+                                                        Pilihan
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        @foreach ($dataPeriode as $item)
+                                                            <a class="dropdown-item" href="{{ url('catatan_keluarga?periode=' . $item->tahun) }}">{{ $item->tahun }}</a>
+                                                        @endforeach
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -53,7 +55,7 @@
                                         </td>
                                         <td class="text-center">
                                             @if ($c->is_valid)
-                                            <a class="btn btn-success btn-sm" href="{{ url('rekap_data_warga/'.$c->id.'/rekap_data_warga') }}">Rekap Data Warga</a>
+                                            <a class="btn btn-primary btn-sm" href="{{ url('rekap_data_warga/'.$c->id.'/rekap_data_warga') }}">Rekap Data Warga</a>
                                             <a href="{{ route('keluarga-detail',['id' => $c->id]) }}" class="btn btn-warning btn-sm" >
                                                 Catatan Keluarga
                                             </a>

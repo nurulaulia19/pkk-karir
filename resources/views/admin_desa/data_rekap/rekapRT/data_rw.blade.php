@@ -8,15 +8,10 @@
     <!-- Main content -->
 <div class="main-content">
     <section class="section">
-        {{-- <h1 class="section-header">
-            <div>Kandidat</div>
-        </h1> --}}
-
         <div class="section-body">
             <div class="row">
                 <div class="col-12 col-lg-12">
                     <div class="card">
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
@@ -27,15 +22,13 @@
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
-
                                     <tbody>
-
                                         @foreach ($rw as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td style="vertical-align: middle;">{{$c->name}}</td>
                                         <td class="text-center">
-                                            <a class="btn btn-warning btn-sm" href="{{ url('rekap_kelompok_pkk_rt/rw/'.$c->id) }}">Rekap RT</a>
+                                            <a class="btn btn-sm text-white" style="background-color: #50A3B9" href="{{ url('rekap_kelompok_pkk_rt/rw/'.$c->id) }}">Rekap RT</a>
                                         </td>
                                     </tr>
                                     @endforeach

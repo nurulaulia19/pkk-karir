@@ -12,25 +12,9 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          {{-- <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <p>Rekapitulasi Catatan Data dan
-                    <br>Kegiatan Warga Kelompok Dasawisma
-                </p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-folder"></i>
-              </div>
-              <a href="/data_kelompok_dasa_wisma" class="small-box-footer"
-                >Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i
-              ></a>
-            </div>
-          </div> --}}
           <div class="col-lg-3 col-6" style="position: relative;">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-info">
                 <div class="inner">
                     <p>Rekapitulasi Catatan Data dan
                         <br>Kegiatan Warga Kelompok Dasawisma
@@ -50,7 +34,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-primary">
+            <div class="small-box bg-info">
               <div class="inner">
                 {{-- <h3>44</h3> --}}
 
@@ -89,7 +73,7 @@
 
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-secondary">
+            <div class="small-box bg-info">
               <div class="inner">
                 {{-- <h3>150</h3> --}}
 
@@ -113,7 +97,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-info">
               <div class="inner">
                 {{-- <h3>150</h3> --}}
 
@@ -133,7 +117,7 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-info">
               <div class="inner">
                 <h3>{{ $kader }}</h3>
 
@@ -149,25 +133,9 @@
             </div>
           </div>
           <!-- ./col -->
-          {{-- <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-light">
-              <div class="inner">
-                <h3>{{ $dasaWismas }}</h3>
-
-                <p>Data Dasawisma</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-folder"></i>
-              </div>
-              <a href="/data_dasawisma" class="small-box-footer"
-                >Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i
-              ></a>
-            </div>
-          </div> --}}
           <div class="col-lg-3 col-6" style="position: relative;">
             <!-- small box -->
-            <div class="small-box bg-light">
+            <div class="small-box bg-info">
                 <div class="inner">
                     <h3>{{ $dasaWismas }}</h3>
                     <p>Data Dasawisma</p>

@@ -8,7 +8,7 @@
     <div class="col-md-10">
         <!-- general form elements -->
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header" style="background-color: #50A3B9; color:white">
                 <h3 class="card-title">Tambah Data Kegiatan Warga</h3>
             </div>
             <!-- /.card-header -->
@@ -130,14 +130,15 @@
                     </div>
 
                     <div class="row d-flex justify-content-end mr-1">
-                        <button type="button" id="addButton" class="btn btn-primary">Add</button>
+                        <button type="button" id="addButton" class="btn" style="background-color: #50A3B9; color:white"><i class="fas fa-plus-circle"></i>
+                        </button>
                     </div>
                     {{-- end tingting --}}
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Tambah</button>
                     <a href="/data_kegiatan" class="btn btn-outline-primary">
                         <span>Batalkan</span>
                     </a>

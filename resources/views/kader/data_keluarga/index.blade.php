@@ -20,23 +20,26 @@
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
                                                     <a href="{{ url('data_keluarga/create') }}" type="button"
-                                                        class="btn btn-success">Tambah</a><br><br>
+                                                        class="btn"
+                                                        style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                                 @endif
                                             </div>
-                                            <div class="form-group">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button"
-                                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        Pilihan
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        @foreach ($dataPeriode as $item)
-                                                            <a class="dropdown-item"
-                                                                href="{{ url('data_keluarga?periode=' . $item->tahun) }}">{{ $item->tahun }}</a>
-                                                        @endforeach
-                                                    </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <div class="dropdown">
+                                                        <button class="btn dropdown-toggle" type="button"
+                                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false" style="background-color: #6e9ebb; color:white">
+                                                            Pilihan
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            @foreach ($dataPeriode as $item)
+                                                                <a class="dropdown-item"
+                                                                    href="{{ url('data_keluarga?periode=' . $item->tahun) }}">{{ $item->tahun }}</a>
+                                                            @endforeach
+                                                        </div>
 
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -65,27 +68,23 @@
 
                                                     {{-- nama desa yang login --}}
                                                     <td style="vertical-align: middle;">
-                                                        {{ ucfirst($c->nama_kepala_keluarga) }}
+                                                        {{ ucfirst($c->nama_kepala_keluarga) }} <br>
                                                         @if (!$c->is_valid)
-                                                            <button class="btn btn-success btn-sm">
+                                                            <a href="{{ route('data_keluarga.edit', $c->id) }}" class="btn btn-sm" style="background-color: #50A3B9; color:white">
                                                                 Edit untuk validasi
-                                                            </button>
+                                                            </a>
                                                         @endif
                                                     </td>
                                                     <td style="vertical-align: middle;">
                                                         {{ ucfirst($c->anggota->count()) }} Orang
                                                     </td>
                                                     <td style="vertical-align: middle;">
-                                                        {{-- {{ ucfirst($c->anggota->warga->where('jenis_kelamin', 'laki-laki')->count()) }}
-                                            Orang --}}
                                                         @php
                                                             $countLakiLaki = 0;
-
 
                                                         @endphp
                                                         @foreach ($c->anggota as $anggota)
                                                             @if ($anggota->warga->jenis_kelamin === 'laki-laki')
-
                                                                 @php
                                                                     $countLakiLaki++;
                                                                 @endphp
@@ -108,24 +107,25 @@
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ $c->periode }}</td>
                                                     @if ($nowYear == $periode && $user->dasawisma->status)
-                                                    <td class="text-center" width="100px" style="vertical-align: middle;">
-                                                        <div class="d-flex">
-                                                            <button type="button" class="btn btn-warning btn-sm"
-                                                                data-toggle="modal"
-                                                                data-target="#details-modal-{{ $c->id }}">
-                                                                Detail
-                                                            </button>
-                                                            <a class="btn btn-primary btn-sm ml-1"
-                                                                href="{{ route('data_keluarga.edit', $c->id) }}">Edit</a>
-                                                            <form action="{{ route('data_keluarga.destroy', $c->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-sm delete ml-1">Hapus</button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
+                                                        <td class="text-center" width="100px"
+                                                            style="vertical-align: middle;">
+                                                            <div class="d-flex" style="justify-content: center">
+                                                                <button type="button" class="btn btn-warning btn-sm"
+                                                                    data-toggle="modal"
+                                                                    data-target="#details-modal-{{ $c->id }}">
+                                                                    <i class="fas fa-exclamation-triangle text-white"></i>
+                                                                </button>
+                                                                <a class="btn btn-primary btn-sm ml-1"
+                                                                    href="{{ route('data_keluarga.edit', $c->id) }}"><i class="fas fa-edit"></i></a>
+                                                                <form action="{{ route('data_keluarga.destroy', $c->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm delete ml-1"><i class="fas fa-trash"></i></button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
                                                     @endif
                                                 </tr>
                                             @endforeach
@@ -209,31 +209,46 @@
                                                                             $age >= 15 &&
                                                                             $age <= 49 &&
                                                                             $anggota->warga->status_perkawinan === 'menikah';
-                                                                    })->count() ? '1' : '0'}}
+                                                                    })->count()
+                                                                    ? '1'
+                                                                    : '0' }}
                                                             </strong> Orang <br>
                                                             Jumlah PUS (Pasangan Usia Subur):
                                                             <strong>
                                                                 @php
-                                                                // Mengecek apakah ada laki-laki yang statusnya menikah
-                                                                $hasMarriedMen = $c->anggota->contains(function ($anggota) {
-                                                                    return $anggota->warga->jenis_kelamin === 'laki-laki' &&
-                                                                        $anggota->warga->status_perkawinan === 'menikah';
-                                                                });
+                                                                    // Mengecek apakah ada laki-laki yang statusnya menikah
+                                                                    $hasMarriedMen = $c->anggota->contains(function (
+                                                                        $anggota,
+                                                                    ) {
+                                                                        return $anggota->warga->jenis_kelamin ===
+                                                                            'laki-laki' &&
+                                                                            $anggota->warga->status_perkawinan ===
+                                                                                'menikah';
+                                                                    });
 
-                                                                $wusCount = 0; // Default 0 jika tidak ada laki-laki yang menikah
-                                                                if ($hasMarriedMen) {
-                                                                    $wusCount = $c->anggota->filter(function ($anggota) {
-                                                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                                        $today = new DateTime();
-                                                                        $age = $today->diff($birthdate)->y;
-                                                                        return $anggota->warga->jenis_kelamin === 'perempuan' &&
-                                                                            $age >= 15 &&
-                                                                            $age <= 49 &&
-                                                                            $anggota->warga->status_perkawinan === 'menikah';
-                                                                    })->count() ? 1 : 0;
-                                                                }
-                                                            @endphp
-                                                            {{ $wusCount }}
+                                                                    $wusCount = 0; // Default 0 jika tidak ada laki-laki yang menikah
+                                                                    if ($hasMarriedMen) {
+                                                                        $wusCount = $c->anggota
+                                                                            ->filter(function ($anggota) {
+                                                                                $birthdate = new DateTime(
+                                                                                    $anggota->warga->tgl_lahir,
+                                                                                );
+                                                                                $today = new DateTime();
+                                                                                $age = $today->diff($birthdate)->y;
+                                                                                return $anggota->warga
+                                                                                    ->jenis_kelamin === 'perempuan' &&
+                                                                                    $age >= 15 &&
+                                                                                    $age <= 49 &&
+                                                                                    $anggota->warga
+                                                                                        ->status_perkawinan ===
+                                                                                        'menikah';
+                                                                            })
+                                                                            ->count()
+                                                                            ? 1
+                                                                            : 0;
+                                                                    }
+                                                                @endphp
+                                                                {{ $wusCount }}
                                                             </strong>
                                                             Pasangan <br>
 

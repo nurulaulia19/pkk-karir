@@ -37,7 +37,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-primary">
+                    <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ $desa }}</h3>
                             <p>Data Desa</p>
@@ -52,7 +52,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box" style="background-color: #8576FF">
+                    <div class="small-box bg-info">
                         <div class="inner text-white">
                             <h3>{{ $kecamatan }}</h3>
                             <p>Data Kecamatan</p>
@@ -67,7 +67,7 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-success">
+                    <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ $agenda }}</h3>
                             <p>Data Agenda Kegiatan</p>
@@ -85,7 +85,7 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-secondary">
+                    <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ $galeri }}</h3>
                             <p>Data Galeri Kegiatan</p>
@@ -102,9 +102,9 @@
                 <!-- ./col -->
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box" style="background-color:#FCDC2A">
+                    <div class="small-box bg-info">
                         <div class="inner text-white">
-                            <h3>{{$pengguna}}</h3>
+                            <h3>{{ $pengguna }}</h3>
                             <p>Data Pengguna</p>
                         </div>
                         <div class="icon">
@@ -116,7 +116,7 @@
                 </div>
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-dark">
+                    <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ $pemanfaatan }}</h3>
                             <p>Kategori Pemanfaatan Tanah Pekarangan</p>
@@ -130,7 +130,7 @@
                 </div>
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box text-white" style="background-color: #D10363">
+                    <div class="small-box text-white bg-info">
                         <div class="inner">
                             <h3>{{ $industri }}</h3>
                             <p>Kategori Industri Rumah Tangga</p>
@@ -149,7 +149,7 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-danger">
+                    <div class="small-box bg-info">
                         <div class="inner">
                             <p>Rekapitulasi Catatan dan <br>
                                 Kegiatan Warga Kelompok <br> TP PKK Kecamatan</p>
@@ -164,7 +164,7 @@
                 </div>
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box text-white" style="background-color:#87A922">
+                    <div class="small-box text-white bg-info">
                         <div class="inner">
                             <p>Rekapitulasi Catatan dan <br>
                                 Kegiatan Warga Kelompok <br> TP PKK Kabupaten</p>

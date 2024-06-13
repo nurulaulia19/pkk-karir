@@ -17,19 +17,31 @@
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
-                                            <a href="{{ url('data_dasawisma/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                            <a href="{{ url('data_dasawisma/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                         </div>
-                                        <div style="margin-bottom: 20px">
+                                        {{-- <div class="col-md-1" style="margin-bottom: 20px;">
                                             <div class="dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        Rekap
+                                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
+                                                        Pilih
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                         @foreach ($periodes as $item)
                                                         <a class="dropdown-item" href="{{ url('data_dasawisma') }}?periode={{ $item->tahun }}">{{ $item->tahun }}</a>
                                                         @endforeach
                                                     </div>
+                                            </div>
+                                        </div> --}}
+                                        <div class="col-md-1" style="margin-bottom: 20px;">
+                                            <div class="dropdown ml-auto" style="max-width: fit-content;">
+                                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
+                                                    Pilih
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="max-width: 200px;">
+                                                    @foreach ($periodes as $item)
+                                                    <a class="dropdown-item text-truncate" href="{{ url('data_dasawisma') }}?periode={{ $item->tahun }}">{{ $item->tahun }}</a>
+                                                    @endforeach
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <thead>
@@ -77,11 +89,11 @@
                                         <td style="vertical-align: middle;">{{$c->periode}}</td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center">
-                                                <a class="btn btn-primary btn-sm" href="{{ url('data_dasawisma/'.$c->id.'/edit') }}">Edit</a>
+                                                <a class="btn btn-primary btn-sm" href="{{ url('data_dasawisma/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('data_dasawisma.destroy',$c->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1" >Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1" ><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </div>
                                         </td>

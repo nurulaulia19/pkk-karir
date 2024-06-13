@@ -8,7 +8,7 @@
 <div class="col-md-8">
     <!-- general form elements -->
     <div class="card card-primary">
-      <div class="card-header">
+      <div class="card-header" style="background-color: #50A3B9; color:white">
         <h3 class="card-title">Edit Data Pemanfaatan Tanah Pekarangan</h3>
       </div>
       <!-- /.card-header -->
@@ -116,14 +116,14 @@
         </div>
 
         <div class="row d-flex justify-content-end mr-1">
-            <button type="button" id="addButton" class="btn btn-primary">Add</button>
+            <button type="button" id="addButton" class="btn" style="background-color: #50A3B9; color:white"><i class="fas fa-plus-circle"></i></button>
         </div>
         {{-- end tingting --}}
         </div>
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary">Edit</button>
+          <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Edit</button>
           <a href="/data_pemanfaatan" class="btn btn-outline-primary">
             <span>Batalkan</span>
         </a>

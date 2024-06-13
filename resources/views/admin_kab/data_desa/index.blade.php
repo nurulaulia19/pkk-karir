@@ -16,7 +16,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
-                                    <a href="{{ url('data_desa/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                    <a href="{{ url('data_desa/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                     <thead>
                                         <tr>
                                         <th>No</th>
@@ -35,11 +35,11 @@
                                         <td style="vertical-align: middle;">{{$c->kecamatan->nama_kecamatan}}</td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center">
-                                                <a class="btn btn-primary btn-sm" href="{{ url('data_desa/'.$c->id.'/edit') }}">Edit</a>
+                                                <a class="btn btn-primary btn-sm" href="{{ url('data_desa/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('data_desa.destroy',$c->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1" >Delete</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1" ><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </div>
                                         </td>
