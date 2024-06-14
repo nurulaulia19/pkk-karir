@@ -20,7 +20,7 @@
                                         <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Periode</th>
+                                        {{-- <th>Periode</th> --}}
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
@@ -31,7 +31,7 @@
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td>{{$c->name}}</td>
-                                        <td>2024</td>
+                                        {{-- <td>2024</td> --}}
                                         {{-- <td style="vertical-align: middle;">{{($c->periode)}}</td> --}}
 
                                         <td class="text-center">
@@ -39,7 +39,7 @@
                                                 'periode' => $c->periode
                                             ]) }}">Rekap</a> --}}
                                             <div class="dropdown">
-                                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
                                                     Rekap
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

@@ -8,8 +8,8 @@
 <div class="col-md-6">
     <!-- general form elements -->
     <div class="card card-primary">
-      <div class="card-header">
-        <h3 class="card-title">Kategori Industri Rumah Tangga</h3>
+      <div class="card-header" style="background-color: #50A3B9; color:white">
+        <h3 class="card-title">Tambah Kategori Industri Rumah Tangga</h3>
       </div>
       <!-- /.card-header -->
       <!-- form start -->
@@ -30,7 +30,7 @@
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary">Tambah</button>
+          <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Tambah</button>
           <a href="/data_kategori_industri" class="btn btn-outline-primary">
             <span>Batalkan</span>
         </a>

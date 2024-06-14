@@ -8,7 +8,7 @@
 <div class="col-md-12">
     <!-- general form elements -->
     <div class="card card-primary">
-      <div class="card-header">
+      <div class="card-header" style="background-color: #50A3B9; color:white">
         <h3 class="card-title">Tambah Data Berita PKK</h3>
       </div>
       <!-- /.card-header -->
@@ -80,7 +80,7 @@
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary">Tambah</button>
+          <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Tambah</button>
           <a href="/beritaKab" class="btn btn-outline-primary">
             <span>Batalkan</span>
         </a>

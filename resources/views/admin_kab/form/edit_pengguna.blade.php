@@ -163,7 +163,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Edit</button>
                     <a href="/data_pengguna_super" class="btn btn-outline-primary">
                       <span>Batalkan</span>
                   </a>
@@ -202,7 +202,7 @@
                 </div>
                 </div>
                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Edit</button>
                     <a href="/data_pengguna_super" class="btn btn-outline-primary">
                       <span>Batalkan</span>
                   </a>

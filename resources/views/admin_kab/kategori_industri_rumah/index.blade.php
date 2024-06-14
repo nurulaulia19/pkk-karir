@@ -17,7 +17,7 @@
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
-                                            <a href="{{ url('data_kategori_industri/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                            <a href="{{ url('data_kategori_industri/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                         </div>
                                     </div>
                                     <thead>
@@ -33,12 +33,12 @@
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td style="vertical-align: middle;"> {{$c->nama_kategori}} </td>
                                         <td class="text-center" width="100px" style="vertical-align: middle;">
-                                            <div class="d-flex">
-                                                <a class="btn btn-primary btn-sm" href="{{ url('data_kategori_industri/'.$c->id.'/edit') }}">Edit</a>
+                                            <div class="d-flex" style="justify-content: center">
+                                                <a class="btn btn-primary btn-sm" href="{{ url('data_kategori_industri/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('data_kategori_industri.destroy', ['data_kategori_industri' => $c->id]) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1">Hapus</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm delete ml-1"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </div>
                                           </td>

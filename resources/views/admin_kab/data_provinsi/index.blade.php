@@ -40,7 +40,7 @@
                                         <td style="vertical-align: middle;">{{$c->name}}</td>
                                         <td class="text-center">
                                             <form action="{{ route('data_provinsi.destroy',$c->id) }}" method="POST">
-                                                <a class="btn btn-primary btn-sm" href="{{ url('data_provinsi/'.$c->id.'/edit') }}">Edit</a>
+                                                <a class="btn btn-primary btn-sm" href="{{ url('data_provinsi/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 {{-- @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm delete" >Delete</button> --}}
