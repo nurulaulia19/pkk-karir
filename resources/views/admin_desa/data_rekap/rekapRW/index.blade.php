@@ -398,7 +398,7 @@
                                     </table>
 
                                 </div>
-                                <a href="{{ url('export_rekap_rw',['id' => $dasa_wisma->first()->rw->id ]) }}?periode={{$periode}}" target="_blank" class="btn btn-success" type="button" role="button">
+                                <a href="{{ url('export_rekap_rw',['id' => $dasa_wisma->first()->rw->id ]) }}?periode={{$periode}}" target="_blank" class="btn btn-success mt-2" type="button" role="button">
                                 <i class="fas fa-print"></i> Cetak ke Excel </a><br>
                             </div>
                         </div>

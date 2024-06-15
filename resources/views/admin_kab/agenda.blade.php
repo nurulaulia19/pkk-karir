@@ -21,7 +21,7 @@
                                 <table id="example1" class="table table-bordered table-striped">
 
                                 {{-- <table class="table table-striped table-bordered data" id="add-row"> --}}
-                                    <a href="{{ url('agendaKeg/create') }}" type="button" class="btn btn-success">Tambah</a><br><br>
+                                    <a href="{{ url('agendaKeg/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
 
                                     <thead>
                                         <tr>
@@ -29,7 +29,7 @@
                                         <th>Judul Agenda</th>
                                         <th>Tema Agenda</th>
                                         <th>Tempat</th>
-                                        <th>Tanggal Publsih Agenda</th>
+                                        <th>Tanggal Publish Agenda</th>
                                         <th>Pukul</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
@@ -57,10 +57,10 @@
 
                                         <td style="vertical-align: middle;" class="text-center">
                                             <form action="{{ route('agendaKeg.destroy',$c->id) }}" method="POST">
-                                                <a class="btn btn-primary btn-sm" href="{{ url('agendaKeg/'.$c->id.'/edit') }}">Edit</a>
+                                                <a class="btn btn-primary btn-sm" href="{{ url('agendaKeg/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm delete" >Delete</button>
+                                                <button type="submit" class="btn btn-danger btn-sm delete" ><i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>

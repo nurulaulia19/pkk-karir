@@ -42,7 +42,7 @@
 
         <div class="card-footer">
           <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Edit</button>
-          <a href="/data_kabupaten" class="btn btn-outline-primary">
+          <a href="/data_kabupaten" class="btn btn-outline-danger">
             <span>Batalkan</span>
         </a>
         </div>

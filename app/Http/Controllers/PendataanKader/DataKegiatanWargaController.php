@@ -281,10 +281,16 @@ class DataKegiatanWargaController extends Controller
             $warga = DataWarga::find($wargaId);
             $warga->is_kegiatan = false;
             $warga->save();
+            Alert::success('Berhasil', 'Data berhasil di hapus');
+            return redirect('/data_kegiatan')->with('success', 'Kegiatan deleted successfully');
         }
 
+
+
         Alert::success('Berhasil', 'Data berhasil di hapus');
-        return redirect('/data_kegiatan')->with('success', 'Kegiatan deleted successfully');
+        return redirect('/data_kegiatan/'.$wargaId.'/edit')->with('success', 'Kegiatan deleted successfully');
+
+        // return redirect('/data_kegiatan')->with('success', 'Kegiatan deleted successfully');
     }
 
 

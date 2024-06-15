@@ -229,7 +229,7 @@ class AdminKabController extends Controller
             ->get();
         if ($desaa->isEmpty()) {
             // abort(404, 'Data RT masih belum ada, jadi tidak ada rekap yang tersedia.');
-            return redirect()->route('not-found')->with('error', 'Data RT tidak tersedia');;
+            return redirect()->route('not-found')->with('error', 'Data Rekap tidak tersedia');;
         }
 
         // dd($desaa);
@@ -724,7 +724,7 @@ class AdminKabController extends Controller
         }else{
             $periode = Carbon::now()->year;
         }
-        $kecamatans = DataKecamatan::with('desa')->get();
+        $kecamatans = DataKecamatan::with('desa','kabupaten')->get();
         $totalDesa = 0;
         $totalRw = 0;
         $totalRt = 0;

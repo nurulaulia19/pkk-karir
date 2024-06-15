@@ -285,6 +285,9 @@ class DesaController extends Controller
             ->where('desa_id', $id)
             ->get();
         $totalDusun = $dusun->count();
+        if ($totalDusun <=0) {
+            return redirect()->route('not-found')->with('error', 'Data rekap tidak tersedia');
+        }
         $totalRw = Rw::where('dusun_id', '!=', 0)->where('desa_id', $id)->count();
         $totalRt = Rt::where('dusun_id', '!=', 0)->count();
         $dataRt = Rt::where('dusun_id', '!=', 0)->get();
@@ -319,7 +322,10 @@ class DesaController extends Controller
         $totalbalitaPerempuan = 0;
         $totalPUS = 0;
 
-        $desa = Data_Desa::find($id);
+        $desa = Data_Desa::with('kecamatan')->find($id);
+        if (!$desa) {
+            return redirect()->route('not-found')->with('error', 'Data rekap tidak tersedia');
+        }
 
         // dd($dataRt);
         // dd($dasawisma);

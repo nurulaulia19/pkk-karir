@@ -12,7 +12,6 @@
             <div class="row">
                 <div class="col-12 col-lg-12">
                     <div class="card">
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
@@ -38,7 +37,7 @@
                                                     <button class="btn dropdown-toggle" style="background-color: #50A3B9; color:white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         Rekap
                                                     </button>
-                                                    <div class="dropdown-menu dropup" aria-labelledby="dropdownMenuButton">
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                         @foreach ($periode as $item)
                                                         <a class="dropdown-item" href="{{ url('rekap_kelompok_pkk_rt', ['id' => $c->id]) }}?periode={{ $item->tahun }}">{{ $item->tahun }}</a>
                                                         @endforeach

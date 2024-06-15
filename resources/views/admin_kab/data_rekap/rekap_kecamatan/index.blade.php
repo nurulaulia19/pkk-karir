@@ -25,11 +25,17 @@
                                     <h6>Kecamatan :
                                         {{ $desaa->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan }}
                                     </h6>
-                                    <h6>Kabupaten :
+                                    {{-- <h6>Kabupaten :
                                         {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }}
                                     </h6>
                                     <h6>Provinsi :
                                         {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }}
+                                    </h6> --}}
+                                    <h6>Kabupaten :
+                                        {{ optional($desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten)->name ?? 'Indramayu' }}
+                                    </h6>
+                                    <h6>Provinsi :
+                                        {{ optional($desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi)->name ?? 'Jawa Barat' }}
                                     </h6>
                                 </div>
 
@@ -343,9 +349,8 @@
                                             </tr>
                                         </tfoot>
                                     </table>
-
                                 </div>
-                                <a href="{{ url('export_rekap_kec',['id' => $desaa->first()->id_kecamatan ]) }}?periode={{$periode}}" target="_blank" class="btn btn-success" type="button" role="button">
+                                <a href="{{ url('export_rekap_kec',['id' => $desaa->first()->id_kecamatan ]) }}?periode={{$periode}}" target="_blank" class="btn btn-success mt-2" type="button" role="button">
                                 <i class="fas fa-print"></i> Cetak ke Excel </a><br>
                             </div>
                         </div>
@@ -366,7 +371,7 @@
     <script>
         $(document).ready(function() {
             $('.data').DataTable({
-                "order": [[ 1, 'asc' ]]
+            "order": [[0, 'asc'], [1, 'asc']]
             });
         });
     </script>

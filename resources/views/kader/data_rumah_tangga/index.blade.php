@@ -93,7 +93,7 @@
                                         <td class="text-center" width="100px" style="vertical-align: middle;">
                                             <div class="d-flex">
                                                 <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#details-modal-{{ $c->id }}">
-                                                    <i class="fas fa-exclamation-triangle text-white"></i>
+                                                    <i class="far fa-eye text-white"></i>
                                                 </button>
                                                 <a class="btn btn-primary btn-sm ml-1" href="{{ url('data_rumah_tangga/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('data_rumah_tangga.destroy',$c->id) }}" method="POST">

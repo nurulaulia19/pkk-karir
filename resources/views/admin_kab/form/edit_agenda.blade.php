@@ -8,7 +8,7 @@
     <div class="col-md-6">
         <!-- general form elements -->
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header" style="background-color: #50A3B9; color:white">
                 <h3 class="card-title">Edit Data Agenda Kegiatan</h3>
             </div>
             <!-- /.card-header -->
@@ -109,8 +109,8 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                    <a href="/agendaKeg" class="btn btn-outline-primary">
+                    <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Edit</button>
+                    <a href="/agendaKeg" class="btn btn-outline-danger">
                         <span>Batalkan</span>
                     </a>
                 </div>

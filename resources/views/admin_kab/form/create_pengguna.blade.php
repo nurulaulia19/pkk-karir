@@ -90,23 +90,10 @@
                                     name="id_kecamatan">
                                     {{-- Pilih Kecamatan --}}
                                     <option selected disabled> Pilih Kecamatan</option>
-                                    {{-- @foreach ($kategori as $key => $val)
-                            @if ($key == old('nama_kategori'))
-                            <option value="{{ $key }}" selected>{{ $val }}</option>
-                            @else
-                            <option value="{{ $key }}">{{ $val }}</option>
-                            @endif
-                        @endforeach --}}
                                     @foreach ($kec as $item)
                                         <option {{ old('id_kecamatan') == $item->id ? 'selected' : '' }}
                                             value="{{ $item->id }}">{{ $item->nama_kecamatan }}</option>
                                     @endforeach
-                                    {{-- @foreach ($kec as $item)
-                            <option value="{{ $item->id }}" @if ($item->id == old('id_kecamatan')) selected @endif>
-                                {{ $item->nama_kecamatan }}
-                            </option>
-                        @endforeach --}}
-
                                 </select>
                                 @error('id_kecamatan')
                                     <span class="invalid-feedback" role="alert">
@@ -134,8 +121,6 @@
                         <label>Foto Profil</label>
                         <input name="foto" type="file" class="form-control-file" id="foto"
                             accept=".img, .jpg, .jpeg, .png" value="{{ old('foto') }}">
-                        {{-- <img src="{{asset('gambar/'. $c->logo)}}" class="img-thumbnail" width="100px"> --}}
-                        {{-- <input name="logo" type="hidden" name="hidden_image" value="{{asset('gambar/'. $c->logo)}}" class="form-control-file" id="hidden_image"> --}}
                     </div>
 
                 </div>
@@ -143,7 +128,7 @@
 
                 <div class="card-footer">
                     <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Tambah</button>
-                    <a href="/data_pengguna_super" class="btn btn-outline-primary">
+                    <a href="/data_pengguna_super" class="btn btn-outline-danger">
                         <span>Batalkan</span>
                     </a>
                 </div>

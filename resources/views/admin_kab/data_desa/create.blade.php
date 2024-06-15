@@ -41,8 +41,8 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                    <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Tambah</button>
-                    <a href="/data_desa" class="btn btn-outline-primary">
+                    <button type="submit" class="btn btn-outline-custom" >Tambah</button>
+                    <a href="/data_desa" class="btn btn-outline-danger">
                         <span>Batalkan</span>
                     </a>
                 </div>

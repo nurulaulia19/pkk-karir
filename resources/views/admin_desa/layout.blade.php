@@ -41,6 +41,13 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
     {{-- Dashboard --}}
     <link rel="stylesheet" href="{{ url('css/dashboard.css') }}" />
+    <style>
+        .nav-pills .nav-link.active {
+            background-color: #50A3B9 !important;
+            /* Ganti warna sesuai dengan keinginan */
+            color: white !important;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -217,11 +224,11 @@
                                     </a>
                                 </li>
                                 {{-- <li class="nav-item">
-                    <a href="/data_kelompok_pkk_desa" class="nav-link {{ Request::is('data_kelompok_pkk_desa') ? 'active':'' }}">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Data TP PKK Desa/Kelurahan</p>
-                    </a>
-                  </li> --}}
+                                    <a href="/data_kelompok_pkk_desa" class="nav-link {{ Request::is('data_kelompok_pkk_desa') ? 'active':'' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Data TP PKK Desa/Kelurahan</p>
+                                    </a>
+                                </li> --}}
 
                                 <li class="nav-item">
                                     <a href="/rekap_desa"
@@ -282,7 +289,7 @@
 
         </div>
 
-        <footer class="main-footer" style="margin-top: -17px; padding-bottom: -20px;">
+        <footer class="main-footer">
             <strong>Copyright &copy; Admin PKK Desa.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">

@@ -284,7 +284,7 @@ class DataKeluargaController extends Controller
             // tambahkan atribut lainnya sesuai kebutuhan
         ]);
 
-    
+
 
         // Memperbarui status is_keluarga untuk anggota keluarga yang terkait
         foreach ($request->warga as $key => $wargaId) {
@@ -476,9 +476,12 @@ class DataKeluargaController extends Controller
         if ($countWarga === 0) {
             // Hapus data keluarga jika tidak ada warga terkait lagi
             DataKeluarga::find($hasWarga->keluarga_id)->delete();
+            Alert::success('Berhasil', 'Data berhasil dihapus');
+            return redirect()->route('data_keluarga.index');
+
         }
 
         Alert::success('Berhasil', 'Anggota keluarga berhasil dihapus');
-        return redirect()->back();
+        return redirect()->route('data_keluarga.index');
     }
 }

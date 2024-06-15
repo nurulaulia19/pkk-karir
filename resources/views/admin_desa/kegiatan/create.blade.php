@@ -31,7 +31,7 @@
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn" style="background-color: #50A3B9; color:white">Tambah</button>
-                    <a href="/kegiatan" class="btn btn-outline-primary">
+                    <a href="/kegiatan" class="btn btn-outline-danger">
                         <span>Batalkan</span>
                     </a>
                 </div>

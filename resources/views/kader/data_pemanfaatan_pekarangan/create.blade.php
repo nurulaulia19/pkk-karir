@@ -131,7 +131,7 @@
         </div>
 
         <div class="row d-flex justify-content-end mr-1">
-            <button type="button" id="addButton" class="btn" style="background-color: #50A3B9; color:white"><i class="fas fa-plus-circle"></i></button>
+            <button type="button" id="addButton" class="btn" style="background-color: #50A3B9; color:white"><i class="fas fa-plus"></i></button>
         </div>
         {{-- end tingting --}}
         </div>
@@ -225,7 +225,7 @@ console.log('kategoriPemanfaatanLahan :>> ', kategoriPemanfaatanLahan);
                 const deleteButton = document.createElement('a');
                 deleteButton.href = '#'; // Set href attribute for delete button
                 deleteButton.className = 'btn btn-danger btn-sm mt-2';
-                deleteButton.textContent = 'Delete';
+                deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
                 deleteButton.addEventListener('click', function(event) {
                     event.preventDefault(); // Prevent default link behavior
                     newRow.remove();

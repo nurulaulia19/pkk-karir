@@ -43,6 +43,13 @@
     {{-- Dashboard --}}
     <link rel="stylesheet" href="{{ url('css/dashboard.css') }}" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .nav-pills .nav-link.active {
+            background-color: #50A3B9 !important;
+            /* Ganti warna sesuai dengan keinginan */
+            color: white !important;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed" style="height:100% margin: 0; padding: 0;">
@@ -255,7 +262,7 @@
                 @yield('container')
             {{-- </div> --}}
         </div>
-        <footer class="main-footer" style="margin-top: -17px; padding-bottom: -20px;">
+        <footer class="main-footer">
             <strong>Copyright &copy; Kader Dasawisma.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">

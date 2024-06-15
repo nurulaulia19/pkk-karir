@@ -39,6 +39,12 @@
     <link rel="stylesheet" href="{{ url('admin/plugins/summernote/summernote-bs4.css') }}" />
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
+    <style>
+        .nav-pills .nav-link.active {
+          background-color: #50A3B9 !important; /* Ganti warna sesuai dengan keinginan */
+          color: white !important;
+        }
+      </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -320,7 +326,7 @@
 
         </div>
 
-        <footer class="main-footer" style="margin-top: -17px; padding-bottom: -20px;">
+        <footer class="main-footer">
             <strong>Copyright &copy; Admin PKK Kabupaten.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">

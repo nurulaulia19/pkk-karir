@@ -348,8 +348,11 @@ class RumahTanggaController extends Controller
         if (!$anyKeluargaInRumah) {
             $rumahTangga = RumahTangga::find($rumahTanggaId);
             $rumahTangga->delete();
+            Alert::success('Berhasil', 'Data berhasil dihapus');
+            return redirect()->route('data_rumah_tangga.index');
         }
 
+        Alert::success('Berhasil', 'Anggota rumah tangga berhasil dihapus');
         return redirect()->to(url('data_rumah_tangga/' . $rumahTanggaId . '/edit'));
 
         // return response()->json([
@@ -370,7 +373,7 @@ class RumahTanggaController extends Controller
         $krt->delete();
 
         Alert::success('Berhasil', 'Data berhasil di Hapus');
-        return redirect()->back();
+        return redirect()->route('data_rumah_tangga.index');
     }
 
     public function keluarga()

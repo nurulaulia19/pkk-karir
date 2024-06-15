@@ -30,11 +30,17 @@
                                         <h6>Kecamatan :
                                             {{ $dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan }}
                                         </h6>
-                                        <h6>Kabupaten :
+                                        {{-- <h6>Kabupaten :
                                             {{ $dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }}
                                         </h6>
                                         <h6>Provinsi :
-                                            Jawa Barat
+                                            {{ $dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }}
+                                        </h6> --}}
+                                        <h6>Kabupaten :
+                                            {{ optional($dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten)->name ?? 'Indramayu' }}
+                                        </h6>
+                                        <h6>Provinsi :
+                                            {{ optional($dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi)->name ?? 'Jawa Barat' }}
                                         </h6>
                                     </div>
 
@@ -385,7 +391,7 @@
 
                                 </div>
                                 <a href="{{ url('export_rekap_desa', ['id' => $dusun->first()->desa_id]) }}?periode={{$periode}}" target="_blank"
-                                    class="btn btn-success" type="button" role="button">
+                                    class="btn btn-success mt-2" type="button" role="button">
                                     <i class="fas fa-print"></i> Cetak ke Excel </a><br>
                             </div>
                         </div>

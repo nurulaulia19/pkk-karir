@@ -397,7 +397,7 @@
                                 {{-- <a href="{{ url('export_rekap_dasawisma').'?'.http_build_query(compact('nama_dasawisma', 'rt', 'rw', 'periode'))  }}" target="_blank" class="btn btn-success" type="button" role="button">
                                 <i class="fas fa-print"></i> Cetak ke Excel </a><br> --}}
 
-                                <a href="{{ url('export_rekap_rt', ['id' => $dasa_wisma->first()->rt->id ]) }}?periode={{ $periode }}" target="_blank" class="btn btn-success" role="button">
+                                <a href="{{ url('export_rekap_rt', ['id' => $dasa_wisma->first()->rt->id ]) }}?periode={{ $periode }}" target="_blank" class="btn btn-success mt-2" role="button">
                                     <i class="fas fa-print"></i> Cetak ke Excel
                                 </a>
                             </div>

@@ -31,6 +31,10 @@ class RekapDusunInDesaController extends Controller
             ->where('desa_id', $user->id_desa)
             ->get();
         $totalDusun = $dusun->count();
+
+        if ($totalDusun <=0) {
+            return redirect()->route('not-found')->with('error', 'Data rekap tidak tersedia');
+        }
         $totalRw = Rw::where('dusun_id','!=',0)->where('desa_id', $user->id_desa)->count();
         $totalRt = Rt::where('dusun_id','!=',0)->count();
         $dataRt =  Rt::where('dusun_id','!=',0)->get();

@@ -18,8 +18,10 @@
                                 <h6><strong>CATATAN DATA KEGIATAN WARGA</strong></h6>
                                 <h6><strong>TP PKK KABUPATEN</strong></h6>
                                 <h6><strong>TAHUN {{$periode}}</strong></h6>
-                                <h6><strong>KAB/KOTA : INDRAMAYU</strong> </h6>
-                                <h6><strong>PROVINSI : JAWA BARAT</strong> </h6>
+                                {{-- <h6><strong>KAB/KOTA : {{$kecamatans->first()->kabupaten->name}}</strong> </h6>
+                                <h6><strong>PROVINSI : {{$kecamatans->first()->kabupaten->provinsi->name}}</strong> </h6> --}}
+                                <h6><strong>KAB/KOTA : {{ strtoupper($kecamatans->first()->kabupaten->name ?? 'INDRAMAYU') }}</strong></h6>
+                                <h6><strong>PROVINSI : {{ strtoupper($kecamatans->first()->kabupaten->provinsi->name ?? 'JAWA BARAT') }}</strong></h6>
                             </center>
 
                             <div class="table-responsive">

@@ -248,7 +248,7 @@
                                 </div>
                                 {{-- <a href="" target="_blank" class="btn btn-success" type="button" role="button">
                                 <i class="fas fa-print"></i> Cetak ke Excel </a> --}}
-                                <a href="{{ url('export_rekap_dusun',['id' => $dusun_data->id]) }}?periode={{$periode}}" target="_blank" class="btn btn-success" role="button">
+                                <a href="{{ url('export_rekap_dusun',['id' => $dusun_data->id]) }}?periode={{$periode}}" target="_blank" class="btn btn-success mt-2" role="button">
                                     <i class="fas fa-print"></i> Cetak ke Excel
                                 </a>
                                 <br>

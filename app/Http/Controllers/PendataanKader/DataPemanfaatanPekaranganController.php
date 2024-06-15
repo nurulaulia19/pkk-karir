@@ -474,6 +474,7 @@ class DataPemanfaatanPekaranganController extends Controller
             return redirect()->back()->with('error', 'Data tidak ditemukan');
         }
 
+        Alert::success('Berhasil', 'Data berhasil di hapus');
         $hasKeluarga->delete();
 
         $countPemanfaatan = DataPemanfaatanPekarangan::where('rumah_tangga_id', $rumahTanggaId)->count();

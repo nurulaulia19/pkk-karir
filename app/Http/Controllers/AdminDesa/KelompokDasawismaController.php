@@ -22,18 +22,6 @@ use Illuminate\Support\Facades\Auth;
 
 class KelompokDasawismaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function index()
-    // {
-    //     //halaman form data dasawisma
-    //     $dasawisma = DataKelompokDasawisma::all();
-
-    //     return view('admin_desa.data_kelompok_dasawisma', compact('dasawisma'));
-    // }
     public function index(Request $request)
     {
         $user = Auth::user();

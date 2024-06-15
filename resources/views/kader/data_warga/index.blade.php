@@ -99,7 +99,7 @@
                                                                 <button type="button" class="btn btn-warning btn-sm"
                                                                     data-toggle="modal"
                                                                     data-target="#details-modal-{{ $c->id }}">
-                                                                    <i class="fas fa-exclamation-triangle text-white"></i>
+                                                                    <i class="far fa-eye text-white"></i>
                                                                 </button>
                                                                 <a class="btn btn-primary btn-sm ml-1"
                                                                     href="{{ url('data_warga/' . $c->id . '/edit') }}"><i class="fas fa-edit"></i></a>
@@ -113,13 +113,10 @@
                                                             </div>
                                                         </td>
                                                     @endif
-
                                                 </tr>
                                             @endforeach
-
                                         </tbody>
                                     </table>
-
                                     @foreach ($warga as $c)
                                         <div id="details-modal-{{ $c->id }}" class="modal fade" tabindex="1"
                                             role="dialog" aria-labelledby="details-modal-{{ $c->id }}"

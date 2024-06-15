@@ -261,8 +261,14 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
             ['TP PKK KECAMATAN'],
             ['TAHUN ' . $this->periode],
             ['Kecamatan : ' . $this->desaa->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan],
-            ['Kabupaten : Indramayu'],
-            ['Provinsi : Jawa Barat'],
+            // ['Kabupaten : '. $this->desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->name],
+            // ['Provinsi : ' . $this->desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name],
+            [
+                'Kabupaten : ' . (optional($this->desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten)->name ?? 'Indramayu'),
+            ],
+            [
+                'Provinsi : ' . (optional($this->desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi)->name ?? 'Jawa Barat'),
+            ],
             [],
             $headings,
             $headings2,

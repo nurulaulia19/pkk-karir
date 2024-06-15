@@ -277,7 +277,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <button id="addRow" type="button" class="btn" style="background-color: #50A3B9; color:white"><i class="fas fa-plus-circle"></i>
+                                <button id="addRow" type="button" class="btn" style="background-color: #50A3B9; color:white"><i class="fas fa-plus"></i> </i>
                                 </button>
                             </div>
                         </div>
@@ -713,7 +713,7 @@
                         </div>
                     </div>
                     <div class="col-md-1 d-flex align-items-center">
-                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">Delete</button>
+                        <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>
             </div>

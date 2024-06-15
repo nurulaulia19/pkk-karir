@@ -274,11 +274,17 @@ public function __construct(array $data)
             [
                 'Kecamatan : ' . ($this->dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan),
             ],
-             [
-                 'Kabupaten : ' . ($this->dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->name),
-             ],
+            //  [
+            //      'Kabupaten : ' . ($this->dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->name),
+            //  ],
+            // [
+            //     'Provinsi : ' . ($this->dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name),
+            // ],
             [
-                'Provinsi : ' . ($this->dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name),
+                'Kabupaten : ' . (optional($this->dusun->first()->rt->first())->dasawisma->first()->desa->kecamatan->kabupaten ? $this->dusun->first()->rt->first()->dasawisma->first()->desa->kecamatan->kabupaten->name : 'Indramayu'),
+            ],
+            [
+                'Provinsi : ' . (optional($this->dusun->first()->rt->first())->dasawisma->first()->desa->kecamatan->kabupaten->provinsi ? $this->dusun->first()->rt->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name : 'Jawa Barat'),
             ],
             [],
             $headings,

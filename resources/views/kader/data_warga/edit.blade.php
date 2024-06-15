@@ -767,7 +767,7 @@
                                 Validasi
                             @endif
                         </button>
-                        <a href="/data_warga" class="btn btn-outline-primary">
+                        <a href="/data_warga" class="btn btn-outline-danger">
                             <span>Batalkan</span>
                         </a>
                     </div>

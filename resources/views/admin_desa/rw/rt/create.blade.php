@@ -41,7 +41,7 @@
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn" style="background-color:#50A3B9; color:white">Tambah</button>
-                    <a href="{{ route('rw.show', ['id' => $rw_id]) }}" class="btn btn-outline-primary">
+                    <a href="{{ route('rw.show', ['id' => $rw_id]) }}" class="btn btn-outline-danger">
                         <span>Batalkan</span>
                     </a>
                 </div>
