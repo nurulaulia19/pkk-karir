@@ -15,7 +15,10 @@
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
               <div class="text-center">
-                <img src="{{ asset('uploads/'.$data_kader->foto) }}" class="profile-user-img img-fluid img-circle rounded-circle" style="max-width: 100px; max-height: 100px;">
+                <img
+                {{-- src="{{ asset('uploads/'.$data_kader->foto) }}" --}}
+                src="{{ $data_kader->foto ? asset('uploads/' . $data_kader->foto) : asset('assets/img/profile.png') }}"
+                class="profile-user-img img-fluid img-circle rounded-circle" style="max-width: 100px; max-height: 100px;">
               </div>
               <h3 class="profile-username text-center">{{ (Auth::user()->name) }}</h3>
               <p class="text-muted text-center">Kader Dasawisma</p>

@@ -4,7 +4,8 @@
         <div class="container-fluid" style="background-color: #6B8DB2 ;">
             <div class="row">
                 <div class="col-sm-12 col-md-6 text-black d-flex justify-content-center align-items-center vh-100">
-                    <div class="col-md-8" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+                    <div class="col-md-8"
+                        style="background-color: #ffffff; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
                         <div style="margin-top: 70px; display:flex; justify-content:center">
                             <img src="{{ url('image/remove.png') }}" width="100px" class="img-fluid">
                         </div>
@@ -17,9 +18,9 @@
                                 </p>
                                 <div data-mdb-input-init class="form-outline mb-3">
                                     <label for="email">Email</label>
-                                    <input placeholder="Masukan Email..." id="email" type="email"
-                                        class="form-control form-control-lg @error('email') is-invalid @enderror"
-                                        name="email" value="{{ old('email') }}" autocomplete="email" autofocus>
+                                    <input placeholder="Masukkan Email..." id="email" type="email"
+                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        value="{{ old('email') }}" autocomplete="email" autofocus>
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -29,11 +30,12 @@
                                     <input type="email" id="form2Example18" class="form-control form-control-lg" /> --}}
                                 </div>
 
-                                <div data-mdb-input-init class="form-outline mb-4">
+                                <div data-mdb-input-init class="form-outline mb-4 password-container">
                                     <label for="password">Password</label>
-                                    <input placeholder="Masukan Password..." id="password" type="password"
-                                        class="form-control form-control-lg @error('password') is-invalid @enderror"
-                                        name="password" autocomplete="current-password">
+                                    <input placeholder="Masukkan Password..." id="password" type="password"
+                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        autocomplete="current-password">
+                                    <i class="fas fa-eye toggle-password" id="togglePassword"></i>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -51,9 +53,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 px-0 d-none d-md-block ">
-                    <img src="{{ asset('assets/img/img-login.jpeg')}}" alt="Login image" class="w-100 vh-100"
-                        style="object-fit: cover; object-position: left;">
+                <div class="col-sm-12 col-md-6 px-0 d-none d-md-flex justify-content-center align-items-center bg-white">
+                    <div>
+                        <img src="{{ asset('assets/img/login.svg') }}" alt="Login image" width="400px"
+                            style="object-fit: cover; object-position: left;">
+                        <div style="margin-left:15px; margin-top:15px; font-weight:bold; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size:30px; color: #50A3B9; line-height:15px">
+                            <p>Halo Semua</p>
+                            <p>Selamat Datang Kembali !</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
