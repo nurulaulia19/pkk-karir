@@ -8,15 +8,11 @@ RUN apt-get update \
                           libfreetype6-dev \
                           zip \
                           unzip \
-                          git
+                          git \
+                          libzip-dev \
+                          zlib1g-dev
 
-# Konfigurasi ekstensi gd untuk PHP
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-
-# Install ekstensi PHP secara terpisah
-RUN docker-php-ext-install gd
-RUN docker-php-ext-install pdo
-RUN docker-php-ext-install pdo_mysql
+# Install ekstensi PHP zip
 RUN docker-php-ext-install zip
 
 # Konfigurasi lainnya dan setup aplikasi Laravel bisa ditambahkan setelah ini
