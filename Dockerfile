@@ -11,7 +11,7 @@ RUN apt-get update \
                           git
 
 # Konfigurasi ekstensi gd untuk PHP
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql zip
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-install gd pdo pdo_mysql zip
 
 # Konfigurasi lainnya dan setup aplikasi Laravel bisa ditambahkan setelah ini
