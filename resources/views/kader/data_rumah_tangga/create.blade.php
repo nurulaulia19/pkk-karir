@@ -514,6 +514,9 @@
                         <div class="card-footer">
                             {{-- <button type="button" data-action="next" class="btn btn-primary">Next</button> --}}
                             <button type="submit" class="ml-2 btn" style="background-color: #50A3B9; color:white">Tambah</button>
+                            <a href="/data_rumah_tangga" class="btn btn-outline-danger">
+                                <span>Batalkan</span>
+                            </a>
                         </div>
                     </div>
                 </div>

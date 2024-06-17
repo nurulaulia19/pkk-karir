@@ -451,6 +451,9 @@
                                     Validasi
                                 @endif
                             </button>
+                            <a href="/data_rumah_tangga" class="btn btn-outline-danger">
+                                <span>Batalkan</span>
+                            </a>
 
                         </div>
                     </div>

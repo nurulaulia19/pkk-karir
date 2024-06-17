@@ -36,6 +36,7 @@ class RumahTanggaController extends Controller
             $krt = RumahTangga::with('dasawisma.rw.rt')
                 ->where('periode', $periode)
                 ->where('id_dasawisma', $user->id_dasawisma)
+                ->orderBy('id', 'desc')
                 ->get();
         } else {
             $keluarga = DataKeluarga::with('anggota.warga')
@@ -45,6 +46,7 @@ class RumahTanggaController extends Controller
             $krt = RumahTangga::with('dasawisma.rw.rt')
                 ->where('periode', now()->year)
                 ->where('id_dasawisma', $user->id_dasawisma)
+                ->orderBy('id', 'desc')
                 ->get();
             $periode = now()->year;
         }

@@ -41,6 +41,7 @@ class DataWargaController extends Controller
             $warga = DataWarga::with('kepalaKeluarga.keluarga')
                 ->where('id_dasawisma', $user->id_dasawisma)
                 ->where('periode', $periode) // menambahkan kondisi where untuk tahun sekarang
+                ->orderBy('id', 'desc')
                 ->get();
 
             // $nowYear = true;
@@ -48,6 +49,7 @@ class DataWargaController extends Controller
             $warga = DataWarga::with('kepalaKeluarga.keluarga')
                 ->where('id_dasawisma', $user->id_dasawisma)
                 ->where('periode', now()->year) // menambahkan kondisi where untuk tahun sekarang
+                ->orderBy('id', 'desc')
                 ->get();
             $periode = now()->year;
         }

@@ -47,11 +47,13 @@ class DataKeluargaController extends Controller
             $keluarga = DataKeluarga::with('anggota.warga')
                 ->where('id_dasawisma', $user->id_dasawisma)
                 ->where('periode', $periode)
+                ->orderBy('id', 'desc')
                 ->get();
         } else {
             $keluarga = DataKeluarga::with('anggota.warga')
                 ->where('id_dasawisma', $user->id_dasawisma)
                 ->where('periode', now()->year)
+                ->orderBy('id', 'desc')
                 ->get();
                 $periode = now()->year;
         }
