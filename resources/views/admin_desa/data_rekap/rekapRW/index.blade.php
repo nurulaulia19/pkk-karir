@@ -91,7 +91,12 @@
                                                         {{ $loop->iteration }}
                                                     </td>
                                                     <td style="vertical-align: middle;">
-                                                        {{ $desa->rt->name }}
+                                                        {{-- {{ $desa->rt->name }} --}}
+                                                        @if ($desa->rt && $desa->rt->name)
+                                                            {{ $desa->rt->name }}
+                                                        @else
+                                                            0
+                                                        @endif
                                                     </td>
                                                     <td style="vertical-align: middle;">
                                                         {{ $desa->nama_dasawisma  }}

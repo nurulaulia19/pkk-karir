@@ -1,6 +1,7 @@
 @extends('admin_desa.layout')
 
-@section('title', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Dasa Wisma | Admin Desa/Kelurahan PKK Kab.
+@section('title',
+    'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Dasa Wisma | Admin Desa/Kelurahan PKK Kab.
     Indramayu')
 
 @section('bread', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok Dasa Wisma')
@@ -23,9 +24,13 @@
                                         {{-- {{ ucfirst($dasa_wisma->nama_dasawisma) }} --}}
                                     </h6>
                                     <h6>RT :
-                                        {{ $dasa_wisma->rt->name }}
-
-                                        {{-- {{ $rt }} --}}
+                                        {{-- {{ $dasa_wisma->rt->name }} --}}
+                                        @if ($dasa_wisma->rt && $dasa_wisma->rt->name)
+                                            {{ $dasa_wisma->rt->name }}
+                                        @else
+                                            0
+                                        @endif
+                                        </td>
                                     </h6>
                                     <h6>RW :
                                         {{ $dasa_wisma->rw->name }}
@@ -163,14 +168,14 @@
                                                         @if ($keluarga->kriteria_rumah_sehat == '1')
                                                             <i class="fas fa-check"></i>
                                                         @else
-0
+                                                            0
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($keluarga->kriteria_rumah_sehat == '0')
                                                             <i class="fas fa-check"></i>
                                                         @else
-0
+                                                            0
                                                         @endif
                                                     </td>
                                                     <td>
@@ -205,7 +210,7 @@
                                                         @if ($keluarga->sumber_air_pdam == '1')
                                                             <i class="fas fa-check"></i>
                                                         @else
-                                                        0
+                                                            0
                                                         @endif
                                                     </td>
                                                     <td>
@@ -284,58 +289,58 @@
 
                                                 </td> --}}
                                                 <td>
-                                                    {{ $totalJmlKK}}
+                                                    {{ $totalJmlKK }}
                                                     {{-- {{ ucfirst($counts['countKik']) }} --}}
 
 
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_KK') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{ $totalAnggotaLaki}}
+                                                    {{ $totalAnggotaLaki }}
 
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_laki') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{ $totalAnggotaPerempuan}}
+                                                    {{ $totalAnggotaPerempuan }}
 
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_perempuan') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{ $totalAnggotaBalitaLaki}}
+                                                    {{ $totalAnggotaBalitaLaki }}
 
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_balita_laki') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{ $totalAnggotaBalitaPerempuan}}
+                                                    {{ $totalAnggotaBalitaPerempuan }}
 
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_balita_perempuan') }} --}}
                                                 </td>
                                                 <td>
 
-                                                    {{ $totalAnggotaPUS}}
+                                                    {{ $totalAnggotaPUS }}
 
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_3_buta') }} --}}
                                                 </td>
                                                 <td>
 
-                                                    {{ $totalAnggotaWUS}}
+                                                    {{ $totalAnggotaWUS }}
 
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_PUS') }} --}}
                                                 </td>
                                                 <td>
 
-                                                    {{ $totalAnggotaIbuHamil}}
+                                                    {{ $totalAnggotaIbuHamil }}
 
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_WUS') }} --}}
                                                 </td>
                                                 <td>
 
-                                                    {{ $totalAnggotaIbuMenyusui}}
+                                                    {{ $totalAnggotaIbuMenyusui }}
 
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_ibu_hamil') }} --}}
                                                 </td>
                                                 <td>
-                                                    {{ $totalAnggotaLansia}}
+                                                    {{ $totalAnggotaLansia }}
 
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_ibu_menyusui') }} --}}
                                                 </td>
@@ -344,7 +349,7 @@
                                                 </td>
                                                 <td>
 
-                                                    {{ $totalAnggotaBerkebutuhanKhusus}}
+                                                    {{ $totalAnggotaBerkebutuhanKhusus }}
 
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_lansia') }} --}}
                                                 </td>
@@ -437,7 +442,8 @@
                                 {{-- <a href="{{ url('export_rekap_dasawisma').'?'.http_build_query(compact('nama_dasawisma', 'rt', 'rw', 'periode'))  }}" target="_blank" class="btn btn-success" type="button" role="button">
                                 <i class="fas fa-print"></i> Cetak ke Excel </a><br> --}}
 
-                                <a href="{{ url('export_rekap_dasawisma',['id' => $dasa_wisma->id]) }}?periode={{ $periode }}" target="_blank" class="btn btn-success mt-2" role="button">
+                                <a href="{{ url('export_rekap_dasawisma', ['id' => $dasa_wisma->id]) }}?periode={{ $periode }}"
+                                    target="_blank" class="btn btn-success mt-2" role="button">
                                     <i class="fas fa-print"></i> Cetak ke Excel
                                 </a>
                             </div>

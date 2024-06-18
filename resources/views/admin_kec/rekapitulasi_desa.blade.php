@@ -25,11 +25,11 @@
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div>
                                         <h6>Desa/Kel :
-                                            {{ $dusun->first()->desa->nama_desa }}
+                                            {{ $desa->nama_desa }}
 
                                         </h6>
                                         <h6>Kecamatan :
-                                            {{ $dusun->first()->desa->kecamatan->nama_kecamatan }}
+                                            {{ $desa->kecamatan->nama_kecamatan }}
                                         </h6>
                                         {{-- <h6>Kabupaten :
                                             {{ $dusun->first()->desa->kecamatan->kabupaten->name }}
@@ -40,15 +40,15 @@
                                             Jawa Barat
                                         </h6> --}}
                                         <h6>Kabupaten :
-                                            @if($dusun->isNotEmpty() && $dusun->first()->desa->kecamatan->kabupaten)
-                                                {{ $dusun->first()->desa->kecamatan->kabupaten->name }}
+                                            @if(isset($desa->kecamatan) && isset($desa->kecamatan->kabupaten))
+                                                {{ $desa->kecamatan->kabupaten->name }}
                                             @else
                                                 Indramayu
                                             @endif
                                         </h6>
                                         <h6>Provinsi :
-                                            @if($dusun->isNotEmpty() && $dusun->first()->desa->kecamatan->kabupaten->provinsi)
-                                                {{ $dusun->first()->desa->kecamatan->kabupaten->provinsi->name }}
+                                            @if(isset($desa->kecamatan) && isset($desa->kecamatan->kabupaten) && isset($desa->kecamatan->kabupaten->provinsi))
+                                                {{ $desa->kecamatan->kabupaten->provinsi->name }}
                                             @else
                                                 Jawa Barat
                                             @endif

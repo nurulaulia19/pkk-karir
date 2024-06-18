@@ -67,7 +67,18 @@
                                         <td style="vertical-align: middle;">{{$c->alamat_dasawisma}}</td>
                                         {{-- <td style="vertical-align: middle;">{{$c->rt}}/{{ $c->rw }}</td> --}}
                                         <td style="vertical-align: middle;">
-                                            {{ $c->rt->name }}/{{ $c->rw->name }}
+                                            {{-- {{ $c->rt->name }}/{{ $c->rw->name }} --}}
+                                            @if ($c->rt && $c->rt->name)
+                                                {{ $c->rt->name }}
+                                            @else
+                                                -
+                                            @endif
+                                            /
+                                            @if ($c->rw && $c->rw->name)
+                                                {{ $c->rw->name }}
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                         <td style="vertical-align: middle;">
                                             {{-- {{$c->dusun->name}} --}}

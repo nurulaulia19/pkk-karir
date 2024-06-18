@@ -20,9 +20,9 @@ return new class extends Migration
             $table->bigInteger('id_kecamatan')->unsigned();
             $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan');
             $table->bigInteger('id_rt')->unsigned();
-            $table->foreign('id_rt')->references('id')->on('data_kecamatan');
+            $table->foreign('id_rt')->references('id')->on('rts')->onDelete('cascade');;
             $table->bigInteger('id_rw')->unsigned();
-            $table->foreign('id_rw')->references('id')->on('data_kecamatan');
+            $table->foreign('id_rw')->references('id')->on('rws')->onDelete('cascade');;
             $table->string('nama_dasawisma');
             $table->string('alamat_dasawisma');
             $table->boolean('status')->default(true);

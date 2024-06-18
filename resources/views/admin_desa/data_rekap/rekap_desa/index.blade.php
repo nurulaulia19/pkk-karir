@@ -122,20 +122,15 @@
                                                         {{ $dsn->name }}
                                                     </td>
                                                     <td style="vertical-align: middle;">
-                                                     {{ $counts['countRw']}}
+                                                        {{ $counts['countRw']}}
                                                     </td>
                                                     <td style="vertical-align: middle;">
                                                         {{ $counts['countRt']}}
-
-
                                                     </td>
                                                     <td style="vertical-align: middle;">
-
                                                         {{ ucfirst($counts['countDasawisma']) }}
-
                                                     </td>
                                                     <td>
-
                                                         {{ ucfirst($counts['countRumahTangga']) }}
                                                     </td>
                                                     <td>

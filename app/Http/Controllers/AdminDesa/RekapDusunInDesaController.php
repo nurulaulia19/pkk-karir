@@ -41,6 +41,12 @@ class RekapDusunInDesaController extends Controller
         $totalRw = Rw::where('dusun_id','!=',0)->where('desa_id', $user->id_desa)->count();
         $totalRt = Rt::where('dusun_id','!=',0)->count();
         $dataRt =  Rt::where('dusun_id','!=',0)->get();
+
+        // $rws = Rw::where('desa_id', $user->id_desa)->get();
+        // $totalRw = $rws->count();
+        // $rtIds = Rt::whereIn('rw_id', $rws->pluck('id'))->pluck('id');
+        // $totalRt = $rtIds->count();
+        // $dataRt = Rt::whereIn('id', $rtIds)->get();
         // $totalRt = 0 ;
         $totalKeluarga = 0 ;
         $totalDasawisma = 0;
@@ -289,6 +295,231 @@ class RekapDusunInDesaController extends Controller
         ));
 
     }
+
+
+    // public function index(Request $request)
+    // {
+    //     $user = Auth::user();
+    //     $periode = $request->periode ?? Carbon::now()->year;
+    //     $dusun = Dusun::with(['rw', 'rt'])
+    //         ->where('desa_id', $user->id_desa)
+    //         ->get();
+
+    //     $totalDusun = $dusun->count();
+    //     $desa = Data_Desa::with('kecamatan')->find($user->id_desa);
+
+    //     if ($totalDusun <= 0) {
+    //         return redirect()->route('not-found')->with('error', 'Data rekap tidak tersedia');
+    //     }
+
+    //     $rws = Rw::where('desa_id', $user->id_desa)->get();
+    //     $totalRw = $rws->count();
+    //     $rtIds = Rt::whereIn('rw_id', $rws->pluck('id'))->pluck('id');
+    //     $totalRt = $rtIds->count();
+    //     $dataRt = Rt::whereIn('id', $rtIds)->get();
+
+
+    //     $totalKeluarga = 0;
+    //     $totalDasawisma = 0;
+    //     $totalRumahTangga = 0;
+    //     $totalPemanfaatanPekarangan = 0;
+    //     $totalTempatSampah = 0;
+    //     $totalSPAL = 0;
+    //     $totalJamban = 0;
+    //     $totalStiker = 0;
+    //     $totalAirPDAM = 0;
+    //     $totalAirSumur = 0;
+    //     $totalAirLainya = 0;
+    //     $totalRumahSehat = 0;
+    //     $totalRumahNonSehat = 0;
+    //     $totalIndustri = 0;
+    //     $today = Carbon::now();
+    //     $totalBeras = 0;
+    //     $totalNonBeras = 0;
+    //     $totalLansia = 0;
+    //     $totalIbuHamil = 0;
+    //     $totalIbuMenyusui = 0;
+    //     $totalAktivitasLingkungan = 0;
+    //     $totalAktivitasUP2K = 0;
+    //     $totalKebutuhanKhusus = 0;
+    //     $totalLakiLaki = 0;
+    //     $totalbalitaLaki = 0;
+    //     $totalPerempuan = 0;
+    //     $totalWUS = 0;
+    //     $totalbalitaPerempuan = 0;
+    //     $totalPUS = 0;
+    //     $periodeAll = Periode::all();
+
+    //     foreach ($dataRt as $drt) {
+    //         foreach ($drt->dasawisma as $item) {
+    //             if ($item->periode <= $periode) {
+    //                 $totalKeluarga += DataKeluarga::where('id_dasawisma', $item->id)
+    //                     ->where('periode', $periode)
+    //                     ->count();
+
+    //                 $totalDasawisma++;
+    //                 $rumah = RumahTangga::where('id_dasawisma', $item->id)
+    //                     ->where('periode', $periode)
+    //                     ->get();
+
+    //                 foreach ($rumah as $keluarga) {
+    //                     if ($keluarga) {
+    //                         if (!$keluarga->is_valid) {
+    //                             return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
+    //                         }
+    //                         $totalRumahTangga++;
+
+    //                         if ($keluarga->pemanfaatanlahan) {
+    //                             foreach ($keluarga->pemanfaatanlahan as $lahan) {
+    //                                 if ($lahan && $lahan->is_valid != null) {
+    //                                     $totalPemanfaatanPekarangan++;
+    //                                 }
+    //                             }
+    //                         }
+    //                         if ($keluarga->punya_tempat_sampah) {
+    //                             $totalTempatSampah++;
+    //                         }
+    //                         if ($keluarga->saluran_pembuangan_air_limbah) {
+    //                             $totalSPAL++;
+    //                         }
+    //                         if ($keluarga->punya_jamban) {
+    //                             $totalJamban++;
+    //                         }
+    //                         if ($keluarga->tempel_stiker) {
+    //                             $totalStiker++;
+    //                         }
+    //                         if ($keluarga->sumber_air_pdam) {
+    //                             $totalAirPDAM++;
+    //                         }
+    //                         if ($keluarga->sumber_air_sumur) {
+    //                             $totalAirSumur++;
+    //                         }
+    //                         if ($keluarga->sumber_air_lainnya) {
+    //                             $totalAirLainya++;
+    //                         }
+    //                         if ($keluarga->punya_tempat_sampah && $keluarga->punya_jamban && $keluarga->saluran_pembuangan_air_limbah) {
+    //                             $totalRumahSehat++;
+    //                         } else {
+    //                             $totalRumahNonSehat++;
+    //                         }
+
+    //                         foreach ($keluarga->anggotaRT as $anggotaRumah) {
+    //                             if ($anggotaRumah->keluarga->industri_id != 0 && $anggotaRumah->keluarga->is_valid_industri != null) {
+    //                                 $totalIndustri++;
+    //                             }
+    //                             foreach ($anggotaRumah->keluarga->anggota as $anggota) {
+    //                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+    //                                 $umurz = $tgl_lahir->diffInYears($today);
+
+    //                                 if ($anggota->warga->makan_beras) {
+    //                                     $totalBeras++;
+    //                                 } else {
+    //                                     $totalNonBeras++;
+    //                                 }
+    //                                 if ($umurz >= 45) {
+    //                                     $totalLansia++;
+    //                                 }
+    //                                 if ($anggota->warga->ibu_hamil) {
+    //                                     $totalIbuHamil++;
+    //                                 }
+    //                                 if ($anggota->warga->ibu_menyusui) {
+    //                                     $totalIbuMenyusui++;
+    //                                 }
+    //                                 if ($anggota->warga->aktivitas_kesehatan_lingkungan) {
+    //                                     $totalAktivitasLingkungan++;
+    //                                 }
+    //                                 if ($anggota->warga->aktivitas_UP2K) {
+    //                                     $totalAktivitasUP2K++;
+    //                                 }
+    //                                 if ($anggota->warga->berkebutuhan_khusus != null && $anggota->warga->berkebutuhan_khusus != 'Tidak') {
+    //                                     $totalKebutuhanKhusus++;
+    //                                 }
+
+    //                                 if ($anggota->warga->jenis_kelamin === 'laki-laki') {
+    //                                     $totalLakiLaki++;
+    //                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+    //                                     $umur = $tgl_lahir->diffInYears($today);
+    //                                     if ($umur <= 5) {
+    //                                         $totalbalitaLaki++;
+    //                                     }
+    //                                 } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
+    //                                     $totalPerempuan++;
+    //                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
+    //                                     $umur = $tgl_lahir->diffInYears($today);
+    //                                     if ($umur >= 15 && $umur <= 49) {
+    //                                         $totalWUS++;
+    //                                     }
+    //                                     if ($umur <= 5) {
+    //                                         $totalbalitaPerempuan++;
+    //                                     }
+    //                                 }
+    //                             }
+
+    //                             $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
+    //                                 return $anggota->warga->jenis_kelamin === 'laki-laki' &&
+    //                                     $anggota->warga->status_perkawinan === 'menikah';
+    //                             });
+
+    //                             $countPUS = 0;
+    //                             if ($hasMarriedMen) {
+    //                                 $countPUS = $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
+    //                                     $birthdate = new DateTime($anggota->warga->tgl_lahir);
+    //                                     $today = new DateTime();
+    //                                     $age = $today->diff($birthdate)->y;
+    //                                     return $anggota->warga->jenis_kelamin === 'perempuan' &&
+    //                                         $age >= 15 &&
+    //                                         $age <= 49 &&
+    //                                         $anggota->warga->status_perkawinan === 'menikah';
+    //                                 })->count() ? 1 : 0;
+    //                             }
+    //                             $totalPUS += $countPUS;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     return view('admin_desa.data_rekap.rekap_desa.index', compact(
+    //         'desa',
+    //         'periode',
+    //         'periodeAll',
+    //         'dusun',
+    //         'totalDusun',
+    //         'totalRw',
+    //         'totalRt',
+    //         'totalDasawisma',
+    //         'totalRumahTangga',
+    //         'totalKeluarga',
+    //         'totalPemanfaatanPekarangan',
+    //         'totalTempatSampah',
+    //         'totalSPAL',
+    //         'totalJamban',
+    //         'totalStiker',
+    //         'totalAirPDAM',
+    //         'totalAirSumur',
+    //         'totalAirLainya',
+    //         'totalRumahSehat',
+    //         'totalRumahNonSehat',
+    //         'totalIndustri',
+    //         'today',
+    //         'totalBeras',
+    //         'totalNonBeras',
+    //         'totalLansia',
+    //         'totalIbuHamil',
+    //         'totalIbuMenyusui',
+    //         'totalAktivitasLingkungan',
+    //         'totalAktivitasUP2K',
+    //         'totalKebutuhanKhusus',
+    //         'totalLakiLaki',
+    //         'totalbalitaLaki',
+    //         'totalPerempuan',
+    //         'totalWUS',
+    //         'totalbalitaPerempuan',
+    //         'totalPUS'
+    //     ));
+    // }
+
 
     public function countDataInDusun(Dusun $dusun)
     {

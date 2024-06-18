@@ -285,6 +285,7 @@ class DesaController extends Controller
             ->where('desa_id', $id)
             ->get();
         $totalDusun = $dusun->count();
+        $desa = Data_Desa::with('kecamatan')->find($id);
         if ($totalDusun <=0) {
             return redirect()->route('not-found')->with('error', 'Data rekap tidak tersedia');
         }
@@ -492,7 +493,7 @@ class DesaController extends Controller
         // dd($totalRw);
         // dd($dusun);
         $dataPeriode = Periode::all();
-        return view('admin_kec.rekapitulasi_desa', compact('periode', 'dataPeriode', 'desa', 'dusun', 'totalDusun', 'totalRw', 'totalRt', 'totalDasawisma', 'totalRumahTangga', 'totalKeluarga', 'totalPemanfaatanPekarangan', 'totalTempatSampah', 'totalSPAL', 'totalJamban', 'totalStiker', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainya', 'totalRumahSehat', 'totalRumahNonSehat', 'totalIndustri', 'today', 'totalBeras', 'totalNonBeras', 'totalLansia', 'totalIbuHamil', 'totalIbuMenyusui', 'totalAktivitasLingkungan', 'totalAktivitasUP2K', 'totalKebutuhanKhusus', 'totalLakiLaki', 'totalbalitaLaki', 'totalPerempuan', 'totalWUS', 'totalbalitaPerempuan', 'totalPUS'));
+        return view('admin_kec.rekapitulasi_desa', compact('desa', 'periode', 'dataPeriode', 'desa', 'dusun', 'totalDusun', 'totalRw', 'totalRt', 'totalDasawisma', 'totalRumahTangga', 'totalKeluarga', 'totalPemanfaatanPekarangan', 'totalTempatSampah', 'totalSPAL', 'totalJamban', 'totalStiker', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainya', 'totalRumahSehat', 'totalRumahNonSehat', 'totalIndustri', 'today', 'totalBeras', 'totalNonBeras', 'totalLansia', 'totalIbuHamil', 'totalIbuMenyusui', 'totalAktivitasLingkungan', 'totalAktivitasUP2K', 'totalKebutuhanKhusus', 'totalLakiLaki', 'totalbalitaLaki', 'totalPerempuan', 'totalWUS', 'totalbalitaPerempuan', 'totalPUS'));
     }
 
     public function rekap_desa($id, Request $request)
@@ -720,6 +721,7 @@ class DesaController extends Controller
             ->where('desa_id', $id)
             ->get();
         $totalDusun = $dusun->count();
+        $desa = Data_Desa::with('kecamatan')->find($id);
         $totalRw = Rw::where('dusun_id', '!=', 0)->where('desa_id', $id)->count();
         $totalRt = Rt::where('dusun_id', '!=', 0)->count();
         $dataRt = Rt::where('dusun_id', '!=', 0)->get();
@@ -923,7 +925,7 @@ class DesaController extends Controller
             }
         }
 
-        $export = new RekapKelompokDesaExport(compact('periode', 'dusun', 'totalDusun', 'totalRw', 'totalRt', 'totalDasawisma', 'totalRumahTangga', 'totalKeluarga', 'totalPemanfaatanPekarangan', 'totalTempatSampah', 'totalSPAL', 'totalJamban', 'totalStiker', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainya', 'totalRumahSehat', 'totalRumahNonSehat', 'totalIndustri', 'today', 'totalBeras', 'totalNonBeras', 'totalLansia', 'totalIbuHamil', 'totalIbuMenyusui', 'totalAktivitasLingkungan', 'totalAktivitasUP2K', 'totalKebutuhanKhusus', 'totalLakiLaki', 'totalbalitaLaki', 'totalPerempuan', 'totalWUS', 'totalbalitaPerempuan', 'totalPUS'));
+        $export = new RekapKelompokDesaExport(compact('desa', 'periode', 'dusun', 'totalDusun', 'totalRw', 'totalRt', 'totalDasawisma', 'totalRumahTangga', 'totalKeluarga', 'totalPemanfaatanPekarangan', 'totalTempatSampah', 'totalSPAL', 'totalJamban', 'totalStiker', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainya', 'totalRumahSehat', 'totalRumahNonSehat', 'totalIndustri', 'today', 'totalBeras', 'totalNonBeras', 'totalLansia', 'totalIbuHamil', 'totalIbuMenyusui', 'totalAktivitasLingkungan', 'totalAktivitasUP2K', 'totalKebutuhanKhusus', 'totalLakiLaki', 'totalbalitaLaki', 'totalPerempuan', 'totalWUS', 'totalbalitaPerempuan', 'totalPUS'));
 
         return Excel::download($export, 'rekap-kelompok-desa.xlsx');
     }
