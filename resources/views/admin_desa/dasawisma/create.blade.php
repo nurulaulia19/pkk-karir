@@ -88,7 +88,8 @@
                                     <input type="text" class="form-control @error('dusun') is-invalid @enderror" name="dusun" id="dusun" placeholder="Isi Nama Dusun" required value="{{ old('dusun') }}"> --}}
                                         <label for="exampleFormControlSelect1">Dusun</label>
                                         <select class="form-control" id="dusun" name="dusun">
-                                            <option value="0" selected>Tidak Memiliki Dusun</option>
+                                            <option value="0" selected hidden>Pilih Dusun</option>
+                                            <option value="0">Tidak Memiliki Dusun</option>
                                             @foreach ($dusun as $c)
                                                 <option value="{{ $c->id }}">{{ $c->name }}</option>
                                             @endforeach

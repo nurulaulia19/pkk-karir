@@ -99,11 +99,13 @@ class KaderFormController extends Controller
 
         $pemanfaatan = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')
         ->where('periode', now()->year)
+        ->where('id_dasawisma', $user->id_dasawisma)
         ->where('is_pemanfaatan_lahan', true)
         ->where('is_valid_pemanfaatan_lahan', '!=', null)
         ->count();
         $pemanfaatanBelumValid = RumahTangga::with('pemanfaatanlahan.rumahtangga','pemanfaatanlahan.pemanfaatan')
         ->where('periode', now()->year)
+        ->where('id_dasawisma', $user->id_dasawisma)
         ->where('is_pemanfaatan_lahan', true)
         ->where('is_valid_pemanfaatan_lahan', '=', null)
         ->count();

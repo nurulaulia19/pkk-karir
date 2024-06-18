@@ -30,7 +30,8 @@
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Dusun</label>
                         <select class="form-control" id="dusun_id" name="dusun_id">
-                            <option value="0" selected>Tidak Memiliki Dusun</option>
+                            <option value="0" selected hidden>Pilih Dusun</option>
+                            <option value="0">Tidak Memiliki Dusun</option>
                             @foreach ($dusun as $c)
                                 <option value="{{ $c->id }}">{{ $c->name }}</option>
                             @endforeach

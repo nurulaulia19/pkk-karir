@@ -9,6 +9,7 @@ use App\Models\Rt;
 use App\Models\Rw;
 use App\Models\Dusun;
 use App\Models\DasaWisma;
+use App\Models\Data_Desa;
 use App\Models\Periode;
 use App\Models\RumahTangga;
 use Carbon\Carbon;
@@ -30,7 +31,9 @@ class RekapDusunInDesaController extends Controller
         $dusun = Dusun::with(['rw', 'rt'])
             ->where('desa_id', $user->id_desa)
             ->get();
+        // dd($dusun);
         $totalDusun = $dusun->count();
+        $desa = Data_Desa::with('kecamatan')->find($user->id_desa);
 
         if ($totalDusun <=0) {
             return redirect()->route('not-found')->with('error', 'Data rekap tidak tersedia');
@@ -247,6 +250,7 @@ class RekapDusunInDesaController extends Controller
         // dd($totalRw);
         // dd($dusun);
         return view('admin_desa.data_rekap.rekap_desa.index', compact(
+            'desa',
             'periode',
             'periodeAll',
             'dusun',

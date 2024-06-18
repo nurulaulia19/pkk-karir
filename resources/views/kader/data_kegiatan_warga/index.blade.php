@@ -55,9 +55,12 @@
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td style="vertical-align: middle;">{{ $c->nama }} <br>
                                             @if ($c->kegiatan->first() && !$c->kegiatan->first()->is_valid)
-                                            <button class="btn btn-sm" style="background-color: #50A3B9; color:white">
+                                            {{-- <button class="btn btn-sm" style="background-color: #50A3B9; color:white">
                                                 Edit untuk validasi
-                                            </button>
+                                            </button> --}}
+                                            <a href="{{ url('data_kegiatan/'.$c->id.'/edit') }}" class="btn btn-sm" style="background-color: #50A3B9; color:white">
+                                                Edit untuk validasi
+                                            </a>
                                         @endif
 
                                         </td>

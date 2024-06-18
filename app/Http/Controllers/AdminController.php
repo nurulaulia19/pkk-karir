@@ -1751,6 +1751,7 @@ class AdminController extends Controller
             ->where('desa_id', $user->id_desa)
             ->get();
         $totalDusun = $dusun->count();
+        $desa = Data_Desa::with('kecamatan')->find($user->id_desa);
         $totalRw = Rw::where('dusun_id','!=',0)->where('desa_id', $user->id_desa)->count();
         $totalRt = Rt::where('dusun_id','!=',0)->count();
         $dataRt =  Rt::where('dusun_id','!=',0)->get();
@@ -1958,6 +1959,7 @@ class AdminController extends Controller
 
 
         $export = new RekapKelompokDesaExport( compact(
+            'desa',
             'periode',
             'dusun',
             'totalDusun',

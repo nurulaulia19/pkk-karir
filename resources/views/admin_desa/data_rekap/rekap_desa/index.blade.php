@@ -25,10 +25,10 @@
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div>
                                         <h6>Desa/Kel :
-                                            {{ $dusun->first()->rt->first()->first()->dasawisma->first()->desa->nama_desa}}
+                                            {{ $desa->nama_desa}}
                                         </h6>
                                         <h6>Kecamatan :
-                                            {{ $dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan }}
+                                            {{ $desa->kecamatan->nama_kecamatan }}
                                         </h6>
                                         {{-- <h6>Kabupaten :
                                             {{ $dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }}
@@ -37,10 +37,10 @@
                                             {{ $dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }}
                                         </h6> --}}
                                         <h6>Kabupaten :
-                                            {{ optional($dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten)->name ?? 'Indramayu' }}
+                                            {{ optional($desa->kecamatan->kabupaten)->name ?? 'Indramayu' }}
                                         </h6>
                                         <h6>Provinsi :
-                                            {{ optional($dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi)->name ?? 'Jawa Barat' }}
+                                            {{ optional($desa->kecamatan->kabupaten->provinsi)->name ?? 'Jawa Barat' }}
                                         </h6>
                                     </div>
 

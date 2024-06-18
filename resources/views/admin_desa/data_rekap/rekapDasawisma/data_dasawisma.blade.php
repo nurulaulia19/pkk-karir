@@ -41,7 +41,13 @@
                                         <td style="vertical-align: middle;">
                                             {{ $c->rt->name }}/{{ $c->rw->name }}
                                         </td>
-                                        <td style="vertical-align: middle;">{{$c->dusun}}</td>
+                                        <td style="vertical-align: middle;">
+                                            @if (!empty($c->dusunData->name))
+                                                {{$c->dusunData->name}}
+                                            @else
+                                                Tidak memiliki dusun
+                                            @endif
+                                        </td>
                                         @if($c->status == 1)
                                             <td style="vertical-align: middle;">Aktif</td>
                                         @else

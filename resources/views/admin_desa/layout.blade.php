@@ -119,8 +119,10 @@
             <a href="/dashboard" class="brand-link">
                 <img src="{{ url('image/remove.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                     style="opacity: 0.8" />
-                <p class="brand-text font-weight-light">Tim Penggerak <br> <span style="margin-left:56px">PKK
-                        Desa/Kelurahan</span></p>
+                    <p class="brand-text font-weight-light" style="flex-direction: column; text-align: start; font-size:17px">
+                        Tim Penggerak <br>
+                        <span style="display: block;">PKK Desa/Kelurahan</span>
+                    </p>
             </a>
 
             <!-- Sidebar -->
