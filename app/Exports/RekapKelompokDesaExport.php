@@ -58,6 +58,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
     protected $totalPUS;
     protected $periode;
     protected $rwsAll;
+    protected $nonDusun;
 
     public function __construct(array $data)
     {
@@ -97,6 +98,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
         $this->totalbalitaPerempuan = $data['totalbalitaPerempuan'] ?? null;
         $this->totalPUS = $data['totalPUS'] ?? null;
         $this->periode = $data['periode'] ?? Carbon::now()->year;
+        $this->nonDusun = 0;
     }
 
     public function array(): array
@@ -105,6 +107,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
         $i = 1;
         $dusun = $this->dusun;
         // dd($dusun);
+        // $kiwkiw = 0;
 
         foreach ($dusun as $desa) {
             // $counts = app('App\Http\Controllers\AdminDesa\DusunController')->countDataInDusun($desa, $this->periode);
@@ -157,6 +160,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
                 'App\Http\Controllers\AdminDesa\RekapDusunInDesaController',
             )->rowRtInDesaWrapInRw($item->id, $this->periode);
             if($counts){
+                $this->nonDusun ++;
                 $data = [
                     '_index' => $i,
                     'nama_dusun' => ucfirst($counts['nama rw']) ?: '0',
@@ -560,8 +564,8 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $event->sheet->getDelegate()->mergeCells('AH9:AH10');
-                // $lastRow = count($this->dusun) + 13;
-                // $event->sheet->getDelegate()->mergeCells('A' . $lastRow . ':B' . $lastRow);
+                $lastRow = count($this->dusun) + $this->nonDusun + 11;
+                $event->sheet->getDelegate()->mergeCells('A' . $lastRow . ':B' . $lastRow);
                 $highestRow = $event->sheet->getHighestRow();
                 $event->sheet->getStyle('A9:A' . $highestRow)->applyFromArray([
                     'alignment' => [

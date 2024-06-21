@@ -146,7 +146,7 @@ class DataIndustriRumahController extends Controller
        ->get();
        // $kec = DB::table('data_kecamatan')->get();
        $kec = DB::table('data_kecamatan')
-       ->where('id', auth()->user()->id_desa)
+       ->where('id', auth()->user()->id_kecamatan)
        ->get();
 
        $kad = DB::table('users')

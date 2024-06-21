@@ -1184,14 +1184,26 @@ class DesaController extends Controller
         //     $adminKec->password = Hash::make($request->password);
         // }
 
-        if ($request->hasFile('foto')) {
-            $image = $request->file('foto');
-            $profileImage = Str::random(5) . date('YmdHis') . '.' . $image->getClientOriginalExtension();
-            $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
-            $adminKec->foto = $result;
-        }
+        // if ($request->hasFile('foto')) {
+        //     $image = $request->file('foto');
+        //     $profileImage = Str::random(5) . date('YmdHis') . '.' . $image->getClientOriginalExtension();
+        //     $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
+        //     $adminKec->foto = $result;
+        // }
 
-        $adminKec->save();
+        // $adminKec->save();
+
+        if ($request->hasFile('foto')) {
+        $image = $request->file('foto');
+        $profileImage = Str::random(5) . date('YmdHis') . '.' . $image->getClientOriginalExtension();
+        // Gunakan storeAs untuk menyimpan file
+        $path = $image->storeAs('foto', $profileImage, 'public');
+        // Update properti 'foto' pada objek $adminKec
+        $adminKec->foto = $path;
+
+        // Menyimpan perubahan pada objek $adminKec tanpa menggunakan metode save
+        DB::table('users')->where('id', $adminKec->id)->update(['foto' => $path]);
+    }
 
         Alert::success('Berhasil', 'Data berhasil diubah');
         return redirect()->back();
@@ -1210,14 +1222,25 @@ class DesaController extends Controller
             ],
         );
 
+        // $adminKec = Auth::user();
+        // if (!Hash::check($request->password, $adminKec->password)) {
+        //     Alert::error('Gagal', 'Kata sandi lama tidak sesuai');
+        //     return redirect()->back();
+        // }
+
+        // $adminKec->password = Hash::make($request->new_password);
+        // $adminKec->save();
         $adminKec = Auth::user();
         if (!Hash::check($request->password, $adminKec->password)) {
             Alert::error('Gagal', 'Kata sandi lama tidak sesuai');
             return redirect()->back();
         }
 
-        $adminKec->password = Hash::make($request->new_password);
-        $adminKec->save();
+        $newPassword = Hash::make($request->new_password);
+
+        // Menggunakan query builder untuk memperbarui kolom password di tabel users
+        DB::table('users')->where('id', $adminKec->id)->update(['password' => $newPassword]);
+
 
         Alert::success('Berhasil', 'Kata sandi berhasil diubah');
         return redirect()->route('profil_adminKec');

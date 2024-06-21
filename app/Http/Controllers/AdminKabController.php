@@ -224,6 +224,7 @@ class AdminKabController extends Controller
         }else{
             $periode = Carbon::now()->year;
         }
+        $kecamatan = DataKecamatan::with('kabupaten')->find($id);
         $desaa = Data_Desa::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga', 'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga', 'dasawisma.desa.kecamatan', 'rw'])
             ->where('id_kecamatan', $id)
             ->get();
@@ -457,7 +458,7 @@ class AdminKabController extends Controller
         }
         // dd($desaa);
 
-        return view('admin_kab.data_rekap.rekap_kecamatan.index', compact('periode','desaa', 'totalDesa', 'totalRT', 'totalRW', 'totalJmlKK', 'totalDasawisma', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainnya', 'totalStiker', 'totalJamban', 'totalPemSampah', 'totalSPAL', 'totalSheatLayakHuni', 'totalTidakSheatLayakHuni', 'totalJmlKRT', 'totalKegiatanIndustri', 'totalKegiatanPemanfaatanPekarangan', 'totalAnggotaLansia', 'totalAnggotaIbuHamil', 'totalAnggotaIbuMenyusui', 'totalKegiatanLingkungan', 'totalKegiatanUP2K', 'totalAnggotaBerkebutuhanKhusus', 'totalMakanBeras', 'totalMakanNonBeras', 'totalAnggotaBalitaLaki', 'totalAnggotaPerempuan', 'totalAnggotaWUS', 'totalAnggotaPUS', 'totalAnggotaBalitaPerempuan', 'totalAnggotaLaki'));
+        return view('admin_kab.data_rekap.rekap_kecamatan.index', compact('kecamatan','periode','desaa', 'totalDesa', 'totalRT', 'totalRW', 'totalJmlKK', 'totalDasawisma', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainnya', 'totalStiker', 'totalJamban', 'totalPemSampah', 'totalSPAL', 'totalSheatLayakHuni', 'totalTidakSheatLayakHuni', 'totalJmlKRT', 'totalKegiatanIndustri', 'totalKegiatanPemanfaatanPekarangan', 'totalAnggotaLansia', 'totalAnggotaIbuHamil', 'totalAnggotaIbuMenyusui', 'totalKegiatanLingkungan', 'totalKegiatanUP2K', 'totalAnggotaBerkebutuhanKhusus', 'totalMakanBeras', 'totalMakanNonBeras', 'totalAnggotaBalitaLaki', 'totalAnggotaPerempuan', 'totalAnggotaWUS', 'totalAnggotaPUS', 'totalAnggotaBalitaPerempuan', 'totalAnggotaLaki'));
     }
 
     // export rekap kecamatan
@@ -469,6 +470,8 @@ class AdminKabController extends Controller
         }else{
             $periode = Carbon::now()->year;
         }
+        $kecamatan = DataKecamatan::with('kabupaten')->find($id);
+
         $desaa = Data_Desa::with(['dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga', 'dasawisma.rumahtangga.anggotaRT.keluarga.anggota.warga', 'dasawisma.desa.kecamatan', 'rw'])
             ->where('id_kecamatan', $id)
             ->get();
@@ -694,7 +697,7 @@ class AdminKabController extends Controller
                 }
             }
         }
-        $export = new RekapKelompokKecamatanExport(compact('periode','desaa', 'totalDesa', 'totalRT', 'totalRW', 'totalJmlKK', 'totalDasawisma', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainnya', 'totalStiker', 'totalJamban', 'totalPemSampah', 'totalSPAL', 'totalSheatLayakHuni', 'totalTidakSheatLayakHuni', 'totalJmlKRT', 'totalKegiatanIndustri', 'totalKegiatanPemanfaatanPekarangan', 'totalAnggotaLansia', 'totalAnggotaIbuHamil', 'totalAnggotaIbuMenyusui', 'totalKegiatanLingkungan', 'totalKegiatanUP2K', 'totalAnggotaBerkebutuhanKhusus', 'totalMakanBeras', 'totalMakanNonBeras', 'totalAnggotaBalitaLaki', 'totalAnggotaPerempuan', 'totalAnggotaWUS', 'totalAnggotaPUS', 'totalAnggotaBalitaPerempuan', 'totalAnggotaLaki'));
+        $export = new RekapKelompokKecamatanExport(compact('kecamatan','periode','desaa', 'totalDesa', 'totalRT', 'totalRW', 'totalJmlKK', 'totalDasawisma', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainnya', 'totalStiker', 'totalJamban', 'totalPemSampah', 'totalSPAL', 'totalSheatLayakHuni', 'totalTidakSheatLayakHuni', 'totalJmlKRT', 'totalKegiatanIndustri', 'totalKegiatanPemanfaatanPekarangan', 'totalAnggotaLansia', 'totalAnggotaIbuHamil', 'totalAnggotaIbuMenyusui', 'totalKegiatanLingkungan', 'totalKegiatanUP2K', 'totalAnggotaBerkebutuhanKhusus', 'totalMakanBeras', 'totalMakanNonBeras', 'totalAnggotaBalitaLaki', 'totalAnggotaPerempuan', 'totalAnggotaWUS', 'totalAnggotaPUS', 'totalAnggotaBalitaPerempuan', 'totalAnggotaLaki'));
 
         return Excel::download($export, 'rekap-kelompok-kecamatan.xlsx');
     }
@@ -1263,15 +1266,28 @@ class AdminKabController extends Controller
         //     $adminKabupaten->password = Hash::make($request->password);
         // }
 
+        // if ($request->hasFile('foto')) {
+        //     $image = $request->file('foto');
+        //     $profileImage = Str::random(5) . date('YmdHis') . '.' . $image->getClientOriginalExtension();
+        //     $path = $image->storeAs('public/foto', $profileImage);
+        //     $adminKabupaten->foto = 'foto/' . $profileImage;
+        // }
+
+        // // Simpan perubahan pada model adminKabupaten
+        // $adminKabupaten->save();
+        $adminKabupaten = Auth::user();
+
         if ($request->hasFile('foto')) {
             $image = $request->file('foto');
             $profileImage = Str::random(5) . date('YmdHis') . '.' . $image->getClientOriginalExtension();
+            // Gunakan storeAs untuk menyimpan file
             $path = $image->storeAs('public/foto', $profileImage);
-            $adminKabupaten->foto = 'foto/' . $profileImage;
+            $fotoPath = 'foto/' . $profileImage;
+
+            // Update kolom 'foto' di tabel users atau tabel yang sesuai
+            DB::table('users')->where('id', $adminKabupaten->id)->update(['foto' => $fotoPath]);
         }
 
-        // Simpan perubahan pada model adminKabupaten
-        $adminKabupaten->save();
 
         Alert::success('Berhasil', 'Data berhasil diubah');
         return redirect()->back();
@@ -1290,14 +1306,26 @@ class AdminKabController extends Controller
             ],
         );
 
+        // $adminKabupaten = Auth::user();
+        // if (!Hash::check($request->password, $adminKabupaten->password)) {
+        //     Alert::error('Gagal', 'Kata sandi lama tidak sesuai');
+        //     return redirect()->back();
+        // }
+
+        // $adminKabupaten->password = Hash::make($request->new_password);
+        // $adminKabupaten->save();
         $adminKabupaten = Auth::user();
+
         if (!Hash::check($request->password, $adminKabupaten->password)) {
             Alert::error('Gagal', 'Kata sandi lama tidak sesuai');
             return redirect()->back();
         }
 
-        $adminKabupaten->password = Hash::make($request->new_password);
-        $adminKabupaten->save();
+        $newPassword = Hash::make($request->new_password);
+
+        // Menggunakan query builder untuk memperbarui kolom password di tabel users atau tabel yang sesuai
+        DB::table('users')->where('id', $adminKabupaten->id)->update(['password' => $newPassword]);
+
 
         Alert::success('Berhasil', 'Kata sandi berhasil diubah');
         return redirect()->route('profil_adminKabupaten');
@@ -1337,6 +1365,7 @@ class AdminKabController extends Controller
         $countAirLainya = 0;
         $countDasawisma = 0;
         // $countRW = 0;
+        $rt = 0;
         $today = Carbon::now();
 
         // $rws = Rw::where('desa_id', $id)->get();
@@ -1345,7 +1374,13 @@ class AdminKabController extends Controller
         $dasawisma = DasaWisma::where('id_desa', $id)->get();
         $countRW = Rw::where('desa_id', $id)->count();
         // $firstRw = $rws->first();
-        $rt = Rt::where('rw_id', $id)->count();
+        $dataRw = Rw::where('desa_id', $id)->get();
+        foreach($dataRw as $item){
+            foreach ($item->rt as $rts) {
+               $rt++;
+            }
+        }
+        // $rt = Rt::where('rw_id', $id)->count();
         // dd($rt);
         // dd($dasawisma);
         foreach ($dasawisma as $item) {

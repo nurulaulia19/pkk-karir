@@ -96,9 +96,9 @@
                 @foreach ($warga->pemanfaatanlahan as $lahan)
                 <div class="row">
                     <div class="col-md-11">
-                        <label for="kategori_id">Nama Kategori Pemanfaatan</label>
+                        <label for="kategori_id">Nama Pemanfaatan</label>
                         <select class="form-control selectNamaKegiatan" name="kategori_id[]">
-                            <option disabled selected value="">Pilih Kegiatan</option>
+                            <option disabled selected value="">Pilih Pemanfaatan Tanah Pekarangan</option>
                             @foreach ($kategoriPemanfaatan as $item)
                                 <option
                                     {{ $item->id == $lahan->kategori_id ? ' selected' : '' }}
@@ -195,7 +195,7 @@
                 namaKegiatanCol.className = 'col-md-11'; // Adjusted column width for select
 
                 const namaKegiatanLabel = document.createElement('label');
-                namaKegiatanLabel.textContent = 'Nama Kegiatan';
+                namaKegiatanLabel.textContent = 'Nama Pemanfaatan';
                 namaKegiatanLabel.htmlFor = 'kategori_id'; // Set 'for' attribute for label
 
                 const namaKegiatanSelect = document.createElement('select');
@@ -233,7 +233,7 @@
 
                 const defaultOptionNamaKegiatan = document.createElement('option');
                 defaultOptionNamaKegiatan.value = '';
-                defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kategori ';
+                defaultOptionNamaKegiatan.textContent = 'Pilih Nama Pemanfaatan ';
                 defaultOptionNamaKegiatan.selected = true;
                 defaultOptionNamaKegiatan.disabled = true;
                 newSelect.appendChild(defaultOptionNamaKegiatan);

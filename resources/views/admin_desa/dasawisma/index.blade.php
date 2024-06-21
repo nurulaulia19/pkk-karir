@@ -50,10 +50,11 @@
                                         <th>Nama Dasawisma</th>
                                         <th>Alamat Dasawisma</th>
                                         <th>RT/RW</th>
-                                        <th>Dusun</th>
+                                        {{-- <th>Dusun</th> --}}
                                         <th>Status</th>
                                         <th>Nama Desa</th>
                                         {{-- <th>Nama Kecamatan</th> --}}
+                                        <th>Nama Kader</th>
                                         <th>Periode</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -80,14 +81,13 @@
                                                 -
                                             @endif
                                         </td>
-                                        <td style="vertical-align: middle;">
-                                            {{-- {{$c->dusun->name}} --}}
+                                        {{-- <td style="vertical-align: middle;">
                                             @if($c->dusun == 0)
                                                 Tidak ada dusun
                                             @else
                                                 {{$c->dusunData->name}}
                                             @endif
-                                        </td>
+                                        </td> --}}
                                         <td style="vertical-align: middle;">
                                             @if($c->status == 1)
                                                 Aktif
@@ -96,6 +96,7 @@
                                             @endif
                                         </td>
                                         <td style="vertical-align: middle;">{{$c->desa->nama_desa}}</td>
+                                        <td style="vertical-align: middle;">{{$c->kader->name}}</td>
                                         {{-- <td style="vertical-align: middle;">{{$c->kecamatan->nama_kecamatan}}</td> --}}
                                         <td style="vertical-align: middle;">{{$c->periode}}</td>
                                         <td class="text-center">

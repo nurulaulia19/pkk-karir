@@ -105,6 +105,7 @@ class AdminController extends Controller
         // Get all records from DataKelompokDasawisma table where id_desa matches the logged-in user's desa ID
         $dasawisma = DataKelompokDasawisma::where('id_desa', $desaId)
             ->with(['rw', 'rt'])
+            ->orderBy('id', 'DESC')
             ->get();
         // dd($dasawisma);
 
@@ -2544,14 +2545,26 @@ class AdminController extends Controller
         //     $adminDesa->password = Hash::make($request->password);
         // }
 
+        // if ($request->hasFile('foto')) {
+        //     $image = $request->file('foto');
+        //     $profileImage = Str::random(5) . date('YmdHis') . '.' . $image->getClientOriginalExtension();
+        //     $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
+        //     $adminDesa->foto = $result;
+        // }
+
+        // $adminDesa->save();
+
+        $adminDesa = Auth::user();
+
         if ($request->hasFile('foto')) {
             $image = $request->file('foto');
             $profileImage = Str::random(5) . date('YmdHis') . '.' . $image->getClientOriginalExtension();
-            $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
-            $adminDesa->foto = $result;
+            // Gunakan storeAs untuk menyimpan file
+            $path = $image->storeAs('foto', $profileImage, 'public');
+            // Update kolom 'foto' di tabel users atau tabel yang sesuai
+            DB::table('users')->where('id', $adminDesa->id)->update(['foto' => $path]);
         }
 
-        $adminDesa->save();
 
         Alert::success('Berhasil', 'Data berhasil diubah');
         return redirect()->back();
@@ -2570,14 +2583,25 @@ class AdminController extends Controller
             ],
         );
 
+        // $adminDesa = Auth::user();
+        // if (!Hash::check($request->password, $adminDesa->password)) {
+        //     Alert::error('Gagal', 'Kata sandi lama tidak sesuai');
+        //     return redirect()->back();
+        // }
+
+        // $adminDesa->password = Hash::make($request->new_password);
+        // $adminDesa->save();
         $adminDesa = Auth::user();
         if (!Hash::check($request->password, $adminDesa->password)) {
             Alert::error('Gagal', 'Kata sandi lama tidak sesuai');
             return redirect()->back();
         }
 
-        $adminDesa->password = Hash::make($request->new_password);
-        $adminDesa->save();
+        $newPassword = Hash::make($request->new_password);
+
+        // Menggunakan query builder untuk memperbarui kolom password di tabel users atau tabel yang sesuai
+        DB::table('users')->where('id', $adminDesa->id)->update(['password' => $newPassword]);
+
 
         Alert::success('Berhasil', 'Kata sandi berhasil diubah');
         return redirect()->route('profil_adminDesa');

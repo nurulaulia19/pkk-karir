@@ -51,9 +51,11 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
     protected $totalAnggotaBalitaPerempuan;
     protected $totalAnggotaLaki;
     protected $periode;
+    protected $kecamatan;
 
     public function __construct(array $data)
     {
+        $this->kecamatan = $data['kecamatan'] ?? null;
         $this->desaa = $data['desaa'] ?? null;
         $this->totalDesa = $data['totalDesa'] ?? null;
         $this->totalRT = $data['totalRT'] ?? null;
@@ -260,14 +262,14 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
             ['CATATAN DATA DAN KEGIATAN WARGA'],
             ['TP PKK KECAMATAN'],
             ['TAHUN ' . $this->periode],
-            ['Kecamatan : ' . $this->desaa->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan],
+            ['Kecamatan : ' . $this->kecamatan->nama_kecamatan],
             // ['Kabupaten : '. $this->desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->name],
             // ['Provinsi : ' . $this->desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name],
             [
-                'Kabupaten : ' . (optional($this->desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten)->name ?? 'Indramayu'),
+                'Kabupaten : ' . (optional($this->kecamatan->kabupaten)->name ?? 'Indramayu'),
             ],
             [
-                'Provinsi : ' . (optional($this->desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi)->name ?? 'Jawa Barat'),
+                'Provinsi : ' . (optional($this->kecamatan->kabupaten->provinsi)->name ?? 'Jawa Barat'),
             ],
             [],
             $headings,

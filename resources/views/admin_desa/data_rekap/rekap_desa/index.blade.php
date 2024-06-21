@@ -68,7 +68,7 @@
                                         <thead>
                                             <tr>
                                                 <th rowspan="2" style="text-align: center;">No</th>
-                                                <th rowspan="2" style="text-align: center;">Nama dusun</th>
+                                                <th rowspan="2" style="text-align: center;">Nama Dusun</th>
                                                 <th rowspan="2" style="text-align: center;">Jml RW</th>
                                                 <th rowspan="2" style="text-align: center;">Jml RT</th>
                                                 <th rowspan="2" style="text-align: center;">Jml Dasawisma</th>
@@ -550,10 +550,10 @@
                                                 @endif
                                             @endforeach
                                             <tr>
-                                                <td><strong>Jumlah</strong> </td>
-                                                <td>
+                                                <td colspan="2"><strong>Jumlah</strong> </td>
+                                                {{-- <td>
                                                     {{ $totalDusun }}
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     {{ $totalRw }}
                                                 </td>

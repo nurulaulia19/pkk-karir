@@ -294,8 +294,8 @@
                                                 </tr>
                                             @endforeach
                                             <tr>
-                                                <td><strong>Jumlah</strong> </td>
-                                                <td> {{$totalDasawisma}} </td>
+                                                <td colspan="2"><strong>Jumlah</strong> </td>
+                                                {{-- <td> {{$totalDasawisma}} </td> --}}
                                                 <td>
                                                     {{$totalJmlKRT}}
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_KK') }} --}}

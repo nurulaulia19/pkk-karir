@@ -27,7 +27,7 @@ class KelompokDasawismaController extends Controller
         $user = Auth::user();
         $desaId = $user->id_desa;
 
-        $query = DataKelompokDasawisma::where('id_desa', $desaId)->with(['rw', 'rt', 'dusunData']);
+        $query = DataKelompokDasawisma::where('id_desa', $desaId)->with(['rw', 'rt', 'dusunData','kader']);
 
         if ($request->has('periode')) {
             $periode = $request->input('periode');
@@ -53,9 +53,9 @@ class KelompokDasawismaController extends Controller
         $kec = DataKecamatan::all();
         $user = Auth::user();
         $rws = Rw::where('desa_id', $user->id_desa)->get();
-        $dusun = Dusun::where('desa_id',Auth::user()->id_desa)->get();
+        // $dusun = Dusun::where('desa_id',Auth::user()->id_desa)->get();
         // dd(Auth::user()->id_desa);
-        return view('admin_desa.dasawisma.create', compact('desa', 'kec','rws','dusun'));
+        return view('admin_desa.dasawisma.create', compact('desa', 'kec','rws'));
     }
 
     /**
@@ -138,7 +138,7 @@ class KelompokDasawismaController extends Controller
             // Validation rules for Dasawisma data
             'nama_dasawisma' => 'required|unique:data_dasawisma',
             'alamat_dasawisma' => 'required',
-            'dusun' => 'required',
+            // 'dusun' => 'required',
             'status' => 'required',
             'id_rt' => 'required',
             'id_rw' => 'required',
@@ -155,7 +155,7 @@ class KelompokDasawismaController extends Controller
             'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
             'nama_dasawisma.unique' => 'Nama Dasawisma sudah ada, harap isi nama yang lain',
             'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
-            'dusun.required' => 'Masukkan Dusun Dasawisma',
+            // 'dusun.required' => 'Masukkan Dusun Dasawisma',
             'status.required' => 'Pilih Status',
 
             // Validation messages for Kader data
@@ -170,7 +170,7 @@ class KelompokDasawismaController extends Controller
         $dasawisma = new DataKelompokDasawisma;
         $dasawisma->nama_dasawisma = $request->nama_dasawisma;
         $dasawisma->alamat_dasawisma = $request->alamat_dasawisma;
-        $dasawisma->dusun = $request->dusun;
+        // $dasawisma->dusun = $request->dusun;
         $dasawisma->status = $request->status;
         $dasawisma->id_rt = $request->id_rt;
         $dasawisma->id_rw = $request->id_rw;
@@ -244,10 +244,10 @@ class KelompokDasawismaController extends Controller
         $kader = User::where('id_dasawisma', $data_dasawisma->id)->first();
         $rws = Rw::all();
         $rts = Rt::all();
-        $dusun = Dusun::where('desa_id',Auth::user()->id_desa)->get();
+        // $dusun = Dusun::where('desa_id',Auth::user()->id_desa)->get();
 
         // Kirim kedua data tersebut ke tampilan untuk diedit
-        return view('admin_desa.dasawisma.edit', compact('data_dasawisma', 'kader','rws','rts','dusun'));
+        return view('admin_desa.dasawisma.edit', compact('data_dasawisma', 'kader','rws','rts'));
     }
 
 
@@ -304,7 +304,7 @@ class KelompokDasawismaController extends Controller
                 Rule::unique('data_dasawisma')->ignore($data_dasawisma),
             ],
             'alamat_dasawisma' => 'required',
-            'dusun' => 'required',
+            // 'dusun' => 'required',
             'status' => 'required',
             'id_rt' => 'required',
             'id_rw' => 'required',
@@ -324,7 +324,7 @@ class KelompokDasawismaController extends Controller
             'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
             'nama_dasawisma.unique' => 'Nama Dasawisma sudah ada, harap isi nama yang lain',
             'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
-            'dusun.required' => 'Masukkan Dusun Dasawisma',
+            // 'dusun.required' => 'Masukkan Dusun Dasawisma',
             'status.required' => 'Pilih Status',
 
             // Pesan validasi untuk data Kader
@@ -339,7 +339,7 @@ class KelompokDasawismaController extends Controller
         $data_dasawisma->update([
             'nama_dasawisma' => $request->nama_dasawisma,
             'alamat_dasawisma' => $request->alamat_dasawisma,
-            'dusun' => $request->dusun,
+            // 'dusun' => $request->dusun,
             'status' => $request->status,
             'id_rt' => $request->id_rt,
             'id_rw' => $request->id_rw,

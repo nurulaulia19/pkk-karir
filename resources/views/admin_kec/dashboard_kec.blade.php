@@ -17,7 +17,7 @@
             <i class="ion ion-folder"></i>
             {{-- <div class="notification-badge">3</div> --}}
           </div>
-          <a href="/dashboard_kec/desa" class="small-box-footer">More Info <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="/dashboard_kec/desa" class="small-box-footer">Info Selengkapnya <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
 

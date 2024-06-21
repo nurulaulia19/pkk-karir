@@ -290,10 +290,6 @@
                                                 </td> --}}
                                                 <td>
                                                     {{ $totalJmlKK }}
-                                                    {{-- {{ ucfirst($counts['countKik']) }} --}}
-
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_KK') }} --}}
                                                 </td>
                                                 <td>
                                                     {{ $totalAnggotaLaki }}

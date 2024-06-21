@@ -23,7 +23,7 @@
                                 <div>
 
                                     <h6>Kecamatan :
-                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->nama_kecamatan }}
+                                        {{ $kecamatan->nama_kecamatan }}
                                     </h6>
                                     {{-- <h6>Kabupaten :
                                         {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }}
@@ -32,10 +32,10 @@
                                         {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }}
                                     </h6> --}}
                                     <h6>Kabupaten :
-                                        {{ optional($desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten)->name ?? 'Indramayu' }}
+                                        {{ optional($kecamatan->kabupaten)->name ?? 'Indramayu' }}
                                     </h6>
                                     <h6>Provinsi :
-                                        {{ optional($desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi)->name ?? 'Jawa Barat' }}
+                                        {{ optional($kecamatan->kabupaten->provinsi)->name ?? 'Jawa Barat' }}
                                     </h6>
                                 </div>
 

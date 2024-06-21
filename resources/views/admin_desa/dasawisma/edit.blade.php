@@ -61,7 +61,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label>RW</label>
                                         <select class="form-control" name="id_rw" id="rw" required>
@@ -74,7 +74,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label>RT</label>
                                         <select class="form-control" name="id_rt" id="rt" required>
@@ -87,10 +87,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                {{-- <div class="col-sm-3">
                                     <div class="form-group @error('dusun') is-invalid @enderror">
-                                        {{-- <label>Dusun</label>
-                                    <input type="text" class="form-control @error('dusun') is-invalid @enderror" name="dusun" id="dusun" placeholder="Isi Nama Dusun" required value="{{ $data_dasawisma->dusun }}"> --}}
                                         <label for="exampleFormControlSelect1">Dusun</label>
                                         <select class="form-control" id="dusun" name="dusun">
                                             <option value="0" selected>Tidak Memiliki Dusun</option>
@@ -105,7 +103,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-sm-3">
                                     <div class="form-group @error('status') is-invalid @enderror">
                                         <label>Status</label>
@@ -124,20 +122,23 @@
                                         @enderror
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label>Nama Desa</label>
-                                    <input type="text" readonly class="form-control" name="id_desa" id="id_desa"
-                                        placeholder="Masukkan Nama Kader" required
-                                        value="{{ Auth::user()->desa->nama_desa }}">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Nama Desa</label>
+                                        <input type="text" readonly class="form-control" name="id_desa" id="id_desa"
+                                            placeholder="Masukkan Nama Kader" required
+                                            value="{{ Auth::user()->desa->nama_desa }}">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Nama Kecamatan</label>
-                                    <input type="text" readonly class="form-control" name="id_kecamatan"
-                                        id="id_kecamatan" placeholder="Masukkan Nama Kader" required
-                                        value="{{ Auth::user()->kecamatan->nama_kecamatan }}">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Nama Kecamatan</label>
+                                        <input type="text" readonly class="form-control" name="id_kecamatan"
+                                            id="id_kecamatan" placeholder="Masukkan Nama Kader" required
+                                            value="{{ Auth::user()->kecamatan->nama_kecamatan }}">
+                                    </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-sm-3">
                                     <div class="form-group @error('periode') is-invalid @enderror">
                                         <label>Periode</label>
                                         <input type="text" readonly class="form-control" id="periode"

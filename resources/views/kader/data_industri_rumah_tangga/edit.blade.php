@@ -85,10 +85,10 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Kategori</label>
+                        <label>Nama Industri</label>
                         <select class="form-control" id="kategori_industri_rumah_id" name="kategori_industri_rumah_id">
                             {{-- pilih kategori --}}
-                            <option hidden> Pilih Kategori</option>
+                            <option hidden> Pilih Industri</option>
                             @foreach ($kategoriIndustri as $item)
                                 <option value="{{ $item->id }}" {{ $keluarga->industri_id == $item->id ? 'selected' : ''  }} >{{ $item->nama_kategori }}</option>
 

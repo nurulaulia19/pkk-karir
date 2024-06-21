@@ -86,9 +86,9 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group @error('kategori_industri_rumah_id') is-invalid @enderror">
-                        <label>Kategori</label>
+                        <label>Nama Industri</label>
                         <select class="form-control @error('kategori_industri_rumah_id') is-invalid @enderror" id="kategori_industri_rumah_id" name="kategori_industri_rumah_id" required>
-                            <option selected disabled value="0"> Pilih Kategori</option>
+                            <option selected disabled value="0"> Pilih Industri</option>
                             @foreach ($kategoriIndustri as $item)
                                 <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
                             @endforeach

@@ -111,7 +111,7 @@
             <div class="form-group" id="formContainer">
                 <div class="row">
                     <div class="col-md-12" class="@error('kategori_id') is-invalid @enderror">
-                        <label for="kategori_id">Nama Kategori Pemanfaatan</label>
+                        <label for="kategori_id">Nama Pemanfaatan</label>
                         <select class="form-control selectNamaKegiatan @error('kategori_id') is-invalid @enderror" name="kategori_id[]" required>
                             <option disabled selected value="">Pilih Pemanfaatan Tanah Pekarangan</option>
                             @foreach ($kategoriPemanfaatan as $item)
@@ -208,7 +208,7 @@ console.log('kategoriPemanfaatanLahan :>> ', kategoriPemanfaatanLahan);
                 namaKegiatanCol.className = 'col-md-11'; // Adjusted column width for select
 
                 const namaKegiatanLabel = document.createElement('label');
-                namaKegiatanLabel.textContent = 'Nama Kegiatan';
+                namaKegiatanLabel.textContent = 'Nama Pemanfaatan';
                 namaKegiatanLabel.htmlFor = 'kategori_id'; // Set 'for' attribute for label
 
                 const namaKegiatanSelect = document.createElement('select');
@@ -246,7 +246,7 @@ console.log('kategoriPemanfaatanLahan :>> ', kategoriPemanfaatanLahan);
 
                 const defaultOptionNamaKegiatan = document.createElement('option');
                 defaultOptionNamaKegiatan.value = '';
-                defaultOptionNamaKegiatan.textContent = 'Pilih Nama Kategori ';
+                defaultOptionNamaKegiatan.textContent = 'Pilih Nama Pemanfaatan ';
                 defaultOptionNamaKegiatan.selected = true;
                 defaultOptionNamaKegiatan.disabled = true;
                 newSelect.appendChild(defaultOptionNamaKegiatan);

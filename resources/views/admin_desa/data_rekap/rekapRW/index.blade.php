@@ -40,7 +40,7 @@
                                         <thead>
                                             <tr>
                                                 <th rowspan="2" style="text-align: center;">No</th>
-                                                <th rowspan="2" style="text-align: center;">kode RT</th>
+                                                <th rowspan="2" style="text-align: center;">Kode RT</th>
                                                 <th rowspan="2" style="text-align: center;">Nama Dasawisma</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KRT</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KK</th>
