@@ -80,6 +80,7 @@ class DataKegiatanWargaController extends Controller
             'periode' => 'required',
             'nama_kegiatan' => 'required',
 
+
         ], [
             'id_warga.required' => 'Lengkapi Nama Warga Yang Didata',
             'nama_kegiatan.required' => 'Pilih Kegiatan',
@@ -87,6 +88,10 @@ class DataKegiatanWargaController extends Controller
 
         ]);
 
+        $namaKegiatanValues = $request->nama_kegiatan;
+        if (count($namaKegiatanValues)!== count(array_unique($namaKegiatanValues))) {
+            return redirect()->back()->withErrors(['nama_kegiatan' => 'Kegiatan tidak boleh sama']);
+        }
          foreach ($request->nama_kegiatan as $key => $item) {
             // dd($item);
             if ($item !== null && $item !== '') {
@@ -98,14 +103,16 @@ class DataKegiatanWargaController extends Controller
                 ]);
             }
          }
-
-
-
+         
          // Set is_kegiatan menjadi true untuk data warga yang terkait
             $dataWarga = DataWarga::find($request->id_warga);
             if ($dataWarga) {
                 $dataWarga->is_kegiatan = true;
                 $dataWarga->save();
+            }
+
+            if (count($request->nama_kegiatan) !== count(array_unique($request->nama_kegiatan))) {
+                return redirect()->back()->withErrors(['nama_kegiatan' => 'Kegiatan tidak boleh sama']);
             }
 
             Alert::success('Berhasil', 'Data berhasil di tambahkan');
@@ -249,7 +256,8 @@ class DataKegiatanWargaController extends Controller
     }
 
     public function kegiatanDesa($id){
-        $kegiatan = DataKegiatan::where('desa_id', $id)->get();
+        // $kegiatan = DataKegiatan::where('desa_id', $id)->get();
+        $kegiatan = DataKegiatan::all();
 
         return response()->json([
             'message' => 'success',

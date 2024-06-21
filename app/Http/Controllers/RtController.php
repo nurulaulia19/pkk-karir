@@ -49,33 +49,24 @@ class RtController extends Controller
 
         $rw = $rwData->name; // Simpan nama RW yang dipilih
         $rw_id = $rwData->id; // Mengambil id dari objek Rw yang ditemukan
-        // dd($rw_id);
-
-        $existingRtNumbers = Rt::where('rw_id', $rwQuery)->pluck('name')->map(function($item) {
-            return (int) $item;
-        })->toArray();
-
-        // Cari nomor RT terkecil yang tidak ada di array
-        $nextRtNumber = 1;
-        while (in_array($nextRtNumber, $existingRtNumbers)) {
-            $nextRtNumber++;
-        }
 
         $dusun = Dusun::where('desa_id', $user->id_desa)->get();
 
-        return view('admin_desa.rw.rt.create',compact('rw','nextRtNumber', 'dusun', 'rw_id'));
+        return view('admin_desa.rw.rt.create',compact('rw', 'dusun', 'rw_id'));
     }
 
     public function store(Request $request)
     {
         $rwQuery = $request->input('rw');
         if(!$rwQuery){
-            dd('Tidak ada RW');
+            Alert::error('Gagal', 'Tidak Ada RW');
+            return redirect()->back();
         }
         $rw = Rw::where('name',$rwQuery)->first();
 
         if(!$rw){
-            dd('Tidak ada RW');
+            Alert::error('Gagal', 'Tidak Ada RW');
+            return redirect()->back();
         }
 
         $user = Auth::user();
@@ -129,12 +120,14 @@ class RtController extends Controller
     {
         $rwQuery = $request->input('rw');
         if(!$rwQuery){
-            dd('Tidak ada RW');
+            Alert::error('Gagal', 'Tidak Ada RW');
+            return redirect()->back();
         }
         $rw = Rw::where('name',$rwQuery)->first();
 
         if(!$rw){
-            dd('Tidak ada RW');
+            Alert::error('Gagal', 'Tidak Ada RW');
+            return redirect()->back();
         }
 
         $request->validate([

@@ -66,14 +66,37 @@
                                         <td style="vertical-align: middle;">
                                             {{ucfirst($c->warga->status_perkawinan)}}
                                         </td>
-                                        <td style="vertical-align: middle;">
+                                        {{-- <td style="vertical-align: middle;">
                                             {{ucfirst($c->warga->jenis_kelamin == 'laki-laki' ? 'laki-laki' :'')}}
                                         </td>
                                         <td style="vertical-align: middle;">
                                             {{ucfirst($c->warga->jenis_kelamin == 'perempuan' ? 'perempuan' :'')}}
+                                        </td> --}}
+                                        <td style="vertical-align: middle;">
+                                            @if ($c->warga->jenis_kelamin == 'laki-laki')
+                                                ✓
+                                            @else
+                                                -
+                                            @endif
                                         </td>
                                         <td style="vertical-align: middle;">
-                                            {{ \Carbon\Carbon::parse($c->warga->tgl_lahir)->isoFormat('D MMMM Y') }}/{{ ucfirst($c->umur) }} Tahun
+                                            @if ($c->warga->jenis_kelamin == 'perempuan')
+                                                ✓
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td style="vertical-align: middle;">
+                                            <?php
+                                                // Mendapatkan tanggal lahir dari data warga
+                                                $tgl_lahir = $c->warga->tgl_lahir;
+
+                                                // Menghitung umur menggunakan Carbon
+                                                $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            ?>
+                                            {{ \Carbon\Carbon::parse($c->warga->tgl_lahir)->isoFormat('D MMMM Y') }}
+                                            /
+                                            {{ ucfirst($umur) }} Tahun
                                         </td>
                                         <td style="vertical-align: middle;">
                                             {{ucfirst($c->warga->pendidikan)}}

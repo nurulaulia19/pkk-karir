@@ -21,10 +21,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('user_type')->nullable();
             $table->bigInteger('id_desa')->unsigned();
-            $table->foreign('id_desa')->references('id')->on('data_desa')->unsigned()->nullable();
+            $table->foreign('id_desa')->references('id')->on('data_desa')->onDelete('cascade');
             $table->bigInteger('id_kecamatan')->unsigned();
-            $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan')->unsigned()->nullable();
-
+            $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan')->onDelete('cascade');
             $table->timestamps();
         });
     }

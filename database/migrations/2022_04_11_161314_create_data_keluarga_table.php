@@ -20,12 +20,11 @@ return new class extends Migration
             // $table->integer('rw');
             $table->integer('periode');
             $table->bigInteger('id_dasawisma')->unsigned()->nullable();
-            $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma');
+            $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma')->onDelete('cascade');
             // $table->string('dusun')->nullable();
             // $table->string('provinsi');
             $table->string('nama_kepala_keluarga');
             $table->string('nik_kepala_keluarga');
-
             // $table->boolean('punya_jamban');
             $table->boolean('is_rumah_tangga')->default(false);
             $table->bigInteger('industri_id')->default(0);

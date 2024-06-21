@@ -75,12 +75,9 @@ class DataPemanfaatanPekaranganController extends Controller
      */
     public function create()
     {
-        // halaman form tambah data pemanfaatan tanah
-        // nama desa yang login
         $desas = DB::table('data_desa')
             ->where('id', auth()->user()->id_desa)
             ->get();
-        // $kec = DB::table('data_kecamatan')->get();
         $kec = DB::table('data_kecamatan')
             ->where('id', auth()->user()->id_kecamatan)
             ->get();
@@ -100,9 +97,6 @@ class DataPemanfaatanPekaranganController extends Controller
             ->where('periode', now()->year)
             ->where('is_pemanfaatan_lahan', false)
             ->get();
-        // $krt = RumahTangga::with(['anggotaRT.keluarga', 'anggotaRT.keluarga.warga'])->get();
-        // dd($krt);
-        //  $kat = KategoriPemanfaatanLahan::all(); // pemanggilan tabel kategori pemanfaatan tanah
 
         return view('kader.data_pemanfaatan_pekarangan.create', compact('kategoriPemanfaatan', 'kec', 'kel', 'desas', 'kad', 'krt'));
     }
@@ -122,6 +116,9 @@ class DataPemanfaatanPekaranganController extends Controller
             ],
         );
 
+        $id_desa = auth()->user()->id_desa;
+        $id_kecamatan = auth()->user()->id_kecamatan;
+
         if (!isUnique($request->kategori_id)) {
             return redirect()
                 ->back()
@@ -137,8 +134,8 @@ class DataPemanfaatanPekaranganController extends Controller
 
                 if (!$checkDataAavilable) {
                     DataPemanfaatanPekarangan::create([
-                        'id_desa' => 1,
-                        'id_kecamatan' => 1,
+                        'id_desa' => $id_desa,
+                        'id_kecamatan' => $id_kecamatan,
                         'rumah_tangga_id' => $request->rumah_tangga_id,
                         'kategori_id' => $item,
                         'periode' => $request->periode,
@@ -193,7 +190,7 @@ class DataPemanfaatanPekaranganController extends Controller
             ->get();
         // $kec = DB::table('data_kecamatan')->get();
         $kec = DB::table('data_kecamatan')
-            ->where('id', auth()->user()->id_desa)
+            ->where('id', auth()->user()->id_kecamatan)
             ->get();
 
         $kad = DB::table('users')

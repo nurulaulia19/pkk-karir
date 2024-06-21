@@ -52,9 +52,8 @@
                         <label for="exampleFormControlSelect1">Kecamatan</label>
                         {{-- nama kecamatan --}}
                         @foreach ($kec as $c)
-                        <input type="hidden" class="form-control" name="id_kecamatan" id="id_kecamatan" placeholder="Masukkan Nama Desa" required value="{{$c->id}}">
-                        <input type="text" disabled class="form-control" name="id_kecamatan" id="id_kecamatan" placeholder="Masukkan Nama Desa" required value="{{ $c->nama_kecamatan }}">
-
+                        <input type="hidden" class="form-control" name="id_kecamatan" id="id_kecamatan" placeholder="Masukkan Nama Kecamatan" required value="{{$c->id}}">
+                        <input type="text" disabled class="form-control" name="id_kecamatan" id="id_kecamatan" placeholder="Masukkan Nama Kecamatan" required value="{{ $c->nama_kecamatan }}">
                         @endforeach
                     </div>
                     @error('id_kecamatan')

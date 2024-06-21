@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->bigInteger('rw_id')->unsigned();
-            $table->foreign('rw_id')->references('id')->on('rws');
+            $table->foreign('rw_id')->references('id')->on('rws')->onDelete('cascade');
             $table->bigInteger('dusun_id')->default(0);
-
             $table->timestamps();
         });
     }

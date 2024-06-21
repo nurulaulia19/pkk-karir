@@ -21,35 +21,27 @@ class DataKegiatanSeeder extends Seeder
 
             [
                 'name'=>'Penghayatan dan Pengamalan Pancasila',
-                'desa_id'=>1,
             ],
             [
                 'name'=>'Gotong Royong',
-                'desa_id'=>1,
             ],
             [
                 'name'=>'Pendidikan dan Keterampilan',
-                'desa_id'=>1,
             ],
             [
                 'name'=>'Pengembangan Kehidupan Berkoperasi',
-                'desa_id'=>1,
             ],
             [
                 'name'=>'Pangan',
-                'desa_id'=>1,
             ],
             [
                 'name'=>'Sandang',
-                'desa_id'=>1,
             ],
             [
                 'name'=>'Persencanaan Sehat',
-                'desa_id'=>1,
             ],
             [
                 'name'=>'Kesehatan',
-                'desa_id'=>1,
             ],
 
          ]);

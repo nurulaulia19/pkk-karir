@@ -46,7 +46,7 @@ class KeteranganKegiatanController extends Controller
     public function store(Request $request)
     {
         //
-        $user = Auth::user();
+        // $user = Auth::user();
         // dd($user);
         $request->validate([
             'name' => 'required|unique:data_kegiatan', // 'kegiatans' adalah nama tabel
@@ -56,7 +56,7 @@ class KeteranganKegiatanController extends Controller
         ]);
 
         $kegiatan = new DataKegiatan();
-        $kegiatan->desa_id = $user->id_desa;
+        // $kegiatan->desa_id = $user->id_desa;
         $kegiatan->name = $request->name;
 
         $kegiatan->save();

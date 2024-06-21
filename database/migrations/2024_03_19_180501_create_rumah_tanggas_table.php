@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('rumah_tanggas', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_dasawisma')->unsigned()->nullable();
+            $table->bigInteger('id_dasawisma')->unsigned();
+            $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma')->onDelete('cascade');
             $table->integer('periode');
-            // $table->string('dusun')->nullable();
-            $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma');
             $table->string('nama_kepala_rumah_tangga');
             $table->string('nik_kepala_rumah_tangga');
             $table->boolean('punya_jamban')->default(false);

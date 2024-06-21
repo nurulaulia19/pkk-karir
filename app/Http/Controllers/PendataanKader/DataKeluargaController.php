@@ -447,7 +447,8 @@ class DataKeluargaController extends Controller
         // Lakukan operasi lain sesuai kebutuhan
         $dasawismaId = $keluarga->anggota->first()->warga->id_dasawisma;
         $dasawisma = DasaWisma::find($dasawismaId);
-        $dataKegiatan = DataKegiatan::where('desa_id', $userKader->id_desa)->get();
+        $dataKegiatan = DataKegiatan::all();
+        // dd($dataKegiatan);
 
         // Kirim data ke view 'kader.data_catatan_keluarga.index'
         return view('kader.data_catatan_keluarga.index', compact('keluarga', 'rumahTangga', 'dasawisma', 'dataKegiatan'));

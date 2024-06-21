@@ -312,10 +312,9 @@ class KaderFormController extends Controller
     $dasawismaId = $warga->warga->id_dasawisma;
     $dasawisma = DasaWisma::find($dasawismaId);
 
-    $dataKegiatan = DataKegiatan::where('desa_id',$userKader->id_desa)->get();
+    // $dataKegiatan = DataKegiatan::where('desa_id',$userKader->id_desa)->get();
     // dd($keluarga);
-
-
+    $dataKegiatan = DataKegiatan::all();
     return Excel::download(new WargaExport($keluarga, $dasawisma, $dataKegiatan), 'Data Warga.xlsx');
     }
 
@@ -400,7 +399,7 @@ class KaderFormController extends Controller
         $dasawismaId = $warga->warga->id_dasawisma;
         $dasawisma = DasaWisma::find($dasawismaId);
 
-        $dataKegiatan = DataKegiatan::where('desa_id',$userKader->id_desa)->get();
+        $dataKegiatan = DataKegiatan::all();
         // dd($dasawisma);
         // dd($warga);
         // dd($keluarga);
@@ -463,7 +462,7 @@ class KaderFormController extends Controller
     $dasawismaId = $warga->warga->id_dasawisma;
     $dasawisma = DasaWisma::find($dasawismaId);
 
-    $dataKegiatan = DataKegiatan::where('desa_id',$userKader->id_desa)->get();
+    $dataKegiatan = DataKegiatan::all();
     // dd($keluarga);
 
     return Excel::download(new CatatanKeluargaExport($keluarga, $dasawisma, $dataKegiatan), 'catatan_keluarga.xlsx');

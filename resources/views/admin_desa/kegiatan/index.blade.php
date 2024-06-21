@@ -15,16 +15,16 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered data" id="add-row">
-                                    <div class="row">
+                                    {{-- <div class="row">
                                         <div class="col-md-1">
                                             <a href="{{ url('kegiatan/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <thead>
                                         <tr>
                                         <th>No</th>
                                         <th>Nama Kegiatan</th>
-                                        <th>Aksi</th>
+                                        {{-- <th>Aksi</th> --}}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -32,7 +32,7 @@
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                         <td style="vertical-align: middle;">{{$c->name}}</td>
-                                        <td width="100px" class="text-center">
+                                        {{-- <td width="100px" class="text-center">
                                             <div class="d-flex" style="justify-content:center">
                                                 <a class="btn btn-primary btn-sm" href="{{ url('kegiatan/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('kegiatan.destroy',$c->id) }}" method="POST">
@@ -41,9 +41,7 @@
                                                     <button type="submit" class="btn btn-danger btn-sm delete ml-1" ><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </div>
-                                        </td>
-
-
+                                        </td> --}}
                                     </tr>
 
                                     @endforeach

@@ -51,7 +51,8 @@ class KelompokDasawismaController extends Controller
         // halaman create dasawisma
         $desa = Data_Desa::all();
         $kec = DataKecamatan::all();
-        $rws = Rw::all();
+        $user = Auth::user();
+        $rws = Rw::where('desa_id', $user->id_desa)->get();
         $dusun = Dusun::where('desa_id',Auth::user()->id_desa)->get();
         // dd(Auth::user()->id_desa);
         return view('admin_desa.dasawisma.create', compact('desa', 'kec','rws','dusun'));

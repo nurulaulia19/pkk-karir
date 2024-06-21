@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <label>Nama</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                            id="name" placeholder="Masukkan Nama Kader" required value="{{ old('name') }}">
+                            id="name" placeholder="Masukkan Nama Pengguna" required value="{{ old('name') }}">
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -42,7 +42,7 @@
                     <div class="form-group">
                         <label>Email</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                            id="email" placeholder="Masukkan Email" required value="{{ old('email') }}">
+                            id="email" placeholder="Masukkan Email" value="{{ old('email') }}">
                         @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

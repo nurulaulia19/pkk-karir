@@ -27,7 +27,9 @@ class RwController extends Controller
         $rt = Rw::with('rt')->find($id);
         // dd($rt);
         if(!$rt){
-            dd('tidak ada rw');
+            // dd('tidak ada rw');
+            Alert::error('Gagal', 'Tidak Ada RW');
+            return redirect()->back();
         }
 
         return view('admin_desa.rw.rt.index', compact('rt'));
@@ -36,23 +38,21 @@ class RwController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
-        $existingRwNumbers = Rw::pluck('name')->map(function($item) {
-            return (int) $item;
-        })->toArray();
-
-        // Cari nomor RW terkecil yang tidak ada di array
-        $nextRwNumber = 1;
-        while (in_array($nextRwNumber, $existingRwNumbers)) {
-            $nextRwNumber++;
-        }
         $dusun = Dusun::where('desa_id', $user->id_desa)->get();
-        return view('admin_desa.rw.create', compact('dusun','nextRwNumber'));
+        return view('admin_desa.rw.create', compact('dusun'));
     }
 
     public function store(Request $request)
     {
+        $user = Auth::user();
         $request->validate([
-            'name' => 'required|unique:rws', // 'kegiatans' adalah nama tabel
+            // 'name' => 'required|unique:rws', // 'kegiatans' adalah nama tabel
+            'name' => [
+                'required',
+                Rule::unique('rws')->where(function ($query) use ($user) {
+                    return $query->where('desa_id', $user->id_desa);
+                }),
+            ],
         ], [
             'name.required' => 'Masukkan Nama RW',
             'name.unique' => 'Nama RW sudah ada, silakan masukkan yang lain',
@@ -83,10 +83,14 @@ class RwController extends Controller
 
     public function update(Request $request, RW $rw)
     {
+        $user = Auth::user();
         $request->validate([
             'name' => [
                 'required',
-                Rule::unique('rws')->ignore($rw),
+                // Rule::unique('rws')->ignore($rw),
+                Rule::unique('rws')->where(function ($query) use ($user, $rw) {
+                    return $query->where('desa_id', $user->id_desa)->where('id', '!=', $rw->id);
+                }),
             ],
         ], [
             'name.required' => 'Masukkan Nama RW',

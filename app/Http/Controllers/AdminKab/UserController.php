@@ -86,12 +86,19 @@ class UserController extends Controller
         $pengguna->id_desa = $request->id_desa;
         $pengguna->id_kecamatan = $request->id_kecamatan;
 
+        // if ($request->hasFile('foto')) {
+        //     $destinationPath = 'foto/';
+        //     $image = $request->file('foto');
+        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        //     $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
+        //     $pengguna->foto = $result;
+        // }
         if ($request->hasFile('foto')) {
             $destinationPath = 'foto/';
             $image = $request->file('foto');
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
-            $pengguna->foto = $result;
+            $image->storeAs('public/'.$destinationPath, $profileImage); // Simpan file dengan nama unik
+            $pengguna->foto = $destinationPath . $profileImage; // Simpan path foto ke database
         }
 
         $pengguna->save();
@@ -161,11 +168,17 @@ class UserController extends Controller
                 Storage::disk('public')->delete($data_pengguna_super->foto);
             }
 
+            // $destinationPath = 'foto/';
+            // $image = $request->file('foto');
+            // $profileImage = Str::random(5) . date('YmdHis') . "." . $image->getClientOriginalExtension();
+            // $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
+            // $data_pengguna_super->foto = $result;
             $destinationPath = 'foto/';
             $image = $request->file('foto');
             $profileImage = Str::random(5) . date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
-            $data_pengguna_super->foto = $result;
+            Storage::disk('public')->put($destinationPath . $profileImage, file_get_contents($image));
+            $data_pengguna_super->foto = $destinationPath . $profileImage;
+
         }
 
         $data_pengguna_super->save();

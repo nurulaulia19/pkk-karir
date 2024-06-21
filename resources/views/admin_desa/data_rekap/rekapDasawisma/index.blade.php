@@ -166,63 +166,63 @@
                                                     </td>
                                                     <td>
                                                         @if ($keluarga->kriteria_rumah_sehat == '1')
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($keluarga->kriteria_rumah_sehat == '0')
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($keluarga->punya_tempat_sampah == '1')
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($keluarga->saluran_pembuangan_air_limbah == '1')
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($keluarga->punya_jamban == '1')
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($keluarga->tempel_stiker == '1')
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($keluarga->sumber_air_pdam == '1')
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($keluarga->sumber_air_sumur == '1')
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif
                                                     </td>
                                                     <td>
                                                         @if ($keluarga->sumber_air_lainnya == '1')
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif
@@ -230,7 +230,7 @@
 
                                                     <td>
                                                         {{-- @if ($keluarga->makanan_pokok == '1')
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif --}}
@@ -242,7 +242,7 @@
 
                                                         {{ ucfirst($counts['MakanNonBeras']) }}
                                                         {{-- @if ($keluarga->makanan_pokok == '0')
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif --}}
@@ -256,7 +256,7 @@
                                                         {{ ucfirst($counts['pemanfaatanPekarangan']) }}
 
                                                         {{-- @if ($keluarga->pemanfaatan->count() > 0)
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif --}}
@@ -265,7 +265,7 @@
                                                         {{ ucfirst($counts['industriRumahTangga']) }}
 
                                                         {{-- @if ($keluarga->industri->count() > 0)
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif --}}
@@ -275,7 +275,7 @@
 
 
                                                         {{-- @if ($keluarga->getKepalaKeluargaKegiatans()->count() > 0)
-                                                            <i class="fas fa-check"></i>
+                                                            1
                                                         @else
                                                             0
                                                         @endif --}}

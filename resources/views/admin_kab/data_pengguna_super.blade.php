@@ -59,7 +59,7 @@
                                             -
                                         @endif
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center" style="vertical-align: middle;">
                                             <div class="d-flex justify-content-center">
                                                 <a class="btn btn-primary btn-sm" href="{{ url('data_pengguna_super/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('data_pengguna_super.destroy',$c->id) }}" method="POST">

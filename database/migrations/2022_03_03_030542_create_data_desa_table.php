@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('id_kecamatan')->unsigned();
             $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan')->onDelete('cascade');
-
             $table->string('kode_desa');
             $table->string('nama_desa');
             $table->timestamps();

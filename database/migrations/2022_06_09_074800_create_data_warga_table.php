@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('data_warga', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_desa')->unsigned();
-            $table->foreign('id_desa')->references('id')->on('data_desa');
+            $table->foreign('id_desa')->references('id')->on('data_desa')->onDelete('cascade');
             $table->bigInteger('id_kecamatan')->unsigned();
-            $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan');
+            $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan')->onDelete('cascade');
             // $table->bigInteger('id_keluarga')->unsigned();
             // $table->foreign('id_keluarga')->references('id')->on('data_keluarga');
-            $table->bigInteger('id_dasawisma')->unsigned()->nullable();
-            $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma');
+            $table->bigInteger('id_dasawisma')->unsigned();
+            $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma')->onDelete('cascade');
             $table->string('no_registrasi');
             $table->string('no_ktp');
             $table->string('nama');
