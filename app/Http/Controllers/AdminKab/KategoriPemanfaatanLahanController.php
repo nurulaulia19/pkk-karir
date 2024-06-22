@@ -66,7 +66,7 @@ class KategoriPemanfaatanLahanController extends Controller
         if (!$pemanfaatan) {
             // Produk dengan 'id_produk' yang dimaksud tidak ditemukan
             // Lakukan tindakan error handling atau tampilkan pesan kesalahan
-            return redirect()->back()->with('error', 'Produk tidak ditemukan.');
+            return redirect()->back()->with('error', 'Data pemanfaatan tidak ditemukan.');
         }
 
         $pemanfaatan->nama_kategori = $request->nama_kategori;

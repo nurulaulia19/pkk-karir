@@ -14,8 +14,6 @@ class KategoriDusunController extends Controller
     {
         $user = Auth::user();
         $dusun = Dusun::where('desa_id', $user->id_desa)->orderBy('id', 'DESC')->get();
-        // dd($dusun);
-
         return view('admin_desa.data_dusun.index', compact('dusun'));
     }
 
@@ -68,7 +66,7 @@ class KategoriDusunController extends Controller
         $dusun = Dusun::find($id);
 
         if (!$dusun) {
-            // Produk dengan 'id_produk' yang dimaksud tidak ditemukan
+            // Dusun dengan 'id' yang dimaksud tidak ditemukan
             // Lakukan tindakan error handling atau tampilkan pesan kesalahan
             return redirect()->back()->with('error', 'Data tidak ditemukan.');
         }

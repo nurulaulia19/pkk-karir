@@ -47,18 +47,6 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
                 'Berkebutuhan Khusus' => $data_warga->warga->berkebutuhan_khusus
             ];
 
-            // Tambahkan kegiatan untuk setiap anggota keluarga
-            // foreach ($this->dataKegiatan as $kegiatan) {
-            //     $ada = false;
-            //     foreach ($data_warga->warga->kegiatan as $wargaKegiatan) {
-            //         if ($wargaKegiatan->data_kegiatan_id == $kegiatan->id) {
-            //             $ada = true;
-            //             break;
-            //         }
-            //     }
-            //     $memberInfo[$kegiatan->name] = $ada ? ' ✓' : '0';
-
-            // }
             foreach ($this->dataKegiatan as $kegiatan) {
                 $ada = false;
                 foreach ($data_warga->warga->kegiatan as $wargaKegiatan) {
@@ -95,18 +83,6 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             '',
             '',
             '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
             'KRITERIA RUMAH: ' . ($rumahTangga->kriteria_rumah_sehat ? 'LAYAK HUNI' : 'TIDAK LAYAK HUNI'),
         ];
         $headings2 = [
@@ -115,18 +91,6 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             '',
             '',
             '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
             'JAMBAN KELUARGA: ' . ($rumahTangga->punya_jamban ? 'ADA 1 BUAH' : 'TIDAK ADA'),
         ];
 
@@ -136,18 +100,6 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             '',
             '',
             '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
             'SUMBER AIR: ' . ($air),
         ];
 
@@ -157,18 +109,6 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             '',
             '',
             '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
-            // '',
             'TEMPAT SAMPAH: ' . ($rumahTangga->punya_tempat_sampah ? 'ADA' : 'TIDAK ADA'),
         ];
 
@@ -219,9 +159,7 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
             $headings4,
             [''],
             $headings5,
-            // $memberHeadings,
             $allHeadings
-            // ['KETERANGAN']
         ];
 
 

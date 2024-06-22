@@ -6,6 +6,7 @@ use App\Models\BeritaKab;
 use App\Http\Requests;
 use App\Models\DataAgenda;
 use App\Models\DataGaleri;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -13,23 +14,7 @@ class MainController extends Controller
     // halaman landing page
     public function home(){
         $berita = BeritaKab::all();
-        // dd($berita);
-
-        // /** @var DataWarga */
-        // $warga = DataWarga::query()
-        //     ->with([
-        //         'kegiatan',
-        //         'kegiatan.kategori_kegiatan',
-        //         'kegiatan.keterangan_kegiatan',
-        //     ])
-        //     ->find(1);
-
-        // $data = [];
-        // $data['warga'] = $warga;
-
-        // dd($data);
         $gal = DataGaleri::all();
-        dd($gal);
         return view('main.home')->with(compact('berita', 'gal'));
     }
 
@@ -75,7 +60,9 @@ class MainController extends Controller
 
     // halaman profil
     public function profil(){
-        return view('main.profil');
+        $profiles = Profile::all();
+
+        return view('main.profil',compact('profiles'));
     }
 
     // halaman berita

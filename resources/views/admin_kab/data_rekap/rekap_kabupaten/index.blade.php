@@ -18,8 +18,6 @@
                                 <h6><strong>CATATAN DATA KEGIATAN WARGA</strong></h6>
                                 <h6><strong>TP PKK KABUPATEN</strong></h6>
                                 <h6><strong>TAHUN {{$periode}}</strong></h6>
-                                {{-- <h6><strong>KAB/KOTA : {{$kecamatans->first()->kabupaten->name}}</strong> </h6>
-                                <h6><strong>PROVINSI : {{$kecamatans->first()->kabupaten->provinsi->name}}</strong> </h6> --}}
                                 <h6><strong>KAB/KOTA : {{ strtoupper($kecamatans->first()->kabupaten->name ?? 'INDRAMAYU') }}</strong></h6>
                                 <h6><strong>PROVINSI : {{ strtoupper($kecamatans->first()->kabupaten->provinsi->name ?? 'JAWA BARAT') }}</strong></h6>
                             </center>
@@ -57,7 +55,7 @@
                                         <th>3 Buta</th>
                                         <th>Berkebutuhan Khusus</th>
                                         <th>Sehat</th>
-                                        <th>Tidak Sehat</th>
+                                        <th>Kurang Sehat</th>
                                         <th>Memiliki Tmp. Pemb. Sampah</th>
                                         <th>Memiliki SPAL</th>
                                         <th>Memiliki Jamban Keluarga</th>

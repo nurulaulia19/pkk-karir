@@ -19,8 +19,6 @@ return new class extends Migration
             $table->foreign('id_desa')->references('id')->on('data_desa')->onDelete('cascade');
             $table->bigInteger('id_kecamatan')->unsigned();
             $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan')->onDelete('cascade');
-            // $table->bigInteger('id_keluarga')->unsigned();
-            // $table->foreign('id_keluarga')->references('id')->on('data_keluarga');
             $table->bigInteger('id_dasawisma')->unsigned();
             $table->foreign('id_dasawisma')->references('id')->on('data_dasawisma')->onDelete('cascade');
             $table->string('no_registrasi');
@@ -36,7 +34,6 @@ return new class extends Migration
             $table->string('pendidikan');
             $table->string('pekerjaan');
             $table->boolean('pasangan_usia_subur')->default(false);
-            // $table->boolean('tiga_buta')->default(false);
             $table->boolean('ibu_hamil')->default(false);
             $table->boolean('ibu_menyusui')->default(false);
             $table->enum('berkebutuhan_khusus', ['Tidak', 'Cacat Mental', 'Cacat Fisik', 'Lainnya'])->nullable()->default(null);

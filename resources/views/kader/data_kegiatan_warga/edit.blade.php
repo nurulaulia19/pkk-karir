@@ -97,7 +97,7 @@
                     <div class="form-group" id="formContainer">
                         {{-- @dd($warga->kegiatan) --}}
                         @foreach ($warga->kegiatan as $wargaKeg)
-                            <div class="row">
+                            <div class="row mb-3">
                                 <div class="col-md-11">
                                     <label for="nama_kegiatan">Nama Kegiatan</label>
                                     <select class="form-control selectNamaKegiatan" name="nama_kegiatan[]">
@@ -207,7 +207,7 @@
             addButton.addEventListener('click', function() {
                 if (totalClick <= data.length) {
                     const newRow = document.createElement('div');
-                    newRow.className = 'row mb-2 align-items-center'; // Add alignment classes
+                    newRow.className = 'row mb-3 align-items-center'; // Add alignment classes
 
                     const namaKegiatanCol = document.createElement('div');
                     namaKegiatanCol.className = 'col-md-11'; // Adjusted column width for select

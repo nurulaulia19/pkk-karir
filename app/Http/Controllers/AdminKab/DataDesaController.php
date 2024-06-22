@@ -66,18 +66,8 @@ class DataDesaController extends Controller
         $desa->kode_desa = $request->kode_desa;
         $desa->nama_desa = $request->nama_desa;
         $desa->save();
-
-
         Alert::success('Berhasil', 'Data berhasil di tambahkan');
-        // dd($desa);
-        // Data_Desa::create($request->all());
-        // return redirect()->route('data_desa.index')
-        //                 ->with('success','Student created successfully.');
-
-
         return redirect('/data_desa');
-
-
     }
 
     /**
@@ -100,8 +90,6 @@ class DataDesaController extends Controller
     public function edit(Data_Desa $data_desa)
     {
         // halaman edit data desa
-        // dd($desa);
-        // $kec = DB::table('data_kecamatan')->get();
         $kec = Data_Desa::with('kecamatan')->first();
         $kecamatans = DataKecamatan::all();
 

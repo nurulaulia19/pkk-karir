@@ -307,15 +307,6 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
                         'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                     ],
                 ]);
-                // $event->sheet->getDelegate()->mergeCells('A1:AI1');
-                // $event->sheet->getDelegate()->mergeCells('A2:AI2');
-                // $event->sheet->getDelegate()->mergeCells('A3:AI3');
-                // $event->sheet->getDelegate()->mergeCells('A4:AI4');
-                // $event->sheet->getDelegate()->mergeCells('A5:AI5');
-                // $event->sheet->getDelegate()->mergeCells('A6:AI6');
-
-                // $event->sheet->getDelegate()->getStyle('A1:A6')->getAlignment()->setHorizontal('center');
-                // BENER
 
                 $event->sheet->getDelegate()->mergeCells('A8:A9');
                 $event->sheet->getDelegate()->mergeCells('B8:B9');
@@ -324,19 +315,6 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
                 $event->sheet->getDelegate()->mergeCells('E8:E9');
                 $event->sheet->getDelegate()->mergeCells('F8:F9');
                 $event->sheet->getDelegate()->mergeCells('AG8:AG9');
-                // $event->sheet->getDelegate()->mergeCells('AB8:AB9');
-
-                // $event->sheet->getDelegate()->mergeCells('G8:R8');
-                // $event->sheet->getDelegate()->mergeCells('S8:W8');
-                // $event->sheet->getDelegate()->mergeCells('X8:AA8');
-                // $event->sheet->getDelegate()->mergeCells('AB8:AB9');
-                // $event->sheet->getDelegate()->mergeCells('AC8:AD8');
-                // $event->sheet->getDelegate()->mergeCells('AE8:AH8');
-
-                // $event->sheet->getDelegate()->getStyle('G8:AH8')->getAlignment()->setHorizontal('center');
-
-                // $lastRow = count($this->dusun) + 10;
-                // $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
             },
         ];
     }
@@ -406,9 +384,6 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             $sheet->mergeCells('AC8:AF8');
 
         }
-
-
-
     }
 
 }

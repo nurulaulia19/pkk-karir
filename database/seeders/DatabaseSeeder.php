@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(GeneratePermissionSeeder::class);
         $this->call(PeriodeSeeder::class);
+        $this->call(ProfilePembinaKetuaSeeder::class);
+
         $this->call(DataKecamatanSeeder::class);
         $this->call(DataDesaSeeder::class);
         $this->call(RWSeeder::class);

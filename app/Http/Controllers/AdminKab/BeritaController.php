@@ -53,15 +53,6 @@ class BeritaController extends Controller
 
         ]);
         $input = $request->all();
-        // dd($input);
-
-
-        // cara 1
-        // $berita = new BeritaKab;
-        // $berita->nama_berita = $request->nama_berita;
-        // $berita->desk = $request->desk;
-        // $berita->tgl_publish = $request->tgl_publish;
-        // $berita->penulis = $request->penulis;
 
         if ($image = $request->file('gambar')) {
             $destinationPath = 'gambar/';
@@ -70,7 +61,6 @@ class BeritaController extends Controller
             $input['gambar'] = "$profileImage";
         }
 
-        // $berita->save();
 
         BeritaKab::create($input);
         Alert::success('Berhasil', 'Data berhasil di tambahkan');

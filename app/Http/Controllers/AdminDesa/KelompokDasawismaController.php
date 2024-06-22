@@ -64,85 +64,16 @@ class KelompokDasawismaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request)
-    // {
-    //     //
-    //     $request->validate([
-    //         'nama_dasawisma' => 'required',
-    //         'alamat_dasawisma' => 'required',
-    //         'dusun' => 'required',
-    //         'status' => 'required',
-    //         'id_desa' => 'required',
-    //         'id_kecamatan' => 'required',
-    //         'rt' => 'required',
-    //         'rw' => 'required'
-    //     ], [
-    //         'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
-    //         'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
-    //         'dusun.required' => 'Masukkan Dusun Dasawisma',
-    //         'status.required' => 'Pilih Status',
-    //     ]);
-
-    //     $dawis = new DataKelompokDasawisma;
-    //     $dawis->nama_dasawisma = $request->nama_dasawisma;
-    //     $dawis->alamat_dasawisma = $request->alamat_dasawisma;
-    //     $dawis->dusun = $request->dusun;
-    //     $dawis->status = $request->status;
-    //     $dawis->rt = $request->rt;
-    //     $dawis->rw = $request->rw;
-    //     $dawis->id_desa = auth()->user()->id_desa;
-    //     $dawis->id_kecamatan = auth()->user()->id_kecamatan;
-    //     $dawis->periode = $request->periode;
-
-
-    //     $dawis->save();
-    //     // dd($dawis);
-    //     Alert::success('Berhasil', 'Data berhasil di tambahkan');
-
-    //     return redirect('/data_dasawisma');
-    // }
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     // Validation rules for Dasawisma data
-        //     'nama_dasawisma' => 'required',
-        //     'alamat_dasawisma' => 'required',
-        //     'dusun' => 'required',
-        //     'status' => 'required',
-        //     'id_rt' => 'required',
-        //     'id_rw' => 'required',
-
-        //     // Validation rules for Kader data
-        //     'name' => 'required',
-        //     'email' => 'required|unique:users',
-        //     'password' => 'required|min:8',
-        //     'user_type' => 'required',
-        //     'id_desa' => 'required',
-        //     'id_kecamatan' => 'required',
-        // ], [
-        //     // Validation messages for Dasawisma data
-        //     'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
-        //     'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
-        //     'dusun.required' => 'Masukkan Dusun Dasawisma',
-        //     'status.required' => 'Pilih Status',
-
-        //     // Validation messages for Kader data
-        //     'name.required' => 'Masukkan Nama Pengguna',
-        //     'email.required' => 'Masukkan Email Pengguna',
-        //     'email.unique' => 'Email sudah digunakan',
-        //     'password.required' => 'Masukkan Password Pengguna',
-        //     'user_type.required' => 'Lengkapi Deskripsi Berita yang ingin dipublish',
-        // ]);
         $request->validate([
             // Validation rules for Dasawisma data
             'nama_dasawisma' => 'required|unique:data_dasawisma',
             'alamat_dasawisma' => 'required',
-            // 'dusun' => 'required',
             'status' => 'required',
             'id_rt' => 'required',
             'id_rw' => 'required',
-
             // Validation rules for Kader data
             'name' => 'required',
             'email' => 'required|unique:users',
@@ -155,7 +86,6 @@ class KelompokDasawismaController extends Controller
             'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
             'nama_dasawisma.unique' => 'Nama Dasawisma sudah ada, harap isi nama yang lain',
             'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
-            // 'dusun.required' => 'Masukkan Dusun Dasawisma',
             'status.required' => 'Pilih Status',
 
             // Validation messages for Kader data
@@ -231,12 +161,6 @@ class KelompokDasawismaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function edit(DataKelompokDasawisma $data_dasawisma)
-    // {
-    //     //
-    //     return view('admin_desa.form.edit_dasawisma', compact('data_dasawisma'));
-
-    // }
 
     public function edit(DataKelompokDasawisma $data_dasawisma)
     {
@@ -258,38 +182,6 @@ class KelompokDasawismaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, DataKelompokDasawisma $data_dasawisma)
-    // {
-    //     $request->validate([
-    //         'nama_dasawisma' => 'required',
-    //         'alamat_dasawisma' => 'required',
-    //         'dusun' => 'required',
-    //         'status' => 'required',
-    //         'id_desa' => 'required',
-    //         'id_kecamatan' => 'required',
-    //         'rt' => 'required',
-    //         'rw' => 'required'
-    //     ], [
-    //         'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
-    //         'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
-    //         'dusun.required' => 'Masukkan Dusun Dasawisma',
-    //         'status.required' => 'Pilih Status',
-    //     ]);
-
-    //     $data_dasawisma->nama_dasawisma = $request->nama_dasawisma;
-    //     $data_dasawisma->alamat_dasawisma = $request->alamat_dasawisma;
-    //     $data_dasawisma->dusun = $request->dusun;
-    //     $data_dasawisma->rt = $request->rt;
-    //     $data_dasawisma->rw = $request->rw;
-    //     $data_dasawisma->status = $request->status;
-    //     $data_dasawisma->id_desa = auth()->user()->id_desa;
-    //     $data_dasawisma->id_kecamatan = auth()->user()->id_kecamatan;
-
-    //     $data_dasawisma->update();
-    //     Alert::success('Berhasil', 'Data berhasil di Ubah');
-
-    //     return redirect('/data_dasawisma');
-    // }
 
     public function update(Request $request, DataKelompokDasawisma $data_dasawisma)
     {
@@ -304,7 +196,6 @@ class KelompokDasawismaController extends Controller
                 Rule::unique('data_dasawisma')->ignore($data_dasawisma),
             ],
             'alamat_dasawisma' => 'required',
-            // 'dusun' => 'required',
             'status' => 'required',
             'id_rt' => 'required',
             'id_rw' => 'required',
@@ -324,7 +215,6 @@ class KelompokDasawismaController extends Controller
             'nama_dasawisma.required' => 'Masukkan Nama Dasawisma',
             'nama_dasawisma.unique' => 'Nama Dasawisma sudah ada, harap isi nama yang lain',
             'alamat_dasawisma.required' => 'Masukkan Alamat Dasawisma',
-            // 'dusun.required' => 'Masukkan Dusun Dasawisma',
             'status.required' => 'Pilih Status',
 
             // Pesan validasi untuk data Kader
@@ -394,14 +284,6 @@ class KelompokDasawismaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($data_dasawisma, DataKelompokDasawisma $dawis)
-    // {
-    //     //temukan id dawis
-    //     $dawis::find($data_dasawisma)->delete();
-    //     Alert::success('Berhasil', 'Data berhasil di Hapus');
-
-    //     return redirect('/data_dasawisma')->with('status', 'sukses');
-    // }
 
     public function destroy($data_dasawisma, DataKelompokDasawisma $dawis)
     {

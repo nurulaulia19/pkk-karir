@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreign('id_desa')->references('id')->on('data_desa')->onUpdate('cascade');
             $table->bigInteger('id_kecamatan')->unsigned();
             $table->foreign('id_kecamatan')->references('id')->on('data_kecamatan')->onUpdate('cascade');
-            // misal data warga
             $table->bigInteger('rumah_tangga_id')->unsigned();
             $table->foreign('rumah_tangga_id')->references('id')->on('rumah_tanggas')->onDelete('cascade');
             $table->bigInteger('kategori_id')->unsigned();

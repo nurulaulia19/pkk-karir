@@ -14,9 +14,4 @@ class DataKegiatan extends Model
     protected $guarded = ['id'];
 
 
-
-    public function detail_kegiatan(){
-        return $this->hasMany(DetailKegiatan::class, 'kegiatan_id');
-    }
-
 }

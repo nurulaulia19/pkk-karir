@@ -4,14 +4,10 @@ namespace App\Http\Controllers\AdminKab;
 use App\Http\Controllers\Controller;
 use App\Models\Data_Desa;
 use App\Models\DataKecamatan;
-use App\Models\DataKelompokDasawisma;
 use App\Models\User;
 use RealRashid\SweetAlert\Facades\Alert;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 
@@ -86,13 +82,6 @@ class UserController extends Controller
         $pengguna->id_desa = $request->id_desa;
         $pengguna->id_kecamatan = $request->id_kecamatan;
 
-        // if ($request->hasFile('foto')) {
-        //     $destinationPath = 'foto/';
-        //     $image = $request->file('foto');
-        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-        //     $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
-        //     $pengguna->foto = $result;
-        // }
         if ($request->hasFile('foto')) {
             $destinationPath = 'foto/';
             $image = $request->file('foto');
@@ -102,7 +91,6 @@ class UserController extends Controller
         }
 
         $pengguna->save();
-        // Auth::guard('user')->login($pengguna);
         Alert::success('Berhasil', 'Data berhasil di tambahkan');
 
         return redirect('/data_pengguna_super');
@@ -168,11 +156,6 @@ class UserController extends Controller
                 Storage::disk('public')->delete($data_pengguna_super->foto);
             }
 
-            // $destinationPath = 'foto/';
-            // $image = $request->file('foto');
-            // $profileImage = Str::random(5) . date('YmdHis') . "." . $image->getClientOriginalExtension();
-            // $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
-            // $data_pengguna_super->foto = $result;
             $destinationPath = 'foto/';
             $image = $request->file('foto');
             $profileImage = Str::random(5) . date('YmdHis') . "." . $image->getClientOriginalExtension();
@@ -182,7 +165,6 @@ class UserController extends Controller
         }
 
         $data_pengguna_super->save();
-        // dd($result);
         Alert::success('Berhasil', 'Data berhasil di Ubah');
 
         return redirect('/data_pengguna_super');
@@ -196,7 +178,6 @@ class UserController extends Controller
      */
     public function destroy($data_pengguna_super, User $pengguna)
     {
-        //temukan id gotong_royong
         $pengguna::find($data_pengguna_super)->delete();
         Alert::success('Berhasil', 'Data berhasil di Hapus');
 
@@ -204,7 +185,6 @@ class UserController extends Controller
     }
 
     public function update_password(Request $request, $id){
-        // dd($request->all());
         $request->validate([
             'new_password' => 'required|confirmed|min:8',
         ], [

@@ -21,7 +21,6 @@
                                                 <th>Nama Dasawisma</th>
                                                 <th>Alamat Dasawisma</th>
                                                 <th>RT/RW</th>
-                                                <th>Dusun</th>
                                                 <th>Status</th>
                                                 <th>Nama Desa</th>
                                                 <th>Nama Kecamatan</th>
@@ -37,9 +36,7 @@
                                                     <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                                     <td style="vertical-align: middle;">{{ $c->nama_dasawisma }}</td>
                                                     <td style="vertical-align: middle;">{{ $c->alamat_dasawisma }}</td>
-                                                    {{-- <td style="vertical-align: middle;">{{$c->rt}}/{{ $c->rw }}</td> --}}
                                                     <td style="vertical-align: middle;">
-                                                        {{-- {{ $c->rt->name }}/{{ $c->rw->name }} --}}
                                                         @if ($c->rt && $c->rt->name)
                                                             {{ $c->rt->name }}
                                                         @else
@@ -50,13 +47,6 @@
                                                             {{ $c->rw->name }}
                                                         @else
                                                             -
-                                                        @endif
-                                                    </td>
-                                                    <td style="vertical-align: middle;">
-                                                        @if (!empty($c->dusunData->name))
-                                                            {{ $c->dusunData->name }}
-                                                        @else
-                                                            Tidak memiliki dusun
                                                         @endif
                                                     </td>
                                                     @if ($c->status == 1)

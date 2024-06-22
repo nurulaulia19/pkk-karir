@@ -277,32 +277,6 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                // $event->sheet->getDelegate()->mergeCells('A1:AH1');
-                // $event->sheet->getDelegate()->mergeCells('A2:AH2');
-                // $event->sheet->getDelegate()->mergeCells('A3:AH3');
-                // $event->sheet->getDelegate()->mergeCells('A4:AH4');
-                // $event->sheet->getDelegate()->mergeCells('A5:AH5');
-                // $event->sheet->getDelegate()->mergeCells('A6:AH6');
-
-                // $event->sheet->getDelegate()->getStyle('A1:A6')->getAlignment()->setHorizontal('center');
-
-                // $event->sheet->getDelegate()->mergeCells('A8:A9');
-                // $event->sheet->getDelegate()->mergeCells('B8:B9');
-                // $event->sheet->getDelegate()->mergeCells('C8:C9');
-                // $event->sheet->getDelegate()->mergeCells('D8:D9');
-                // $event->sheet->getDelegate()->mergeCells('E8:E9');
-
-                // $event->sheet->getDelegate()->mergeCells('F8:Q8');
-                // $event->sheet->getDelegate()->mergeCells('R8:V8');
-                // $event->sheet->getDelegate()->mergeCells('W8:Z8');
-                // $event->sheet->getDelegate()->mergeCells('AA8:AA9');
-                // $event->sheet->getDelegate()->mergeCells('AB8:AC8');
-                // $event->sheet->getDelegate()->mergeCells('AD8:AH8');
-
-                // $event->sheet->getDelegate()->getStyle('F8:AH8')->getAlignment()->setHorizontal('center');
-
-                // $lastRow = count($this->rt) + 10;
-                // $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
                 $event->sheet->getDelegate()->mergeCells('AF9:AF10');
                 $lastRow = count($this->dasa_wisma) + 11; // Nomor baris terakhir data + 11 (sesuaikan dengan kebutuhan)
                 // Lakukan merge langsung pada objek lembar kerja (worksheet)

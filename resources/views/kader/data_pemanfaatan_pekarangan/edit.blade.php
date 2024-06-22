@@ -189,7 +189,7 @@
         addButton.addEventListener('click', function() {
             if (totalClick <= data.length) {
                 const newRow = document.createElement('div');
-                newRow.className = 'row mb-2 align-items-center'; // Add alignment classes
+                newRow.className = 'row mb-3 align-items-center'; // Add alignment classes
 
                 const namaKegiatanCol = document.createElement('div');
                 namaKegiatanCol.className = 'col-md-11'; // Adjusted column width for select

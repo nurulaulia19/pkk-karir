@@ -1,8 +1,8 @@
 @extends('admin_kab.layout')
 
-@section('title', 'Tambah Data Desa | Super Admin PKK Kab. Indramayu')
+@section('title', 'Tambah Data Wilayah Desa | Super Admin PKK Kab. Indramayu')
 
-@section('bread', 'Tambah Data Desa')
+@section('bread', 'Tambah Data Wilayah Desa')
 @section('container')
 
     <div class="col-md-6">

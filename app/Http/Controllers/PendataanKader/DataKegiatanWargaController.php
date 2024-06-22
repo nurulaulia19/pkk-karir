@@ -43,7 +43,7 @@ class DataKegiatanWargaController extends Controller
     }
     public function create()
     {
-        $kegiatan = DataKegiatan::with('detail_kegiatan')->get();
+        $kegiatan = DataKegiatan::all();
         // dd($kegiatan);
         $keg = $kegiatan;
         $desas = DB::table('data_desa')
@@ -103,7 +103,7 @@ class DataKegiatanWargaController extends Controller
                 ]);
             }
          }
-         
+
          // Set is_kegiatan menjadi true untuk data warga yang terkait
             $dataWarga = DataWarga::find($request->id_warga);
             if ($dataWarga) {

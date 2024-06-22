@@ -85,11 +85,14 @@ class KaderController extends Controller
             $destinationPath = 'foto/';
             $image = $request->file('foto');
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
-            $kader->foto = $result;
+
+            // Menggunakan storeAs
+            $path = $image->storeAs($destinationPath, $profileImage, 'public');
+            $kader->foto = $path;
         }
+
+        // Simpan perubahan pada model $kader
         $kader->save();
-        // dd($kader);
         Auth::guard('kader')->login($kader);
         Alert::success('Berhasil', 'Data berhasil di tambahkan');
 
@@ -154,6 +157,7 @@ class KaderController extends Controller
         $data_kader->id_dasawisma = $request->id_dasawisma;
 
         if ($request->hasFile('foto')) {
+            // Menghapus foto lama jika ada
             if ($data_kader->foto && Storage::disk('public')->exists($data_kader->foto)) {
                 Storage::disk('public')->delete($data_kader->foto);
             }
@@ -161,12 +165,14 @@ class KaderController extends Controller
             $destinationPath = 'foto/';
             $image = $request->file('foto');
             $profileImage = Str::random(5) . date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $result = Storage::disk('public')->putFileAs('foto', $image, $profileImage);
-            $data_kader->foto = $result;
+
+            // Menggunakan storeAs untuk menyimpan file
+            $path = $image->storeAs($destinationPath, $profileImage, 'public');
+            $data_kader->foto = $path;
         }
 
+        // Simpan perubahan pada model $data_kader
         $data_kader->save();
-        // dd($result);
         Alert::success('Berhasil', 'Data berhasil di Ubah');
 
         return redirect('/data_kader');

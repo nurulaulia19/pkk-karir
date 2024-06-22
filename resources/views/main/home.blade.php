@@ -77,12 +77,12 @@
             @foreach ($galeris as $i)
 
                 <div class="col-xl-3 col-lg-4 col-md-6 portfolio-item filter-app">
-                <img src="/galeri/{{$i->gambar}}" class="img-fluid" alt="">
+                <img src="/galeri/{{$i->gambar}}" class="img-fluid" alt="Gambar">
                 <div class="portfolio-info">
                     <h4>{{$i->nama_gambar}}</h4>
                     <p>{{$i->nama_kegiatan}}</p>
                     <a href="/galeri/{{$i->gambar}}" title="{{$i->nama_kegiatan}}" data-gallery="portfolio-gallery" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                    {{-- <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a> --}}
                 </div>
                 </div><!-- End Portfolio Item -->
             @endforeach
@@ -108,7 +108,7 @@
             @foreach($berita as $l)
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="post-box">
-                    <div class="post-img"><img src="/gambar/{{$l->gambar}}" class="img-fluid" alt=""></div>
+                    <div style="width:300px; height:250px;" class="post-img"><img width="300px" height="250px"  src="/gambar/{{$l->gambar}}"  alt=""></div>
                     <div class="meta">
                         <span class="post-date">{{ \Carbon\Carbon::parse($l->tgl_publish)->isoFormat('D MMMM Y') }} </span>
                         <span class="post-author"> / {{$l->penulis}}</span>

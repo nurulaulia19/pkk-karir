@@ -50,19 +50,6 @@ class WargaExport implements FromCollection, WithHeadings, WithStyles
                 'Pekerjaan' => $data_warga->warga->pekerjaan == 'Pilih Pekerjaan' ? '' : $data_warga->warga->pekerjaan,
             ];
 
-            // Tambahkan kegiatan untuk setiap anggota keluarga
-            // foreach ($this->dataKegiatan as $kegiatan) {
-            //     $ada = false;
-            //     foreach ($data_warga->warga->kegiatan as $wargaKegiatan) {
-            //         if ($wargaKegiatan->data_kegiatan_id == $kegiatan->id) {
-            //             $ada = true;
-            //             break;
-            //         }
-            //     }
-            //     $memberInfo[$kegiatan->name] = $ada ? ' ✓' : '0';
-
-            // }
-
             // Tambahkan informasi anggota keluarga ke koleksi data
             $data[] = $memberInfo;
             $data[] = []; // Baris kosong setelah setiap anggota keluarga
@@ -200,11 +187,5 @@ class WargaExport implements FromCollection, WithHeadings, WithStyles
             $sheet->getStyle($columnRange)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($columnRange)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
         }
-
-
-
-
-
-
     }
 }

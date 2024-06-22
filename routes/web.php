@@ -4,9 +4,6 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\PokjaController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminDesa\KaderController;
-// use App\Http\Controllers\AdminDesa\KategoriKegiatanController;
-// use App\Http\Controllers\AdminDesa\RekapDusunInDesa;
-// use App\Http\Controllers\AdminDesa\DusunController;
 use App\Http\Controllers\AdminDesa\KelompokDasawismaController;
 use App\Http\Controllers\AdminDesa\KeteranganKegiatanController;
 use App\Http\Controllers\AdminDesa\RekapDusunInDesaController;
@@ -22,9 +19,6 @@ use App\Http\Controllers\AdminKab\KategoriIndustriRumahController;
 use App\Http\Controllers\Adminkab\KategoriPemanfaatanLahanController;
 use App\Http\Controllers\AdminKabController;
 use App\Http\Controllers\AdminKec\DesaController;
-// use App\Http\Controllers\AdminKecController;
-// use App\Http\Controllers\DashboardSuperController;
-// use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KaderFormController;
 use App\Http\Controllers\PendataanKader\DataIndustriRumahController;
 use App\Http\Controllers\PendataanKader\DataKaderGabungController;
@@ -33,34 +27,13 @@ use App\Http\Controllers\PendataanKader\DataKeluargaController;
 use App\Http\Controllers\PendataanKader\DataPelatihanKaderController;
 use App\Http\Controllers\PendataanKader\DataPemanfaatanPekaranganController;
 use App\Http\Controllers\PendataanKader\DataWargaController;
-// use App\Http\Controllers\SuperAdmin\DataPokja1\GotongRoyongSuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja1\JumlahKaderPokja1SuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja1\PenghayatanDanPengamalanSuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja2\KehidupanBerkoperasiSuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja2\PendidikanSuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja3\JumlahIndustriRumahTanggaSuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja3\JumlahKaderPokja3SuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja3\JumlahRumahSuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja3\PanganSuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja4\JumlahKaderPokja4SuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja4\KelestarianLingkunganHidupSuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja4\KesehatanPosyanduSuperController;
-// use App\Http\Controllers\SuperAdmin\DataPokja4\PerencanaanSehatSuperController;
-// use App\Http\Controllers\SuperAdmin\DataUmum\JumlahDataUmumSuperController;
-// use App\Http\Controllers\SuperAdmin\DataUmum\JumlahJiwaDataUmumSuperController;
-// use App\Http\Controllers\SuperAdmin\DataUmum\JumlahKaderDataUmumSuperController;
-// use App\Http\Controllers\SuperAdmin\DataUmum\JumlahKelompokUmumSuperController;
-// use App\Http\Controllers\SuperAdmin\DataUmum\JumlahTenagaSekretariatDataUmumSuperController;
-// use App\Http\Controllers\SuperAdminController;
-// use App\Http\Middleware\Authenticate;
 use App\Models\BeritaKab;
 use App\Models\Data_Desa;
 use App\Models\DataGaleri;
-// use App\Models\KeteranganKegiatan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AdminKab\DataProfilController;
 use App\Http\Controllers\KategoriDusunController;
 use App\Http\Controllers\KeluargaHasWargaController;
 use App\Http\Controllers\PendataanKader\RumahTanggaController;
@@ -235,6 +208,10 @@ Route::middleware(['disableBack'])->group(function () {
 
         Route::resource('/data_kategori_industri', KategoriIndustriRumahController::class);
         Route::resource('/data_kategori_pemanfaatan_lahan', KategoriPemanfaatanLahanController::class);
+
+        // data profil
+        Route::resource('/profile-pembina-ketua', DataProfilController::class);
+
     });
 });
 

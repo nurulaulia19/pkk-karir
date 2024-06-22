@@ -20,7 +20,6 @@ class KeteranganKegiatanController extends Controller
     {
         //halaman form keterangan kegiatan
         $kegiatan = DataKegiatan::all();
-        // $kategori_kegiatan = KategoriKegiatan::all();
         return view('admin_desa.kegiatan.index', compact('kegiatan'));
     }
 
@@ -45,9 +44,6 @@ class KeteranganKegiatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $user = Auth::user();
-        // dd($user);
         $request->validate([
             'name' => 'required|unique:data_kegiatan', // 'kegiatans' adalah nama tabel
         ], [
@@ -127,8 +123,6 @@ class KeteranganKegiatanController extends Controller
      */
     public function destroy($id)
     {
-        //temukan id kat
-        // dd($id);
         DataKegiatan::find($id)->delete();
         Alert::success('Berhasil', 'Data berhasil di Hapus');
 

@@ -59,14 +59,6 @@ class DataAgendaKegiatanController extends Controller
 
         ]);
 
-        // cara 1
-        // $insert=DB::table('war$warung')->where('waktu', $request->waktu)->first();
-        // if ($insert != null) {
-        //     Alert::error('Gagal', 'Data Tidak Berhasil Di Tambahkan, Hanya Bisa Menginputkan Satu kali waktu. waktu Sudah Ada ');
-
-        //     return redirect('/war$warung');
-        // }
-        // else {
             $agendas = new DataAgenda;
             $agendas->judul_agenda = $request->judul_agenda;
             $agendas->tema = $request->tema;
@@ -135,13 +127,6 @@ class DataAgendaKegiatanController extends Controller
             'status' => 'Pilih Status Agenda Kegiatan',
 
         ]);
-        // $update=DB::table('warung_pkk')->where('waktu', $request->waktu)->first();
-        // if ($update != null) {
-        //     Alert::error('Gagal', 'Data Tidak Berhasil Di Ubah, Hanya Bisa Menggunakan Satu kali waktu. waktu Sudah Ada ');
-
-        //     return redirect('/war$warung');
-        // }
-        // else {
             $agendaKeg->update($request->all());
 
             Alert::success('Berhasil', 'Data berhasil di ubah');

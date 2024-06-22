@@ -26,9 +26,6 @@ return new class extends Migration
             $table->string('nama_dasawisma');
             $table->string('alamat_dasawisma');
             $table->boolean('status')->default(true);
-            $table->integer('dusun')->default(0);
-            // $table->integer('rt');
-            // $table->integer('rw');
             $table->integer('periode');
             $table->timestamps();
         });

@@ -17,15 +17,6 @@ class DasawismaSeeder extends Seeder
      */
     public function run()
     {
-        // desa id anjatan tuh 1
-        // $rw = Rw::create([
-        //     'name' => "01",
-        //     "desa_id" => 1
-        // ]);
-        // $rt = Rt::create([
-        //     'name' => "01",
-        //     "rw_id" => 1
-        // ]);
         DB::table('data_dasawisma')->insert([
             'id_desa' => 1,
             'id_kecamatan' => 1,
@@ -35,7 +26,6 @@ class DasawismaSeeder extends Seeder
             'id_rt' => 1,
             'id_rw' => 1,
             'periode' => 2023,
-            'dusun' => 'matahari',
         ]);
     }
 }

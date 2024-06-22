@@ -18,11 +18,9 @@ class CreateKeluargaHasWargaTable extends Migration
             $table->unsignedBigInteger('keluarga_id');
             $table->unsignedBigInteger('warga_id');
             $table->enum('status',['kepala-keluarga','ibu','anak','lainnya']);
-            $table->timestamps();
-
             $table->foreign('keluarga_id')->references('id')->on('data_keluarga')->onDelete('cascade');
-            // $table->foreign('warga_id')->references('id')->on('data_warga');
             $table->foreign('warga_id')->references('id')->on('data_warga')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -57,14 +57,6 @@ class DataGaleriController extends Controller
         ]);
         $input = $request->all();
 
-
-        // cara 1
-        // $galeri = new galeriKab;
-        // $galeri->nama_gambar = $request->nama_gambar;
-        // $galeri->nama_kegiatan = $request->nama_kegiatan;
-        // $galeri->tgl_publish = $request->tgl_publish;
-        // $galeri->pengirim = $request->pengirim;
-
         if ($image = $request->file('gambar')) {
             $destinationPath = 'galeri/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();

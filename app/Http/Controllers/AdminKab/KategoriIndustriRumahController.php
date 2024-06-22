@@ -69,7 +69,7 @@ class KategoriIndustriRumahController extends Controller
         if (!$industri) {
             // Produk dengan 'id_produk' yang dimaksud tidak ditemukan
             // Lakukan tindakan error handling atau tampilkan pesan kesalahan
-            return redirect()->back()->with('error', 'Produk tidak ditemukan.');
+            return redirect()->back()->with('error', 'Data industri tidak ditemukan.');
         }
 
         $industri->nama_kategori = $request->nama_kategori;
