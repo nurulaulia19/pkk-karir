@@ -327,20 +327,6 @@ class DataKeluargaController extends Controller
         return redirect('/data_keluarga');
     }
 
-    // ini bener
-    // public function destroy($id)
-    // {
-    //     $kel = DataKeluarga::with('anggota.warga')->find($id);
-    //     foreach ($kel->anggota as $anggota) {
-    //         $warga = DataWarga::find($anggota->warga_id);
-    //         $warga->is_keluarga = 0;
-    //         $warga->save();
-    //     }
-    //     $kel->delete();
-
-    //     Alert::success('Berhasil', 'Data berhasil di Hapus');
-    //     return redirect()->back();
-    // }
 
     // bener
     public function destroy($id)
@@ -485,6 +471,6 @@ class DataKeluargaController extends Controller
         }
 
         Alert::success('Berhasil', 'Anggota keluarga berhasil dihapus');
-        return redirect()->route('data_keluarga.index');
+        return redirect()->back();
     }
 }

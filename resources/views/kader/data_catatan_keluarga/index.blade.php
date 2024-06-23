@@ -103,12 +103,6 @@
                                                 </th>
                                                 {{-- <th rowspan="2">Ket</th> --}}
                                             </tr>
-
-                                            <tr>
-                                                {{-- @foreach ($kategori_kegiatans as $kategori_kegiatan)
-                                                <th>{{ $kategori_kegiatan->nama_kegiatan }}</th>
-                                            @endforeach --}}
-                                            </tr>
                                         </thead>
 
                                         <tbody>
@@ -222,6 +216,8 @@
 @push('script-addon')
     <script>
         $(document).ready(function() {
+            // alert('tini uhuy')
+
             $('.data').DataTable();
         });
     </script>

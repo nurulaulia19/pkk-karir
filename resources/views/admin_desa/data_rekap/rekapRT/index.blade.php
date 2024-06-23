@@ -293,6 +293,9 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
+
+                                        </tbody>
+                                        <tfoot>
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong> </td>
                                                 {{-- <td> {{$totalDasawisma}} </td> --}}
@@ -390,7 +393,7 @@
                                                     {{-- {{ $catatan_keluarga->sum('have_kegiatan') }} --}}
                                                 </td>
                                             </tr>
-                                        </tbody>
+                                        </tfoot>
                                     </table>
 
                                 </div>

@@ -46,12 +46,14 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
     protected $totalAnggotaBalitaPerempuan;
     protected $totalAnggotaPUS;
     protected $periode;
+    protected $datart;
 
 
 
     public function __construct(array $data)
     {
         $this->dasa_wisma = $data['dasa_wisma'] ?? [];
+        $this->datart = $data['datart'] ?? [];
         $this->totalJmlKK = $data['totalJmlKK'] ?? 0;
         $this->totalKegiatanIndustri = $data['totalKegiatanIndustri'] ?? 0;
         $this->totalKegiatanPemanfaatanPekarangan = $data['totalKegiatanPemanfaatanPekarangan'] ?? 0;
@@ -89,8 +91,7 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
         $i = 1;
         $dasa_wisma = $this->dasa_wisma;
 
-        foreach ($dasa_wisma as $desa) {
-            $keluarga = $desa->keluarga;
+        foreach ($this->datart as $desa) {
             $counts = app(
                 'App\Http\Controllers\AdminController',
             )->countRekapitulasiDasawismaInRt($desa->id, $this->periode);
@@ -98,8 +99,8 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
             $data = [
                 '_index' => $i,
                 // 'rt' => $desa->rt->name ,
-                'rt' => isset($desa->rt->name) ? $desa->rt->name : '0',
-                'nama_dasa_wisma' => $desa->nama_dasawisma ?: 'null',
+                'rt' => $desa->name ?: '0',
+                'nama_dasa_wisma' => count($desa->dasawisma) ?: '0',
                 'jumlah_KRT' => ucfirst($counts['countRumahTangga']) ?: '0',
                 'jumlah_KK' => ucfirst($counts['countKK'])  ?: '0',
                 'jumlah_laki' =>  ucfirst($counts['laki_laki'])  ?: '0',
@@ -214,7 +215,7 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
         $headings2 = [
             'NO',
             'KODE RT',
-            'NAMA DASAWISMA',
+            'JML DASAWISMA',
             'JML KRT',
             'JML KK',
             'TOTAL L',
@@ -278,19 +279,19 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
         return [
             AfterSheet::class => function(AfterSheet $event) {
                 $event->sheet->getDelegate()->mergeCells('AF9:AF10');
-                $lastRow = count($this->dasa_wisma) + 11; // Nomor baris terakhir data + 11 (sesuaikan dengan kebutuhan)
+                $lastRow = count($this->datart) + 11; // Nomor baris terakhir data + 11 (sesuaikan dengan kebutuhan)
                 // Lakukan merge langsung pada objek lembar kerja (worksheet)
                 $event->sheet->mergeCells('A'.$lastRow.':B'.$lastRow);
 
-                // Atur style untuk judul "JUMLAH"
-                $event->sheet->getStyle('A'.$lastRow)->applyFromArray([
-                    'font' => [
-                        'bold' => true,
-                    ],
-                    'alignment' => [
-                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    ],
-                ]);
+                // // Atur style untuk judul "JUMLAH"
+                // $event->sheet->getStyle('A'.$lastRow)->applyFromArray([
+                //     'font' => [
+                //         'bold' => true,
+                //     ],
+                //     'alignment' => [
+                //         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                //     ],
+                // ]);
 
                 $event->sheet->getStyle('A')->applyFromArray([
                     'alignment' => [

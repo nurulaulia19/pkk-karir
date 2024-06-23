@@ -519,6 +519,9 @@
                                                     </tr>
                                                 @endif
                                             @endforeach
+
+                                        </tbody>
+                                        <tfoot>
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong> </td>
                                                 {{-- <td>
@@ -637,8 +640,8 @@
 
                                                     {{-- {{$totalKegiatanLingkungan}} --}}
                                                 </td>
-                                            </tr>
-                                        </tbody>
+                                            </tr>w
+                                        </tfoot>
                                     </table>
 
                                 </div>

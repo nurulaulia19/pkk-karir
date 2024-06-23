@@ -60,7 +60,6 @@
                                                 <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
                                                 <th colspan="2" style="text-align:center;">Makanan Pokok</th>
                                                 <th colspan="4" style="text-align:center;">Warga Mengikuti Kegiatan</th>
-                                                {{-- <th rowspan="2" style="text-align: center;">Ket</th> --}}
                                             </tr>
                                             <tr>
                                                 <th>Total L</th>
@@ -91,7 +90,7 @@
                                                 <th>Kesehatan Lingkungan</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody >
                                             @foreach ($rumahtangga as $keluarga)
                                                 <tr>
                                                     <td style="vertical-align: middle;">
@@ -115,54 +114,34 @@
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['perempuan']) }}
-
-                                                        {{-- {{ ucfirst($countPerempuan) }} Orang --}}
-
-                                                        {{-- {{ $keluarga->jumlah_perempuan }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['balitaLaki']) }}
-
-                                                        {{-- {{ $keluarga->jumlah_balita_laki }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['balitaPerempuan']) }}
-
-                                                        {{-- {{ $keluarga->jumlah_balita_perempuan }} --}}
                                                     </td>
 
                                                     <td>
                                                         {{ ucfirst($counts['pus']) }}
-
-                                                        {{-- {{ $keluarga->jumlah_PUS }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['wus']) }}
-
-                                                        {{-- {{ $keluarga->jumlah_WUS }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['ibuHamil']) }}
-
-                                                        {{-- {{ $keluarga->jumlah_ibu_hamil }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['ibuMenyusui']) }}
-
-                                                        {{-- {{ $keluarga->jumlah_ibu_menyusui }} --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['lansia']) }}
-
-                                                        {{-- {{ $keluarga->jumlah_lansia }} --}}
                                                     </td>
                                                     <td>
                                                         0
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['kebutuhanKhusus']) }}
-
-                                                        {{-- {{ $keluarga->jumlah_kebutuhan_khusus }} --}}
                                                     </td>
                                                     <td>
                                                         @if ($keluarga->kriteria_rumah_sehat == '1')
@@ -229,11 +208,6 @@
                                                     </td>
 
                                                     <td>
-                                                        {{-- @if ($keluarga->makanan_pokok == '1')
-                                                            1
-                                                        @else
-                                                            0
-                                                        @endif --}}
                                                         {{ ucfirst($counts['MakanBeras']) }}
 
                                                     </td>
@@ -241,11 +215,6 @@
                                                     <td>
 
                                                         {{ ucfirst($counts['MakanNonBeras']) }}
-                                                        {{-- @if ($keluarga->makanan_pokok == '0')
-                                                            1
-                                                        @else
-                                                            0
-                                                        @endif --}}
                                                     </td>
 
                                                     <td>
@@ -254,91 +223,52 @@
 
                                                     <td>
                                                         {{ ucfirst($counts['pemanfaatanPekarangan']) }}
-
-                                                        {{-- @if ($keluarga->pemanfaatan->count() > 0)
-                                                            1
-                                                        @else
-                                                            0
-                                                        @endif --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['industriRumahTangga']) }}
-
-                                                        {{-- @if ($keluarga->industri->count() > 0)
-                                                            1
-                                                        @else
-                                                            0
-                                                        @endif --}}
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['kesehatanLingkungan']) }}
-
-
-                                                        {{-- @if ($keluarga->getKepalaKeluargaKegiatans()->count() > 0)
-                                                            1
-                                                        @else
-                                                            0
-                                                        @endif --}}
                                                     </td>
                                                 </tr>
                                             @endforeach
+                                        </tbody>
+                                        <tfoot>
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong> </td>
-                                                {{-- <td>
-                                                    {{ $totalKepalaRumahTangga}}
-
-                                                </td> --}}
                                                 <td>
                                                     {{ $totalJmlKK }}
                                                 </td>
                                                 <td>
                                                     {{ $totalAnggotaLaki }}
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_laki') }} --}}
                                                 </td>
                                                 <td>
                                                     {{ $totalAnggotaPerempuan }}
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_perempuan') }} --}}
                                                 </td>
                                                 <td>
                                                     {{ $totalAnggotaBalitaLaki }}
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_balita_laki') }} --}}
                                                 </td>
                                                 <td>
                                                     {{ $totalAnggotaBalitaPerempuan }}
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_balita_perempuan') }} --}}
                                                 </td>
                                                 <td>
 
                                                     {{ $totalAnggotaPUS }}
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_3_buta') }} --}}
                                                 </td>
                                                 <td>
 
                                                     {{ $totalAnggotaWUS }}
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_PUS') }} --}}
                                                 </td>
                                                 <td>
 
                                                     {{ $totalAnggotaIbuHamil }}
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_WUS') }} --}}
                                                 </td>
                                                 <td>
 
                                                     {{ $totalAnggotaIbuMenyusui }}
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_ibu_hamil') }} --}}
                                                 </td>
                                                 <td>
                                                     {{ $totalAnggotaLansia }}
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_ibu_menyusui') }} --}}
                                                 </td>
                                                 <td>
                                                     0
@@ -346,25 +276,16 @@
                                                 <td>
 
                                                     {{ $totalAnggotaBerkebutuhanKhusus }}
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_lansia') }} --}}
                                                 </td>
                                                 <td>
                                                     {{ $totalSheatLayakHuni }}
-
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_kebutuhan_khusus') }} --}}
                                                 </td>
                                                 <td>
 
                                                     {{ $totalTidakSheatLayakHuni }}
-
-
-                                                    {{-- {{ $catatan_keluarga->sum('kriteria_rumah') }} --}}
                                                 </td>
                                                 <td>
                                                     {{ $totalPemSampah }}
-
-                                                    {{-- {{ $catatan_keluarga->count() - $catatan_keluarga->sum('kriteria_rumah') }} --}}
                                                 </td>
                                                 <td>
 
@@ -431,7 +352,7 @@
                                                     {{ $totalKegiatanLingkungan }}
                                                 </td>
                                             </tr>
-                                        </tbody>
+                                        </tfoot>
                                     </table>
 
                                 </div>
@@ -460,7 +381,9 @@
   <script src="{{url('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script> --}}
     <script>
         $(document).ready(function() {
-            $('.data').DataTable();
+            $('.data').DataTable({
+                // scrollX: true,
+            });
         });
     </script>
 

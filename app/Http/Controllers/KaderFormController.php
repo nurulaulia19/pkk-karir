@@ -175,7 +175,6 @@ class KaderFormController extends Controller
         $warga = DataWarga::with('keluarga')
             ->where('id_user', $user->id)
             ->get();
-        dd($warga);
         return view('kader.rekap', compact('warga'));
     }
 
@@ -189,11 +188,13 @@ class KaderFormController extends Controller
             $keluarga = DataKeluarga::with('anggota.warga')
                 ->where('periode', $periode)
                 ->where('id_dasawisma', $user->id_dasawisma)
+                ->orderBy('id', 'DESC')
                 ->get();
         } else {
             $keluarga = DataKeluarga::with('anggota.warga')
                 ->where('periode', now()->year)
                 ->where('id_dasawisma', $user->id_dasawisma)
+                ->orderBy('id', 'DESC')
                 ->get();
         }
         // dd($keluarga);

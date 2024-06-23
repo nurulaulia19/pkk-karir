@@ -41,7 +41,7 @@
                                             <tr>
                                                 <th rowspan="2" style="text-align: center;">No</th>
                                                 <th rowspan="2" style="text-align: center;">Kode RT</th>
-                                                <th rowspan="2" style="text-align: center;">Nama Dasawisma</th>
+                                                <th rowspan="2" style="text-align: center;">Jumlah Dasawisma</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KRT</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. KK</th>
                                                 <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
@@ -81,7 +81,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($dasa_wisma as $desa)
+                                            @foreach ($datart as $desa)
                                             @php
                                                 $keluarga = $desa->keluarga;
                                             @endphp
@@ -91,15 +91,11 @@
                                                         {{ $loop->iteration }}
                                                     </td>
                                                     <td style="vertical-align: middle;">
-                                                        {{-- {{ $desa->rt->name }} --}}
-                                                        @if ($desa->rt && $desa->rt->name)
-                                                            {{ $desa->rt->name }}
-                                                        @else
-                                                            0
-                                                        @endif
+                                                        {{ $desa->name }}
+
                                                     </td>
                                                     <td style="vertical-align: middle;">
-                                                        {{ $desa->nama_dasawisma  }}
+                                                        {{ count($desa->dasawisma)  }}
                                                     </td>
                                                     <td>
                                                         @php
@@ -290,6 +286,9 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
+
+                                        </tbody>
+                                        <tfoot>
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong> </td>
                                                 {{-- <td>{{$totalRT}}</td> --}}
@@ -399,7 +398,7 @@
                                                     {{-- {{ $catatan_keluarga->sum('have_kegiatan') }} --}}
                                                 </td>
                                             </tr>
-                                        </tbody>
+                                        </tfoot>
                                     </table>
 
                                 </div>

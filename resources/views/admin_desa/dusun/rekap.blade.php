@@ -30,12 +30,12 @@
                                     <table class="table table-striped table-bordered data" id="add-row" width="6000px">
                                         <thead>
                                             <tr>
-                                                <th rowspan="3" style="text-align: center;">No</th>
-                                                <th rowspan="3" style="text-align: center;">No.RW</th>
-                                                <th rowspan="3" style="text-align: center;">Jumlah RT</th>
-                                                <th rowspan="3" style="text-align: center;">Jumlah Dasa Wisma</th>
-                                                <th rowspan="3" style="text-align: center;">Jumlah KRT</th>
-                                                <th rowspan="3" style="text-align: center;">Jumlah KK</th>
+                                                <th rowspan="2" style="text-align: center;">No</th>
+                                                <th rowspan="2" style="text-align: center;">No.RW</th>
+                                                <th rowspan="2" style="text-align: center;">Jumlah RT</th>
+                                                <th rowspan="2" style="text-align: center;">Jumlah Dasa Wisma</th>
+                                                <th rowspan="2" style="text-align: center;">Jumlah KRT</th>
+                                                <th rowspan="2" style="text-align: center;">Jumlah KK</th>
                                                 <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
                                                 <th colspan="6" style="text-align:center;">Kriteria Rumah</th>
                                                 <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
@@ -74,13 +74,6 @@
                                                 <th>Industri Rumah Tangga</th>
                                                 <th>Kesehatan Lingkungan</th>
                                             </tr>
-
-                                            {{-- <tr>
-                                        <th>L</th>
-                                        <th>P</th>
-                                        <th>L</th>
-                                        <th>P</th>
-                                    </tr> --}}
                                         </thead>
 
                                         <tbody>
@@ -206,6 +199,9 @@
                                                 </tr>
                                             @endforeach
 
+
+                                        </tbody>
+                                        <tfoot>
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong></td>
                                                 <td>{{ $totalRt }}</td>
@@ -241,7 +237,7 @@
                                                 <td>{{ $totalKegiatanIndustri }}</td>
                                                 <td>{{ $totalKegiatanLingkungan }}</td>
                                             </tr>
-                                        </tbody>
+                                        </tfoot>
 
                                     </table>
 

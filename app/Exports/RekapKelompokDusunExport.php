@@ -244,7 +244,7 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             'LANSIA',
             'BERKEBUTUHAN KHUSUS',
             'SEHAT',
-            'TIDAK SEHAT',
+            'KURANG SEHAT',
             'MEMILIKI TMP. PEMB. SAMPAH',
             'MEMILIKI SPAL',
             'JUMLAH JAMBAN KELUARGA',
@@ -377,7 +377,7 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-            $sheet->mergeCells('H8:Q8');
+            $sheet->mergeCells('G8:Q8');
             $sheet->mergeCells('R8:W8');
             $sheet->mergeCells('X8:Z8');
             $sheet->mergeCells('AA8:AB8');

@@ -1,8 +1,8 @@
 @extends('admin_kab.layout')
 
-@section('title', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok PKK Kabupaten | Admin Kabupaten PKK Kab. Indramayu')
+@section('title', 'Catatan Data Dan Kegiatan Warga Kelompok PKK Kabupaten | Admin Kabupaten PKK Kab. Indramayu')
 
-@section('bread', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok PKK Kabupaten')
+@section('bread', 'Catatan Data Dan Kegiatan Warga Kelompok PKK Kabupaten')
 @section('container')
 
     <!-- Main content -->
@@ -30,17 +30,17 @@
                                     <table class="table table-striped table-bordered data" id="add-row" width="6000px">
                                         <thead>
                                             <tr>
-                                                <th rowspan="2" style="text-align: center;">No</th>
-                                                <th rowspan="2" style="text-align: center;">Nama Kecamatan</th>
-                                                <th rowspan="2" style="text-align: center;">Jml. Desa/Kel</th>
-                                                <th rowspan="2" style="text-align: center;">Jml. RW</th>
-                                                <th rowspan="2" style="text-align: center;">Jml. RT</th>
-                                                <th rowspan="2" style="text-align: center;">Jml. Dasa Wisma</th>
-                                                <th rowspan="2" style="text-align: center;">Jml. KRT</th>
-                                                <th rowspan="2" style="text-align: center;">Jml. KK</th>
+                                                <th rowspan="3" style="text-align: center;">No</th>
+                                                <th rowspan="3" style="text-align: center;">Nama Kecamatan</th>
+                                                <th rowspan="3" style="text-align: center;">Jml. Desa/Kel</th>
+                                                <th rowspan="3" style="text-align: center;">Jml. RW</th>
+                                                <th rowspan="3" style="text-align: center;">Jml. RT</th>
+                                                <th rowspan="3" style="text-align: center;">Jml. Dasa Wisma</th>
+                                                <th rowspan="3" style="text-align: center;">Jml. KRT</th>
+                                                <th rowspan="3" style="text-align: center;">Jml. KK</th>
                                                 <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
                                                 <th colspan="6" style="text-align:center;">Kriteria Rumah</th>
-                                                <th colspan="2" style="text-align:center;">Sumber Air Keluarga</th>
+                                                <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
                                                 {{-- <th rowspan="3" style="text-align: center;">Jml. Jamban Keluarga</th> --}}
                                                 <th colspan="2" style="text-align:center;">Makanan Pokok</th>
                                                 <th colspan="6" style="text-align:center;">Warga Mengikuti Kegiatan</th>
@@ -240,7 +240,7 @@
                                                 </tr>
                                             @endforeach
                                         </tbody>
-                                        <tfoot >
+                                        <tfoot>
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong></td>
                                                 <td>{{ $totalDesa }}</td>
