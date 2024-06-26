@@ -302,62 +302,6 @@
 @endsection
 
 @push('script-addon')
-    {{-- <script type="text/javascript">
-        $(function() {
-
-            $("#datepicker").datepicker({
-
-                changeMonth: true,
-
-                changeYear: true
-
-            });
-
-        });
-
-        window.onload = function() {
-
-            $('#tgl_lahir').on('change', function() {
-
-                var dob = new Date(this.value);
-
-                var today = new Date();
-
-                var age = Math.floor((today - dob) / (365.25 * 24 * 60 * 60 * 1000));
-
-                $('#umur').val(age);
-
-            });
-
-        }
-    </script> --}}
-
-
-    <!-- Skrip JavaScript untuk menangani tombol "Next" -->
-    {{-- <script>
-        $(document).ready(function() {
-            // Tangkap klik pada tombol "Next" dengan data-action="next"
-            $(document).on('click', '[data-action="next"]', function (e) {
-                e.preventDefault(); // Menghentikan perilaku default dari tombol
-
-                // Cari tab yang sedang aktif
-                var $activeTab = $('.nav-link.active');
-
-                // Ambil tab berikutnya dalam daftar tab
-                var $nextTab = $activeTab.parent().next().find('.nav-link');
-
-                // Periksa apakah masih ada tab berikutnya
-                if ($nextTab.length > 0) {
-                    // Aktifkan tab berikutnya
-                    $nextTab.tab('show');
-                } else {
-                    // Jika tidak ada tab berikutnya, kembalikan ke tab pertama (opsional)
-                    var $firstTab = $('.nav-link').first();
-                    $firstTab.tab('show');
-                }
-            });
-        });
-    </script> --}}
     <script>
         $(document).on('click', '[data-action="next"]', function (e) {
             var $active = $('#dataKeluargaTabs .nav-link.active');
@@ -402,65 +346,9 @@
             });
         });
 
-
-        // $('#addRow').on('click', function() {
-        //     var container = $('#container');
-        //     var rownew = $('<div class="row w-100"></div>');
-        //     rownew.html(`
-        //         <div class="col-md-12">
-        //             <div class="row">
-        //                 <div class="col-md-6">
-        //                     <div class="form-group">
-        //                         <label>Nama</label>
-        //                         <select id="warga${warga}" placeholder="Type to search..." class="form-control js-example-basic-single" name="warga[]">
-        //                             <option selected disabled value="AL">Type to search</option>
-        //                         </select>
-        //                     </div>
-        //                 </div>
-        //                 <div class="col-md-5">
-        //                     <div class="form-group">
-        //                         <label>Status</label>
-        //                         <select class="form-control status-select" name="status[]">
-        //                         </select>
-        //                     </div>
-        //                 </div>
-        //                 <div class="col-md-1 d-flex align-items-center">
-        //                     <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     `);
-        //     container.append(rownew);
-
-        //     var selectElement = $(`#warga${warga}`);
-        //     // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
-        //     console.log('aul',data)
-        //     if (data) {
-        //         data.forEach(function(item) {
-        //             var option = $('<option></option>');
-        //             option.val(item.id);
-        //             option.text(`${item.nama} - ${item.no_ktp}`)
-        //             selectElement.append(option);
-        //         });
-        //     }
-
-        //     // Mengecek apakah ini adalah baris pertama atau bukan
-        //     if ($('#container .status-select').length === 0) {
-        //         // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
-        //         rownew.find('.status-select').append('<option value="kepala-keluarga">Kepala Keluarga</option>');
-        //     } else {
-        //         // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
-        //         var statusSelect = rownew.find('.status-select');
-        //         statusSelect.append('<option value="ibu">Ibu</option>');
-        //         statusSelect.append('<option value="anak">Anak</option>');
-        //         statusSelect.append('<option value="lainnya">Lainnya</option>');
-        //     }
-
-        //     warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
-        // });
         $('#addRow').on('click', function() {
             var container = $('#container');
-            var rownew = $('<div class="row w-100"></div>');
+            var rownew = $('<div class="w-100"></div>');
             rownew.html(`
                 <div class="col-md-12">
                     <div class="row">

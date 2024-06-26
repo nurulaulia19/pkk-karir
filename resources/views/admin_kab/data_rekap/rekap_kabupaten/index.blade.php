@@ -1,6 +1,7 @@
 @extends('admin_kab.layout')
 
-@section('title', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok PKK Kabupaten | Admin Kabupaten PKK Kab. Indramayu')
+@section('title', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok PKK Kabupaten | Admin Kabupaten PKK Kab.
+    Indramayu')
 
 @section('bread', 'Rekapitulasi Catatan Data Dan Kegiatan Warga Kelompok PKK Kabupaten')
 @section('container')
@@ -8,10 +9,10 @@
     <!-- Main content -->
     <div class="main-content">
         <style>
-            th {
-            text-align: center !important;
-            vertical-align: middle !important;
-        }
+            th, td {
+                text-align: center !important;
+                vertical-align: middle !important;
+            }
         </style>
         <section class="section">
             <div class="section-body">
@@ -46,10 +47,8 @@
                                                 <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
                                                 <th colspan="6" style="text-align:center;">Kriteria Rumah</th>
                                                 <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
-                                                {{-- <th rowspan="3" style="text-align: center;">Jml. Jamban Keluarga</th> --}}
                                                 <th colspan="2" style="text-align:center;">Makanan Pokok</th>
                                                 <th colspan="6" style="text-align:center;">Warga Mengikuti Kegiatan</th>
-                                                {{-- <th rowspan="3" style="text-align: center;">Ket</th> --}}
                                             </tr>
                                             <tr>
                                                 <th>Total L</th>
@@ -308,6 +307,7 @@
             console.log("Document ready, DataTables initialization...");
             $('.data').DataTable({
                 scrollX: true,
+                "order": []
             });
         });
     </script>

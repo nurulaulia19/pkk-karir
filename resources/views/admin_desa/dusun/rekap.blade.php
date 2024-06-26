@@ -9,7 +9,7 @@
     <!-- Main content -->
     <div class="main-content">
         <style>
-            th {
+            th, td {
             text-align: center !important;
             vertical-align: middle !important;
         }
@@ -270,6 +270,7 @@
         $(document).ready(function() {
             $('.data').DataTable({
                 scrollX: true,
+                "order": []
             });
         });
     </script>

@@ -37,13 +37,6 @@ class RekapDusunInDesaController extends Controller
         // dd($dusun);
         $totalDusun = $dusun->count();
         $desa = Data_Desa::with('kecamatan')->find($user->id_desa);
-
-        // if ($totalDusun <= 0) {
-        //     return redirect()->route('not-found')->with('error', 'Data rekap tidak tersedia');
-        // }
-
-        // $totalRw = Rw::with('rt')->where('desa_id', $user->id_desa)->count();
-        // $totalRt = 0;
         $rwsz = Rw::with('rt')
             ->where('desa_id', $user->id_desa)
             ->get();
@@ -117,9 +110,6 @@ class RekapDusunInDesaController extends Controller
             foreach ($rw->rt as $drt) {
                 foreach ($drt->dasawisma as $item) {
                     if ($item->periode <= $periode) {
-                        // $totalKeluarga += DataKeluarga::where('id_dasawisma', $item->id)
-                        //     ->where('periode', $periode)
-                        //     ->count();
                         $totalDasawisma++;
                         $rumah = RumahTangga::where('id_dasawisma', $item->id)
                             ->get()

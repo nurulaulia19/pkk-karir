@@ -71,7 +71,7 @@
                                             <div class="form-group">
                                                 <label>RW</label>
                                                 <input type="hidden" disabled class="form-control" name="rw_id" id="rw_id"  value="{{ $kader->dasawisma->rw_id }}">
-                                                <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rw->name }}">
+                                                <input type="number" disabled class="form-control" name="rw_show"  value="{{ $kader->dasawisma->rw->name }}">
                                             </div>
                                         </div>
                                     </div>
@@ -82,7 +82,7 @@
                                             <div class="form-group">
                                                 <label>RT</label>
                                                 <input type="hidden" disabled class="form-control" name="rt_id" id="rt_id"  value="{{ $kader->dasawisma->rt_id }}">
-                                                <input type="number" disabled class="form-control"  value="{{ $kader->dasawisma->rt->name }}">
+                                                <input type="number" disabled class="form-control" name="rt_show"  value="{{ $kader->dasawisma->rt->name }}">
                                             </div>
                                         </div>
                                         {{-- <div class="col-md-6">
@@ -130,7 +130,7 @@
                                                         id="id_kecamatan" placeholder="Masukkan Nama Desa"
                                                         value="{{ $c->id }}">
                                                     <input type="text" disabled class="form-control"
-                                                        name="id_kecamatan" id="id_kecamatan"
+                                                        name="id_kecamatan_show" id="id_kecamatan"
                                                         placeholder="Masukkan Nama Desa"
                                                         value="{{ $c->nama_kecamatan }}">
                                                 @endforeach
@@ -226,34 +226,17 @@
                             <div class="row" id="containerz">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        {{-- <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Nama</label>
-                                                <select name="nama_kepala_rumah_tangga" id="js-example-basic-multiple"
-                                                    class="form-control js-example-basic-single" >
-                                                    <option selected disabled>Type to search</option>
-                                                    @foreach ($kk as $kepala)
-                                                        <option value="{{ $kepala->id }}">{{ $kepala->nama_kepala_keluarga }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('nama_kepala_rumah_tangga')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div> --}}
                                         <div class="col-md-6">
                                             <div class="form-group @error('keluarga') is-invalid @enderror">
                                                 <label>Nama</label>
-                                                <select name="keluarga[]" id="js-example-basic-multiple"
-                                                    class="form-control js-example-basic-single select-state @error('keluarga') is-invalid @enderror" placeholder="Type to search.." required>
+                                                <select value="" name="keluarga[]"
+                                                    class="form-control js-example-basic-single select-state @error('keluarga') is-invalid @enderror" placeholder="Type to search..">
                                                     <option value="">Pilih Nama Kepala Rumah Tangga</option>
                                                     @foreach ($kk as $kepala)
                                                         <option value="{{ $kepala->id }}" {{ (collect(old('keluarga'))->contains($kepala->id)) ? 'selected' : '' }}>{{ $kepala->nama_kepala_keluarga }} - {{ $kepala->nik_kepala_keluarga }}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('nama_kepala_rumah_tangga')
+                                                @error('keluarga')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -268,8 +251,6 @@
                                                 <select class="form-control" id="id_dasawisma" name="status[]">
                                                     {{-- <option selected> -- pili status --</option> --}}
                                                     <option selected value="kepala-rumah-tangga">Kepala Rumah Tangga</option>
-                                                    {{-- <option value="ibu">Ibu</option>
-                                                    <option value="anak">Anak</option> --}}
                                                 </select>
                                             </div>
                                         </div>
@@ -314,21 +295,6 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="row">
-                                        {{-- <div class="col-md-4">
-                                            <div class="form-group @error('kriteria_rumah_sehat') is-invalid @enderror">
-                                                <label>Kriteria Rumah</label><br>
-                                                <select class="form-control @error('kriteria_rumah_sehat') is-invalid @enderror" id="kriteria_rumah_sehat" name="kriteria_rumah_sehat">
-                                                    <option value="" hidden>Pilih Kriteria Rumah</option>
-                                                    <option value=1>Sehat</option>
-                                                    <option value=0>Kurang Sehat</option>
-                                                </select>
-                                            </div>
-                                            @error('kriteria_rumah_sehat')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div> --}}
                                         <div class="col-md-4">
                                             <div class="form-group @error('punya_tempat_sampah') is-invalid @enderror">
                                                 {{-- pilih punya tempat pembuangan sampah --}}
@@ -351,24 +317,6 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            {{-- <div class="form-group @error('saluran_pembuangan_air_limbah') is-invalid @enderror">
-                                                <label>Mempunyai Saluran Pembuangan Air Limbah</label><br>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="saluran_pembuangan_air_limbah" value=1 class="form-check-input">Ya
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="saluran_pembuangan_air_limbah" value=0 class="form-check-input">Tidak
-                                                        </label>
-                                                    </div>
-                                            </div>
-                                            @error('saluran_pembuangan_air_limbah')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror --}}
                                             <div class="form-group @error('saluran_pembuangan_air_limbah') is-invalid @enderror">
                                                 {{-- pilih punya saluran pembuangan air limbah --}}
                                                 <label class="@error('saluran_pembuangan_air_limbah') is-invalid @enderror">Mempunyai Saluran Pembuangan Air Limbah</label><br>
@@ -390,24 +338,6 @@
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            {{-- <div class="form-group @error('tempel_stiker') is-invalid @enderror">
-                                                <label>Menempel Stiker P4K</label><br>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="tempel_stiker" value=1 class="form-check-input">Ya
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <label class="form-check-label">
-                                                            <input type="radio" name="tempel_stiker" value=0 class="form-check-input">Tidak
-                                                        </label>
-                                                    </div>
-                                            </div>
-                                            @error('tempel_stiker')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror --}}
                                             <div class="form-group @error('tempel_stiker') is-invalid @enderror">
                                                 {{-- pilih stiker --}}
                                                 <label class="@error('tempel_stiker') is-invalid @enderror">Menempel Stiker P4K</label><br>
@@ -435,20 +365,6 @@
                                         <div class="col-md-2">
                                             <div class="form-group @error('punya_jamban') is-invalid @enderror">
                                                 <label class="@error('punya_jamban') is-invalid @enderror">Punya Jamban?</label>
-                                                {{-- <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="punya_jamban" id="punya_jamban_ya" value=1>
-                                                            <label class="form-check-label" for="punya_jamban_ya">Ya</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="punya_jamban" id="punya_jamban_tidak" value=0>
-                                                            <label class="form-check-label" for="punya_jamban_tidak">Tidak</label>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <div class="form-check">
@@ -471,21 +387,6 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            {{-- <div class="form-group">
-                                                <label>Sumber Air:</label><br>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="sumber_air_pdam" name="sumber_air_pdam" value=1>
-                                                    <label class="form-check-label" for="sumber_air_pdam">PDAM</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="sumber_air_sumur" name="sumber_air_sumur" value=1>
-                                                    <label class="form-check-label" for="sumber_air_sumur">Sumur</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="sumber_air_lainnya" name="sumber_air_lainnya" value=1>
-                                                    <label class="form-check-label" for="sumber_air_lainnya">Lainnya</label>
-                                                </div>
-                                            </div> --}}
                                             <div class="form-group @error('sumber_air') is-invalid @enderror">
                                                 <label class="@error('sumber_air') is-invalid @enderror">Sumber Air:</label><br>
                                                 <div class="form-check form-check-inline">
@@ -625,6 +526,8 @@
                 }
             }
         });
+
+
     </script>
 
     <script>
@@ -647,69 +550,24 @@
         });
 
     // Fungsi untuk menambahkan row saat tombol diklik
-    // document.getElementById('addRow').addEventListener('click', function() {
-    //     var container = document.getElementById('containerz');
-    //     var rownew = document.createElement('div');
-    //     rownew.className = 'row w-100';
-    //     rownew.innerHTML = `
-    //         <div class="col-md-12">
-    //             <div class="row">
-    //                 <div class="col-md-6">
-    //                     <div class="form-group">
-    //                         <label>Nama</label>
-    //                         <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
-    //                             <option selected disabled value="AL">Type to search</option>
-    //                         </select>
-    //                     </div>
-    //                 </div>
-    //                 <div class="col-md-5">
-    //                     <div class="form-group">
-    //                         <label>Dasawisma</label>
-    //                         <select class="form-control" name="status[]">
-    //                             <option value="kepala-keluarga">Kepala Keluarga</option>
-    //                         </select>
-    //                     </div>
-    //                 </div>
-    //                 <div class="col-md-1 d-flex align-items-center">
-    //                     <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">delete</button>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     `;
-    //     container.appendChild(rownew);
-
-    //     var selectElement = document.getElementById(`warga${warga}`);
-    //     // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
-    //     if (data) {
-    //         data.forEach(function(item) {
-    //             var option = document.createElement('option');
-    //             option.value = item.id;
-    //             option.textContent = item.nama_kepala_keluarga + ' - ' + item.nik_kepala_keluarga;
-    //             selectElement.appendChild(option);
-    //         });
-    //     }
-    //     selectElement.selectize();
-    //     warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
-    // });
-
     document.getElementById('addRow').addEventListener('click', function() {
         var container = document.getElementById('containerz');
         var rownew = document.createElement('div');
-        rownew.className = 'row w-100';
+        rownew.className = 'w-100';
         rownew.innerHTML = `
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Nama</label>
-                            <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]">
+                            <select id="warga${warga}" class="form-control js-example-basic-single" name="keluarga[]" @error('keluarga') is-invalid @enderror" >
                                 <option selected disabled value="">Type to search</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label>Dasawisma</label>
+                            <label>Status</label>
                             <select class="form-control" name="status[]">
                                 <option value="kepala-keluarga">Kepala Keluarga</option>
                             </select>

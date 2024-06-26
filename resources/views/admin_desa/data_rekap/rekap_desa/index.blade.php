@@ -10,7 +10,7 @@
     <!-- Main content -->
     <div class="main-content">
         <style>
-            th {
+            th, td {
             text-align: center !important;
             vertical-align: middle !important;
         }
@@ -37,12 +37,6 @@
                                         <h6>Kecamatan :
                                             {{ $desa->kecamatan->nama_kecamatan }}
                                         </h6>
-                                        {{-- <h6>Kabupaten :
-                                            {{ $dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }}
-                                        </h6>
-                                        <h6>Provinsi :
-                                            {{ $dusun->first()->rt->first()->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }}
-                                        </h6> --}}
                                         <h6>Kabupaten :
                                             {{ optional($desa->kecamatan->kabupaten)->name ?? 'Indramayu' }}
                                         </h6>
@@ -699,6 +693,7 @@
         $(document).ready(function() {
             $('.data').DataTable({
                 scrollX: true,
+                "order": []
             });
         });
     </script>

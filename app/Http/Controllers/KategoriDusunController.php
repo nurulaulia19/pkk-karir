@@ -14,6 +14,7 @@ class KategoriDusunController extends Controller
     {
         $user = Auth::user();
         $dusun = Dusun::where('desa_id', $user->id_desa)->orderBy('id', 'DESC')->get();
+        dd($user->id_desa);
         return view('admin_desa.data_dusun.index', compact('dusun'));
     }
 

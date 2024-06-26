@@ -493,66 +493,9 @@
     });
 
 
-
-    // $('#addRow').on('click', function() {
-    //     var container = $('#container');
-    //     var rownew = $('<div class="row w-100"></div>');
-    //     rownew.html(`
-    //         <div class="col-md-12">
-    //             <div class="row">
-    //                 <div class="col-md-6">
-    //                     <div class="form-group">
-    //                         <label>Nama</label>
-    //                         <select id="warga${warga}" class="form-control js-example-basic-single" name="warga[]">
-    //                             <option selected disabled value="AL">Type to search</option>
-    //                         </select>
-    //                     </div>
-    //                 </div>
-    //                 <div class="col-md-5">
-    //                     <div class="form-group">
-    //                         <label>Status</label>
-    //                         <select class="form-control status-select" name="status[]">
-    //                         </select>
-    //                     </div>
-    //                 </div>
-    //                 <div class="col-md-1 d-flex align-items-center">
-    //                     <button onclick='onDelete(${warga})' class="btn btn-danger btn-sm mt-2">Delete</button>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     `);
-    //     container.append(rownew);
-
-    //     var selectElement = $(`#warga${warga}`);
-    //     // Loop melalui data yang telah disimpan sebelumnya dan tambahkan opsi ke select
-    //     console.log('aul',data)
-    //     if (data) {
-    //         data.forEach(function(item) {
-    //             var option = $('<option></option>');
-    //             option.val(item.id);
-    //             option.text(`${item.nama} - ${item.no_ktp}`)
-    //             selectElement.append(option);
-    //         });
-    //     }
-
-    //     // Mengecek apakah ini adalah baris pertama atau bukan
-    //     if ($('#container .status-select').length === 0) {
-    //         // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
-    //         rownew.find('.status-select').append('<option value="kepala-keluarga">Kepala Keluarga</option>');
-    //     } else {
-    //         // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
-    //         var statusSelect = rownew.find('.status-select');
-    //         statusSelect.append('<option value="ibu">Ibu</option>');
-    //         statusSelect.append('<option value="anak">Anak</option>');
-    //         statusSelect.append('<option value="lainnya">Lainnya</option>');
-    //     }
-
-    //     warga++; // Tambahkan 1 ke nilai warga setiap kali tombol ditekan
-    // });
-
     $('#addRow').on('click', function() {
         var container = $('#container');
-        var rownew = $('<div class="row w-100"></div>');
+        var rownew = $('<div class="w-100"></div>');
         rownew.html(`
             <div class="col-md-12">
                 <div class="row">

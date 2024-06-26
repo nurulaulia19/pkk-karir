@@ -9,7 +9,7 @@
     <!-- Main content -->
     <div class="main-content">
         <style>
-            th {
+            th, td {
             text-align: center !important;
             vertical-align: middle !important;
         }
@@ -31,12 +31,6 @@
                                     <h6>Kecamatan :
                                         {{ $kecamatan->nama_kecamatan }}
                                     </h6>
-                                    {{-- <h6>Kabupaten :
-                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->name }}
-                                    </h6>
-                                    <h6>Provinsi :
-                                        {{ $desaa->first()->dasawisma->first()->desa->kecamatan->kabupaten->provinsi->name }}
-                                    </h6> --}}
                                     <h6>Kabupaten :
                                         {{ optional($kecamatan->kabupaten)->name ?? 'Indramayu' }}
                                     </h6>
@@ -229,120 +223,90 @@
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong> </td>
                                                 <td style="display: none"></td>
-                                                {{-- <td>
-                                                    {{$totalDesa}}
-                                                </td> --}}
                                                 <td>
                                                     {{$totalRW}}
                                                 </td>
                                                 <td>
                                                     {{$totalRT}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_KK') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalDasawisma}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_laki') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalJmlKRT}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_perempuan') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalJmlKK}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_balita_laki') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAnggotaLaki}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_balita_perempuan') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAnggotaPerempuan}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_3_buta') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAnggotaBalitaLaki}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_PUS') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAnggotaBalitaPerempuan}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_WUS') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAnggotaPUS}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_ibu_hamil') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAnggotaWUS}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_ibu_menyusui') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAnggotaIbuHamil}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_lansia') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAnggotaIbuMenyusui}}
-                                                    {{-- {{ $catatan_keluarga->sum('jumlah_kebutuhan_khusus') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAnggotaLansia}}
-                                                    {{-- {{ $catatan_keluarga->sum('kriteria_rumah') }} --}}
                                                 </td>
                                                 <td>0</td>
                                                 <td>
                                                     {{$totalAnggotaBerkebutuhanKhusus}}
-                                                    {{-- {{ $catatan_keluarga->count() - $catatan_keluarga->sum('kriteria_rumah') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalSheatLayakHuni}}
-                                                    {{-- {{ $catatan_keluarga->sum('punya_tempat_sampah') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalTidakSheatLayakHuni}}
-                                                    {{-- {{ $catatan_keluarga->sum('punya_saluran_air') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalPemSampah}}
-                                                    {{-- {{ $catatan_keluarga->sum('punya_jamban') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalSPAL}}
-                                                    {{-- {{ $catatan_keluarga->sum('tempel_stiker') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalJamban}}
-                                                    {{-- {{ $catatan_keluarga->where('sumber_air', 1)->count() }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalStiker}}
-                                                    {{-- {{ $catatan_keluarga->where('sumber_air', 2)->count() }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAirPDAM}}
-                                                    {{-- {{ $catatan_keluarga->where('sumber_air', 4)->count() }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAirSumur}}
-                                                    {{-- {{ $catatan_keluarga->where('makanan_pokok', 1)->count() }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalAirLainnya}}
-                                                    {{-- {{ $catatan_keluarga->where('makanan_pokok', 0)->count() }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalMakanBeras}}
-                                                    {{-- {{ $catatan_keluarga->sum('aktivitas_UP2K') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalMakanNonBeras}}
-                                                    {{-- {{ $catatan_keluarga->sum('have_pemanfaatan') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalKegiatanUP2K}}
-                                                    {{-- {{ $catatan_keluarga->sum('have_industri') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalKegiatanPemanfaatanPekarangan}}
-                                                    {{-- {{ $catatan_keluarga->sum('have_kegiatan') }} --}}
                                                 </td>
                                                 <td>
                                                     {{$totalKegiatanIndustri}}
@@ -370,12 +334,11 @@
 @endsection
 
 @push('script-addon')
-    {{-- <script src="{{url('admin/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-  <script src="{{url('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script> --}}
     <script>
         $(document).ready(function() {
             $('.data').DataTable({
             scrollX: true,
+            "order": []
             });
         });
     </script>

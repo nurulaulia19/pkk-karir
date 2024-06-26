@@ -163,7 +163,8 @@
     <script>
         $(document).ready(function() {
             $('.data').DataTable({
-                scrollX:true
+                scrollX:true,
+                "order": []
             });
         });
     </script>

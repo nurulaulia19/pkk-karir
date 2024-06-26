@@ -70,7 +70,7 @@
                 <div class="col-md-6">
                     <div class="form-group @error('keluarga_id') is-invalid @enderror">
                         <label for="exampleFormControlSelect1">Nama Keluarga</label>
-                        <select class="form-control select-state @error('keluarga_id') is-invalid @enderror" id="keluarga_id" name="keluarga_id" placeholder="Type to search..">
+                        <select class="form-control select-state @error('keluarga_id') is-invalid @enderror" id="keluarga_id" name="keluarga_id" placeholder="Type to search.." required>
                           {{-- nama warga --}}
                           <option value=""> Pilih Kepala Keluarga</option>
                             @foreach ($keluarga as $index)

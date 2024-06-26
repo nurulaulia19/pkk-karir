@@ -182,6 +182,7 @@
 <script>
 $(document).ready( function () {
     $('.data').DataTable();
+    "order": []
 } );
 </script>
 

@@ -104,7 +104,14 @@ class RumahTanggaController extends Controller
             'tempel_stiker' => 'required|boolean',
             'sumber_air' => 'required|array|min:1',
             'sumber_air.*' => 'in:pdam,sumur,lainnya',
+            'keluarga' => 'required|array',
+            'keluarga.*' => 'required|integer|distinct',
+            // 'keluarga' => 'required|unique:rumah_tanggas,nama_kepala_rumah_tangga', // Replace table_name and column_name with your actual table and column names
+        ],[
+            'keluarga.required' => 'Lengkapi Keluarga Yang Didata',
+            'keluarga.*.required' => 'Lengkapi Keluarga Yang Didata',
         ]);
+        // dd($validatedData);
 
         $sumberAir = [
             'sumber_air_pdam' => in_array('pdam', $validatedData['sumber_air']) ? 1 : 0,
@@ -134,9 +141,6 @@ class RumahTanggaController extends Controller
             'nik_kepala_rumah_tangga' => $keluargaKetua->nik_kepala_keluarga,
             'id_dasawisma' => $request->id_dasawisma,
             'dusun' => $request->dusun,
-            // 'punya_jamban' => $rewquest->punya_jamban,
-            // 'punya_tempat_sampah' => $request->punya_tempat_sampah,
-            // // 'kriteria_rumah_sehat' => $request->kriteria_rumah_sehat,
             'punya_jamban' => $validatedData['punya_jamban'],
             'punya_tempat_sampah' => $validatedData['punya_tempat_sampah'],
             'saluran_pembuangan_air_limbah' => $validatedData['saluran_pembuangan_air_limbah'],
@@ -146,13 +150,8 @@ class RumahTanggaController extends Controller
             'sumber_air_pdam' => $sumberAir['sumber_air_pdam'],
             'sumber_air_sumur' => $sumberAir['sumber_air_sumur'],
             'sumber_air_lainnya' => $sumberAir['sumber_air_lainnya'],
-            // 'sumber_air_pdam' => $request->has('sumber_air_pdam') ? 1 : 0,
-            // 'sumber_air_sumur' => $request->has('sumber_air_sumur') ? 1 : 0,
-            // 'sumber_air_lainnya' => $request->has('sumber_air_lainnya') ? 1 : 0,
             'is_valid' => now(),
         ]);
-        // dd($keluarga->nama_kepala_rumah_tangga);
-        // dd($keluarga);
         for ($i = 0; $i < count($request->keluarga); $i++) {
             $updateKeluarga = DataKeluarga::find($request->keluarga[$i]);
             $updateKeluarga->is_rumah_tangga = true;
