@@ -8,6 +8,12 @@
 
     <!-- Main content -->
     <div class="main-content">
+        <style>
+            th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+        </style>
         <section class="section">
             <div class="section-body">
                 <div class="row">
@@ -44,7 +50,7 @@
                                     <table class="table table-striped table-bordered data" id="add-row" width="6000px">
                                         <thead>
                                             <tr>
-                                                <th rowspan="2" style="text-align: center;">No</th>
+                                                <th rowspan="2" style="text-align: center; ">No</th>
                                                 <th rowspan="2" style="text-align: center;">Nama desa</th>
                                                 <th rowspan="2" style="text-align: center;">Jml RW</th>
                                                 <th rowspan="2" style="text-align: center;">Jml RT</th>
@@ -220,14 +226,12 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-
-                                        </tbody>
-                                        <tfoot>
                                             <tr>
-                                                <td><strong>Jumlah</strong> </td>
-                                                <td>
+                                                <td colspan="2"><strong>Jumlah</strong> </td>
+                                                <td style="display: none"></td>
+                                                {{-- <td>
                                                     {{$totalDesa}}
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     {{$totalRW}}
                                                 </td>
@@ -347,7 +351,7 @@
                                                     {{$totalKegiatanLingkungan}}
                                                 </td>
                                             </tr>
-                                        </tfoot>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <a href="{{ url('export_rekap_kec',['id' => $desaa->first()->id_kecamatan ]) }}?periode={{$periode}}" target="_blank" class="btn btn-success mt-2" type="button" role="button">
@@ -371,7 +375,7 @@
     <script>
         $(document).ready(function() {
             $('.data').DataTable({
-            "order": [[0, 'asc'], [1, 'asc']]
+            scrollX: true,
             });
         });
     </script>
@@ -396,3 +400,4 @@
         });
     </script>
 @endpush
+

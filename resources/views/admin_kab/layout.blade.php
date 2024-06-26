@@ -41,11 +41,11 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
     <style>
         .nav-pills .nav-link.active {
-          background-color: #50A3B9 !important; /* Ganti warna sesuai dengan keinginan */
-          color: white !important;
+            background-color: #50A3B9 !important;
+            /* Ganti warna sesuai dengan keinginan */
+            color: white !important;
         }
-        
-      </style>
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -144,7 +144,8 @@
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview">
-                            <a href="/dashboard_kab" class="nav-link {{ Request::is('dashboard_kab') ? 'active' : '' }}">
+                            <a href="/dashboard_kab"
+                                class="nav-link {{ Request::is('dashboard_kab') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Dashboard
@@ -282,7 +283,8 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="/profile-pembina-ketua" class="nav-link d-flex align-items-start {{ Request::is('profile-pembina-ketua') ? 'active' : '' }}">
+                            <a href="/profile-pembina-ketua"
+                                class="nav-link d-flex align-items-start {{ Request::is('profile-pembina-ketua') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-users mt-1"></i>
                                 <p>Data Profil Pembina <br> dan Ketua</p>
                             </a>

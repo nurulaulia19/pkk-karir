@@ -8,8 +8,13 @@
 
     <!-- Main content -->
     <div class="main-content">
+        <style>
+            th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+        </style>
         <section class="section">
-
             <div class="section-body">
                 <div class="row">
                     <div class="col-12 col-lg-12">
@@ -198,12 +203,9 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-
-
-                                        </tbody>
-                                        <tfoot>
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong></td>
+                                                <td style="display: none;"></td>
                                                 <td>{{ $totalRt }}</td>
                                                 <td>{{ $totalDasawisma }}</td>
                                                 <td> {{ $totalRumahTangga }} </td>
@@ -237,7 +239,7 @@
                                                 <td>{{ $totalKegiatanIndustri }}</td>
                                                 <td>{{ $totalKegiatanLingkungan }}</td>
                                             </tr>
-                                        </tfoot>
+                                        </tbody>
 
                                     </table>
 
@@ -266,7 +268,9 @@
 @push('script-addon')
     <script>
         $(document).ready(function() {
-            $('.data').DataTable();
+            $('.data').DataTable({
+                scrollX: true,
+            });
         });
     </script>
 @endpush

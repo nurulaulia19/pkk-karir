@@ -7,8 +7,13 @@
 
     <!-- Main content -->
     <div class="main-content">
+        <style>
+            th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+        </style>
         <section class="section">
-
             <div class="section-body">
                 <div class="row">
                     <div class="col-12 col-lg-12">
@@ -40,7 +45,7 @@
                                                 <th rowspan="2" style="text-align: center;">Jml. KK</th>
                                                 <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
                                                 <th colspan="6" style="text-align:center;">Kriteria Rumah</th>
-                                                <th colspan="2" style="text-align:center;">Sumber Air Keluarga</th>
+                                                <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
                                                 {{-- <th rowspan="3" style="text-align: center;">Jml. Jamban Keluarga</th> --}}
                                                 <th colspan="2" style="text-align:center;">Makanan Pokok</th>
                                                 <th colspan="6" style="text-align:center;">Warga Mengikuti Kegiatan</th>
@@ -239,10 +244,9 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                        </tbody>
-                                        <tfoot >
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong></td>
+                                                <td style="display: none"></td>
                                                 <td>{{ $totalDesa }}</td>
                                                 <td>{{ $totalRw }}</td>
                                                 <td>{{ $totalRt }}</td>
@@ -253,8 +257,6 @@
                                                 <td>{{ $totalPerempuan }}</td>
                                                 <td>{{ $totalBalitaLaki }}</td>
                                                 <td>{{ $totalbalitaPerempuan }}</td>
-                                                {{-- <td>{{ $kecamatans->sum('jumlah_3_buta_laki') }}</td> --}}
-                                                {{-- <td>{{ $kecamatans->sum('jumlah_3_buta_perempuan') }}</td> --}}
                                                 <td>{{ $totalPUS }}</td>
                                                 <td>{{ $totalWUS }}</td>
                                                 <td>{{ $totalIbuHamil }}</td>
@@ -277,10 +279,8 @@
                                                 <td>{{ $totalPemanfaatanPekarangan }}</td>
                                                 <td>{{ $totalIndustri }}</td>
                                                 <td>{{ $totalAktivitasKesehatanLingkungan }}</td>
-                                                {{-- <td>{{ $kecamatans->sum('jumlah_have_industri') }}</td> --}}
-                                                {{-- <td>{{ $kecamatans->sum('jumlah_have_kegiatan') }}</td> --}}
                                             </tr>
-                                        </tfoot>
+                                        </tbody>
                                     </table>
 
                                 </div>
@@ -306,7 +306,9 @@
     <script>
         $(document).ready(function() {
             console.log("Document ready, DataTables initialization...");
-            $('.data').DataTable();
+            $('.data').DataTable({
+                scrollX: true,
+            });
         });
     </script>
 @endpush

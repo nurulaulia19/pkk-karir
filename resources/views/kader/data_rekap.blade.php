@@ -7,6 +7,12 @@
 
     <!-- Main content -->
 <div class="main-content">
+    <style>
+        th {
+        text-align: center !important;
+        vertical-align: middle !important;
+    }
+    </style>
     <section class="section">
 
         <div class="section-body">
@@ -18,9 +24,7 @@
                                 <h6><strong><center>
                                     REKAPITULASI DATA WARGA KELUARGA</strong></h6>
                                 </center>
-
                                 <br>
-
                                 <table class="table table-striped table-bordered data" id="add-row">
                                     <thead>
                                         <tr>

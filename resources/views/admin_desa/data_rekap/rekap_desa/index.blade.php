@@ -9,6 +9,12 @@
 
     <!-- Main content -->
     <div class="main-content">
+        <style>
+            th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+        </style>
         <section class="section">
             <div class="section-body">
                 <div class="row">
@@ -549,14 +555,9 @@
                                                     </tr>
                                                 @endif
                                             @endforeach
-
-                                        </tbody>
-                                        <tfoot>
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong> </td>
-                                                {{-- <td>
-                                                    {{ $totalDusun }}
-                                                </td> --}}
+                                                <td style="display: none"></td>
                                                 <td>
                                                     {{ $totalRw }}
                                                 </td>
@@ -671,7 +672,7 @@
                                                     {{-- {{$totalKegiatanLingkungan}} --}}
                                                 </td>
                                             </tr>
-                                        </tfoot>
+                                        </tbody>
                                     </table>
 
                                 </div>
@@ -696,7 +697,9 @@
   <script src="{{url('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script> --}}
     <script>
         $(document).ready(function() {
-            $('.data').DataTable();
+            $('.data').DataTable({
+                scrollX: true,
+            });
         });
     </script>
 

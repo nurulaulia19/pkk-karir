@@ -8,6 +8,12 @@
 
     <!-- Main content -->
     <div class="main-content">
+        <style>
+            th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+        </style>
         <section class="section">
             <div class="section-body">
                 <div class="row">
@@ -283,22 +289,12 @@
                                                     </td>
                                                     <td>
                                                         {{ ucfirst($counts['kesehatanLingkungan']) }}
-
-
-                                                        {{-- @if ($keluarga->getKepalaKeluargaKegiatans()->count() > 0)
-                                                            <i class="fas fa-check"></i>
-                                                        @else
-                                                            0
-                                                        @endif --}}
                                                     </td>
                                                 </tr>
                                             @endforeach
-
-                                        </tbody>
-                                        <tfoot>
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong> </td>
-                                                {{-- <td> {{$totalDasawisma}} </td> --}}
+                                                <td style="display: none"></td>
                                                 <td>
                                                     {{$totalJmlKRT}}
                                                     {{-- {{ $catatan_keluarga->sum('jumlah_KK') }} --}}
@@ -393,7 +389,7 @@
                                                     {{-- {{ $catatan_keluarga->sum('have_kegiatan') }} --}}
                                                 </td>
                                             </tr>
-                                        </tfoot>
+                                        </tbody>
                                     </table>
 
                                 </div>
@@ -421,7 +417,9 @@
   <script src="{{url('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script> --}}
     <script>
         $(document).ready(function() {
-            $('.data').DataTable();
+            $('.data').DataTable({
+                scrollX: true,
+            });
         });
     </script>
 

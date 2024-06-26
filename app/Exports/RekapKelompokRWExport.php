@@ -94,7 +94,7 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
         foreach ($this->datart as $desa) {
             $counts = app(
                 'App\Http\Controllers\AdminController',
-            )->countRekapitulasiDasawismaInRt($desa->id, $this->periode);
+            )->loopingDataRt($desa->id, $this->periode);
 
             $data = [
                 '_index' => $i,

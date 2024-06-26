@@ -9,6 +9,12 @@
 
     <!-- Main content -->
     <div class="main-content">
+        <style>
+            th {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+        </style>
         <section class="section">
             <div class="section-body">
                 <div class="row">
@@ -232,10 +238,9 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                        </tbody>
-                                        <tfoot>
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong> </td>
+                                                <td style="display: none"></td>
                                                 <td>
                                                     {{ $totalJmlKK }}
                                                 </td>
@@ -352,13 +357,9 @@
                                                     {{ $totalKegiatanLingkungan }}
                                                 </td>
                                             </tr>
-                                        </tfoot>
+                                        </tbody>
                                     </table>
-
                                 </div>
-                                {{-- <a href="{{ url('export_rekap_dasawisma').'?'.http_build_query(compact('nama_dasawisma', 'rt', 'rw', 'periode'))  }}" target="_blank" class="btn btn-success" type="button" role="button">
-                                <i class="fas fa-print"></i> Cetak ke Excel </a><br> --}}
-
                                 <a href="{{ url('export_rekap_dasawisma', ['id' => $dasa_wisma->id]) }}?periode={{ $periode }}"
                                     target="_blank" class="btn btn-success mt-2" role="button">
                                     <i class="fas fa-print"></i> Cetak ke Excel
@@ -382,7 +383,7 @@
     <script>
         $(document).ready(function() {
             $('.data').DataTable({
-                // scrollX: true,
+                scrollX: true,
             });
         });
     </script>
