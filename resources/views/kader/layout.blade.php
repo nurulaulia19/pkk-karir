@@ -122,10 +122,10 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #446d6d">
             <!-- Brand Logo -->
-            <a href="/dashboard_kader" class="brand-link">
+            <a href="/dashboard_kader" class="brand-link d-flex">
                 <img src="{{ url('image/remove.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                     style="opacity: 0.8" />
-                <span class="brand-text font-weight-light" style="font-size: 17px">Kader Dasawisma <br> <span>{{ Auth::user()->name }}</span></span><br>
+                <div class="brand-text font-weight-light" style="font-size: 17px">Kader Dasawisma <br> <span >{{ Auth::user()->name }}</span></div><br>
             </a>
 
             <!-- Sidebar -->
