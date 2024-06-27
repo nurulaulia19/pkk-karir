@@ -1,2 +1,2 @@
 [services]
-my-service = { source = ".", entry = "vendor/bin/heroku-php-apache2 public/" }
+web = { source = ".", entry = "start.sh" }

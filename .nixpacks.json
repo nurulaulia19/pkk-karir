@@ -1,0 +1,15 @@
+{
+    "language": "php",
+    "phpVersion": "8.0",
+    "composer": true,
+    "nginx": true,
+    "nodejs": {
+      "version": "18"
+    },
+    "packages": ["libmysqlclient"],
+    "scripts": {
+      "install": "composer install --ignore-platform-reqs && npm ci",
+      "build": "npm run prod",
+      "start": "vendor/bin/heroku-php-apache2 public/"
+    }
+  }
