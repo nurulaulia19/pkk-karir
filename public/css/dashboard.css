@@ -1,6 +1,5 @@
 .notification-badge
 {
-    z-index: 9999;
     position: absolute;
     top: -10px; /* menyesuaikan jarak vertikal dari card */
     right: -10px; /* menyesuaikan jarak horizontal dari card */
@@ -14,5 +13,3 @@
     text-align: center;
 
 }
-
-
