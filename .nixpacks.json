@@ -1,6 +1,6 @@
 {
     "language": "php",
-    "phpVersion": "8.0",
+    "phpVersion": "81",
     "composer": true,
     "nginx": true,
     "nodejs": {
