@@ -295,7 +295,7 @@
                                 onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
-                                Keluar
+                                <p>Keluar</p>
                             </a>
 
                             <form id="logout-form" action="{{ route('admin_kabupaten.logout') }}" method="POST"

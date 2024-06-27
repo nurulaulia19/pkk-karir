@@ -225,12 +225,6 @@
                                         <p>Data Kelompok PKK <br> Dusun</p>
                                     </a>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a href="/data_kelompok_pkk_desa" class="nav-link {{ Request::is('data_kelompok_pkk_desa') ? 'active':'' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Data TP PKK Desa/Kelurahan</p>
-                                    </a>
-                                </li> --}}
 
                                 <li class="nav-item">
                                     <a href="/rekap_desa"
@@ -246,7 +240,7 @@
                             <a class="nav-link" href="{{ route('admin_desa.logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
-                                Keluar
+                                <p>Keluar</p>
                             </a>
 
                             <form id="logout-form" action="{{ route('admin_desa.logout') }}" method="POST"

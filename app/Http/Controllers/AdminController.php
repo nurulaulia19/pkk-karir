@@ -1103,7 +1103,8 @@ class AdminController extends Controller
             ->get();
         foreach ($datart as $rt){
             foreach ($rt->dasawisma as $index) {
-                $totalDasawisma ++;
+                if($index->periode <= $periode){
+                    $totalDasawisma ++;
 
             foreach ($index->rumahtangga as $rumahtangga) {
 
@@ -1250,6 +1251,7 @@ class AdminController extends Controller
                 }
 
             }
+                }
             }
 
         }
@@ -1274,18 +1276,9 @@ class AdminController extends Controller
             ->where('periode','<=', $periode)
             ->with('desa', 'rt')
             ->get();
-        // dd($dasa_wisma);
         if ($dasa_wisma->isEmpty()) {
-            // dd('data rt masih belum ada jadi gada rekap');
             return redirect()->route('not-found')->with('error', 'Data Rekapitulasi tidak tersedia');
         }
-
-        // $rumahtangga = RumahTangga::with(['anggotaRT.keluarga.anggota.warga.pemanfaatan','anggotaRT.keluarga.anggota.warga.industri'])
-        //     ->where('id_dasawisma', $dasa_wisma->first()->id)
-        //     ->get();
-
-        // return view('admin_desa.data_rekap.data_rekap_dasa_wisma', compact('rumahtangga', 'dasa_wisma'));
-        // return view('admin_desa.data_rekap.rekapRT.index', compact( 'dasa_wisma')); $totalDasawisma = 0;
         $totalKepalaRumahTangga = 0;
         $totalJmlKK = 0;
         $totalJmlKRT = 0;
@@ -1323,7 +1316,8 @@ class AdminController extends Controller
             ->get();
         foreach ($datart as $rt){
             foreach ($rt->dasawisma as $index) {
-                $totalDasawisma ++;
+                if($index->periode <= $periode) {
+                    $totalDasawisma ++;
 
             foreach ($index->rumahtangga as $rumahtangga) {
 
@@ -1357,9 +1351,6 @@ class AdminController extends Controller
                     } else {
                         $totalTidakSheatLayakHuni++;
                     }
-                    // foreach($rumahtangga->pemanfaatanlahan as $lahan){
-                    //     $totalKegiatanPemanfaatanPekarangan++;
-                    // }
                     foreach ($rumahtangga->pemanfaatanlahan as $lahan) {
                         if ($lahan->is_valid != null) {
                             $totalKegiatanPemanfaatanPekarangan++;
@@ -1470,6 +1461,7 @@ class AdminController extends Controller
                 }
 
             }
+                }
             }
 
         }
@@ -2704,6 +2696,7 @@ class AdminController extends Controller
         $countNonBeras = 0;
         $countAirLainya = 0;
         $today = Carbon::now();
+        $countDasawisma = 0;
         // dd($id);
 
         $datart = Rt::with('dasawisma.rumahtangga')->find($id);
@@ -2713,6 +2706,7 @@ class AdminController extends Controller
 
         foreach($datart->dasawisma as $dasawisma){
             if($dasawisma->periode <= $periode){
+                $countDasawisma++;
                 foreach ($dasawisma->rumahtangga as $keluarga) {
                     if($keluarga->periode == $periode){
                         foreach ($keluarga->pemanfaatanlahan as $pemanfaatan) {
@@ -2861,6 +2855,7 @@ class AdminController extends Controller
         }
 
         return [
+            'countDasawisma' => $countDasawisma,
             'countRumahTangga' => $countRumahTangga,
             'countKK' => $countKK,
             'tempatSampah' => $countTempatSampah,

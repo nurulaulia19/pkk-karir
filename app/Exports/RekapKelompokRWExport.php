@@ -100,7 +100,7 @@ class RekapKelompokRWExport implements FromArray, WithHeadings, WithEvents, With
                 '_index' => $i,
                 // 'rt' => $desa->rt->name ,
                 'rt' => $desa->name ?: '0',
-                'nama_dasa_wisma' => count($desa->dasawisma) ?: '0',
+                'nama_dasa_wisma' => ucfirst($counts['countDasawisma']) ?: '0',
                 'jumlah_KRT' => ucfirst($counts['countRumahTangga']) ?: '0',
                 'jumlah_KK' => ucfirst($counts['countKK'])  ?: '0',
                 'jumlah_laki' =>  ucfirst($counts['laki_laki'])  ?: '0',
