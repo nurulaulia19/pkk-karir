@@ -123,16 +123,10 @@ Route::middleware(['disableBack'])->group(function () {
         Route::get('/rekap_kelompok_pkk_rw/{id}', [AdminController::class, 'rekap_kelompok_pkk_rw']);
         Route::get('/export_rekap_rw/{id}', [AdminController::class, 'export_rekap_rw']);
 
-        // data kelompok pkk dusun
-        // Route::get('/data_kelompok_pkk_dusun', [AdminController::class, 'data_kelompok_pkk_dusun']);
-        // Route::get('/data_kelompok_pkk_dusun', [AdminController::class, 'data_kelompok_pkk_dusun']);
-
         // rekap kelompok dusun
         Route::get('/dusun', [RekapDusunInDesaController::class, 'dataDusun']);
         Route::get('/dusun/{id}', [RekapDusunInDesaController::class, 'rekapDusun'])->name('dusun.rekap');
         Route::get('/export_rekap_dusun/{id}', [RekapDusunInDesaController::class, 'export_rekap_dusun']);
-        // Route::get('/rekap_kelompok_pkk_dusun', [AdminController::class, 'rekap_kelompok_pkk_dusun']);
-        // Route::get('/export_rekap_dusun', [AdminController::class, 'export_rekap_dusun']);
 
         // data kelompok pkk desa
         Route::get('/data_kelompok_pkk_desa', [AdminController::class, 'data_kelompok_pkk_desa']);
@@ -150,12 +144,7 @@ Route::middleware(['disableBack'])->group(function () {
         Route::resource('/data_dasawisma', KelompokDasawismaController::class);
 
         // form kegiatan
-        // Route::resource('/kategori_kegiatan', KategoriKegiatanController::class);
         Route::resource('/kegiatan', KeteranganKegiatanController::class);
-
-        // form data kategori pendataan kader
-        // Route::resource('/kategori_industri', KategoriIndustriRumahController::class);
-        // Route::resource('/kategori_pemanfaatan', KategoriPemanfaatanLahanController::class);
 
         // profil admin desa
         Route::get('/profil_admin_desa', [AdminController::class, 'profilAdminDesa'])->name('profil_adminDesa');
@@ -202,7 +191,6 @@ Route::middleware(['disableBack'])->group(function () {
         Route::post('/profil_admin_kabupaten/update/{id}/password', [AdminKabController::class, 'update_passwordAdminKabupaten'])->name('update_password_admin_kabupaten');
 
         // Route untuk menampilkan data kabupaten
-        // Route::get('/data_kabupaten', [DataKabupatenController::class, 'index'])->name('kabupaten.index');
         Route::resource('/data_kabupaten', DataKabupatenController::class);
         Route::resource('/data_provinsi', DataProvinsiController::class);
 

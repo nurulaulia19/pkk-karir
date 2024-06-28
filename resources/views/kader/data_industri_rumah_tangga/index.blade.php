@@ -14,8 +14,8 @@
                     <div class="col-12 col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered data" id="add-row">
+                                <div class="table-responsive" style="overflow: hidden">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="83vw">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
@@ -56,7 +56,6 @@
                                             @foreach ($industri as $c)
                                                 <tr>
                                                     <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                                    {{-- nama desa yang login --}}
                                                     <td style="vertical-align: middle;">
                                                         {{ ucfirst($c->nama_kepala_keluarga) }} <br>
                                                         @if (!$c->is_valid_industri)
@@ -113,7 +112,10 @@
 @push('script-addon')
     <script>
         $(document).ready(function() {
-            $('.data').DataTable();
+            $('.data').DataTable({
+                scrollX: true,
+                "order": []
+            });
         });
     </script>
     <script>

@@ -8,24 +8,14 @@
     <!-- Main content -->
     <div class="main-content">
     <section class="section">
-        {{-- <h1 class="section-header">
-            <div>Kandidat</div>
-        </h1> --}}
-
         <div class="section-body">
             <div class="row">
                 <div class="col-12 col-lg-12">
                     <div class="card">
-
-
                         <div class="card-body">
-
-                            <div class="table-responsive">
-                                <table id="example1" class="table table-bordered table-striped">
-
-                                {{-- <table class="table table-striped table-bordered data" id="add-row"> --}}
+                            <div class="table-responsive" style="overflow: hidden">
+                                <table id="example1" class="table table-bordered table-striped" width="83vw">
                                     <a href="{{ url('beritaKab/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
-
                                     <thead>
                                         <tr>
                                         <th>No</th>
@@ -48,13 +38,15 @@
                                         <td style="vertical-align: middle;"><img src="/gambar/{{$c->gambar}}" width="100px"></td>
                                         <td style="vertical-align: middle;">{{\Carbon\Carbon::parse($c->tgl_publish)->isoFormat('D MMMM Y')}}</td>
                                         <td style="vertical-align: middle;">{{$c->penulis}}</td>
-                                        <td style="vertical-align: middle;" class="text-center">
-                                            <form action="{{ route('beritaKab.destroy',$c->id) }}" method="POST">
-                                                <a class="btn btn-primary btn-sm" href="{{ url('beritaKab/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm delete" ><i class="fas fa-trash"></i></button>
-                                            </form>
+                                        <td style="vertical-align: middle;">
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <form action="{{ route('beritaKab.destroy',$c->id) }}" method="POST">
+                                                    <a class="btn btn-primary btn-sm" href="{{ url('beritaKab/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm delete mt-2 mt-sm-0" ><i class="fas fa-trash"></i></button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -79,31 +71,11 @@
  <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
+      scrollX: true,
+      "order": []
     });
-    // $('#example2').DataTable({
-    //   "paging": true,
-    //   "lengthChange": false,
-    //   "searching": false,
-    //   "ordering": true,
-    //   "info": true,
-    //   "autoWidth": false,
-    //   "responsive": true,
-    // });
   });
 </script>
-
-{{-- <script>
-    $(document).ready(function () {
-        $('.data').dataTable();
-    });
-</script> --}}
-{{-- <script>
-$(document).ready( function () {
-    $('.data').DataTable();
-} );
-</script> --}}
 
 <script>
     $('.delete').click(function(event) {

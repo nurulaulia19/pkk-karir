@@ -8,14 +8,13 @@
     <!-- Main content -->
     <div class="main-content">
         <section class="section">
-
             <div class="section-body">
                 <div class="row w-full">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered data" id="add-row">
+                                <div class="table-responsive" style="overflow: hidden">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="83vw">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
@@ -46,14 +45,14 @@
 
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th>Nama Kepala Keluarga</th>
-                                                <th>Jumlah Anggota Keluarga</th>
-                                                <th>Jumlah Anggota Keluarga Laki-laki</th>
-                                                <th>Jumlah Anggota Keluarga Perempuan</th>
-                                                <th>Periode</th>
+                                                <th style="vertical-align: middle;">No</th>
+                                                <th style="vertical-align: middle;">Nama Kepala Keluarga</th>
+                                                <th style="vertical-align: middle;">Jumlah Anggota Keluarga</th>
+                                                <th style="vertical-align: middle;">Jumlah Anggota Keluarga Laki-laki</th>
+                                                <th style="vertical-align: middle;">Jumlah Anggota Keluarga Perempuan</th>
+                                                <th style="vertical-align: middle;">Periode</th>
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
-                                                    <th>Aksi</th>
+                                                    <th style="vertical-align: middle;">Aksi</th>
                                                 @endif
                                             </tr>
                                         </thead>
@@ -65,8 +64,6 @@
                                                     <td style="vertical-align: middle; position: relative;">
                                                         {{ $loop->iteration }}
                                                     </td>
-
-                                                    {{-- nama desa yang login --}}
                                                     <td style="vertical-align: middle;">
                                                         {{ ucfirst($c->nama_kepala_keluarga) }} <br>
                                                         @if (!$c->is_valid)
@@ -297,8 +294,6 @@
                                             </div>
                                         </div>
                                     @endforeach
-
-
                                 </div>
                             </div>
 
@@ -318,7 +313,10 @@
 @push('script-addon')
     <script>
         $(document).ready(function() {
-            $('.data').DataTable();
+            $('.data').DataTable({
+                scrollX:true,
+                "order": []
+            });
         });
     </script>
     <script>

@@ -1,6 +1,6 @@
 @extends('admin_kab.layout')
 
-@section('title', 'Tambah Data Profil Pembina dan Ketua | Super Admin PKK Kab. Indramayu')
+@section('title', 'Tambah Data Profil Pembina dan Ketua | Admin PKK Kab. Indramayu')
 
 @section('bread', 'Tambah Data Profil Pembina dan Ketua')
 @section('container')

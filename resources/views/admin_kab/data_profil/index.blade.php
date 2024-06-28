@@ -1,8 +1,8 @@
 @extends('admin_kab.layout')
 
-@section('title', 'Profil Admin TP PKK Kab. Indramayu')
+@section('title', 'Profil Pembina dan Ketua TP PKK Kab. Indramayu | Admin PKK Kab. Indramayu' )
 
-@section('bread', 'Profil Admin Kabupaten')
+@section('bread', 'Profil Pembina dan Ketua Admin Kabupaten')
 
 @section('container')
     <!-- Main content -->
@@ -13,8 +13,8 @@
                     <div class="col-12 col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered data" id="add-row">
+                                <div class="table-responsive" style="overflow: hidden">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="83vw">
                                     <a href="{{ url('profile-pembina-ketua/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                         <thead>
                                             <tr>
@@ -95,6 +95,14 @@
     <!-- /.content -->
 @endsection
 @push('script-addon')
+<script>
+    $(function () {
+      $(".data").DataTable({
+        scrollX: true,
+        "order": []
+      });
+    });
+  </script>
 <script>
     $('.delete').click(function(event) {
         var form = $(this).closest("form");

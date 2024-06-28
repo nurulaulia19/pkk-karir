@@ -66,7 +66,7 @@
                                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
                                                 Rekap
                                             </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <div class="dropdown-menu" style="min-width: 100px; max-width: 100px;" aria-labelledby="dropdownMenuButton">
                                                 @foreach ($dataPeriode as $item)
                                                     <a class="dropdown-item" href="{{ route('dashboard_kec.rekapitulasi',['id' =>$desa->id]) }}?periode={{$item->tahun}}">{{ $item->tahun }}</a>
                                                 @endforeach
@@ -270,103 +270,6 @@
                                                 </td>
                                             </tr>
                                             @endforeach
-                                            {{-- <tr>
-                                                <td>{{ $hitung  }}</td>
-                                                <td>
-                                                    tidak ada dusun
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalRw'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalRt'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalDasawisma'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalRumahTangga'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalKeluarga'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalLakiLaki'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalPerempuan'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalbalitaLaki'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalbalitaPerempuan'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalPUS'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalWUS'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalIbuHamil'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalIbuMenyusui'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalLansia'] }}
-                                                </td>
-                                                <td>0</td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalKebutuhanKhusus'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalRumahSehat'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalRumahNonSehat'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalTempatSampah'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalSPAL'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalJamban'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalStiker'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalAirPDAM'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalAirSumur'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalAirLainya'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalBeras'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalNonBeras'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalAktivitasUP2K'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalPemanfaatanPekarangan'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalIndustri'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $dataNonDusun['totalAktivitasLingkungan'] }}
-                                                </td>
-                                            </tr> --}}
                                             @foreach ($rwsAll as $item)
                                                 @php
                                                     $counts2 = app(
@@ -384,7 +287,6 @@
                                                         </td>
                                                         <td style="vertical-align: middle;">
                                                             {{ $counts2['nama rw'] }}
-                                                            {{-- @dd($counts2['nama rw']); --}}
                                                         </td>
                                                         <td style="vertical-align: middle;">
                                                             {{ $counts2['countRw'] }}
@@ -417,7 +319,6 @@
                                                         <td>
                                                             {{ ucfirst($counts2['countPUS']) }}
 
-                                                            {{-- {{ $keluarga->jumlah_PUS }} --}}
                                                         </td>
                                                         <td>
                                                             {{ ucfirst($counts2['countWUS']) }}
@@ -425,13 +326,9 @@
                                                         </td>
                                                         <td>
                                                             {{ ucfirst($counts2['countIbuHamil']) }}
-
-                                                            {{-- {{ $keluarga->jumlah_ibu_hamil }} --}}
                                                         </td>
                                                         <td>
                                                             {{ ucfirst($counts2['countIbuMenyesui']) }}
-
-                                                            {{-- {{ $keluarga->jumlah_ibu_menyusui }} --}}
                                                         </td>
                                                         <td>
                                                             {{ ucfirst($counts2['countLansia']) }}
@@ -439,35 +336,16 @@
                                                         <td>0</td>
                                                         <td>
                                                             {{ ucfirst($counts2['countKebutuhanKhusus']) }}
-
-                                                            {{-- {{ $keluarga->jumlah_kebutuhan_khusus }} --}}
                                                         </td>
                                                         <td>
                                                             {{ ucfirst($counts2['countKriteriaRumahSehat']) }}
-
-                                                            {{-- @if ($keluarga->kriteria_rumah_sehat == '1')
-                                                            <i class="fas fa-check"></i>
-                                                        @else
-                                                            0
-                                                        @endif --}}
                                                         </td>
                                                         <td>
                                                             {{ ucfirst($counts2['countKriteriaRumahNonSehat']) }}
-
-                                                            {{-- @if ($keluarga->kriteria_rumah_sehat == '0')
-                                                            <i class="fas fa-check"></i>
-                                                        @else
-                                                            0
-                                                        @endif --}}
                                                         </td>
                                                         <td>
                                                             {{ ucfirst($counts2['countTempatSampah']) }}
 
-                                                            {{-- @if ($keluarga->punya_tempat_sampah == '1')
-                                                            <i class="fas fa-check"></i>
-                                                        @else
-                                                            0
-                                                        @endif --}}
                                                         </td>
                                                         <td>
                                                             {{ ucfirst($counts2['countSPAL']) }}
@@ -475,8 +353,6 @@
                                                         </td>
                                                         <td>
                                                             {{ ucfirst($counts2['countJamban']) }}
-
-
                                                         </td>
                                                         <td>
                                                             {{ ucfirst($counts2['countStiker']) }}

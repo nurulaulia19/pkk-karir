@@ -14,8 +14,8 @@
                 <div class="col-12 col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered data" id="add-row">
+                            <div class="table-responsive" style="overflow: hidden">
+                                <table class="table table-striped table-bordered data" id="add-row" width="83vw">
                                     <a href="{{ url('data_desa/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                     <thead>
                                         <tr>
@@ -43,10 +43,7 @@
                                                 </form>
                                             </div>
                                         </td>
-
-
                                     </tr>
-
                                     @endforeach
                                     </tbody>
 
@@ -72,7 +69,10 @@
 
 <script>
 $(document).ready( function () {
-    $('.data').DataTable();
+    $('.data').DataTable({
+        scrollX: true,
+        "order": []
+    });
 } );
 </script>
 

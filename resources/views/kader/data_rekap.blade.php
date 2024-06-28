@@ -27,7 +27,7 @@
                                         </strong></h6>
                                     </center>
                                     <br>
-                                    <table class="table table-striped table-bordered data w-100" id="add-row" >
+                                    <table class="table table-striped table-bordered data" id="add-row" width="1420px">
                                         <thead>
                                             <tr>
                                                 <th rowspan="2">No</th>
@@ -129,7 +129,8 @@
     <script>
         $(document).ready(function() {
             $('.data').DataTable({
-                "order": []
+                "order": [],
+                scrollX: true
             });
         });
     </script>

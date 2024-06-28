@@ -26,10 +26,6 @@ class UserController extends Controller
         $desa = Data_Desa::all();
         $kec = DataKecamatan::all();
 
-        // $users = User::with('desa','kecamatan')->get();
-        // $desa = Data_Desa::with('kecamatan')->get();
-        // dd($desa);
-
         return view('admin_kab.data_pengguna_super', compact('users', 'desa', 'kec'));
     }
 

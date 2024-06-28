@@ -13,28 +13,16 @@
                 <div class="col-12 col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered data" id="add-row">
+                            <div class="table-responsive" style="overflow: hidden">
+                                <table class="table table-striped table-bordered data" id="add-row" width="83vw">
                                     <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
                                             <a href="{{ url('data_dasawisma/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                         </div>
-                                        {{-- <div class="col-md-1" style="margin-bottom: 20px;">
-                                            <div class="dropdown">
-                                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
-                                                        Pilih
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        @foreach ($periodes as $item)
-                                                        <a class="dropdown-item" href="{{ url('data_dasawisma') }}?periode={{ $item->tahun }}">{{ $item->tahun }}</a>
-                                                        @endforeach
-                                                    </div>
-                                            </div>
-                                        </div> --}}
                                         <div class="col-md-1" style="margin-bottom: 20px;">
-                                            <div class="dropdown ml-auto" style="max-width: fit-content;">
-                                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
-                                                    Pilih
+                                            <div class="dropdown ml-auto">
+                                                <button class="btn dropdown-toggle w-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
+                                                    Pilihan
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="max-width: 200px;">
                                                     @foreach ($periodes as $item)
@@ -50,10 +38,8 @@
                                         <th>Nama Dasawisma</th>
                                         <th>Alamat Dasawisma</th>
                                         <th>RT/RW</th>
-                                        {{-- <th>Dusun</th> --}}
                                         <th>Status</th>
                                         <th>Nama Desa</th>
-                                        {{-- <th>Nama Kecamatan</th> --}}
                                         <th>Nama Kader</th>
                                         <th>Periode</th>
                                         <th>Aksi</th>
@@ -135,7 +121,10 @@
 
 <script>
 $(document).ready( function () {
-    $('.data').DataTable();
+    $('.data').DataTable({
+        scrollX: true,
+        "order": []
+    });
 } );
 </script>
 <script>

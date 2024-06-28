@@ -49,8 +49,8 @@
                                                 Tidak memiliki dusun
                                             @endif
                                         </td>
-                                        <td class="text-center">
-                                            <div class="d-flex justify-content-center">
+                                        <td style="vertical-align: middle;">
+                                            <div class="d-flex justify-content-center align-items-center">
                                                 <a class="btn btn-primary btn-sm ml-1" href="{{ url('rt/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('rt.destroy',$c->id) }}" method="POST">
                                                     @csrf
@@ -85,7 +85,10 @@
 
 <script>
 $(document).ready( function () {
-    $('.data').DataTable();
+    $('.data').DataTable({
+        scrollX: true,
+        "order": []
+    });
 } );
 </script>
 <script>

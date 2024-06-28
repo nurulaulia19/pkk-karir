@@ -23,8 +23,6 @@ class DataKegiatanWargaController extends Controller
     {
         $user = Auth::user();
         $periode = $request->periode;
-        // halaman data kegiatan
-        // $kegiatan=DataKegiatanWarga::all()->where('id_user', $user->id);
         if ($periode) {
             $kegiatan = DataWarga::with(['kegiatan.kegiatan'])->
             where('periode', $periode)->
@@ -38,7 +36,6 @@ class DataKegiatanWargaController extends Controller
 
         $dataPeriode = Periode::all();
         $nowYear = now()->year;
-        // dd($kegiatan);
         return view('kader.data_kegiatan_warga.index', compact('kegiatan','dataPeriode','nowYear','periode', 'user'));
     }
     public function create()

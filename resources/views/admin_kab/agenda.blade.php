@@ -17,10 +17,8 @@
                 <div class="col-12 col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="example1" class="table table-bordered table-striped">
-
-                                {{-- <table class="table table-striped table-bordered data" id="add-row"> --}}
+                            <div class="table-responsive" style="overflow: hidden">
+                                <table id="example1" class="table table-bordered table-striped" width="83vw">
                                     <a href="{{ url('agendaKeg/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
 
                                     <thead>
@@ -60,7 +58,7 @@
                                                 <a class="btn btn-primary btn-sm" href="{{ url('agendaKeg/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm delete" ><i class="fas fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger btn-sm delete mt-2 mt-sm-0" ><i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -89,31 +87,12 @@
  <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
+        scrollX: true,
+        "order": []
     });
-    // $('#example2').DataTable({
-    //   "paging": true,
-    //   "lengthChange": false,
-    //   "searching": false,
-    //   "ordering": true,
-    //   "info": true,
-    //   "autoWidth": false,
-    //   "responsive": true,
-    // });
   });
 </script>
 
-{{-- <script>
-    $(document).ready(function () {
-        $('.data').dataTable();
-    });
-</script> --}}
-{{-- <script>
-$(document).ready( function () {
-    $('.data').DataTable();
-} );
-</script> --}}
 
 <script>
     $('.delete').click(function(event) {

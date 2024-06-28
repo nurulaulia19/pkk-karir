@@ -24,7 +24,6 @@
                                                 <th>Status</th>
                                                 <th>Nama Desa</th>
                                                 <th>Nama Kecamatan</th>
-                                                {{-- <th>Periode</th> --}}
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -57,11 +56,7 @@
                                                     <td style="vertical-align: middle;">{{ $c->desa->nama_desa }}</td>
                                                     <td style="vertical-align: middle;">{{ $c->kecamatan->nama_kecamatan }}
                                                     </td>
-                                                    {{-- <td style="vertical-align: middle;">{{$c->periode}}</td> --}}
-
                                                     <td class="text-center">
-                                                        {{-- <a class="btn btn-primary btn-sm" href="{{ url('rekap_kelompok_dasa_wisma', ['id' => $c->id]) }}">Rekap</a> --}}
-                                                        {{-- <a class="btn btn-primary btn-sm" href="{{ url('rekap_kelompok_dasa_wisma', ['id' => $c->id]) }}?periode=2023">Rekap</a> --}}
                                                         <div class="form-group">
                                                             <div class="dropdown">
                                                                 <button class="btn dropdown-toggle" type="button"
@@ -80,15 +75,6 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    {{-- <td class="text-center">
-                                            <a class="btn btn-success btn-sm" href="{{ url('rekap_kelompok_dasa_wisma').'?'.http_build_query([
-                                                'nama_dasawisma' => $c->nama_dasawisma,
-                                                'rt' => $c->rt,
-                                                'rw' => $c->rw,
-                                                'periode' => $c->periode,
-                                            ]) }}">Rekap</a>
-                                        </td> --}}
-
                                                 </tr>
                                             @endforeach
                                         </tbody>

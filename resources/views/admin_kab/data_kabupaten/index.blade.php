@@ -14,9 +14,8 @@
                     <div class="col-12 col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered data" id="add-row">
-                                        {{-- <a href="{{ url('data_kabupaten/create') }}" type="button" class="btn btn-success">Tambah</a><br><br> --}}
+                                <div class="table-responsive" style="overflow: hidden">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="83vw">
                                         @if (count($kabupaten) < 1)
                                             <a href="{{ url('data_kabupaten/create') }}" type="button"
                                                 class="btn btn-success">Tambah</a><br><br>
@@ -75,7 +74,10 @@
 @push('script-addon')
     <script>
         $(document).ready(function() {
-            $('.data').DataTable();
+            $('.data').DataTable({
+                scrollX: true,
+                "order": []
+            });
         });
     </script>
 

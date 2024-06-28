@@ -32,10 +32,7 @@ class DataWargaController extends Controller
     public function index(Request $request)
     {
 
-        // dd($periode);
         $user = Auth::user();
-        // dd($user->dasawisma);
-        // $warga=DataWarga::with('kepalaKeluarga')->where('id_dasawisma', $user->id_dasawisma)->get();
         if ($request->periode) {
             $periode = $request->periode;
             $warga = DataWarga::with('kepalaKeluarga.keluarga')
@@ -43,8 +40,6 @@ class DataWargaController extends Controller
                 ->where('periode', $periode) // menambahkan kondisi where untuk tahun sekarang
                 ->orderBy('id', 'desc')
                 ->get();
-
-            // $nowYear = true;
         } else {
             $warga = DataWarga::with('kepalaKeluarga.keluarga')
                 ->where('id_dasawisma', $user->id_dasawisma)

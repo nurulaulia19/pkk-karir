@@ -182,8 +182,6 @@ class KaderFormController extends Controller
     {
         $user = Auth::user();
         $periode = $request->periode;
-
-        //    $industri = DataIndustriRumah::with('warga')->where('id', $user->id_dasawisma)->get();
         if ($periode) {
             $keluarga = DataKeluarga::with('anggota.warga')
                 ->where('periode', $periode)
@@ -197,10 +195,8 @@ class KaderFormController extends Controller
                 ->orderBy('id', 'DESC')
                 ->get();
         }
-        // dd($keluarga);
         $dataPeriode = Periode::all();
 
-        // dd($warga);
         return view('kader.data_catatan_keluarga.rekap', compact('keluarga', 'dataPeriode'));
     }
 

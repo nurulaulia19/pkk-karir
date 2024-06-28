@@ -19,7 +19,6 @@ class DataDesaController extends Controller
     {
         // halaman data desa
         $desa = Data_Desa::all();
-        // $desa = Data_Desa::paginate(20);
         return view('admin_kab.data_desa.index', compact('desa'));
     }
 

@@ -77,7 +77,9 @@
 
 <script>
 $(document).ready( function () {
-    $('.data').DataTable();
+    $('.data').DataTable({
+        "order": []
+    });
 } );
 </script>
 

@@ -415,7 +415,6 @@ class DataKeluargaController extends Controller
 
         // Cari RumahTanggaHasKeluarga berdasarkan ID keluarga
         $rumahTanggaHasKeluarga = RumahTanggaHasKeluarga::where('keluarga_id', $keluarga->id)->first();
-        //  dd($rumahTanggaHasKeluarga);
         // Jika tidak ditemukan, tangani sesuai kebutuhan aplikasi Anda
         if (!$rumahTanggaHasKeluarga) {
             // return abort(404)->with('alert', 'Isi keluarga pada data rumah tangga terlebih dahulu.');
@@ -428,13 +427,11 @@ class DataKeluargaController extends Controller
         // Contoh: Mendapatkan informasi tambahan dari rumah tangga
         $idRumahTangga = $rumahTanggaHasKeluarga->rumahtangga_id;
         $rumahTangga = RumahTangga::findOrFail($idRumahTangga);
-        // dd($rumahTangga);
 
         // Lakukan operasi lain sesuai kebutuhan
         $dasawismaId = $keluarga->anggota->first()->warga->id_dasawisma;
         $dasawisma = DasaWisma::find($dasawismaId);
         $dataKegiatan = DataKegiatan::all();
-        // dd($dataKegiatan);
 
         // Kirim data ke view 'kader.data_catatan_keluarga.index'
         return view('kader.data_catatan_keluarga.index', compact('keluarga', 'rumahTangga', 'dasawisma', 'dataKegiatan'));

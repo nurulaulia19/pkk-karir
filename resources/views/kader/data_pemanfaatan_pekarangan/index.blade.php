@@ -13,8 +13,8 @@
                     <div class="col-12 col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered data" id="add-row">
+                                <div class="table-responsive" style="overflow: hidden">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="83vw">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
@@ -59,10 +59,8 @@
                                             @foreach ($pemanfaatan as $c)
                                                 <tr>
                                                     <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                                    {{-- nama desa yang login --}}
                                                     <td style="vertical-align: middle;">
                                                         {{ ucfirst($c->nama_kepala_rumah_tangga) }} <br>
-
                                                         @if (!$c->is_valid_pemanfaatan_lahan)
                                                             <a href="{{ url('data_pemanfaatan/' . $c->id . '/edit') }}"
                                                                 class="btn btn-sm"
@@ -83,9 +81,8 @@
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->periode) }}</td>
                                                     @if ($nowYear == $periode && $user->dasawisma->status)
-                                                        <td class="text-center" width="100px"
-                                                            style="vertical-align: middle;">
-                                                            <div class="d-flex" style="justify-content: center">
+                                                        <td class="text-center" style="vertical-align: middle;">
+                                                            <div class="d-flex justify-content-center align-items-center">
                                                                 <a class="btn btn-primary btn-sm"
                                                                     href="{{ url('data_pemanfaatan/' . $c->id . '/edit') }}"><i class="fas fa-edit"></i></a>
                                                                 <form
@@ -123,7 +120,10 @@
 @push('script-addon')
     <script>
         $(document).ready(function() {
-            $('.data').DataTable();
+            $('.data').DataTable({
+                scrollX: true,
+                "order": []
+            });
         });
     </script>
     <script>

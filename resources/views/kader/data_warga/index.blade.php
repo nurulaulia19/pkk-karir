@@ -19,8 +19,8 @@
                                         @endforeach
                                     </div>
                                 @endif
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered data" id="add-row">
+                                <div class="table-responsive" style="overflow: hidden">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="83vw">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
@@ -48,26 +48,23 @@
                                         </div>
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th>Nama</th>
-                                                <th>Nama Kepala Keluarga</th>
-                                                <th>No. Registrasi</th>
-                                                <th>No. KTP/NIK</th>
-                                                <th>Jabatan</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>Periode</th>
+                                                <th style="vertical-align: middle;">No</th>
+                                                <th style="vertical-align: middle;">Nama</th>
+                                                <th style="vertical-align: middle;">Nama Kepala Keluarga</th>
+                                                <th style="vertical-align: middle;">No. Registrasi</th>
+                                                <th style="vertical-align: middle;">No. KTP/NIK</th>
+                                                <th style="vertical-align: middle;">Jabatan</th>
+                                                <th style="vertical-align: middle;">Jenis Kelamin</th>
+                                                <th style="vertical-align: middle;">Periode</th>
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
-                                                    <th>Aksi</th>
+                                                    <th style="vertical-align: middle;">Aksi</th>
                                                 @endif
                                             </tr>
                                         </thead>
-
                                         <tbody>
-
                                             @foreach ($warga as $c)
                                                 <tr>
                                                     <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                                    {{-- nama desa yang login --}}
                                                     <td style="vertical-align: middle;">
                                                         {{ ucfirst($c->nama) }} <br>
                                                         @if (!$c->is_valid)
@@ -93,9 +90,8 @@
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->periode) }}</td>
                                                     @if ($nowYear == $periode && $user->dasawisma->status)
-                                                        <td class="text-center" width="100px"
-                                                            style="vertical-align: middle;">
-                                                            <div class="d-flex">
+                                                        <td style="vertical-align: middle;">
+                                                            <div class="d-flex justify-content-center align-items-center">
                                                                 <button type="button" class="btn btn-warning btn-sm"
                                                                     data-toggle="modal"
                                                                     data-target="#details-modal-{{ $c->id }}">
@@ -179,8 +175,6 @@
                                                                     @endif
                                                                     Agama : <strong> {{ ucfirst($c->agama) }} </strong><br>
                                                                     Alamat : <strong> {{ ucfirst($c->alamat) }}
-                                                                        {{-- RT {{ ($c->rt) }}, RW {{ ($c->rt) }},Desa {{ucfirst($c->desa->nama_desa)}}, Kec. {{ucfirst($c->kecamatan->nama_kecamatan)}}
-                                                                Kabupaten {{ucfirst($c->kabupaten) }}, Provinsi {{ucfirst($c->provinsi) }} --}}
                                                                     </strong><br>
                                                                     Pendidikan : <strong> {{ ucfirst($c->pendidikan) }}
                                                                     </strong><br>
@@ -206,7 +200,6 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Oke</button>
-                                                        {{-- <button type="button" class="btn btn-primary">Oke</button> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -232,7 +225,10 @@
 @push('script-addon')
     <script>
         $(document).ready(function() {
-            $('.data').DataTable();
+            $('.data').DataTable({
+                scrollX:true,
+                "order": []
+            });
         });
     </script>
     <script>

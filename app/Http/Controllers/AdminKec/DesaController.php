@@ -61,7 +61,6 @@ class DesaController extends Controller
 
     public function rekapitulasi(Request $request, $id)
     {
-        // $user = Auth::user();
         if ($request->periode) {
             $periode = $request->periode;
         } else {
@@ -72,16 +71,8 @@ class DesaController extends Controller
         $dusun = Dusun::with(['rw', 'rt'])
             ->where('desa_id', $id)
             ->get();
-        // dd($dusun);
         $totalDusun = $dusun->count();
         $desa = Data_Desa::with('kecamatan')->find($id);
-
-        // if ($totalDusun <= 0) {
-        //     return redirect()->route('not-found')->with('error', 'Data rekap tidak tersedia');
-        // }
-
-        // $totalRw = Rw::with('rt')->where('desa_id', $user->id_desa)->count();
-        // $totalRt = 0;
         $rwsz = Rw::with('rt')
             ->where('desa_id', $id)
             ->get();
@@ -145,9 +136,6 @@ class DesaController extends Controller
         $totalPUS = 0;
 
         $periodeAll = Periode::all();
-
-        // dd($dataRt);
-        // dd($dasawisma);
         $rwsAll = Rw::with('rt')
             ->where('desa_id', $id)
             ->get();

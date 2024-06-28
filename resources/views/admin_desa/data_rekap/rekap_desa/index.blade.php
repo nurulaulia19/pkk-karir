@@ -52,7 +52,7 @@
                                                 style="background-color: #50A3B9; color:white">
                                                 Rekap
                                             </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <div class="dropdown-menu" style="min-width: 100px; max-width: 100px;" aria-labelledby="dropdownMenuButton">
                                                 @foreach ($periodeAll as $item)
                                                     <a class="dropdown-item"
                                                         href="{{ url('rekap_desa') }}?periode={{ $item->tahun }}">{{ $item->tahun }}</a>
@@ -64,7 +64,7 @@
 
 
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered data" id="add-row" width="6000px">
+                                    <table class="table table-striped table-bordered data" id="add-row">
                                         <thead>
                                             <tr>
                                                 <th rowspan="2" style="text-align: center;">No</th>
@@ -256,142 +256,6 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                            {{-- start non dusun  --}}
-
-                                            {{-- @foreach ($rwsAll as $item)
-                                                @php
-                                                    $counts = app(
-                                                        'App\Http\Controllers\AdminDesa\RekapDusunInDesaController',
-                                                    )->rowRwInDesa($item->id);
-                                                @endphp
-                                                @if ($counts){
-                                                    <tr>
-                                                        <td style="vertical-align: middle;">
-                                                            @php
-                                                                $hitung ++ ;
-                                                            @endphp
-                                                            {{ $hitung }}
-                                                        </td>
-                                                        <td style="vertical-align: middle;">
-                                                            {{ $counts['nama rw'] }}
-
-                                                        </td>
-                                                        <td style="vertical-align: middle;">
-                                                            1
-                                                        </td>
-                                                        <td style="vertical-align: middle;">
-                                                            {{ $counts['countRt'] }}
-                                                        </td>
-                                                        <td style="vertical-align: middle;">
-                                                            {{ ucfirst($counts['countDasawisma']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countRumahTangga']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countKK']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countLakiLaki']) }}<br>
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countPerempuan']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countbalitaLaki']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countbalitaPerempuan']) }}
-                                                        </td>
-
-                                                        <td>
-                                                            {{ ucfirst($counts['countPUS']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countWUS']) }}
-
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countIbuHamil']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countIbuMenyesui']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countLansia']) }}
-                                                        </td>
-                                                        <td>0</td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countKebutuhanKhusus']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countKriteriaRumahSehat']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countKriteriaRumahNonSehat']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countTempatSampah']) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countSPAL']) }}
-
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countJamban']) }}
-
-
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countStiker']) }}
-
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countAirPDAM']) }}
-
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countAirSumur']) }}
-
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['countAirLainya']) }}
-
-
-                                                        </td>
-
-                                                        <td>
-                                                            {{ ucfirst($counts['countBeras']) }}
-
-                                                        </td>
-
-                                                        <td>
-                                                            {{ ucfirst($counts['countNonBeras']) }}
-
-                                                        </td>
-
-                                                        <td>
-                                                            {{ ucfirst($counts['aktivitasUP2K']) }}
-                                                        </td>
-
-                                                        <td>
-                                                            {{ ucfirst($counts['data_pemanfaatan_pekarangan']) }}
-
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['industri_rumah_tangga']) }}
-
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst($counts['aktivitasKesehatanLingkungan']) }}
-
-                                                        </td>
-                                                    </tr>
-                                                }
-
-                                                @endif
-                                            @endforeach --}}
-                                            {{-- end non dusun  --}}
                                             @foreach ($rwsAll as $item)
                                                 @php
                                                     $counts2 = app(
