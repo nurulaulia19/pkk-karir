@@ -35,7 +35,7 @@
                                                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
                                                     Rekap
                                                 </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <div class="dropdown-menu" style="min-width: 100px; max-width: 100px;" aria-labelledby="dropdownMenuButton">
                                                     @foreach ($periode as $item)
                                                     <a class="dropdown-item" href="{{ url('rekap_pkk_kec', ['id' => $c->id]) }}?periode={{ $item->tahun }}">{{ $item->tahun }}</a>
                                                     @endforeach

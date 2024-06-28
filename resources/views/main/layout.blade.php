@@ -46,11 +46,22 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
     <style>
+         #imgpkk{
+            width: 200px !important;
+            margin-bottom: 0px !important;
+
+        }
         @media (max-width: 768px) {
             .text-custom {
                 font-size: 10px !important;
             }
+            #imgpkk{
+                width: 70px !important;
+                margin-bottom: 10px !important;
+            }
         }
+
+
     </style>
 </head>
 
@@ -168,18 +179,6 @@
         </div>
     </header><!-- End Header -->
 
-    {{-- <section id="hero-animated" class="hero-animated d-flex align-items-center">
-    <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative" data-aos="zoom-out">
-      <img src="assets/img/hero-carousel/hero-carousel-3.svg" class="img-fluid animated">
-      <h2>Welcome to <span>HeroBiz</span></h2>
-      <p>Et voluptate esse accusantium accusamus natus reiciendis quidem voluptates similique aut.</p>
-      <div class="d-flex">
-        <a href="#about" class="btn-get-started scrollto">Get Started</a>
-        <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
-      </div>
-    </div>
-  </section> --}}
-
     @yield('container')
     @yield('li')
 
@@ -190,7 +189,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-4">
-                        <img src="{{ url('../image/remove.png') }}" width="200px">
+                        <img src="{{ url('../image/remove.png') }}" id="imgpkk">
                     </div>
                     <div class="col-lg-3 col-md-4">
                         <div class="footer-info">
@@ -203,28 +202,6 @@
                             </p>
                         </div>
                     </div>
-
-                    {{-- <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div> --}}
-
-                    {{-- <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div> --}}
 
                     <div class="col-lg-4 col-md-6 footer-newsletter">
                         <h4>SEKRETARIAT TIM PENGGERAK PKK KABUPATEN INDRAMAYU</h4>
