@@ -43,7 +43,7 @@ class AdminController extends Controller
             ->get()
             ->count();
 
-        $dasaWismas = DataKelompokDasawisma::count();
+        $dasaWismas = DataKelompokDasawisma::where('id_desa', auth()->user()->id_desa)->count();
         return view('admin_desa.dashboard', compact('kader', 'dasaWismas'));
     }
 
@@ -2395,27 +2395,45 @@ class AdminController extends Controller
                     if ($umur <= 5) {
                         $countbalitaPerempuan++;
                     }
+
+                    $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
+                        return $anggota->warga->jenis_kelamin === 'laki-laki' &&
+                            $anggota->warga->status_perkawinan === 'menikah';
+                    });
+
+                    if ($hasMarriedMen) {
+                        $countPUS += $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
+                            $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                            $today = new DateTime();
+                            $age = $today->diff($birthdate)->y;
+                            return $anggota->warga->jenis_kelamin === 'perempuan' &&
+                                $age >= 15 &&
+                                $age <= 49 &&
+                                $anggota->warga->status_perkawinan === 'menikah';
+                        })->count() ? 1 : 0;
+                    }
                 }
             }
-            $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
-                return $anggota->warga->jenis_kelamin === 'laki-laki' &&
-                    $anggota->warga->status_perkawinan === 'menikah';
-            });
+            // $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
+            //     return $anggota->warga->jenis_kelamin === 'laki-laki' &&
+            //         $anggota->warga->status_perkawinan === 'menikah';
+            // });
 
-            // Menghitung jumlah PUS (Pasangan Usia Subur)
-            $countPUS = 0;
-            if ($hasMarriedMen) {
-                $countPUS = $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
-                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                    $today = new DateTime();
-                    $age = $today->diff($birthdate)->y;
-                    return $anggota->warga->jenis_kelamin === 'perempuan' &&
-                        $age >= 15 &&
-                        $age <= 49 &&
-                        $anggota->warga->status_perkawinan === 'menikah';
-                })->count() ? 1 : 0;
-            }
+            // // Menghitung jumlah PUS (Pasangan Usia Subur)
+            // $countPUS = 0;
+            // if ($hasMarriedMen) {
+            //     $countPUS = $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
+            //         $birthdate = new DateTime($anggota->warga->tgl_lahir);
+            //         $today = new DateTime();
+            //         $age = $today->diff($birthdate)->y;
+            //         return $anggota->warga->jenis_kelamin === 'perempuan' &&
+            //             $age >= 15 &&
+            //             $age <= 49 &&
+            //             $anggota->warga->status_perkawinan === 'menikah';
+            //     })->count() ? 1 : 0;
+            // }
         }
+        // dd($countPUS);
 
         return [
             'laki_laki' => $countLakiLaki,

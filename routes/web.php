@@ -134,6 +134,9 @@ Route::middleware(['disableBack'])->group(function () {
         // rekap kelompok desa
         // mau di copy
         Route::get('/rekap_pkk_desa/{id}', [AdminController::class, 'rekap_pkk_desa']);
+
+
+        // oh yg ini ya
         Route::get('/rekap_desa', [RekapDusunInDesaController::class, 'index']);
 
         Route::get('/export_rekap_desa/{id}', [AdminController::class, 'export_rekap_desa_new']);

@@ -25,7 +25,7 @@ class KelompokDasawismaController extends Controller
         $user = Auth::user();
         $desaId = $user->id_desa;
 
-        $query = DataKelompokDasawisma::where('id_desa', $desaId)->with(['rw', 'rt', 'dusunData','kader']);
+        $query = DataKelompokDasawisma::where('id_desa', $desaId)->with(['rw', 'rt', 'dusunData','kader'])->orderBy('id', 'desc');;
 
         if ($request->has('periode')) {
             $periode = $request->input('periode');
@@ -163,9 +163,10 @@ class KelompokDasawismaController extends Controller
     public function edit(DataKelompokDasawisma $data_dasawisma)
     {
         // Ambil data kader yang terkait dengan Data Kelompok Dasawisma
+        $user = Auth::user();
         $kader = User::where('id_dasawisma', $data_dasawisma->id)->first();
-        $rws = Rw::all();
-        $rts = Rt::all();
+        $rws = Rw::where('desa_id', $user->id_desa)->get();
+        $rts = Rt::where('rw_id')->get();
         // $dusun = Dusun::where('desa_id',Auth::user()->id_desa)->get();
 
         // Kirim kedua data tersebut ke tampilan untuk diedit

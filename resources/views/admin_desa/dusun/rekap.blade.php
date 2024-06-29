@@ -62,8 +62,8 @@
                                                 <th>Ibu Menyusui</th>
                                                 <th>Lansia</th>
                                                 <th>Berkebutuhan Khusus</th>
-                                                <th>Sehat Layak Huni</th>
-                                                <th>Tidak Sehat Layak Huni</th>
+                                                <th>Sehat</th>
+                                                <th>Kurang Sehat</th>
                                                 <th>Memiliki Tmp. Pemb. Sampah</th>
                                                 <th>Memiliki SPAL</th>
                                                 <th>Jumlah Jamban Keluarga</th>
