@@ -58,12 +58,17 @@ class RtController extends Controller
     public function store(Request $request)
     {
         $rwQuery = $request->input('rw');
+        // dd($rwQuery);
         if(!$rwQuery){
             Alert::error('Gagal', 'Tidak Ada RW');
             return redirect()->back();
         }
-        $rw = Rw::where('name',$rwQuery)->first();
-
+        // $rw = Rw::where('name',$rwQuery)->get();
+        // dd($rw);
+        $user = Auth::user();
+        // Mengambil rw berdasarkan id_desa dari user yang sedang login
+        $rw = Rw::where('name', $rwQuery)->where('desa_id', $user->id_desa)->first();
+        // dd($rw->id);
         if(!$rw){
             Alert::error('Gagal', 'Tidak Ada RW');
             return redirect()->back();
@@ -123,7 +128,9 @@ class RtController extends Controller
             Alert::error('Gagal', 'Tidak Ada RW');
             return redirect()->back();
         }
-        $rw = Rw::where('name',$rwQuery)->first();
+        $user = Auth::user();
+        $rw = Rw::where('name',$rwQuery)->where('desa_id', $user->id_desa)->first();
+        // dd($rw->id);
 
         if(!$rw){
             Alert::error('Gagal', 'Tidak Ada RW');
