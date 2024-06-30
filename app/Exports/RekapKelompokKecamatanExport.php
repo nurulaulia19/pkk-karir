@@ -190,8 +190,8 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
             '',
             '',
             '',
-            'JUMLAH ANGGOTA KELUARGA',
             '',
+            'JUMLAH ANGGOTA KELUARGA',
             '',
             '',
             '',
@@ -281,7 +281,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->getDelegate()->mergeCells('AH9:AH10');
+                // $event->sheet->getDelegate()->mergeCells('AH9:AH10');
                 $lastRow = count($this->desaa) + 11;
                 $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
                 $event->sheet->getStyle('A'.$lastRow)->applyFromArray([
@@ -373,7 +373,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
             $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-            $sheet->mergeCells('G9:R9');
+            $sheet->mergeCells('H9:R9');
             $sheet->mergeCells('S9:X9');
             $sheet->mergeCells('Y9:AA9');
             $sheet->mergeCells('AB9:AC9');
@@ -381,9 +381,9 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
 
         }
 
-        $lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString('F');
+        $lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString('G');
 
-        for ($col = 'A'; $col <= 'F'; $col++) {
+        for ($col = 'A'; $col <= 'G'; $col++) {
             // Simpan nilai sel sebelum digabungkan
             $value = $sheet->getCell($col . '10')->getValue();
 

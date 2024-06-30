@@ -1465,7 +1465,7 @@ class AdminController extends Controller
             }
 
         }
-
+        // dd($totalStiker);
         $export = new RekapKelompokRWExport( compact(
             'datart',
             'periode','dasa_wisma', 'totalJmlKK', 'totalKegiatanIndustri', 'totalKegiatanPemanfaatanPekarangan', 'totalDasawisma', 'totalJmlKRT', 'totalSheatLayakHuni', 'totalTidakSheatLayakHuni', 'totalAirPDAM', 'totalAirSumur', 'totalAirLainnya', 'totalStiker', 'totalJamban', 'totalPemSampah', 'totalSPAL', 'totalAnggotaLansia', 'totalAnggotaIbuHamil', 'totalAnggotaIbuMenyusui', 'totalKegiatanLingkungan', 'totalKegiatanUP2K', 'totalAnggotaBerkebutuhanKhusus', 'totalMakanBeras', 'totalMakanNonBeras', 'totalAnggotaLaki', 'totalAnggotaBalitaLaki', 'totalAnggotaPerempuan', 'totalAnggotaWUS', 'totalAnggotaBalitaPerempuan', 'totalAnggotaPUS'));
