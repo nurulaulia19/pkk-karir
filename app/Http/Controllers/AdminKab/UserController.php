@@ -57,6 +57,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
             'user_type' => 'required',
+            'id_desa' => $request->input('user_type') == 'admin_desa' ? 'unique:users,id_desa' : '',
             'id_kecamatan' => 'required',
             'id_kecamatan' => $request->input('user_type') == 'admin_kecamatan' ? 'required|unique:users,id_kecamatan' : 'required',
         ], [
@@ -66,6 +67,7 @@ class UserController extends Controller
             'user_type.required' => 'Pilih Tipe Pengguna',
             'id_kecamatan.required' => 'Pilih Kecamatan',
             'id_kecamatan.unique' => 'Kecamatan sudah digunakan oleh pengguna lain.',
+            'id_desa.unique' => 'Desa sudah digunakan oleh pengguna lain.',
         ]);
 
 

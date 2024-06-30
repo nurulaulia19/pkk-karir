@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('foto')->nullable();
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->year('masa_jabatan_mulai');
-            $table->year('masa_jabatan_akhir');
+            $table->integer('masa_jabatan_mulai');
+            $table->integer('masa_jabatan_akhir');
             $table->enum('jabatan', ['Ketua', 'Pembina'])->default('Ketua');
             $table->text('riwayat_pendidikan');
             $table->text('riwayat_pekerjaan')->nullable();

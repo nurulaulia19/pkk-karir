@@ -91,7 +91,7 @@ class WargaSeeder extends Seeder
             'id_dasawisma' => 1,
             'no_registrasi' => 9,
             'no_ktp' => 1234567890987659,
-            'nama' => 'Toko buka Y',
+            'nama' => 'Syafira',
             'jabatan' => 'anggota',
             'jenis_kelamin' => 'perempuan',
             'tempat_lahir' => 'Indramayu',
