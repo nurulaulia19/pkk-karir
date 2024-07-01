@@ -3940,15 +3940,16 @@ class UserSeeder extends Seeder
             'id_desa' => 1,
         ]);
 
-        $kader_desa = User::create([
-            'name' => 'Atun',
-            'email' => 'atun@gmail.com',
-            'password' => Hash::make('atun'),
-            'user_type' => 'kader_dasawisma',
-            'foto' => null,
-            'id_kecamatan' => 1,
-            'id_desa' => 2,
-        ]);
+        // $kader_desa = User::create([
+        //     'name' => 'Atun',
+        //     'email' => 'atun@gmail.com',
+        //     'password' => Hash::make('atun'),
+        //     'user_type' => 'kader_dasawisma',
+        //     'id_dasawisma' => 1,
+        //     'foto' => null,
+        //     'id_kecamatan' => 1,
+        //     'id_desa' => 2,
+        // ]);
 
 
 

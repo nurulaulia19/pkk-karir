@@ -15,7 +15,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive" style="overflow: hidden">
-                                    <table class="table table-striped table-bordered data" id="add-row" width="83vw">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="84vw">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
@@ -51,9 +51,7 @@
                                                 <th style="vertical-align: middle;">RT</th>
                                                 <th style="vertical-align: middle;">RW</th>
                                                 <th style="vertical-align: middle;">Tahun</th>
-                                                @if ($nowYear == $periode && $user->dasawisma->status)
-                                                    <th style="vertical-align: middle;">Aksi</th>
-                                                @endif
+                                                <th style="vertical-align: middle;">Aksi</th>
                                             </tr>
                                         </thead>
 
@@ -100,9 +98,9 @@
                                                         @endif
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ $c->periode }}</td>
-                                                    @if ($nowYear == $periode && $user->dasawisma->status)
                                                         <td style="vertical-align: middle;">
                                                             <div class="d-flex justify-content-center align-items-center">
+                                                                @if ($nowYear == $periode && $user->dasawisma->status)
                                                                 <button type="button" class="btn btn-warning btn-sm"
                                                                     data-toggle="modal"
                                                                     data-target="#details-modal-{{ $c->id }}">
@@ -110,7 +108,9 @@
                                                                 </button>
                                                                 <a class="btn btn-primary btn-sm ml-1"
                                                                     href="{{ url('data_rumah_tangga/' . $c->id . '/edit') }}"><i
-                                                                        class="fas fa-edit"></i></a>
+                                                                        class="fas fa-edit"></i>
+                                                                </a>
+                                                                @endif
                                                                 <form
                                                                     action="{{ route('data_rumah_tangga.destroy', $c->id) }}"
                                                                     method="POST">
@@ -118,11 +118,11 @@
                                                                     @method('DELETE')
                                                                     <button type="submit"
                                                                         class="btn btn-danger btn-sm delete ml-1"><i
-                                                                            class="fas fa-trash"></i></button>
+                                                                            class="fas fa-trash"></i>
+                                                                    </button>
                                                                 </form>
                                                             </div>
                                                         </td>
-                                                    @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>

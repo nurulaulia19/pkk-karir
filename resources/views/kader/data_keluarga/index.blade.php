@@ -14,7 +14,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive" style="overflow: hidden">
-                                    <table class="table table-striped table-bordered data" id="add-row" width="83vw">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="84vw">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
@@ -51,9 +51,7 @@
                                                 <th style="vertical-align: middle;">Jumlah Anggota Keluarga Laki-laki</th>
                                                 <th style="vertical-align: middle;">Jumlah Anggota Keluarga Perempuan</th>
                                                 <th style="vertical-align: middle;">Periode</th>
-                                                @if ($nowYear == $periode && $user->dasawisma->status)
-                                                    <th style="vertical-align: middle;">Aksi</th>
-                                                @endif
+                                                <th style="vertical-align: middle;">Aksi</th>
                                             </tr>
                                         </thead>
 
@@ -103,17 +101,19 @@
                                                         {{ ucfirst($countPerempuan) }} Orang
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ $c->periode }}</td>
-                                                    @if ($nowYear == $periode && $user->dasawisma->status)
                                                         <td class="text-center" width="100px"
                                                             style="vertical-align: middle;">
                                                             <div class="d-flex" style="justify-content: center">
+                                                                @if ($nowYear == $periode && $user->dasawisma->status)
                                                                 <button type="button" class="btn btn-warning btn-sm"
                                                                     data-toggle="modal"
                                                                     data-target="#details-modal-{{ $c->id }}">
                                                                     <i class="far fa-eye text-white"></i>
                                                                 </button>
                                                                 <a class="btn btn-primary btn-sm ml-1"
-                                                                    href="{{ route('data_keluarga.edit', $c->id) }}"><i class="fas fa-edit"></i></a>
+                                                                    href="{{ route('data_keluarga.edit', $c->id) }}"><i class="fas fa-edit"></i>
+                                                                </a>
+                                                                @endif
                                                                 <form action="{{ route('data_keluarga.destroy', $c->id) }}"
                                                                     method="POST">
                                                                     @csrf
@@ -123,7 +123,6 @@
                                                                 </form>
                                                             </div>
                                                         </td>
-                                                    @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>

@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <div class="table-responsive" style="overflow: hidden">
                                     <table class="table table-striped table-bordered data w-full" id="add-row"
-                                        width="83vw">
+                                        width="84vw">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
@@ -49,9 +49,7 @@
                                                 <th>Nama Warga</th>
                                                 <th>Nama Kegiatan</th>
                                                 <th>Periode</th>
-                                                @if ($nowYear == $periode && $user->dasawisma->status)
-                                                    <th>Aksi</th>
-                                                @endif
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
 
@@ -68,7 +66,6 @@
                                                                 Edit untuk validasi
                                                             </a>
                                                         @endif
-
                                                     </td>
                                                     <td style="vertical-align: middle;">
                                                         <ul>
@@ -80,12 +77,14 @@
                                                         </ul>
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ $c->periode }}</td>
-                                                    @if ($nowYear == $periode && $user->dasawisma->status)
                                                         <td style="vertical-align: middle;">
                                                             <div class="d-flex justify-content-center align-items-center">
+                                                                @if ($nowYear == $periode && $user->dasawisma->status)
                                                                 <a class="btn btn-primary btn-sm"
                                                                     href="{{ url('data_kegiatan/' . $c->id . '/edit') }}"><i
-                                                                        class="fas fa-edit"></i></a>
+                                                                        class="fas fa-edit"></i>
+                                                                </a>
+                                                                @endif
                                                                 <form
                                                                     action="{{ route('data_kegiatan.destroyed', ['id' => $c->id]) }}"
                                                                     method="POST">
@@ -97,7 +96,6 @@
                                                                 </form>
                                                             </div>
                                                         </td>
-                                                    @endif
                                                 </tr>
                                             @endforeach
 

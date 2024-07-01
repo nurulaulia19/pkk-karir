@@ -284,8 +284,8 @@
                         </li>
                         <li class="nav-item ">
                             <a href="/profile-pembina-ketua"
-                                class="nav-link d-flex align-items-start {{ Request::is('profile-pembina-ketua') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-users mt-1"></i>
+                                class="nav-link {{ Request::is('profile-pembina-ketua') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>Data Profil Pembina <br> dan Ketua</p>
                             </a>
                         </li>

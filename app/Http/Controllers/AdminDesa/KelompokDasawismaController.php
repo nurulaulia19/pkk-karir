@@ -166,7 +166,9 @@ class KelompokDasawismaController extends Controller
         $user = Auth::user();
         $kader = User::where('id_dasawisma', $data_dasawisma->id)->first();
         $rws = Rw::where('desa_id', $user->id_desa)->get();
-        $rts = Rt::where('rw_id')->get();
+        // $rts = Rt::where('rw_id')->get();
+        $rw_id = $data_dasawisma->id_rw;
+        $rts = Rt::where('rw_id', $rw_id)->get();
         // $dusun = Dusun::where('desa_id',Auth::user()->id_desa)->get();
 
         // Kirim kedua data tersebut ke tampilan untuk diedit

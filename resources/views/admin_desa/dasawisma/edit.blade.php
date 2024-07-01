@@ -82,7 +82,8 @@
                                             @foreach ($rts as $rt)
                                                 <option value="{{ $rt->id }}"
                                                     {{ $rt->id == $data_dasawisma->id_rt ? 'selected' : '' }}>
-                                                    {{ $rt->name }}</option>
+                                                    {{ $rt->name }}
+                                            </option>
                                             @endforeach
                                         </select>
                                     </div>

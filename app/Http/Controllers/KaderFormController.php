@@ -121,7 +121,6 @@ class KaderFormController extends Controller
             ->where('is_valid', '=', null)
             ->where('periode', now()->year)
             ->count();
-
         return view('kader.dashboard', compact('wargaBelumValid', 'warga', 'keluarga', 'keluargaBelumValid', 'krt', 'krtBelumValid', 'totalKegiatan', 'totalKegiatanBelumValid', 'pemanfaatan', 'pemanfaatanBelumValid', 'industri', 'industriBelumValid', 'rekapBelumValid', 'rekap'));
     }
 
