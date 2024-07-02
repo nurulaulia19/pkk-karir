@@ -13,8 +13,8 @@
                 <div class="col-12 col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="table-responsive" style="overflow: hidden">
-                                <table class="table table-striped table-bordered data w-100" id="add-row">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered data" id="add-row">
                                     <thead>
                                         <tr>
                                         <th>No</th>
@@ -51,7 +51,6 @@
 <script>
 $(document).ready( function () {
     $('.data').DataTable({
-        scrollX: true,
         "order": [],
     });
 } );

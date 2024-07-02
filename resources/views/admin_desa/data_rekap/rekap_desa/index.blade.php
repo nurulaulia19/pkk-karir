@@ -128,7 +128,7 @@
                                                         @endphp
                                                     </td>
                                                     <td style="vertical-align: middle;">
-                                                        {{ $dsn->name }}
+                                                        {{ ucfirst($dsn->name) }}
                                                     </td>
                                                     <td style="vertical-align: middle;">
                                                         {{ $counts['countRw'] }}

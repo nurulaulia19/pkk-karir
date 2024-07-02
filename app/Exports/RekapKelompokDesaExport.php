@@ -116,7 +116,7 @@ class RekapKelompokDesaExport implements FromArray, WithHeadings, WithEvents, Wi
             )->countDataInDusun($desa, $this->periode);
             $data = [
                 '_index' => $i,
-                'nama_dusun' => $desa->name ?: '0',
+                'nama_dusun' => ucfirst($desa->name) ?: '0',
                 'jumlah_rw' => ucfirst($counts['countRw']) ?: '0',
                 'jumlah_rt' => ucfirst($counts['countRt']) ?: '0',
                 'jumlah_dasa_wisma' => ucfirst($counts['countDasawisma']) ?: '0',

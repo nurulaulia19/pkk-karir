@@ -14,7 +14,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive" style="overflow: hidden">
-                                <table class="table table-striped table-bordered data" id="add-row" width="83vw">
+                                <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row">
                                         <div class="col-md-1">
                                             <a href="{{ url('data_dusun/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
@@ -31,7 +31,7 @@
                                         @foreach ($dusun as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                        <td style="vertical-align: middle;">{{$c->name}}</td>
+                                        <td style="vertical-align: middle;">{{ucfirst($c->name)}}</td>
                                         <td class="text-center">
                                             <div class="d-flex justify-content-center">
                                                 <a class="btn btn-primary btn-sm ml-1" href="{{ url('data_dusun/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
@@ -67,7 +67,6 @@
 <script>
 $(document).ready( function () {
     $('.data').DataTable({
-        scrollX: true,
         "order": []
     });
 } );

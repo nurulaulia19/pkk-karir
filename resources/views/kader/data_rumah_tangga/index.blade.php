@@ -15,7 +15,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive" style="overflow: hidden">
-                                    <table class="table table-striped table-bordered data" id="add-row" width="84vw">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="83vw">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
@@ -62,8 +62,7 @@
                                                     <td style="vertical-align: middle; position: relative;">
                                                         {{ $loop->iteration }}
                                                     </td>
-
-                                                    <td style="vertical-align: middle;">{{ $c->nama_kepala_rumah_tangga }}
+                                                    <td style="vertical-align: middle;">{{ ucfirst($c->nama_kepala_rumah_tangga) }}
                                                         <br>
                                                         @if (!$c->is_valid)
                                                             <a href="{{ url('data_rumah_tangga/' . $c->id . '/edit') }}"
@@ -186,19 +185,20 @@
                                                                 Mempunyai Jamban Keluarga: <strong> Tidak/
                                                                     {{ $c->jumlah_jamban }} Buah</strong><br>
                                                             @endif
+                                                            Sumber Air Keluarga:
                                                             @if ($c->sumber_air_pdam)
-                                                                Sumber Air Keluarga: <strong> PDAM</strong>
+                                                                <strong> PDAM</strong>
                                                             @else
-                                                                <br>
+
                                                             @endif
                                                             @if ($c->sumber_air_sumur)
                                                                 <strong> Sumur</strong>
                                                             @else
-                                                                <br>
+
                                                             @endif
 
                                                             @if ($c->sumber_air_lainnya)
-                                                                <strong> Lainnya</strong><br>
+                                                                <strong> Lainnya</strong> <br>
                                                             @else
                                                                 <br>
                                                             @endif

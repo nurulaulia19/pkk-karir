@@ -41,6 +41,7 @@
                                         <th>Status</th>
                                         <th>Nama Desa</th>
                                         <th>Nama Kader</th>
+                                        <th>Email Kader</th>
                                         <th>Periode</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -50,8 +51,8 @@
                                         @foreach ($dasawisma as $c)
                                     <tr>
                                         <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                        <td style="vertical-align: middle;">{{$c->nama_dasawisma}}</td>
-                                        <td style="vertical-align: middle;">{{$c->alamat_dasawisma}}</td>
+                                        <td style="vertical-align: middle;">{{ucfirst($c->nama_dasawisma)}}</td>
+                                        <td style="vertical-align: middle;">{{ucfirst($c->alamat_dasawisma)}}</td>
                                         {{-- <td style="vertical-align: middle;">{{$c->rt}}/{{ $c->rw }}</td> --}}
                                         <td style="vertical-align: middle;">
                                             {{-- {{ $c->rt->name }}/{{ $c->rw->name }} --}}
@@ -67,13 +68,6 @@
                                                 -
                                             @endif
                                         </td>
-                                        {{-- <td style="vertical-align: middle;">
-                                            @if($c->dusun == 0)
-                                                Tidak ada dusun
-                                            @else
-                                                {{$c->dusunData->name}}
-                                            @endif
-                                        </td> --}}
                                         <td style="vertical-align: middle;">
                                             @if($c->status == 1)
                                                 Aktif
@@ -83,10 +77,11 @@
                                         </td>
                                         <td style="vertical-align: middle;">{{$c->desa->nama_desa}}</td>
                                         <td style="vertical-align: middle;">{{$c->kader->name}}</td>
+                                        <td style="vertical-align: middle;">{{$c->kader->email}}</td>
                                         {{-- <td style="vertical-align: middle;">{{$c->kecamatan->nama_kecamatan}}</td> --}}
                                         <td style="vertical-align: middle;">{{$c->periode}}</td>
-                                        <td class="text-center">
-                                            <div class="d-flex justify-content-center">
+                                        <td style="vertical-align: middle;">
+                                            <div class="d-flex justify-content-center align-items-center">
                                                 <a class="btn btn-primary btn-sm" href="{{ url('data_dasawisma/'.$c->id.'/edit') }}"><i class="fas fa-edit"></i></a>
                                                 <form action="{{ route('data_dasawisma.destroy',$c->id) }}" method="POST">
                                                     @csrf

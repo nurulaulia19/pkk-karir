@@ -7,14 +7,21 @@
 
     <!-- Main content -->
 <div class="main-content">
+    <style>
+        @media (max-width: 768px) {
+            .overflow-hidden-large {
+                overflow: auto !important;
+            }
+        }
+    </style>
     <section class="section">
         <div class="section-body">
             <div class="row">
                 <div class="col-12 col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="table-responsive" style="overflow: hidden">
-                                <table class="table table-striped table-bordered data" id="add-row" width="83vw">
+                            <div class="table-responsive overflow-hidden-large" style="overflow: hidden">
+                                <table class="table table-striped table-bordered data" id="add-row">
                                     <div class="row">
                                         <div class="col-md-2">
                                             <a href="{{ route('rt.create', ['rw' => $rt->id]) }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah RT</a><br><br>
@@ -44,7 +51,7 @@
                                         </td>
                                         <td style="vertical-align: middle;">
                                             @if ($c->dusun)
-                                                {{ $c->dusun->name }}
+                                                {{ ucfirst($c->dusun->name) }}
                                             @else
                                                 Tidak memiliki dusun
                                             @endif
@@ -86,7 +93,6 @@
 <script>
 $(document).ready( function () {
     $('.data').DataTable({
-        scrollX: true,
         "order": []
     });
 } );

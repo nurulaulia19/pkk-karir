@@ -125,7 +125,7 @@
             <a href="/dashboard_kader" class="brand-link d-flex">
                 <img src="{{ url('image/remove.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                     style="opacity: 0.8" />
-                <div class="brand-text font-weight-light" style="font-size: 17px">Kader Dasawisma <br> <span >{{ Auth::user()->name }}</span></div><br>
+                <div class="brand-text font-weight-light" style="font-size: 17px">Kader Dasawisma <br> <span >{{ ucfirst(Auth::user()->name) }}</span></div><br>
             </a>
 
             <!-- Sidebar -->

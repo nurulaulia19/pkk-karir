@@ -238,7 +238,7 @@ Route::middleware(['disableBack'])->group(function () {
         Route::get('getKeterangan/{id}', function ($id) {
             // $keterangan = KeteranganKegiatan::where('id_kegiatan',$id)->get();
             // dd($keterangan);
-            $keterangan = 'masgatgntng';
+            $keterangan = 'aul';
             return response()->json($keterangan);
         });
 

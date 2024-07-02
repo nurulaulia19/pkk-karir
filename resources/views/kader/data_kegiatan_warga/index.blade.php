@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <div class="table-responsive" style="overflow: hidden">
                                     <table class="table table-striped table-bordered data w-full" id="add-row"
-                                        width="84vw">
+                                        width="83vw">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
@@ -58,7 +58,7 @@
                                             @foreach ($kegiatan as $c)
                                                 <tr>
                                                     <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                                    <td style="vertical-align: middle;">{{ $c->nama }} <br>
+                                                    <td style="vertical-align: middle;">{{ ucfirst($c->nama) }} <br>
                                                         @if ($c->kegiatan->first() && !$c->kegiatan->first()->is_valid)
                                                             <a href="{{ url('data_kegiatan/' . $c->id . '/edit') }}"
                                                                 class="btn btn-sm"

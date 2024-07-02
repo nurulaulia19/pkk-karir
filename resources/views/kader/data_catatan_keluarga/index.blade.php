@@ -24,8 +24,8 @@
 
                                 <div class="row">
                                     <div class="col-sm-8">
-                                        <h6>CATATAN KELUARGA DARI : {{ $keluarga->nama_kepala_keluarga }}</h6>
-                                        <h6>ANGGOTA KELOMPOK DASAWISMA : {{ $dasawisma->nama_dasawisma }}</h6>
+                                        <h6>CATATAN KELUARGA DARI : {{ strtoupper ($keluarga->nama_kepala_keluarga) }}</h6>
+                                        <h6>ANGGOTA KELOMPOK DASAWISMA : {{ strtoupper ($dasawisma->nama_dasawisma) }}</h6>
                                         <h6>TAHUN : {{ $keluarga->periode }}</h6>
                                     </div>
                                     <div class="col-sm-4">
@@ -35,7 +35,7 @@
                                         <h6>KRITERIA RUMAH : TIDAK LAYAK HUNI</h6>
                                         @endif
                                         @if ($rumahTangga->punya_jamban)
-                                        <h6>JAMBAN KELUARGA : ADA / {{ $rumahTangga->punya_jamban }} buah</h6>
+                                        <h6>JAMBAN KELUARGA : ADA / {{ $rumahTangga->punya_jamban }} BUAH</h6>
                                         @else
                                         <h6>JAMBAN KELUARGA : TIDAK</h6>
                                         @endif
@@ -90,13 +90,13 @@
                                             @foreach ($keluarga->anggota as $index =>$data_warga)
                                                 <tr>
                                                     <td style="vertical-align: middle;"> {{$index+1}} </td>
-                                                    <td style="vertical-align: middle;">{{ $data_warga->warga->nama }}</td>
+                                                    <td style="vertical-align: middle;">{{ ucfirst($data_warga->warga->nama) }}</td>
                                                     <td style="vertical-align: middle;">
-                                                        {{ $data_warga->warga->status_perkawinan }}</td>
+                                                        {{ ucfirst($data_warga->warga->status_perkawinan) }}</td>
                                                     <td style="vertical-align: middle;">
-                                                        {{ $data_warga->warga->jenis_kelamin }}</td>
+                                                        {{ ucfirst($data_warga->warga->jenis_kelamin) }}</td>
                                                     <td style="vertical-align: middle;">
-                                                        {{ $data_warga->warga->tempat_lahir }}</td>
+                                                        {{ ucfirst($data_warga->warga->tempat_lahir) }}</td>
                                                         @php
                                                             $tgl_lahir = $data_warga->warga->tgl_lahir;
                                                             $umur = '-';
@@ -107,12 +107,12 @@
 
                                                     <td style="vertical-align: middle;">{{$data_warga->warga->tgl_lahir}} / {{ $umur }} Tahun</td>
                                                     </td>
-                                                    <td style="vertical-align: middle;">{{ $data_warga->warga->agama }}</td>
-                                                    <td style="vertical-align: middle;">{{ $data_warga->warga->pendidikan }}
+                                                    <td style="vertical-align: middle;">{{ ucfirst($data_warga->warga->agama) }}</td>
+                                                    <td style="vertical-align: middle;">{{ ucfirst($data_warga->warga->pendidikan) }}
                                                     </td>
-                                                    <td style="vertical-align: middle;">{{ $data_warga->warga->pekerjaan }}
+                                                    <td style="vertical-align: middle;">{{ ucfirst($data_warga->warga->pekerjaan) }}
                                                     </td>
-                                                    <td style="vertical-align: middle;">{{ $data_warga->warga->berkebutuhan_khusus }}
+                                                    <td style="vertical-align: middle;">{{ ucfirst($data_warga->warga->berkebutuhan_khusus) }}
                                                     </td>
                                                     @foreach ($dataKegiatan as $item)
                                                     @php

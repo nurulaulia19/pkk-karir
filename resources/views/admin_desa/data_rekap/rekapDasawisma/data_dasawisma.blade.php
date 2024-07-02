@@ -19,11 +19,6 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Dasawisma</th>
-                                                <th>Alamat Dasawisma</th>
-                                                <th>RT/RW</th>
-                                                <th>Status</th>
-                                                <th>Nama Desa</th>
-                                                <th>Nama Kecamatan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -34,28 +29,6 @@
                                                 <tr>
                                                     <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
                                                     <td style="vertical-align: middle;">{{ $c->nama_dasawisma }}</td>
-                                                    <td style="vertical-align: middle;">{{ $c->alamat_dasawisma }}</td>
-                                                    <td style="vertical-align: middle;">
-                                                        @if ($c->rt && $c->rt->name)
-                                                            {{ $c->rt->name }}
-                                                        @else
-                                                            -
-                                                        @endif
-                                                        /
-                                                        @if ($c->rw && $c->rw->name)
-                                                            {{ $c->rw->name }}
-                                                        @else
-                                                            -
-                                                        @endif
-                                                    </td>
-                                                    @if ($c->status == 1)
-                                                        <td style="vertical-align: middle;">Aktif</td>
-                                                    @else
-                                                        <td style="vertical-align: middle;">Tidak Aktif</td>
-                                                    @endif
-                                                    <td style="vertical-align: middle;">{{ $c->desa->nama_desa }}</td>
-                                                    <td style="vertical-align: middle;">{{ $c->kecamatan->nama_kecamatan }}
-                                                    </td>
                                                     <td class="text-center">
                                                         <div class="form-group">
                                                             <div class="dropdown">

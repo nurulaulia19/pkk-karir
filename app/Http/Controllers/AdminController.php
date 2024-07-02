@@ -130,10 +130,6 @@ class AdminController extends Controller
             ->where('id_dasawisma', $dasa_wisma->id)
             ->where('periode',$periode)
             ->get();
-            // dd($rumahtangga);
-            // kik
-        // $totalKepalaRumahTangga = RumahTangga::where('id_dasawisma', $dasa_wisma->id)
-        // ->count();
         $totalKepalaRumahTangga = 0;
         $totalJmlKK = 0;
         $totalTigaButa = 0;
