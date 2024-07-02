@@ -93,8 +93,19 @@
 
 @push('script-addon')
 
-<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
 <script>
-    CKEDITOR.replace('desk');
+    // CKEDITOR.replace('desk');
+    CKEDITOR.replace('desk', {
+            on: {
+                instanceReady: function(evt) {
+                    this.on('notificationShow', function(event) {
+                        if (event.data.message.indexOf('not secure') !== -1) {
+                            event.cancel(); // Cancel the notification
+                        }
+                    });
+                }
+            }
+        });
 </script>
 @endpush
