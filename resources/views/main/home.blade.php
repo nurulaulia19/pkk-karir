@@ -104,7 +104,7 @@
                     @foreach ($berita as $l)
                         <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
                             <div class="post-box">
-                                <div style="width:300px; height:250px;" class="post-img"><img width="300px" height="250px"
+                                <div class="mt-3 mt-sm-0" style="width:300px; height:250px;" class="post-img"><img width="300px" height="250px"
                                         src="/gambar/{{ $l->gambar }}" alt=""></div>
                                 <div class="meta">
                                     <span
