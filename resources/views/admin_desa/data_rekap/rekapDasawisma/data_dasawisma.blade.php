@@ -28,7 +28,7 @@
                                             @foreach ($dasawisma as $c)
                                                 <tr>
                                                     <td style="vertical-align: middle;">{{ $loop->iteration }}</td>
-                                                    <td style="vertical-align: middle;">{{ $c->nama_dasawisma }}</td>
+                                                    <td style="vertical-align: middle;">{{ ucfirst($c->nama_dasawisma) }}</td>
                                                     <td class="text-center">
                                                         <div class="form-group">
                                                             <div class="dropdown">
