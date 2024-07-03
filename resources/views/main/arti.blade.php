@@ -3,8 +3,26 @@
 @section('title', 'Arti dan Lambang PKK | PKK Kab. Indramayu')
 
 @section('container')
-
-
+    <style>
+        .container{
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            line-height: 1.5;
+        }
+        @media (max-width: 600px) {
+            .container {
+                font-size: 14px; /* atau ukuran yang kamu inginkan */
+                line-height: 1.5;
+            }
+            .card-body h5 {
+                font-size: 14px; /* atau ukuran yang kamu inginkan */
+                line-height: 1.5;
+            }
+            .responsive-image {
+                width: 100px; /* Ukuran yang lebih kecil untuk mode mobile */
+            }
+        }
+    </style>
     <section class="breadcrumbs">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
@@ -23,13 +41,13 @@
                                 <div class="card-body" style="margin: 70px">
                                     <h5 class="card-title">
                                         <center>
-                                            <img src="{{ url('../image/remove.png') }}" width="200px" />
+                                            <img src="{{ url('../image/remove.png') }}" width="200px" class="responsive-image"/>
                                         </center>
                                     </h5>
 
                                     <p class="card-text">
                                     <h4 style="font-family: 'Times New Roman', Times, serif"><strong>1. Bentuk</strong></h4>
-                                    <p style="text-indent: 45px;">Akolade melingkar segilima memiliki arti Pancasila sebagai
+                                    <p>Akolade melingkar segilima memiliki arti Pancasila sebagai
                                         azas Gerakan Pemberdayaan dan Kesejahteraan Keluarga. Bentuk ini terdiri dari
                                         gambar-gambar:</p>
                                     </p>
@@ -45,7 +63,7 @@
                                     <br><br>
                                     <h4 style="font-family: 'Times New Roman', Times, serif"><strong>2. Warna</strong></h4>
                                     <p>Warna lambang terdiri dari :</p>
-                                    <h5 style="font-family: 'Times New Roman', Times, serif">1. Warna Dasar Lambang adalah
+                                    <h5 style="font-family: 'Times New Roman', Times, serif ">1. Warna Dasar Lambang adalah
                                         Biru Benhur</h5>
                                     <h5 style="font-family: 'Times New Roman', Times, serif">2. Warna Kuning yang dimaksud
                                         adalah Warna kuning Emas untuk:</h5>
@@ -62,32 +80,32 @@
                                         logam.
                                     </i><br><br>
                                     <h5 style="font-family: 'Times New Roman', Times, serif">3. Warna Putih yang dimaksud
-                                        adalah :</h5><br>
+                                        adalah :</h5>
 
                                     <li>Putih Perak Untuk:</li>
-                                    <h5 style="font-family: 'Times New Roman', Times, serif">1. Gambar 10 Ujung tombak dalam
+                                    <h5 style="font-family: 'Times New Roman', Times, serif; margin-left:30px">1. Gambar 10 Ujung tombak dalam
                                         lingkaran paling dalam</h5>
-                                    <h5 style="font-family: 'Times New Roman', Times, serif">2. Gambar akolade melingkar
+                                    <h5 style="font-family: 'Times New Roman', Times, serif; margin-left:30px">2. Gambar akolade melingkar
                                     </h5>
-                                    <h5 style="font-family: 'Times New Roman', Times, serif">3. Gambar Bunga Kapas</h5>
-                                    <h5 style="font-family: 'Times New Roman', Times, serif">4. Delapan simpul pengikat
+                                    <h5 style="font-family: 'Times New Roman', Times, serif; margin-left:30px">3. Gambar Bunga Kapas</h5>
+                                    <h5 style="font-family: 'Times New Roman', Times, serif; margin-left:30px">4. Delapan simpul pengikat
                                         tangkai padi dan kapas</h5>
-                                    <br><br>
+
                                     <li>Putih Kapas Untuk:</li>
-                                    <h5 style="font-family: 'Times New Roman', Times, serif">1. Lingkaran sebagai dasar
+                                    <h5 style="font-family: 'Times New Roman', Times, serif; margin-left:30px">1. Lingkaran sebagai dasar
                                         tulisan Pemberdayaan dan Kesejahteraan Keluarga</h5>
-                                    <h5 style="font-family: 'Times New Roman', Times, serif">2. Bunga Kapas khusus yang
-                                        dicetak pada logam</h5>
+                                    <h5 style="font-family: 'Times New Roman', Times, serif; margin-left:30px">2. Bunga Kapas khusus yang
+                                        dicetak pada logam</h5> <br> <br>
 
                                     <h4 style="font-family: 'Times New Roman', Times, serif"><strong>3. Arti</strong></h4>
-                                    <h5 style="font-family: 'Times New Roman', Times, serif;text-indent: 45px;"><strong>a.
+                                    <h5 style="font-family: 'Times New Roman', Times, serif;"><strong>a.
                                             Warna</strong></h5>
                                     <li>Biru melambangkan suasana damai, aman, tentram, dan sejahtera</li>
                                     <li>Putih melambangkan kesucian dan ketulusan</li>
                                     <li>Kuning melambangkan cita-cita</li>
                                     <li>Hitam melambangkan kekekalan/keabadian</li>
 
-                                    <h5 style="font-family: 'Times New Roman', Times, serif;text-indent: 45px;"><strong>b.
+                                    <h5 style="font-family: 'Times New Roman', Times, serif; margin-top:10px"><strong>b.
                                             Komponen</strong></h5>
                                     <li>Segitiga, melambangkan Pancasila sebagai dasar/azas Gerakan Peberdayaan dan
                                         Kesejahteraan</li>
@@ -99,17 +117,17 @@
                                         masyarakat dalam segala aspek kehidupan dan penghidupan untuk mewujudkan Negara
                                         Kesatuan Republik</li>
                                     <li>Rangkaian Mata Rantai, melambangkan masyarakat yang terdiri dari Keluarga-keluarga
-                                        sebagai unit terkecil yang merupakaan sasaran Gerakan Pemberdayaan dan Kesejahteran
+                                        sebagai unit terkecil yang merupakan sasaran Gerakan Pemberdayaan dan Kesejahteran
                                         Keluarga</li>
                                     <li>Lingkaran Putih, melambangkan Pembinaan Kesejahteraan Keluarga dilaksanakan terus
                                         menerus dan berkesinambungan</li>
                                     <li>10 buah ujung tombak yang tersusun merupakan bunga, melambang Gerakan Masyarakat
                                         dalam pembangunan dengan melaksanakan 10 Program Pokok Pemberdayaan dan
-                                        Kesejahteraan Keluarga</li>
+                                        Kesejahteraan Keluarga</li> <br>
 
                                     <i><strong><u>
                                                 Arti Keseluruhan :
-                                            </u></strong></i><br><br>
+                                            </u></strong></i><br>
                                     <i>Pemberdayaan Pdan Kesejahteraan Keluarga (Pemberdayaan Dan Kesejahteraan Keluarga)
                                         yang merupakan Gerakan Nasional
                                         untuk Pembangunan Keluarga berazskan Pancasila dan UUD 1945 serta bertaqwa kepada

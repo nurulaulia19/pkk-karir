@@ -3,6 +3,22 @@
 @section('title', 'Visi dan Misi PKK | PKK Kab. Indramayu')
 
 @section('container')
+    <style>
+        .container {
+            font-size: 25px; /* atau ukuran yang kamu inginkan */
+            line-height: 1.5;
+        }
+        @media (max-width: 600px) {
+            .container {
+                font-size: 15px; /* atau ukuran yang kamu inginkan */
+                line-height: 1.5;
+            }
+            .card-body h5 {
+                font-size: 10px; /* atau ukuran yang kamu inginkan */
+                line-height: 1.5;
+            }
+        }
+    </style>
 
     <section class="breadcrumbs">
         <div class="container">
@@ -25,10 +41,10 @@
                                     <h1>Visi dan Misi TP Kab. Indramayu</h1>
                                     <br />
                                     <h2>Visi</h2>
-                                    <p style="font-family: 'Times New Roman', Times, serif; font-size:25px">
+                                    <p style="font-family: 'Times New Roman', Times, serif;">
                                         Terwujudnya Keluarga Sehat, Cerdas, Berdaya, Beriman dan Bertaqwa Menuju</p><br>
                                     <h2>Misi</h2>
-                                    <ul style="font-family: 'Times New Roman', Times, serif; font-size:25px" >
+                                    <ul style="font-family: 'Times New Roman', Times, serif;" >
                                         <li>
                                             <p>Membentuk Karakter Keluarga Melalui Pola Asuh yang Sesuai dengan Nilai Dasar
                                                 Pancasila.</p>

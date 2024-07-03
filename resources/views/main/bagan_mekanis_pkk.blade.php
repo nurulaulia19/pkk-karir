@@ -20,7 +20,7 @@
         <div class="container">
             <div class="card">
                 <div class="card-body" style="margin:70px; display:flex; align-items:center; justify-content:center">
-                    <img src="{{ url('../image/bagan.jpg') }}" alt="">
+                    <img src="{{ url('../image/bagan.jpg') }}" alt="" width="100%">
                 </div>
             </div>
         </div>

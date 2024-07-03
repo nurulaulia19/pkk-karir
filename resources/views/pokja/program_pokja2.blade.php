@@ -4,6 +4,23 @@
 
 @section('container')
     <main id="main">
+        <style>
+            .container {
+                font-size: 40px; /* atau ukuran yang kamu inginkan */
+                line-height: 1.5;
+            }
+            @media (max-width: 600px) {
+                .container {
+                    font-size: 17px; /* atau ukuran yang kamu inginkan */
+                    line-height: 1.5;
+                }
+                .container h1 {
+                    font-size: 17px; /* atau ukuran yang kamu inginkan */
+                    line-height: 1.5;
+                }
+
+            }
+        </style>
         <!-- ======= Breadcrumbs ======= -->
         <section id="breadcrumbs" class="breadcrumbs">
             <div class="container">
@@ -21,11 +38,11 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body" style="margin: 70px;">
-                                        <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 40px">Pokja II sebagai pengelola
+                                        <h1 style="font-family: 'Times New Roman', Times, serif;">Pokja II sebagai pengelola
                                             program:</h1>
-                                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 40px">a)
+                                        <p style="font-family: 'Times New Roman', Times, serif;">a)
                                             Pendidikan dan Keterampilan.</p>
-                                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 40px">b)
+                                        <p style="font-family: 'Times New Roman', Times, serif;">b)
                                             Pengembangan Kehidupan Berkoperasi.</p>
                                     </div>
                                 </div>

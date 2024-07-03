@@ -3,44 +3,68 @@
 @section('title', 'Program POKJA III | PKK Kab. Indramayu')
 
 @section('container')
-<main id="main">
-    <!-- ======= Breadcrumbs ======= -->
-    <section id="breadcrumbs" class="breadcrumbs">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-          {{-- <h2>Profil Pembina dan Ketua TP PKK</h2> --}}
-          <ol>
-            <li><a href="/">Home</a></li>
-            <li>Program POKJA III</li>
-          </ol>
-        </div><br><br>
+    <main id="main">
+        <style>
+            .container {
+                font-size: 40px;
+                /* atau ukuran yang kamu inginkan */
+                line-height: 1.5;
+            }
 
-        <div class="content">
+            @media (max-width: 600px) {
+                .container {
+                    font-size: 17px;
+                    /* atau ukuran yang kamu inginkan */
+                    line-height: 1.5;
+                }
+
+                .container h1 {
+                    font-size: 17px;
+                    /* atau ukuran yang kamu inginkan */
+                    line-height: 1.5;
+                }
+
+            }
+        </style>
+        <!-- ======= Breadcrumbs ======= -->
+        <section id="breadcrumbs" class="breadcrumbs">
             <div class="container">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="card">
-                    <div class="card-body" style="margin: 70px">
-                        <h1 style="font-family: 'Times New Roman', Times, serif">Pokja III sebagai pengelola program:</h1>
-                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 40px">a) Pangan.</p>
-                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 40px">b) Sandang.</p>
-                        <p style="font-family: 'Times New Roman', Times, serif; font-size: 40px">c) Perumahan dan Tata Laksana Rumah Tangga.</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    {{-- <h2>Profil Pembina dan Ketua TP PKK</h2> --}}
+                    <ol>
+                        <li><a href="/">Home</a></li>
+                        <li>Program POKJA III</li>
+                    </ol>
+                </div><br><br>
 
-                    </div>
-                  </div>
+                <div class="content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body" style="margin: 70px">
+                                        <h1 style="font-family: 'Times New Roman', Times, serif">Pokja III sebagai pengelola
+                                            program:</h1>
+                                        <p style="font-family: 'Times New Roman', Times, serif;">a) Pangan.</p>
+                                        <p style="font-family: 'Times New Roman', Times, serif;">b) Sandang.</p>
+                                        <p style="font-family: 'Times New Roman', Times, serif;">c) Perumahan dan Tata
+                                            Laksana Rumah Tangga.</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.col-md-6 -->
+                        </div>
+                        <!-- /.row -->
+                    </div><!-- /.container-fluid -->
                 </div>
-                <!-- /.col-md-6 -->
-              </div>
-              <!-- /.row -->
-            </div><!-- /.container-fluid -->
-          </div>
 
-      </div>
-    </section>
-    <!-- End Breadcrumbs -->
+            </div>
+        </section>
+        <!-- End Breadcrumbs -->
 
 
-  </main>
+    </main>
 
 
 @endsection
