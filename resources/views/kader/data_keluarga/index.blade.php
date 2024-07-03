@@ -23,9 +23,9 @@
                                                         style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                                 @endif
                                             </div>
-                                            <div class="col-md-1">
+                                            <div>
                                                 <div class="form-group">
-                                                    <div class="dropdown">
+                                                    <div class="dropdown col-md-2 align-items-end">
                                                         <button class="btn dropdown-toggle" type="button"
                                                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false" style="background-color: #6e9ebb; color:white">

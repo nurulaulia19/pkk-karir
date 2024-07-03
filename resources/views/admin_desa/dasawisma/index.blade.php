@@ -19,8 +19,8 @@
                                         <div class="col-md-1">
                                             <a href="{{ url('data_dasawisma/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                         </div>
-                                        <div class="col-md-1" style="margin-bottom: 20px;">
-                                            <div class="dropdown ml-auto">
+                                        <div style="margin-bottom: 20px;">
+                                            <div class="col-md-2 align-items-end dropdown">
                                                 <button class="btn dropdown-toggle w-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #50A3B9; color:white">
                                                     Pilihan
                                                 </button>
