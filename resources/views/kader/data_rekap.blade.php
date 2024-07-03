@@ -27,7 +27,7 @@
                                         </strong></h6>
                                     </center>
                                     <br>
-                                    <table class="table table-striped table-bordered data" id="add-row" width="100vw">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="100%;">
                                         <thead>
                                             <tr>
                                                 <th rowspan="2">No</th>

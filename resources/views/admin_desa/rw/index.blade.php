@@ -7,13 +7,6 @@
 
     <!-- Main content -->
 <div class="main-content">
-    <style>
-        @media (max-width: 768px) {
-            .overflow-hidden-large {
-                overflow: auto !important;
-            }
-        }
-    </style>
     <section class="section">
         <div class="section-body">
             <div class="row">
@@ -21,7 +14,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive overflow-hidden-large" style="overflow: hidden;">
-                                <table class="table table-striped table-bordered data" id="add-row">
+                                <table class="table table-striped table-bordered data" id="add-row" width="100%;">
                                     <div class="row">
                                         <div class="col-md-1">
                                             <a href="{{ url('rw/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
@@ -87,6 +80,7 @@
 <script>
 $(document).ready( function () {
     $('.data').DataTable({
+        scrollX: true,
         "order": []
     });
 } );

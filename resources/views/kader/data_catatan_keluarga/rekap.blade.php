@@ -15,7 +15,7 @@
 
                             <div class="card-body">
                                 <div class="table-responsive" style="overflow: hidden">
-                                    <table class="table table-striped table-bordered data" id="add-row" width="83vw">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="100%;">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
                                                 <div class="form-group">
@@ -174,7 +174,7 @@
         $(document).ready(function() {
             $('.data').DataTable({
                 scrollX: true,
-                "order": []
+                "order": [],
             });
         });
     </script>

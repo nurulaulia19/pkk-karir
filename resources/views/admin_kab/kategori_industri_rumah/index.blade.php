@@ -14,7 +14,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive" style="overflow: hidden">
-                                <table class="table table-striped table-bordered data" id="add-row" width="83vw">
+                                <table class="table table-striped table-bordered data" id="add-row" width="100%;">
                                     <div class="row d-flex justify-content-between">
                                         <div class="col-md-1">
                                             <a href="{{ url('data_kategori_industri/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>

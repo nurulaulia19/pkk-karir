@@ -19,7 +19,7 @@
                         <div class="card-body">
 
                             <div class="table-responsive" style="overflow: hidden">
-                                <table id="example1" class="table table-bordered table-striped" width="83vw">
+                                <table id="example1" class="table table-bordered table-striped" width="100%;">
                                     <a href="{{ url('galeriKeg/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                     <thead>
                                         <tr>

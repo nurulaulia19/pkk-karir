@@ -14,7 +14,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive" style="overflow: hidden">
-                                    <table class="table table-striped table-bordered data" id="add-row" width="83vw">
+                                    <table class="table table-striped table-bordered data" id="add-row" width="100%;">
                                     <a href="{{ url('profile-pembina-ketua/create') }}" type="button" class="btn" style="background-color: #50A3B9; color:white">Tambah</a><br><br>
                                         <thead>
                                             <tr>

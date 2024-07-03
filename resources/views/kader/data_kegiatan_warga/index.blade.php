@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <div class="table-responsive" style="overflow: hidden">
                                     <table class="table table-striped table-bordered data w-full" id="add-row"
-                                        width="83vw">
+                                        width="100%;">
                                         <div class="row d-flex justify-content-between">
                                             <div class="col-md-1">
                                                 @if ($nowYear == $periode && $user->dasawisma->status)
@@ -77,25 +77,25 @@
                                                         </ul>
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ $c->periode }}</td>
-                                                        <td style="vertical-align: middle;">
-                                                            <div class="d-flex justify-content-center align-items-center">
-                                                                @if ($nowYear == $periode && $user->dasawisma->status)
+                                                    <td style="vertical-align: middle;">
+                                                        <div class="d-flex justify-content-center align-items-center">
+                                                            @if ($nowYear == $periode && $user->dasawisma->status)
                                                                 <a class="btn btn-primary btn-sm"
                                                                     href="{{ url('data_kegiatan/' . $c->id . '/edit') }}"><i
                                                                         class="fas fa-edit"></i>
                                                                 </a>
-                                                                @endif
-                                                                <form
-                                                                    action="{{ route('data_kegiatan.destroyed', ['id' => $c->id]) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="btn btn-danger btn-sm delete ml-1"><i
-                                                                            class="fas fa-trash"></i></button>
-                                                                </form>
-                                                            </div>
-                                                        </td>
+                                                            @endif
+                                                            <form
+                                                                action="{{ route('data_kegiatan.destroyed', ['id' => $c->id]) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-sm delete ml-1"><i
+                                                                        class="fas fa-trash"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             @endforeach
 
