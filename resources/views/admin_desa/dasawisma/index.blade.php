@@ -76,7 +76,7 @@
                                             @endif
                                         </td>
                                         <td style="vertical-align: middle;">{{$c->desa->nama_desa}}</td>
-                                        <td style="vertical-align: middle;">{{$c->kader->name}}</td>
+                                        <td style="vertical-align: middle;">{{ucfirst($c->kader->name)}}</td>
                                         <td style="vertical-align: middle;">{{$c->kader->email}}</td>
                                         {{-- <td style="vertical-align: middle;">{{$c->kecamatan->nama_kecamatan}}</td> --}}
                                         <td style="vertical-align: middle;">{{$c->periode}}</td>

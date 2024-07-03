@@ -25,7 +25,7 @@
                                     <h6><strong>CATATAN DATA DAN KEGIATAN WARGA</strong> </h6>
                                     <h6><strong>KELOMPOK PKK DUSUN</strong> </h6>
 
-                                    <h6>Dusun : {{ $dusun_data->name }}</h6>
+                                    <h6>Dusun : {{ ucfirst($dusun_data->name) }}</h6>
                                     {{-- @dd($dusun) --}}
                                     <h6>Desa/Kel : {{ $dusun_data->desa->nama_desa }} </h6>
                                     <h6>Tahun : {{ $periode }}</h6>
