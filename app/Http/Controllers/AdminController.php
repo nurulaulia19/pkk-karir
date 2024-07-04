@@ -2333,6 +2333,8 @@ class AdminController extends Controller
         $aktivitasKesehatanLingkungan = 0;
         $today = Carbon::now();
 
+        $counttempPUS = 0;
+
         if ($keluarga->punya_tempat_sampah && $keluarga->punya_jamban && $keluarga->saluran_pembuangan_air_limbah) {
             $countKriteriaRumahSehat++;
         }
@@ -2344,6 +2346,7 @@ class AdminController extends Controller
             }
         }
         foreach ($keluarga->anggotaRT as $anggotaRumah) {
+            $counttempPUS = 0;
             if ($anggotaRumah->keluarga->industri_id != 0 && $anggotaRumah->keluarga->is_valid_industri != null) {
                 $industri_rumah_tangga++;
             }
@@ -2392,42 +2395,43 @@ class AdminController extends Controller
                         $countbalitaPerempuan++;
                     }
 
-                    $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
-                        return $anggota->warga->jenis_kelamin === 'laki-laki' &&
-                            $anggota->warga->status_perkawinan === 'menikah';
-                    });
+                    // $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
+                    //     return $anggota->warga->jenis_kelamin === 'laki-laki' &&
+                    //         $anggota->warga->status_perkawinan === 'menikah';
+                    // });
 
-                    if ($hasMarriedMen) {
-                        $countPUS += $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
-                            $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                            $today = new DateTime();
-                            $age = $today->diff($birthdate)->y;
-                            return $anggota->warga->jenis_kelamin === 'perempuan' &&
-                                $age >= 15 &&
-                                $age <= 49 &&
-                                $anggota->warga->status_perkawinan === 'menikah';
-                        })->count() ? 1 : 0;
-                    }
+                    // // if ($hasMarriedMen) {
+                    // //     $countPUS += $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
+                    // //         $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                    // //         $today = new DateTime();
+                    // //         $age = $today->diff($birthdate)->y;
+                    // //         return $anggota->warga->jenis_kelamin === 'perempuan' &&
+                    // //             $age >= 15 &&
+                    // //             $age <= 49 &&
+                    // //             $anggota->warga->status_perkawinan === 'menikah';
+                    // //     })->count() ? 1 : 0;
+                    // // }
                 }
             }
-            // $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
-            //     return $anggota->warga->jenis_kelamin === 'laki-laki' &&
-            //         $anggota->warga->status_perkawinan === 'menikah';
-            // });
+            $hasMarriedMen = $anggotaRumah->keluarga->anggota->contains(function ($anggota) {
+                return $anggota->warga->jenis_kelamin === 'laki-laki' &&
+                    $anggota->warga->status_perkawinan === 'menikah';
+            });
 
-            // // Menghitung jumlah PUS (Pasangan Usia Subur)
+            // Menghitung jumlah PUS (Pasangan Usia Subur)
             // $countPUS = 0;
-            // if ($hasMarriedMen) {
-            //     $countPUS = $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
-            //         $birthdate = new DateTime($anggota->warga->tgl_lahir);
-            //         $today = new DateTime();
-            //         $age = $today->diff($birthdate)->y;
-            //         return $anggota->warga->jenis_kelamin === 'perempuan' &&
-            //             $age >= 15 &&
-            //             $age <= 49 &&
-            //             $anggota->warga->status_perkawinan === 'menikah';
-            //     })->count() ? 1 : 0;
-            // }
+                if ($hasMarriedMen) {
+                    $counttempPUS = $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
+                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                        $today = new DateTime();
+                        $age = $today->diff($birthdate)->y;
+                        return $anggota->warga->jenis_kelamin === 'perempuan' &&
+                            $age >= 15 &&
+                            $age <= 49 &&
+                            $anggota->warga->status_perkawinan === 'menikah';
+                    })->count() ? 1 : 0;
+                }
+                $countPUS += $counttempPUS;
         }
         // dd($countPUS);
 

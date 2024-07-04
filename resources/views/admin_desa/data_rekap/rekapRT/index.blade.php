@@ -98,7 +98,7 @@
                                                         {{ $loop->iteration }}
                                                     </td>
                                                     <td style="vertical-align: middle;">
-                                                        {{ $desa->nama_dasawisma  }}
+                                                        {{ ucfirst($desa->nama_dasawisma)  }}
                                                     </td>
                                                     <td>
                                                         @php

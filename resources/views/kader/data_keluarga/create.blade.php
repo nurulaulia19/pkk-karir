@@ -232,7 +232,7 @@
                                                 <select class="form-control" id="status" name="status[]">
                                                     {{-- <option selected> -- pili status --</option> --}}
                                                     <option selected value="kepala-keluarga">Kepala Keluarga</option>
-                                                    {{-- <option value="ibu">Ibu</option>
+                                                    {{-- <option value="isteri">Isteri</option>
                                                     <option value="anak">Anak</option> --}}
                                                 </select>
                                             </div>
@@ -392,9 +392,9 @@
                 // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
                 rownew.find('.status-select').append('<option value="kepala-keluarga">Kepala Keluarga</option>');
             } else {
-                // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
+                // Jika ini bukan baris pertama, tambahkan opsi "isteri", "anak", dan "lainnya"
                 var statusSelect = rownew.find('.status-select');
-                statusSelect.append('<option value="ibu">Ibu</option>');
+                statusSelect.append('<option value="isteri">Isteri</option>');
                 statusSelect.append('<option value="anak">Anak</option>');
                 statusSelect.append('<option value="lainnya">Lainnya</option>');
             }

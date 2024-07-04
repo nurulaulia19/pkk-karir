@@ -98,7 +98,7 @@ class RekapKelompokRTExport implements FromArray, WithHeadings, WithEvents, With
             )->countRekapitulasiDasawismaInRt($dasawisma->id, $this->periode);
             $data = [
                 '_index' => $i,
-                'nama' => $dasawisma->nama_dasawisma,
+                'nama' => ucfirst($dasawisma->nama_dasawisma),
                 'jumlah_KRT' => ucfirst($counts['countRumahTangga'])?: '0',
                 'jumlah_KK' =>  ucfirst($counts['countKK']) ?: '0',
                 'jumlah_laki' =>ucfirst($counts['laki_laki']) ?: '0',

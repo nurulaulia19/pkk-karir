@@ -36,7 +36,7 @@ class DataKeluargaSeeder extends Seeder
             Keluargahaswarga::create([
                 'keluarga_id' =>  $keluarga->id,
                 'warga_id' =>  2,
-                'status' =>  'ibu',
+                'status' =>  'isteri',
             ]);
 
             $kelapa = DataWarga::find(3);

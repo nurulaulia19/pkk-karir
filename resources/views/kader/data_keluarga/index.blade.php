@@ -195,7 +195,6 @@
                                                             </strong> Orang <br>
                                                             Jumlah WUS (Wanita Usia Subur)
                                                             <strong>
-
                                                                 {{ $c->anggota->filter(function ($anggota) {
                                                                         $birthdate = new DateTime($anggota->warga->tgl_lahir);
                                                                         $today = new DateTime();
@@ -203,11 +202,8 @@
                                                                         // sebelum return lakukan pengecekan dulu jika ada leleaku yg menikah
                                                                         return $anggota->warga->jenis_kelamin === 'perempuan' &&
                                                                             $age >= 15 &&
-                                                                            $age <= 49 &&
-                                                                            $anggota->warga->status_perkawinan === 'menikah';
-                                                                    })->count()
-                                                                    ? '1'
-                                                                    : '0' }}
+                                                                            $age <= 49;
+                                                                    })->count()}}
                                                             </strong> Orang <br>
                                                             Jumlah PUS (Pasangan Usia Subur):
                                                             <strong>

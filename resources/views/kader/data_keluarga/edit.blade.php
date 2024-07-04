@@ -228,7 +228,7 @@
                                                         <option value="kepala-keluarga" selected>Kepala Keluarga</option>
                                                     @else
                                                         {{-- <option value="kepala-keluarga">Kepala Keluarga</option> --}}
-                                                        <option value="ibu" {{ $item->status == 'ibu' ? 'selected' : '' }}>Ibu</option>
+                                                        <option value="isteri" {{ $item->status == 'isteri' ? 'selected' : '' }}>Isteri</option>
                                                         <option value="anak" {{ $item->status == 'anak' ? 'selected' : '' }}>Anak</option>
                                                         <option value="lainnya" {{ $item->status == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
                                                     @endif
@@ -539,9 +539,9 @@
             // Jika ini adalah baris pertama, tambahkan opsi "kepala keluarga"
             rownew.find('.status-select').append('<option value="kepala-keluarga">Kepala Keluarga</option>');
         } else {
-            // Jika ini bukan baris pertama, tambahkan opsi "ibu", "anak", dan "lainnya"
+            // Jika ini bukan baris pertama, tambahkan opsi "isteri", "anak", dan "lainnya"
             var statusSelect = rownew.find('.status-select');
-            statusSelect.append('<option value="ibu">Ibu</option>');
+            statusSelect.append('<option value="isteri">Isteri</option>');
             statusSelect.append('<option value="anak">Anak</option>');
             statusSelect.append('<option value="lainnya">Lainnya</option>');
         }
