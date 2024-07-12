@@ -639,7 +639,7 @@ class AdminController extends Controller
         foreach ($dasa_wisma as $index){
 
             foreach ($index->rumahtangga as $rumahtangga) {
-                if ($rumahtangga->periode == $periode) {
+                if ($rumahtangga->periode == $periode && $rumahtangga->is_valid) {
                     if ($rumahtangga->sumber_air_pdam) {
                         $totalAirPDAM++;
                     }
@@ -674,10 +674,10 @@ class AdminController extends Controller
             //     $totalJmlKK++;
 
             foreach ($index->rumahtangga as $rumahtangga) {
-                if($rumahtangga->periode == $periode){
-                    if(!$rumahtangga->is_valid){
-                        return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
-                    }
+                if($rumahtangga->periode == $periode && $rumahtangga->is_valid){
+                    // if(!$rumahtangga->is_valid){
+                    //     return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
+                    // }
                     // foreach($rumahtangga->pemanfaatanlahan as $lahan){
                     //     $totalKegiatanPemanfaatanPekarangan++;
                     // }
@@ -861,7 +861,7 @@ class AdminController extends Controller
         foreach ($dasa_wisma as $index){
 
             foreach ($index->rumahtangga as $rumahtangga) {
-                if ($rumahtangga->periode == $periode) {
+                if ($rumahtangga->periode == $periode && $rumahtangga->is_valid) {
                     if ($rumahtangga->sumber_air_pdam) {
                         $totalAirPDAM++;
                     }
@@ -896,10 +896,10 @@ class AdminController extends Controller
             //     $totalJmlKK++;
 
             foreach ($index->rumahtangga as $rumahtangga) {
-                if($rumahtangga->periode == $periode){
-                    if(!$rumahtangga->is_valid){
-                        return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
-                    }
+                if($rumahtangga->periode == $periode && $rumahtangga->is_valid){
+                    // if(!$rumahtangga->is_valid){
+                    //     return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
+                    // }
                     // foreach($rumahtangga->pemanfaatanlahan as $lahan){
                     //     $totalKegiatanPemanfaatanPekarangan++;
                     // }
@@ -1104,10 +1104,10 @@ class AdminController extends Controller
 
             foreach ($index->rumahtangga as $rumahtangga) {
 
-                if($rumahtangga->periode == $periode){
-                    if(!$rumahtangga->is_valid){
-                        return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
-                    }
+                if($rumahtangga->periode == $periode && $rumahtangga->is_valid){
+                    // if(!$rumahtangga->is_valid){
+                    //     return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
+                    // }
                     if ($rumahtangga->sumber_air_pdam) {
                         $totalAirPDAM++;
                     }
@@ -1317,10 +1317,10 @@ class AdminController extends Controller
 
             foreach ($index->rumahtangga as $rumahtangga) {
 
-                if($rumahtangga->periode == $periode){
-                    if(!$rumahtangga->is_valid){
-                        return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
-                    }
+                if($rumahtangga->periode == $periode && $rumahtangga->is_valid){
+                    // if(!$rumahtangga->is_valid){
+                    //     return redirect()->route('not-found')->with('error', 'Data belum divalidasi');
+                    // }
                     if ($rumahtangga->sumber_air_pdam) {
                         $totalAirPDAM++;
                     }
@@ -2085,10 +2085,10 @@ class AdminController extends Controller
                             ->get()
                             ->where('periode', $periode);
                         foreach ($rumah as $keluarga) {
-                            if ($keluarga) {
-                                if (!$keluarga->is_valid) {
-                                    return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
-                                }
+                            if ($keluarga->is_valid) {
+                                // if (!$keluarga->is_valid) {
+                                //     return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
+                                // }
                                 $totalRumahTangga++;
                                 if ($keluarga->pemanfaatanlahan) {
                                     foreach ($keluarga->pemanfaatanlahan as $lahan) {
@@ -2502,7 +2502,7 @@ class AdminController extends Controller
 
         if($dasawisma->periode <= $periode){
             foreach ($dasawisma->rumahtangga as $keluarga) {
-                if($keluarga->periode == $periode){
+                if($keluarga->periode == $periode && $keluarga->is_valid){
                     foreach ($keluarga->pemanfaatanlahan as $pemanfaatan) {
                         // if ($pemanfaatan) {
                         //     $data_pemanfaatan_pekarangan++;
@@ -2726,7 +2726,7 @@ class AdminController extends Controller
             if($dasawisma->periode <= $periode){
                 $countDasawisma++;
                 foreach ($dasawisma->rumahtangga as $keluarga) {
-                    if($keluarga->periode == $periode){
+                    if($keluarga->periode == $periode && $keluarga->is_valid){
                         foreach ($keluarga->pemanfaatanlahan as $pemanfaatan) {
                             // if ($pemanfaatan) {
                             //     $data_pemanfaatan_pekarangan++;

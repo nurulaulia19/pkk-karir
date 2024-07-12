@@ -16,12 +16,24 @@ class DusunSeeder extends Seeder
     public function run()
     {
         Dusun::create([
-            'name' => 'legok',
+            'name' => 'sawah indah',
             'desa_id' => 1
         ]);
         Dusun::create([
-            'name' => 'kolot',
+            'name' => 'lapang bola',
             'desa_id' => 1
         ]);
+        Dusun::create([
+            'name' => 'karang sambung',
+            'desa_id' => 1
+        ]);
+        Dusun::create([
+            'name' => 'karang mulya',
+            'desa_id' => 1
+        ]);
+        // Dusun::create([
+        //     'name' => 'karang mulya',
+        //     'desa_id' => 1
+        // ]);
     }
 }

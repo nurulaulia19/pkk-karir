@@ -50,7 +50,9 @@
                                                 <th style="vertical-align: middle;">RT</th>
                                                 <th style="vertical-align: middle;">RW</th>
                                                 <th style="vertical-align: middle;">Tahun</th>
+                                                @if ($nowYear == $periode)
                                                 <th style="vertical-align: middle;">Aksi</th>
+                                                @endif
                                             </tr>
                                         </thead>
 
@@ -96,9 +98,9 @@
                                                         @endif
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ $c->periode }}</td>
+                                                    @if ($nowYear == $periode)
                                                         <td style="vertical-align: middle;">
                                                             <div class="d-flex justify-content-center align-items-center">
-                                                                @if ($nowYear == $periode && $user->dasawisma->status)
                                                                 <button type="button" class="btn btn-warning btn-sm"
                                                                     data-toggle="modal"
                                                                     data-target="#details-modal-{{ $c->id }}">
@@ -108,7 +110,6 @@
                                                                     href="{{ url('data_rumah_tangga/' . $c->id . '/edit') }}"><i
                                                                         class="fas fa-edit"></i>
                                                                 </a>
-                                                                @endif
                                                                 <form
                                                                     action="{{ route('data_rumah_tangga.destroy', $c->id) }}"
                                                                     method="POST">
@@ -121,6 +122,7 @@
                                                                 </form>
                                                             </div>
                                                         </td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>

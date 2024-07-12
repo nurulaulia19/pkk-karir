@@ -37,7 +37,7 @@
                                         @if ($rumahTangga->punya_jamban)
                                             <h6>JAMBAN KELUARGA : ADA / {{ $rumahTangga->punya_jamban }} BUAH</h6>
                                         @else
-                                            <h6>JAMBAN KELUARGA : TIDAK</h6>
+                                            <h6>JAMBAN KELUARGA : TIDAK ADA</h6>
                                         @endif
                                         <div style="display: flex; align-items: center;">
                                             <h6 style="margin-right: 10px;">SUMBER AIR :</h6>

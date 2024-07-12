@@ -115,10 +115,10 @@ class RekapDusunInDesaController extends Controller
                             ->get()
                             ->where('periode', $periode);
                         foreach ($rumah as $keluarga) {
-                            if ($keluarga) {
-                                if (!$keluarga->is_valid) {
-                                    return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
-                                }
+                            if ($keluarga->is_valid) {
+                                // if (!$keluarga->is_valid) {
+                                //     return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
+                                // }
                                 $totalRumahTangga++;
                                 if ($keluarga->pemanfaatanlahan) {
                                     foreach ($keluarga->pemanfaatanlahan as $lahan) {
@@ -984,10 +984,10 @@ class RekapDusunInDesaController extends Controller
                             ->get()
                             ->where('periode', $periode);
                         foreach ($rumah as $keluarga) {
-                            if ($keluarga) {
-                                if (!$keluarga->is_valid) {
-                                    return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
-                                }
+                            if ($keluarga->is_valid) {
+                                // if (!$keluarga->is_valid) {
+                                //     return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
+                                // }
                                 $countRumahTangga++;
                                 if ($keluarga->pemanfaatanlahan) {
                                     foreach ($keluarga->pemanfaatanlahan as $lahan) {
@@ -1205,10 +1205,10 @@ class RekapDusunInDesaController extends Controller
                     $totalDasawisma++;
                     foreach ($dasawisma->rumahtangga as $rumahtangga) {
                         // $totalRumahTangga++;
-                        if ($rumahtangga->periode == $periode) {
-                            if (!$rumahtangga->is_valid) {
-                                return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
-                            }
+                        if ($rumahtangga->periode == $periode && $rumahtangga->is_valid) {
+                            // if (!$rumahtangga->is_valid) {
+                            //     return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
+                            // }
                             $totalRumahTangga++;
                             // dd($totalRumahTangga++);
 
@@ -1426,7 +1426,7 @@ class RekapDusunInDesaController extends Controller
                             if ($dasawisma->periode <= $periode) {
                                 $totalDasawisma++;
                                 foreach ($dasawisma->rumahtangga as $rumahtangga) {
-                                    if ($rumahtangga->periode == $periode) {
+                                    if ($rumahtangga->periode == $periode && $rumahtangga->is_valid) {
                                         // $totalRumahTangga++;
                                         $totalRumahTangga++;
                                         // dd($totalRumahTangga);
@@ -1636,7 +1636,7 @@ class RekapDusunInDesaController extends Controller
                             $totalDasawisma++;
                             foreach ($dasawisma->rumahtangga as $rumahtangga) {
                                 // if ($rumahtangga) {
-                                if ($rumahtangga->periode == $periode) {
+                                if ($rumahtangga->periode == $periode && $rumahtangga->is_valid) {
                                     $totalRumahTangga++;
                                     // dd($totalRumahTangga);
                                     if ($rumahtangga->pemanfaatanlahan) {
@@ -1859,7 +1859,7 @@ class RekapDusunInDesaController extends Controller
                         foreach ($item->dasawisma as $dasawisma) {
                             $totalDasawisma++;
                             foreach ($dasawisma->rumahtangga as $rumahtangga) {
-                                if ($rumahtangga->periode == $periode) {
+                                if ($rumahtangga->periode == $periode && $rumahtangga->is_valid) {
                                     $totalRumahTangga++;
                                     // dd($totalRumahTangga);
                                     if ($rumahtangga->pemanfaatanlahan) {
@@ -2301,10 +2301,10 @@ class RekapDusunInDesaController extends Controller
                     $totalDasawisma++;
                     foreach ($dasawisma->rumahtangga as $rumahtangga) {
                         // $totalRumahTangga++;
-                        if ($rumahtangga->periode == $periode) {
-                            if (!$rumahtangga->is_valid) {
-                                return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
-                            }
+                        if ($rumahtangga->periode == $periode && $rumahtangga->is_valid) {
+                            // if (!$rumahtangga->is_valid) {
+                            //     return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
+                            // }
                             $totalRumahTangga++;
                             // dd($totalRumahTangga++);
 

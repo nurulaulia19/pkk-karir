@@ -19,6 +19,7 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvents, WithStyles
 {
     protected $desaa;
+    protected $totalDusun;
     protected $totalDesa;
     protected $totalRT;
     protected $totalRW;
@@ -53,8 +54,11 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
     protected $periode;
     protected $kecamatan;
 
+
+
     public function __construct(array $data)
     {
+        $this->totalDusun = $data['totalDusun'] ?? null;
         $this->kecamatan = $data['kecamatan'] ?? null;
         $this->desaa = $data['desaa'] ?? null;
         $this->totalDesa = $data['totalDesa'] ?? null;
@@ -105,6 +109,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
             $data = [
                 '_index' => $i,
                 'desa' => $des->nama_desa,
+                'jumlah_dusun' => ucfirst($counts['countDusun']) ?: '0',
                 'jumlah_rw' => ucfirst($counts['countRW']) ?: '0',
                 'jumlah_rt' => ucfirst($counts['rt']) ?: '0',
                 'jumlah_dasa_wisma' => ucfirst($counts['countDasawisma']) ?: '0',
@@ -145,6 +150,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
         $result[] = [
             '_index' => 'JUMLAH',
             'desa' => ' ',
+                'jumlah_dusun' => $this->totalDusun ?: '0',
                 'jumlah_rw' => $this->totalRW ?: '0',
                 'jumlah_rt' => $this->totalRT ?: '0',
                 'jumlah_dasa_wisma' => $this->totalDasawisma ?: '0',
@@ -184,6 +190,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
     public function headings(): array
     {
         $headings = [
+            // '',
             '',
             '',
             '',
@@ -192,6 +199,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
             '',
             '',
             'JUMLAH ANGGOTA KELUARGA',
+            '',
             '',
             '',
             '',
@@ -223,6 +231,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
         $headings2 = [
             'NO',
             'NAMA DESA',
+            'JML DUSUN',
             'JML RW',
             'JML RT',
             'JML DASAWISMA',
@@ -373,11 +382,11 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
             $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-            $sheet->mergeCells('H9:R9');
-            $sheet->mergeCells('S9:X9');
-            $sheet->mergeCells('Y9:AA9');
-            $sheet->mergeCells('AB9:AC9');
-            $sheet->mergeCells('AD9:AG9');
+            $sheet->mergeCells('H9:S9');
+            $sheet->mergeCells('T9:Y9');
+            $sheet->mergeCells('Z9:AB9');
+            $sheet->mergeCells('AC9:AD9');
+            $sheet->mergeCells('AE9:AH9');
 
         }
 

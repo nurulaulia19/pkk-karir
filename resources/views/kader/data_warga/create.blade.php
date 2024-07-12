@@ -376,8 +376,8 @@
                                                         {{ old('agama') == 'islam' ? 'selected' : '' }}>Islam</option>
                                                     <option value="kristen"
                                                         {{ old('agama') == 'kristen' ? 'selected' : '' }}>Kristen</option>
-                                                    <option value="katolik"
-                                                        {{ old('agama') == 'katolik' ? 'selected' : '' }}>Katolik</option>
+                                                    <option value="budha"
+                                                        {{ old('agama') == 'budha' ? 'selected' : '' }}>Budha</option>
                                                     <option value="hindu"
                                                         {{ old('agama') == 'hindu' ? 'selected' : '' }}>Hindu</option>
                                                     <option value="konghucu"

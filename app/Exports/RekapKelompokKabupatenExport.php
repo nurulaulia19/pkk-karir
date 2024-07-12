@@ -18,6 +18,7 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
 {
     protected $kecamatans;
     protected $totalDesa;
+    protected $totalDusun;
     protected $totalRw;
     protected $totalRt;
     protected $totalKK;
@@ -54,6 +55,7 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
     {
         $this->kecamatans = $data['kecamatans'] ?? [];
         $this->totalDesa = $data['totalDesa'] ?? 0;
+        $this->totalDusun = $data['totalDusun'] ?? 0;
         $this->totalRw = $data['totalRw'] ?? 0;
         $this->totalRt = $data['totalRt'] ?? 0;
         $this->totalKK = $data['totalKK'] ?? 0;
@@ -100,6 +102,7 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
                 '_index' => $i,
                 'kecamatan' => $kec->nama_kecamatan,
                 'jumlah_desa' => ucfirst($counts['totalDesa']) ?: '0',
+                'jumlah_dusun' => ucfirst($counts['countDusun']) ?: '0',
                 'jumlah_rw' => ucfirst($counts['countRW']) ?: '0',
                 'jumlah_rt' => ucfirst($counts['rt']) ?: '0',
                 'jumlah_dasa_wisma' => ucfirst($counts['countDasawisma']) ?: '0',
@@ -141,6 +144,7 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
             '_index' => 'JUMLAH',
             'kecamatan' => null,
             'jumlah_desa' => $this->totalDesa ?: '0',
+            'jumlah_dusun' => $this->totalDusun ?: '0',
             'jumlah_rw' => $this->totalRw ?: '0',
             'jumlah_rt' => $this->totalRt ?: '0',
             'jumlah_dasa_wisma' => $this->totalDasawisma ?: '0',
@@ -179,9 +183,9 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
 
     public function headings(): array
     {
-        $headings = ['', '', '', '', '', '', '', '', 'JUMLAH ANGGOTA KELUARGA', '', '', '', '', '', '', '', '', '', '', 'KRITERIA RUMAH', '', '', '', '', '', 'SUMBER AIR KELUARGA', '', '', 'MAKANAN POKOK', '', 'WARGA MENGIKUTI KEGIATAN', '', '', '', 'KETERANGAN'];
+        $headings = ['', '', '', '', '', '', '', '', 'JUMLAH ANGGOTA KELUARGA', '', '', '', '', '', '', '', '', '', '', '', 'KRITERIA RUMAH', '', '', '', '', '', 'SUMBER AIR KELUARGA', '', '', 'MAKANAN POKOK', '', 'WARGA MENGIKUTI KEGIATAN', '', '', '', 'KETERANGAN'];
 
-        $headings2 = ['NO', 'NAMA KECAMATAN', 'JML. DESA/KELURAHAN', 'JML. RW', 'JML. RT', 'JML. DASAWISMA', 'JML. KRT', 'JML. KK', 'TOTAL L', 'TOTAL P', 'BALITA L', 'BALITA P', 'PUS', 'WUS', 'IBU HAMIL', 'IBU MENYUSUI', 'LANSIA', '3 BUTA', 'BERKEBUTUHAN KHUSUS', 'SEHAT', 'KURANG SEHAT', 'MEMILIKI TMP. PEMB. SAMPAH', 'MEMILIKI SPAL', 'MEMILIKI JAMBAN', 'MENEMPEL STIKER P4K', 'PDAM', 'SUMUR', 'DLL', 'BERAS', 'NON BERAS', 'UP2K', 'PEMANFAATAN PEKARANGAN', 'INDUSTRI RUMAH TANGGA', 'KESEHATAN LINGKUNGAN'];
+        $headings2 = ['NO', 'NAMA KECAMATAN', 'JML. DESA/KELURAHAN', 'JML. DUSUN', 'JML. RW', 'JML. RT', 'JML. DASAWISMA', 'JML. KRT', 'JML. KK', 'TOTAL L', 'TOTAL P', 'BALITA L', 'BALITA P', 'PUS', 'WUS', 'IBU HAMIL', 'IBU MENYUSUI', 'LANSIA', '3 BUTA', 'BERKEBUTUHAN KHUSUS', 'SEHAT', 'KURANG SEHAT', 'MEMILIKI TMP. PEMB. SAMPAH', 'MEMILIKI SPAL', 'MEMILIKI JAMBAN', 'MENEMPEL STIKER P4K', 'PDAM', 'SUMUR', 'DLL', 'BERAS', 'NON BERAS', 'UP2K', 'PEMANFAATAN PEKARANGAN', 'INDUSTRI RUMAH TANGGA', 'KESEHATAN LINGKUNGAN'];
 
         return [
             ['REKAPITULASI'],
@@ -203,7 +207,7 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->getDelegate()->mergeCells('AI8:AI9');
+                // $event->sheet->getDelegate()->mergeCells('A8:AI9');
                 $lastRow = count($this->kecamatans) + 10;
                 $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
                 // $highestRow = $event->sheet->getHighestRow();
@@ -262,12 +266,12 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
         // $lastColumn = $sheet->getHighestColumn();
 
         // Menggabungkan sel dari A1 sampai A6 sampai dengan kolom terakhir yang berisi data
-        $sheet->mergeCells('A1:' . $lastColumn . '1');
-        $sheet->mergeCells('A2:' . $lastColumn . '2');
-        $sheet->mergeCells('A3:' . $lastColumn . '3');
-        $sheet->mergeCells('A4:' . $lastColumn . '4');
-        $sheet->mergeCells('A5:' . $lastColumn . '5');
-        $sheet->mergeCells('A6:' . $lastColumn . '6');
+        // $sheet->mergeCells('A1:' . $lastColumn . '1');
+        // $sheet->mergeCells('A2:' . $lastColumn . '2');
+        // $sheet->mergeCells('A3:' . $lastColumn . '3');
+        // $sheet->mergeCells('A4:' . $lastColumn . '4');
+        // $sheet->mergeCells('A5:' . $lastColumn . '5');
+        // $sheet->mergeCells('A6:' . $lastColumn . '6');
 
         // Mengatur horizontal alignment (penyelarasan horizontal) pada sel A1 sampai A6 ke tengah
         $sheet->getStyle('A1:A6')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
@@ -299,11 +303,11 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
             $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-            $sheet->mergeCells('I8:S8');
-            $sheet->mergeCells('T8:Y8');
-            $sheet->mergeCells('Z8:AB8');
-            $sheet->mergeCells('AC8:AD8');
-            $sheet->mergeCells('AE8:AH8');
+            $sheet->mergeCells('I8:T8');
+            $sheet->mergeCells('U8:Z8');
+            $sheet->mergeCells('AA8:AC8');
+            $sheet->mergeCells('AD8:AE8');
+            $sheet->mergeCells('AF8:AI8');
 
         }
 

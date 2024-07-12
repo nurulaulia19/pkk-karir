@@ -39,6 +39,7 @@
                                                 <th rowspan="2" style="text-align: center;">No</th>
                                                 <th rowspan="2" style="text-align: center;">Nama Kecamatan</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. Desa/Kel</th>
+                                                <th rowspan="2" style="text-align: center;">Jml. Dusun</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. RW</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. RT</th>
                                                 <th rowspan="2" style="text-align: center;">Jml. Dasa Wisma</th>
@@ -99,7 +100,10 @@
 
                                                         {{-- {{ $kec->jumlah_desa }} --}}
                                                     </td>
-
+                                                    <td style="vertical-align: middle;">
+                                                        {{ ucfirst($counts['countDusun']) }}
+                                                        {{-- {{ $kec->jumlah_rw }} --}}
+                                                    </td>
                                                     <td style="vertical-align: middle;">
                                                         {{ ucfirst($counts['countRW']) }}
                                                         {{-- {{ $kec->jumlah_rw }} --}}
@@ -247,6 +251,7 @@
                                                 <td colspan="2"><strong>Jumlah</strong></td>
                                                 <td style="display: none"></td>
                                                 <td>{{ $totalDesa }}</td>
+                                                <td>{{ $totalDusun }}</td>
                                                 <td>{{ $totalRw }}</td>
                                                 <td>{{ $totalRt }}</td>
                                                 <td>{{ $totalDasawisma }}</td>

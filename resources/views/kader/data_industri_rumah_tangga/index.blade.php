@@ -47,7 +47,9 @@
                                                 <th>Nama Keluarga</th>
                                                 <th>Kategori</th>
                                                 <th>Periode</th>
+                                                @if ($nowYear == $periode)
                                                 <th>Aksi</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -68,14 +70,13 @@
                                                         @endif
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->periode) }}</td>
+                                                    @if ($nowYear == $periode)
                                                         <td class="text-center" width="100px"
                                                             style="vertical-align: middle;">
                                                             <div class="d-flex" style="justify-content: center">
-                                                                @if ($nowYear == $periode && $user->dasawisma->status)
                                                                 <a class="btn btn-primary btn-sm"
                                                                     href="{{ url('data_industri/' . $c->id . '/edit') }}"><i class="fas fa-edit"></i>
                                                                 </a>
-                                                                @endif
                                                                 <form
                                                                     action="{{ route('data_industri.destroy', ['id' => $c->id]) }}"
                                                                     method="POST">
@@ -86,6 +87,7 @@
                                                                 </form>
                                                             </div>
                                                         </td>
+                                                        @endif
                                                 </tr>
                                             @endforeach
 

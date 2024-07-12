@@ -26,7 +26,7 @@
                                     <h6><strong>CATATAN DATA DAN KEGIATAN WARGA</strong> </h6>
                                     <h6><strong>KELOMPOK DASAWISMA</strong> </h6>
                                     <h6>Dasa Wisma :
-                                        {{ $dasa_wisma->nama_dasawisma }}
+                                        {{ ucfirst($dasa_wisma->nama_dasawisma) }}
                                         {{-- {{ ucfirst($dasa_wisma->nama_dasawisma) }} --}}
                                     </h6>
                                     <h6>RT :

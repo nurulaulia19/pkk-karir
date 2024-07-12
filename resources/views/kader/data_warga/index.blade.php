@@ -56,7 +56,9 @@
                                                 <th style="vertical-align: middle;">Jabatan</th>
                                                 <th style="vertical-align: middle;">Jenis Kelamin</th>
                                                 <th style="vertical-align: middle;">Periode</th>
+                                                @if ($nowYear == $periode)
                                                 <th style="vertical-align: middle;">Aksi</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -87,9 +89,9 @@
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->jenis_kelamin) }}
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->periode) }}</td>
+                                                    @if ($nowYear == $periode)
                                                         <td style="vertical-align: middle;">
                                                             <div class="d-flex justify-content-center align-items-center">
-                                                                @if ($nowYear == $periode && $user->dasawisma->status)
                                                                 <button type="button" class="btn btn-warning btn-sm"
                                                                     data-toggle="modal"
                                                                     data-target="#details-modal-{{ $c->id }}">
@@ -98,7 +100,6 @@
                                                                 <a class="btn btn-primary btn-sm ml-1"
                                                                     href="{{ url('data_warga/' . $c->id . '/edit') }}"><i class="fas fa-edit"></i>
                                                                 </a>
-                                                                @endif
                                                                 <form action="{{ route('data_warga.destroy', $c->id) }}"
                                                                     method="POST">
                                                                     @csrf
@@ -108,6 +109,7 @@
                                                                 </form>
                                                             </div>
                                                         </td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
                                         </tbody>

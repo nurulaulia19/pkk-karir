@@ -49,7 +49,9 @@
                                                 <th>Nama Warga</th>
                                                 <th>Nama Kegiatan</th>
                                                 <th>Periode</th>
-                                                <th>Aksi</th>
+                                                @if ($nowYear == $periode)
+                                                    <th>Aksi</th>
+                                                @endif
                                             </tr>
                                         </thead>
 
@@ -77,25 +79,25 @@
                                                         </ul>
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ $c->periode }}</td>
-                                                    <td style="vertical-align: middle;">
-                                                        <div class="d-flex justify-content-center align-items-center">
-                                                            @if ($nowYear == $periode && $user->dasawisma->status)
+                                                    @if ($nowYear == $periode)
+                                                        <td style="vertical-align: middle;">
+                                                            <div class="d-flex justify-content-center align-items-center">
                                                                 <a class="btn btn-primary btn-sm"
                                                                     href="{{ url('data_kegiatan/' . $c->id . '/edit') }}"><i
                                                                         class="fas fa-edit"></i>
                                                                 </a>
-                                                            @endif
-                                                            <form
-                                                                action="{{ route('data_kegiatan.destroyed', ['id' => $c->id]) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-sm delete ml-1"><i
-                                                                        class="fas fa-trash"></i></button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
+                                                                <form
+                                                                    action="{{ route('data_kegiatan.destroyed', ['id' => $c->id]) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-sm delete ml-1"><i
+                                                                            class="fas fa-trash"></i></button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                             @endforeach
 

@@ -83,6 +83,7 @@ class DusunController extends Controller
                 ->where('periode',$periode)
                 ->get();
                 foreach ($rumah as $keluarga) {
+                   if ($keluarga->is_valid) {
                     $countRumahTangga++;
                     if ($keluarga->pemanfaatanlahan) {
                         foreach ($keluarga->pemanfaatanlahan as $lahan) {
@@ -238,6 +239,7 @@ class DusunController extends Controller
 
                     }
                 }
+                   }
                 }
             }
         }

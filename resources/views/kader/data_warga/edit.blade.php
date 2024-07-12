@@ -327,7 +327,7 @@
                                                 <option selected disabled>Pilih Agama</option>
                                                 <option value="islam" {{ $data_warga->agama == 'islam' ? 'selected' :'' }}>Islam</option>
                                                 <option value="kristen" {{ $data_warga->agama == 'kristen' ? 'selected' :'' }}>Kristen</option>
-                                                <option value="katolik" {{ $data_warga->agama == 'katolik' ? 'selected' :'' }}>Katolik</option>
+                                                <option value="budha" {{ $data_warga->agama == 'budha' ? 'selected' :'' }}>Budha</option>
                                                 <option value="hindu" {{ $data_warga->agama == 'hindu' ? 'selected' :'' }}>Hindu</option>
                                                 <option value="konghucu" {{ $data_warga->agama == 'konghucu' ? 'selected' :'' }}>Konghucu</option>
                                                 <option value="kepercayaan lain" {{ $data_warga->agama == 'kepercayaan lain' ? 'selected' :'' }}>

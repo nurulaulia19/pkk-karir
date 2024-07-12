@@ -46,11 +46,12 @@
                                             <tr>
                                                 <th rowspan="2" style="text-align: center; ">No</th>
                                                 <th rowspan="2" style="text-align: center;">Nama desa</th>
+                                                <th rowspan="2" style="text-align: center;">Jml Dusun</th>
                                                 <th rowspan="2" style="text-align: center;">Jml RW</th>
                                                 <th rowspan="2" style="text-align: center;">Jml RT</th>
                                                 <th rowspan="2" style="text-align: center;">Jml Dasawisma</th>
-                                                <th rowspan="2" style="text-align: center;">Jml. KRT</th>
-                                                <th rowspan="2" style="text-align: center;">Jml. KK</th>
+                                                <th rowspan="2" style="text-align: center;">Jml KRT</th>
+                                                <th rowspan="2" style="text-align: center;">Jml KK</th>
                                                 <th colspan="11" style="text-align:center;">Jumlah Anggota Keluarga</th>
                                                 <th colspan="6" style="text-align:center;">Kriteria Rumah</th>
                                                 <th colspan="3" style="text-align:center;">Sumber Air Keluarga</th>
@@ -103,7 +104,10 @@
                                                                 'App\Http\Controllers\AdminKabController',
                                                             )->countRekapitulasiRWInDesa($desa->id,$periode);
                                                         @endphp
-                                                       {{ ucfirst($counts['countRW']) }}
+                                                       {{ ucfirst($counts['countDusun']) }}
+                                                    </td>
+                                                    <td>
+                                                        {{ ucfirst($counts['countRW']) }}
                                                     </td>
                                                     <td style="vertical-align: middle;">
                                                         {{ ucfirst($counts['rt']) }}
@@ -223,6 +227,9 @@
                                             <tr>
                                                 <td colspan="2"><strong>Jumlah</strong> </td>
                                                 <td style="display: none"></td>
+                                                <td>
+                                                    {{$totalDusun}}
+                                                </td>
                                                 <td>
                                                     {{$totalRW}}
                                                 </td>

@@ -3928,8 +3928,20 @@ class UserSeeder extends Seeder
         ]);
         $admin_kecamatan->assignRole(Role::ROLE_ADMIN);
 
-        // AKUN Kader
-        $kader_desa = User::create([
+        // // AKUN Kader
+        // $kader_dasawisma1 = User::create([
+        //     'name' => 'Agus',
+        //     'email' => 'agus@gmail.com',
+        //     'password' => Hash::make('agus'),
+        //     'user_type' => 'kader_dasawisma',
+        //     'id_dasawisma' => 1,
+        //     'foto' => null,
+        //     'id_kecamatan' => 1,
+        //     'id_desa' => 1,
+        // ]);
+
+        // Kader Dasawisma untuk Dasawisma 1 (Melati 1)
+        $kader_dasawisma1 = User::create([
             'name' => 'Agus',
             'email' => 'agus@gmail.com',
             'password' => Hash::make('agus'),
@@ -3939,6 +3951,66 @@ class UserSeeder extends Seeder
             'id_kecamatan' => 1,
             'id_desa' => 1,
         ]);
+
+        // Kader Dasawisma untuk Dasawisma 2 (Melati 2)
+        $kader_dasawisma2 = User::create([
+            'name' => 'Atun',
+            'email' => 'atun@gmail.com',
+            'password' => Hash::make('atun'),
+            'user_type' => 'kader_dasawisma',
+            'id_dasawisma' => 2,
+            'foto' => null,
+            'id_kecamatan' => 1,
+            'id_desa' => 1,
+        ]);
+
+        // Kader Dasawisma untuk Dasawisma 3 (Melati 3)
+        // $kader_dasawisma3 = User::create([
+        //     'name' => 'Agas',
+        //     'email' => 'dahlia@gmail.com',
+        //     'password' => Hash::make('agas'),
+        //     'user_type' => 'kader_dasawisma',
+        //     'id_dasawisma' => 3,
+        //     'foto' => null,
+        //     'id_kecamatan' => 1,
+        //     'id_desa' => 1,
+        // ]);
+
+        // // Kader Dasawisma untuk Dasawisma 4 (Melati 4)
+        // $kader_dasawisma4 = User::create([
+        //     'name' => 'Maxwel',
+        //     'email' => 'tulip@gmail.com',
+        //     'password' => Hash::make('maxwel'),
+        //     'user_type' => 'kader_dasawisma',
+        //     'id_dasawisma' => 4,
+        //     'foto' => null,
+        //     'id_kecamatan' => 1,
+        //     'id_desa' => 1,
+        // ]);
+
+        // // Kader Dasawisma untuk Dasawisma 5 (Melati 5)
+        // $kader_dasawisma5 = User::create([
+        //     'name' => 'Axel',
+        //     'email' => 'lily@gmail.com',
+        //     'password' => Hash::make('axel'),
+        //     'user_type' => 'kader_dasawisma',
+        //     'id_dasawisma' => 5,
+        //     'foto' => null,
+        //     'id_kecamatan' => 1,
+        //     'id_desa' => 1,
+        // ]);
+
+        // // Kader Dasawisma untuk Dasawisma 6 (Melati 6)
+        // $kader_dasawisma6 = User::create([
+        //     'name' => 'Zahra',
+        //     'email' => 'anggrek@gmail.com',
+        //     'password' => Hash::make('zahra'),
+        //     'user_type' => 'kader_dasawisma',
+        //     'id_dasawisma' => 6,
+        //     'foto' => null,
+        //     'id_kecamatan' => 1,
+        //     'id_desa' => 1,
+        // ]);
 
         // $kader_desa = User::create([
         //     'name' => 'Atun',

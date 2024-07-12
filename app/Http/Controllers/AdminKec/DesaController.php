@@ -152,10 +152,10 @@ class DesaController extends Controller
                             ->get()
                             ->where('periode', $periode);
                         foreach ($rumah as $keluarga) {
-                            if ($keluarga) {
-                                if (!$keluarga->is_valid) {
-                                    return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
-                                }
+                            if ($keluarga->is_valid) {
+                                // if (!$keluarga->is_valid) {
+                                //     return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
+                                // }
                                 $totalRumahTangga++;
                                 if ($keluarga->pemanfaatanlahan) {
                                     foreach ($keluarga->pemanfaatanlahan as $lahan) {
@@ -402,10 +402,10 @@ class DesaController extends Controller
                             ->get()
                             ->where('periode', $periode);
                         foreach ($rumah as $keluarga) {
-                            if ($keluarga) {
-                                if (!$keluarga->is_valid) {
-                                    return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
-                                }
+                            if ($keluarga->is_valid) {
+                                // if (!$keluarga->is_valid) {
+                                //     return redirect()->route('not-found')->with('error', 'Data Belum divalidasi');
+                                // }
                                 $totalRumahTangga++;
                                 if ($keluarga->pemanfaatanlahan) {
                                     foreach ($keluarga->pemanfaatanlahan as $lahan) {
