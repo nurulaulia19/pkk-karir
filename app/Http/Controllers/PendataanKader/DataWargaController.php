@@ -128,6 +128,8 @@ class DataWargaController extends Controller
             //             return $query->where('periode', now()->year);
             //         })
             // ],
+        ],[
+            'makan_beras.required' => 'pilih makanan pokok sehari-hari',
         ]);
 
         // Buat array data
