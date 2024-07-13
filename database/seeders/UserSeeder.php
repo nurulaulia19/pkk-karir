@@ -3953,16 +3953,16 @@ class UserSeeder extends Seeder
         ]);
 
         // Kader Dasawisma untuk Dasawisma 2 (Melati 2)
-        $kader_dasawisma2 = User::create([
-            'name' => 'Atun',
-            'email' => 'atun@gmail.com',
-            'password' => Hash::make('atun'),
-            'user_type' => 'kader_dasawisma',
-            'id_dasawisma' => 2,
-            'foto' => null,
-            'id_kecamatan' => 1,
-            'id_desa' => 1,
-        ]);
+        // $kader_dasawisma2 = User::create([
+        //     'name' => 'Atun',
+        //     'email' => 'atun@gmail.com',
+        //     'password' => Hash::make('atun'),
+        //     'user_type' => 'kader_dasawisma',
+        //     'id_dasawisma' => 2,
+        //     'foto' => null,
+        //     'id_kecamatan' => 1,
+        //     'id_desa' => 1,
+        // ]);
 
         // Kader Dasawisma untuk Dasawisma 3 (Melati 3)
         // $kader_dasawisma3 = User::create([

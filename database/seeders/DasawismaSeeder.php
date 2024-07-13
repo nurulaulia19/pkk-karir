@@ -38,17 +38,17 @@ class DasawismaSeeder extends Seeder
             'periode' => 2023,
         ]);
 
-        // Dasawisma untuk RW 2, RT 1 - Bunga Melati 2
-        DB::table('data_dasawisma')->insert([
-            'id_desa' => 1,
-            'id_kecamatan' => 1,
-            'nama_dasawisma' => 'Mawar',
-            'alamat_dasawisma' => 'anjatan',
-            'status' => 1,
-            'id_rt' => 1,
-            'id_rw' => 2,
-            'periode' => 2023,
-        ]);
+        // Dasawisma untuk RW 1, RT 1 - Bunga Melati 2
+        // DB::table('data_dasawisma')->insert([
+        //     'id_desa' => 1,
+        //     'id_kecamatan' => 1,
+        //     'nama_dasawisma' => 'Mawar',
+        //     'alamat_dasawisma' => 'anjatan',
+        //     'status' => 1,
+        //     'id_rw' => 2,
+        //     'id_rt' => 4,
+        //     'periode' => 2023,
+        // ]);
 
         // Dasawisma untuk RW 3, RT 1 - Bunga Melati 3
         // DB::table('data_dasawisma')->insert([
