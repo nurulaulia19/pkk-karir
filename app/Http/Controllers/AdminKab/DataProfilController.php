@@ -60,8 +60,7 @@ class DataProfilController extends Controller
             $destinationPath = 'foto/';
             $image = $request->file('foto');
             $profileImage = date('YmdHis') . '.' . $image->getClientOriginalExtension();
-            // $image->storeAs('public/' . $destinationPath, $profileImage); // Simpan file dengan nama unik
-            $image->storeAs('storage/' . $destinationPath, $profileImage); // Simpan file dengan nama unik
+            $image->storeAs('public/' . $destinationPath, $profileImage); // Simpan file dengan nama unik
             $profile->foto = $destinationPath . $profileImage; // Simpan path foto ke database
         }
         $profile->save();
