@@ -16,7 +16,7 @@ use App\Http\Controllers\AdminKab\DataKabupatenController;
 use App\Http\Controllers\AdminKab\DataProvinsiController;
 use App\Http\Controllers\AdminKab\UserController;
 use App\Http\Controllers\AdminKab\KategoriIndustriRumahController;
-use App\Http\Controllers\Adminkab\KategoriPemanfaatanLahanController;
+use App\Http\Controllers\AdminKab\KategoriPemanfaatanLahanController;
 use App\Http\Controllers\AdminKabController;
 use App\Http\Controllers\AdminKec\DesaController;
 use App\Http\Controllers\KaderFormController;

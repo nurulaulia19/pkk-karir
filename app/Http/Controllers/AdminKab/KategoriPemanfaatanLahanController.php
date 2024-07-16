@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Adminkab;
+namespace App\Http\Controllers\AdminKab;
 
 use App\Http\Controllers\Controller;
 use App\Models\KategoriPemanfaatanLahan;
