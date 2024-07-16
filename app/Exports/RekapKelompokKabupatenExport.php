@@ -266,12 +266,12 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
         // $lastColumn = $sheet->getHighestColumn();
 
         // Menggabungkan sel dari A1 sampai A6 sampai dengan kolom terakhir yang berisi data
-        // $sheet->mergeCells('A1:' . $lastColumn . '1');
-        // $sheet->mergeCells('A2:' . $lastColumn . '2');
-        // $sheet->mergeCells('A3:' . $lastColumn . '3');
-        // $sheet->mergeCells('A4:' . $lastColumn . '4');
-        // $sheet->mergeCells('A5:' . $lastColumn . '5');
-        // $sheet->mergeCells('A6:' . $lastColumn . '6');
+        $sheet->mergeCells('A1:' . $lastColumn . '1');
+        $sheet->mergeCells('A2:' . $lastColumn . '2');
+        $sheet->mergeCells('A3:' . $lastColumn . '3');
+        $sheet->mergeCells('A4:' . $lastColumn . '4');
+        $sheet->mergeCells('A5:' . $lastColumn . '5');
+        $sheet->mergeCells('A6:' . $lastColumn . '6');
 
         // Mengatur horizontal alignment (penyelarasan horizontal) pada sel A1 sampai A6 ke tengah
         $sheet->getStyle('A1:A6')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
