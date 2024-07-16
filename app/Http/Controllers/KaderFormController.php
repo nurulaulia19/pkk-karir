@@ -266,7 +266,7 @@ class KaderFormController extends Controller
             $path = $image->storeAs($destinationPath, $profileImage, 'public');
 
             // Menggunakan query builder untuk memperbarui kolom foto
-            DB::table('data_kaders') // Ganti 'data_kaders' dengan nama tabel yang sesuai jika berbeda
+            DB::table('users') // Ganti 'data_kaders' dengan nama tabel yang sesuai jika berbeda
                 ->where('id', $data_kader->id)
                 ->update(['foto' => $path]);
         }
