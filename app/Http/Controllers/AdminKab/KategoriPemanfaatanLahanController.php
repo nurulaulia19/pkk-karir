@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Adminkab;
-use Illuminate\Validation\Rule;
+
 use App\Http\Controllers\Controller;
 use App\Models\KategoriPemanfaatanLahan;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\Rule;
 
 class KategoriPemanfaatanLahanController extends Controller
 {
@@ -14,6 +15,7 @@ class KategoriPemanfaatanLahanController extends Controller
         // halaman data pemanfaatan rumah tangga
         // $user = Auth::user();
         $pemanfaatan = KategoriPemanfaatanLahan::orderBy('id', 'DESC')->get();
+        // dd($pemanfaatan);
         return view('admin_kab.kategori_pemanfaatan_lahan.index', compact('pemanfaatan'));
     }
 
