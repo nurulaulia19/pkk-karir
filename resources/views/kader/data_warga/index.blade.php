@@ -181,21 +181,21 @@
                                                                     </strong><br>
                                                                     Pekerjaan : <strong> {{ ucfirst($c->pekerjaan) }}
                                                                     </strong><br>
-                                                                    Akseptor KB : <strong> {{ ucfirst($c->akseptor_kb) }}
+                                                                    Akseptor KB : <strong> {{ ucfirst($c->akseptor_kb  == 1 ? 'Ya' : 'Tidak') }}
                                                                     </strong><br>
                                                                     Aktif dalam Kegiatan Posyandu : <strong>
-                                                                        {{ ucfirst($c->aktif_posyandu) }} </strong><br>
+                                                                        {{ ucfirst($c->aktif_posyandu  == 1 ? 'Ya' : 'Tidak') }} </strong><br>
                                                                     Mengikuti Program Bina Keluarga Balita : <strong>
-                                                                        {{ ucfirst($c->ikut_bkb) }} </strong><br>
+                                                                        {{ ucfirst($c->ikut_bkb  == 1 ? 'Ya' : 'Tidak') }} </strong><br>
                                                                     Memiliki Tabungan : <strong>
-                                                                        {{ ucfirst($c->memiliki_tabungan) }} </strong><br>
+                                                                        {{ ucfirst($c->memiliki_tabungan  == 1 ? 'Ya' : 'Tidak') }} </strong><br>
                                                                     Mengikuti Kelompok Belajar Jenis : <strong>
                                                                         {{ ucfirst($c->ikut_kelompok_belajar) }}
                                                                     </strong><br>
                                                                     Mengikuti PAUD/Sejenis : <strong>
-                                                                        {{ ucfirst($c->ikut_paud_sejenis) }} </strong><br>
+                                                                        {{ ucfirst($c->ikut_paud_sejenis  == 1 ? 'Ya' : 'Tidak') }} </strong><br>
                                                                     Ikut dalam Kegiatan Koperasi : <strong>
-                                                                        {{ ucfirst($c->ikut_koperasi) }} </strong><br>
+                                                                        {{ ucfirst($c->ikut_koperasi  == 1 ? 'Ya' : 'Tidak') }} </strong><br>
                                                         </h5>
                                                     </div>
                                                     <div class="modal-footer">
