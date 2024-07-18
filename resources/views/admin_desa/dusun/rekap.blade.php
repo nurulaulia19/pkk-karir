@@ -54,13 +54,14 @@
                                                 <th>Total P</th>
                                                 <th>Balita L</th>
                                                 <th>Balita P</th>
-                                                <th>3 Buta</th>
+                                                {{-- <th>3 Buta</th> --}}
                                                 {{-- <th>3 Buta P</th> --}}
                                                 <th>PUS</th>
                                                 <th>WUS</th>
                                                 <th>Ibu Hamil</th>
                                                 <th>Ibu Menyusui</th>
                                                 <th>Lansia</th>
+                                                <th>3 Buta</th>
                                                 <th>Berkebutuhan Khusus</th>
                                                 <th>Sehat</th>
                                                 <th>Kurang Sehat</th>
@@ -125,9 +126,9 @@
                                                         {{ $dsn->total_anggota_balita_perempuan }}
 
                                                     </td>
-                                                    <td>
+                                                    {{-- <td>
                                                         0
-                                                    </td>
+                                                    </td> --}}
                                                     {{-- <td>
                                                         0
                                                     </td> --}}
@@ -146,6 +147,9 @@
                                                     </td>
                                                     <td>
                                                         {{ $dsn->total_anggota_lansia }}
+                                                    </td>
+                                                    <td>
+                                                        0
                                                     </td>
                                                     <td>
                                                         {{ $dsn->total_anggota_berkebutuhan_khusus }}
@@ -214,13 +218,14 @@
                                                 <td> {{ $totalAnggotaPerempuan }} </td>
                                                 <td> {{ $totalAnggotaBalitaLaki }} </td>
                                                 <td> {{ $totalAnggotaBalitaPerempuan }} </td>
-                                                <td> 0 </td>
+                                                {{-- <td> 0 </td> --}}
                                                 {{-- <td> 0 </td> --}}
                                                 <td> {{ $totalAnggotaPUS }} </td>
                                                 <td> {{ $totalAnggotaWUS }} </td>
                                                 <td> {{ $totalAnggotaIbuHamil }} </td>
                                                 <td> {{ $totalAnggotaIbuMenyusui }} </td>
                                                 <td> {{ $totalAnggotaLansia }} </td>
+                                                <td> 0 </td>
                                                 <td> {{ $totalAnggotaBerkebutuhanKhusus }} </td>
                                                 <td> {{ $totalSheatLayakHuni }} </td>
                                                 <td> {{ $totalTidakSheatLayakHuni }} </td>

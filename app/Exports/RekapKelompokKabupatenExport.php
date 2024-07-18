@@ -183,7 +183,7 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
 
     public function headings(): array
     {
-        $headings = ['', '', '', '', '', '', '', '', 'JUMLAH ANGGOTA KELUARGA', '', '', '', '', '', '', '', '', '', '', '', 'KRITERIA RUMAH', '', '', '', '', '', 'SUMBER AIR KELUARGA', '', '', 'MAKANAN POKOK', '', 'WARGA MENGIKUTI KEGIATAN', '', '', '', 'KETERANGAN'];
+        $headings = ['', '', '', '', '', '', '', '', '', 'JUMLAH ANGGOTA KELUARGA', '', '', '', '', '', '', '', '', '', '', 'KRITERIA RUMAH', '', '', '', '', '', 'SUMBER AIR KELUARGA', '', '', 'MAKANAN POKOK', '', 'WARGA MENGIKUTI KEGIATAN', '', '', '', 'KETERANGAN'];
 
         $headings2 = ['NO', 'NAMA KECAMATAN', 'JML. DESA/KELURAHAN', 'JML. DUSUN', 'JML. RW', 'JML. RT', 'JML. DASAWISMA', 'JML. KRT', 'JML. KK', 'TOTAL L', 'TOTAL P', 'BALITA L', 'BALITA P', 'PUS', 'WUS', 'IBU HAMIL', 'IBU MENYUSUI', 'LANSIA', '3 BUTA', 'BERKEBUTUHAN KHUSUS', 'SEHAT', 'KURANG SEHAT', 'MEMILIKI TMP. PEMB. SAMPAH', 'MEMILIKI SPAL', 'MEMILIKI JAMBAN', 'MENEMPEL STIKER P4K', 'PDAM', 'SUMUR', 'DLL', 'BERAS', 'NON BERAS', 'UP2K', 'PEMANFAATAN PEKARANGAN', 'INDUSTRI RUMAH TANGGA', 'KESEHATAN LINGKUNGAN'];
 
@@ -303,7 +303,7 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
             $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-            $sheet->mergeCells('I8:T8');
+            $sheet->mergeCells('J8:T8');
             $sheet->mergeCells('U8:Z8');
             $sheet->mergeCells('AA8:AC8');
             $sheet->mergeCells('AD8:AE8');
@@ -313,7 +313,7 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
 
         $lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString('H');
 
-        for ($col = 'A'; $col <= 'H'; $col++) {
+        for ($col = 'A'; $col <= 'I'; $col++) {
             // Simpan nilai sel sebelum digabungkan
             $value = $sheet->getCell($col . '9')->getValue();
 

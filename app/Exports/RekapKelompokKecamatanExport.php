@@ -190,7 +190,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
     public function headings(): array
     {
         $headings = [
-            // '',
+            '',
             '',
             '',
             '',
@@ -209,7 +209,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
             '',
             '',
             '',
-            '',
+            // '',
             'KRITERIA RUMAH',
             '',
             '',
@@ -382,7 +382,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
             $sheet->getStyle($col)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle($col)->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
-            $sheet->mergeCells('H9:S9');
+            $sheet->mergeCells('I9:S9');
             $sheet->mergeCells('T9:Y9');
             $sheet->mergeCells('Z9:AB9');
             $sheet->mergeCells('AC9:AD9');
@@ -392,7 +392,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
 
         $lastColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString('G');
 
-        for ($col = 'A'; $col <= 'G'; $col++) {
+        for ($col = 'A'; $col <= 'H'; $col++) {
             // Simpan nilai sel sebelum digabungkan
             $value = $sheet->getCell($col . '10')->getValue();
 
