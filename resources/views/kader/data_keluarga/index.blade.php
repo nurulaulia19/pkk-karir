@@ -51,9 +51,9 @@
                                                 <th style="vertical-align: middle;">Jumlah Anggota Keluarga Laki-laki</th>
                                                 <th style="vertical-align: middle;">Jumlah Anggota Keluarga Perempuan</th>
                                                 <th style="vertical-align: middle;">Periode</th>
-                                                @if ($nowYear == $periode)
+                                                {{-- @if ($nowYear == $periode) --}}
                                                 <th style="vertical-align: middle;">Aksi</th>
-                                                @endif
+                                                {{-- @endif --}}
                                             </tr>
                                         </thead>
 
@@ -103,7 +103,7 @@
                                                         {{ ucfirst($countPerempuan) }} Orang
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ $c->periode }}</td>
-                                                    @if ($nowYear == $periode)
+                                                    {{-- @if ($nowYear == $periode) --}}
                                                         <td class="text-center" width="100px"
                                                             style="vertical-align: middle;">
                                                             <div class="d-flex" style="justify-content: center">
@@ -112,6 +112,7 @@
                                                                     data-target="#details-modal-{{ $c->id }}">
                                                                     <i class="far fa-eye text-white"></i>
                                                                 </button>
+                                                                @if ($nowYear == $periode)
                                                                 <a class="btn btn-primary btn-sm ml-1"
                                                                     href="{{ route('data_keluarga.edit', $c->id) }}"><i class="fas fa-edit"></i>
                                                                 </a>
@@ -122,9 +123,10 @@
                                                                     <button type="submit"
                                                                         class="btn btn-danger btn-sm delete ml-1"><i class="fas fa-trash"></i></button>
                                                                 </form>
+                                                                @endif
                                                             </div>
                                                         </td>
-                                                        @endif
+                                                        {{-- @endif --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -189,18 +191,26 @@
                                                             <strong>
                                                                 {{ $c->anggota->filter(function ($anggota) {
                                                                         // Calculate age based on birthdate
-                                                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                                        $today = new DateTime();
-                                                                        $age = $today->diff($birthdate)->y;
+                                                                        // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                                        // $today = new DateTime();
+                                                                        // $age = $today->diff($birthdate)->y;
+                                                                        $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                                        $yearNow = \Carbon\Carbon::now()->year;
+                                                                        $periodes = $yearNow - $anggota->warga->periode;
+                                                                        $age = $age - $periodes;
                                                                         return $age <= 5;
                                                                     })->count() }}
                                                             </strong> Orang <br>
                                                             Jumlah WUS (Wanita Usia Subur)
                                                             <strong>
                                                                 {{ $c->anggota->filter(function ($anggota) {
-                                                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                                        $today = new DateTime();
-                                                                        $age = $today->diff($birthdate)->y;
+                                                                        // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                                        // $today = new DateTime();
+                                                                        // $age = $today->diff($birthdate)->y;
+                                                                        $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                                        $yearNow = \Carbon\Carbon::now()->year;
+                                                                        $periodes = $yearNow - $anggota->warga->periode;
+                                                                        $age = $age - $periodes;
                                                                         // sebelum return lakukan pengecekan dulu jika ada leleaku yg menikah
                                                                         return $anggota->warga->jenis_kelamin === 'perempuan' &&
                                                                             $age >= 15 &&
@@ -224,11 +234,15 @@
                                                                     if ($hasMarriedMen) {
                                                                         $wusCount = $c->anggota
                                                                             ->filter(function ($anggota) {
-                                                                                $birthdate = new DateTime(
-                                                                                    $anggota->warga->tgl_lahir,
-                                                                                );
-                                                                                $today = new DateTime();
-                                                                                $age = $today->diff($birthdate)->y;
+                                                                                // $birthdate = new DateTime(
+                                                                                //     $anggota->warga->tgl_lahir,
+                                                                                // );
+                                                                                // $today = new DateTime();
+                                                                                // $age = $today->diff($birthdate)->y;
+                                                                                $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                                                $age = $age - $periodes;
                                                                                 return $anggota->warga
                                                                                     ->jenis_kelamin === 'perempuan' &&
                                                                                     $age >= 15 &&
@@ -267,9 +281,13 @@
                                                             <strong>
                                                                 {{ $c->anggota->filter(function ($anggota) {
                                                                         // Calculate age based on birthdate
-                                                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                                        $today = new DateTime();
-                                                                        $age = $today->diff($birthdate)->y;
+                                                                        // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                                        // $today = new DateTime();
+                                                                        // $age = $today->diff($birthdate)->y;
+                                                                        $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                                        $yearNow = \Carbon\Carbon::now()->year;
+                                                                        $periodes = $yearNow - $anggota->warga->periode;
+                                                                        $age = $age - $periodes;
                                                                         return $age >= 45;
                                                                     })->count() }}
                                                                 <br>

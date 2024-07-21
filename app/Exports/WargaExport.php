@@ -35,6 +35,10 @@ class WargaExport implements FromCollection, WithHeadings, WithStyles
         // Informasi tentang setiap anggota keluarga dan kegiatan
         foreach ($this->keluarga->anggota as $index => $data_warga) {
             // dd($data_warga);
+            $umur = \Carbon\Carbon::parse($data_warga->warga->tgl_lahir)->age;
+            $yearNow = \Carbon\Carbon::now()->year;
+            $periode = $yearNow - $data_warga->warga->periode;
+            $umur = $umur - $periode;
             $memberInfo = [
                 'No' => $index + 1,
                 'No Registrasi' => $data_warga->warga->no_registrasi,
@@ -44,7 +48,9 @@ class WargaExport implements FromCollection, WithHeadings, WithStyles
                 'Jenis Kelamin Laki' => ucfirst($data_warga->warga->jenis_kelamin),
                 // 'Jenis Kelamin Perempuan' => $data_warga->warga->jenis_kelamin  == 'perempuan' ? 1 : 0,
                 // 'Tempat Lahir' => $data_warga->warga->tempat_lahir,
-                'Tanggal Lahir/Umur' => $data_warga->warga->tgl_lahir ? Carbon::parse($data_warga->warga->tgl_lahir)->format('d/m/Y') . ' / ' . Carbon::parse($data_warga->warga->tgl_lahir)->age . ' Tahun' : '-',
+                'Tanggal Lahir/Umur' =>
+                // $data_warga->warga->tgl_lahir ? Carbon::parse($data_warga->warga->tgl_lahir)->format('d/m/Y') . ' / ' . Carbon::parse($data_warga->warga->tgl_lahir)->age . ' Tahun' : '-',
+                $data_warga->warga->tgl_lahir ? Carbon::parse($data_warga->warga->tgl_lahir)->format('d/m/Y') . ' / ' . $umur . ' Tahun' : '-',
                 // 'Agama' => $data_warga->warga->agama,
                 'Pendidikan' => $data_warga->warga->pendidikan == 'Pilih Pekerjaan'? '' : $data_warga->warga->pendidikan,
                 'Pekerjaan' => $data_warga->warga->pekerjaan == 'Pilih Pekerjaan' ? '' : $data_warga->warga->pekerjaan,

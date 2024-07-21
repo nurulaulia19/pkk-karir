@@ -104,6 +104,9 @@
                                                         $umur = '-';
                                                         if ($tgl_lahir) {
                                                             $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                            $yearNow = \Carbon\Carbon::now()->year;
+                                                            $periode = $yearNow - $data_warga->warga->periode;
+                                                            $umur = $umur - $periode;
                                                         }
                                                     @endphp
 

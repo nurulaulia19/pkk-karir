@@ -16,13 +16,13 @@ class WargaSeeder extends Seeder
      */
     public function run()
     {
-        $iqbal = DataWarga::create([
+        $abdul = DataWarga::create([
             'id_desa' => 1,
             'id_kecamatan' => 1,
             'id_dasawisma' => 1,
             'no_registrasi' => '020103042009008',
             'no_ktp' => '3212011401970001',
-            'nama' => 'Iqbal Ramadhan',
+            'nama' => 'Abdul Ghani',
             'jabatan' => 'ketua',
             'jenis_kelamin' => 'laki-laki',
             'tempat_lahir' => 'Indramayu',
@@ -48,7 +48,7 @@ class WargaSeeder extends Seeder
             'is_kegiatan' => true,
         ]);
         DataKegiatanWarga::create([
-            'warga_id' => $iqbal->id,
+            'warga_id' => $abdul->id,
             'data_kegiatan_id' => 1,
             'periode' => 2023,
             'is_valid' => now()
@@ -61,7 +61,7 @@ class WargaSeeder extends Seeder
             'id_dasawisma' => 1,
             'no_registrasi' => '020103042009002',
             'no_ktp' => '3212022203950002',
-            'nama' => 'Sinta Aulia',
+            'nama' => 'Nurul Aulia',
             'jabatan' => 'anggota',
             'jenis_kelamin' => 'perempuan',
             'tempat_lahir' => 'Indramayu',
@@ -101,13 +101,13 @@ class WargaSeeder extends Seeder
         ]);
 
 
-        $gilang = DataWarga::create([
+        $asykur = DataWarga::create([
             'id_desa' => 1,
             'id_kecamatan' => 1,
             'id_dasawisma' => 1,
             'no_registrasi' => '020103042009003',
             'no_ktp' => '3212031504010003',
-            'nama' => 'Gilang',
+            'nama' => 'Asykur Thoriq',
             'jabatan' => 'anggota',
             'jenis_kelamin' => 'laki-laki',
             'tempat_lahir' => 'Indramayu',
@@ -131,19 +131,19 @@ class WargaSeeder extends Seeder
             'is_kegiatan' => true,
         ]);
         DataKegiatanWarga::create([
-            'warga_id' => $gilang->id,
+            'warga_id' => $asykur->id,
             'data_kegiatan_id' => 1,
             'periode' => 2023,
             'is_valid' => now()
         ]);
 
-        $pelita = DataWarga::create([
+        $septiani = DataWarga::create([
             'id_desa' => 1,
             'id_kecamatan' => 1,
             'id_dasawisma' => 1,
             'no_registrasi' => '020103042009004',
             'no_ktp' => '3212043105020004',
-            'nama' => 'Pelita',
+            'nama' => 'Septiani',
             'jabatan' => 'anggota',
             'jenis_kelamin' => 'perempuan',
             'tempat_lahir' => 'Indramayu',
@@ -169,7 +169,7 @@ class WargaSeeder extends Seeder
             'is_kegiatan' => true,
         ]);
         DataKegiatanWarga::create([
-            'warga_id' => $pelita->id,
+            'warga_id' => $septiani->id,
             'data_kegiatan_id' => 1,
             'periode' => 2023,
             'is_valid' => now()
@@ -218,7 +218,7 @@ class WargaSeeder extends Seeder
             'id_dasawisma' => 1,
             'no_registrasi' => '020103042009006',
             'no_ktp' => '3212062008060006',
-            'nama' => 'Budi Santoso',
+            'nama' => 'Budi Mustaqim',
             'jabatan' => 'anggota',
             'jenis_kelamin' => 'laki-laki',
             'tempat_lahir' => 'Indramayu',

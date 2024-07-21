@@ -200,8 +200,11 @@ class DesaController extends Controller
                                     }
                                     foreach ($anggotaRumah->keluarga->anggota as $anggota) {
                                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umurz = $tgl_lahir->diffInYears($today);
-
+                                        // $umurz = $tgl_lahir->diffInYears($today);
+                                        $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $umurz = $umurz - $periodes;
                                         if ($anggota->warga->makan_beras) {
                                             $totalBeras++;
                                         } else {
@@ -229,14 +232,22 @@ class DesaController extends Controller
                                         if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                             $totalLakiLaki++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur <= 5) {
                                                 $totalbalitaLaki++;
                                             }
                                         } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                             $totalPerempuan++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur >= 15 && $umur <= 49) {
                                                 $totalWUS++;
                                             }
@@ -253,9 +264,13 @@ class DesaController extends Controller
                                     if ($hasMarriedMen) {
                                         $countPUS = $anggotaRumah->keluarga->anggota
                                             ->filter(function ($anggota) {
-                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                $today = new DateTime();
-                                                $age = $today->diff($birthdate)->y;
+                                                // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                // $today = new DateTime();
+                                                // $age = $today->diff($birthdate)->y;
+                                                $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $age = $age - $periodes;
                                                 return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                             })
                                             ->count()
@@ -450,8 +465,11 @@ class DesaController extends Controller
                                     }
                                     foreach ($anggotaRumah->keluarga->anggota as $anggota) {
                                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umurz = $tgl_lahir->diffInYears($today);
-
+                                        // $umurz = $tgl_lahir->diffInYears($today);
+                                        $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $umurz = $umurz - $periodes;
                                         if ($anggota->warga->makan_beras) {
                                             $totalBeras++;
                                         } else {
@@ -479,14 +497,22 @@ class DesaController extends Controller
                                         if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                             $totalLakiLaki++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur <= 5) {
                                                 $totalbalitaLaki++;
                                             }
                                         } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                             $totalPerempuan++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur >= 15 && $umur <= 49) {
                                                 $totalWUS++;
                                             }
@@ -503,9 +529,13 @@ class DesaController extends Controller
                                     if ($hasMarriedMen) {
                                         $countPUS = $anggotaRumah->keluarga->anggota
                                             ->filter(function ($anggota) {
-                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                $today = new DateTime();
-                                                $age = $today->diff($birthdate)->y;
+                                                // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                // $today = new DateTime();
+                                                // $age = $today->diff($birthdate)->y;
+                                                $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $age = $age - $periodes;
                                                 return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                             })
                                             ->count()

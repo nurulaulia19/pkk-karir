@@ -144,7 +144,11 @@ class DusunController extends Controller
                             //     }
                             // }
                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                            $umurz = $tgl_lahir->diffInYears($today);
+                            // $umurz = $tgl_lahir->diffInYears($today);
+                            $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                            $yearNow = \Carbon\Carbon::now()->year;
+                            $periodes = $yearNow - $anggota->warga->periode;
+                            $umurz = $umurz - $periodes;
 
                             if ($anggota->warga->makan_beras) {
                                 $countBeras++;
@@ -178,14 +182,22 @@ class DusunController extends Controller
                             if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                 $countLakiLaki++;
                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                $umur = $tgl_lahir->diffInYears($today);
+                                // $umur = $tgl_lahir->diffInYears($today);
+                                $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                $yearNow = \Carbon\Carbon::now()->year;
+                                $periodes = $yearNow - $anggota->warga->periode;
+                                $umur = $umur - $periodes;
                                 if ($umur <= 5) {
                                     $countbalitaLaki++;
                                 }
                             } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                 $countPerempuan++;
                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                $umur = $tgl_lahir->diffInYears($today);
+                                // $umur = $tgl_lahir->diffInYears($today);
+                                $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                $yearNow = \Carbon\Carbon::now()->year;
+                                $periodes = $yearNow - $anggota->warga->periode;
+                                $umur = $umur - $periodes;
                                 if ($umur >= 15 && $umur <= 49) {
                                     $countWUS++;
                                 }
@@ -226,9 +238,13 @@ class DusunController extends Controller
                         $hitung = 0;
                         if ($hasMarriedMen) {
                             $hitung = $anggotaRumah->keluarga->anggota->filter(function ($anggota) {
-                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                $today = new DateTime();
-                                $age = $today->diff($birthdate)->y;
+                                // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                // $today = new DateTime();
+                                // $age = $today->diff($birthdate)->y;
+                                $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                $yearNow = \Carbon\Carbon::now()->year;
+                                $periodes = $yearNow - $anggota->warga->periode;
+                                $age = $age - $periodes;
                                 return $anggota->warga->jenis_kelamin === 'perempuan' &&
                                     $age >= 15 &&
                                     $age <= 49 &&

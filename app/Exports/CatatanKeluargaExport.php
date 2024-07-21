@@ -34,13 +34,20 @@ class CatatanKeluargaExport implements FromCollection, WithHeadings, WithStyles
 
         // Informasi tentang setiap anggota keluarga dan kegiatan
         foreach ($this->keluarga->anggota as $index => $data_warga) {
+            $umur = \Carbon\Carbon::parse($data_warga->warga->tgl_lahir)->age;
+            $yearNow = \Carbon\Carbon::now()->year;
+            $periode = $yearNow - $data_warga->warga->periode;
+            $umur = $umur - $periode;
             $memberInfo = [
                 'No' => $index + 1,
                 'Nama Anggota Keluarga' => ucfirst($data_warga->warga->nama),
                 'Status Perkawinan' => ucfirst($data_warga->warga->status_perkawinan),
                 'Jenis Kelamin' => ucfirst($data_warga->warga->jenis_kelamin),
                 'Tempat Lahir' => ucfirst($data_warga->warga->tempat_lahir),
-                'Tanggal Lahir/Umur' => $data_warga->warga->tgl_lahir ? Carbon::parse($data_warga->warga->tgl_lahir)->format('d/m/Y') . ' / ' . Carbon::parse($data_warga->warga->tgl_lahir)->age . ' Tahun' : '-',
+                'Tanggal Lahir/Umur' =>
+                $data_warga->warga->tgl_lahir ?
+                Carbon::parse($data_warga->warga->tgl_lahir)->format('d/m/Y') . ' / ' .
+                $umur . ' Tahun' : '-',
                 'Agama' => ucfirst($data_warga->warga->agama),
                 'Pendidikan' => ucfirst($data_warga->warga->pendidikan),
                 'Pekerjaan' => ucfirst($data_warga->warga->pekerjaan),

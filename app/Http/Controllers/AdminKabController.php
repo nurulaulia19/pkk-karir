@@ -341,7 +341,11 @@ class AdminKabController extends Controller
                                     // Iterasi melalui setiap anggota keluarga
                                     foreach ($keluarga->keluarga->anggota as $anggota) {
                                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umurz = $tgl_lahir->diffInYears($today);
+                                        // $umurz = $tgl_lahir->diffInYears($today);
+                                        $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $umurz = $umurz - $periodes;
                                         if ($umurz >= 45) {
                                             $totalAnggotaLansia++;
                                         }
@@ -368,14 +372,22 @@ class AdminKabController extends Controller
                                         if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                             $totalAnggotaLaki++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur <= 5) {
                                                 $totalAnggotaBalitaLaki++;
                                             }
                                         } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                             $totalAnggotaPerempuan++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur >= 15 && $umur <= 49) {
                                                 $totalAnggotaWUS++;
                                             }
@@ -393,9 +405,13 @@ class AdminKabController extends Controller
                                     if ($hasMarriedMen) {
                                         $hitung = $keluarga->keluarga->anggota
                                             ->filter(function ($anggota) {
-                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                $today = new DateTime();
-                                                $age = $today->diff($birthdate)->y;
+                                                // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                // $today = new DateTime();
+                                                // $age = $today->diff($birthdate)->y;
+                                                $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $age = $age - $periodes;
                                                 return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                             })
                                             ->count()
@@ -556,7 +572,11 @@ class AdminKabController extends Controller
                                     // Iterasi melalui setiap anggota keluarga
                                     foreach ($keluarga->keluarga->anggota as $anggota) {
                                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umurz = $tgl_lahir->diffInYears($today);
+                                        // $umurz = $tgl_lahir->diffInYears($today);
+                                        $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $umurz = $umurz - $periodes;
                                         if ($umurz >= 45) {
                                             $totalAnggotaLansia++;
                                         }
@@ -583,14 +603,22 @@ class AdminKabController extends Controller
                                         if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                             $totalAnggotaLaki++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur <= 5) {
                                                 $totalAnggotaBalitaLaki++;
                                             }
                                         } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                             $totalAnggotaPerempuan++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur >= 15 && $umur <= 49) {
                                                 $totalAnggotaWUS++;
                                             }
@@ -608,9 +636,13 @@ class AdminKabController extends Controller
                                     if ($hasMarriedMen) {
                                         $hitung = $keluarga->keluarga->anggota
                                             ->filter(function ($anggota) {
-                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                $today = new DateTime();
-                                                $age = $today->diff($birthdate)->y;
+                                                // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                // $today = new DateTime();
+                                                // $age = $today->diff($birthdate)->y;
+                                                $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $age = $age - $periodes;
                                                 return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                             })
                                             ->count()
@@ -780,8 +812,11 @@ class AdminKabController extends Controller
                                             //     }
                                             // }
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umurz = $tgl_lahir->diffInYears($today);
-
+                                            // $umurz = $tgl_lahir->diffInYears($today);
+                                            $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umurz = $umurz - $periodes;
                                             if ($anggota->warga->makan_beras) {
                                                 $totalBeras++;
                                             } else {
@@ -809,14 +844,22 @@ class AdminKabController extends Controller
                                             if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                                 $totalLakiLaki++;
                                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                $umur = $tgl_lahir->diffInYears($today);
+                                                // $umur = $tgl_lahir->diffInYears($today);
+                                                $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $umur = $umur - $periodes;
                                                 if ($umur <= 5) {
                                                     $totalBalitaLaki++;
                                                 }
                                             } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                                 $totalPerempuan++;
                                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                $umur = $tgl_lahir->diffInYears($today);
+                                                // $umur = $tgl_lahir->diffInYears($today);
+                                                $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $umur = $umur - $periodes;
                                                 if ($umur >= 15 && $umur <= 49) {
                                                     $totalWUS++;
                                                 }
@@ -857,9 +900,13 @@ class AdminKabController extends Controller
                                         if ($hasMarriedMen) {
                                             $hitung = $anggotaRumah->keluarga->anggota
                                                 ->filter(function ($anggota) {
-                                                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                    $today = new DateTime();
-                                                    $age = $today->diff($birthdate)->y;
+                                                    // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                    // $today = new DateTime();
+                                                    // $age = $today->diff($birthdate)->y;
+                                                    $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                    $yearNow = \Carbon\Carbon::now()->year;
+                                                    $periodes = $yearNow - $anggota->warga->periode;
+                                                    $age = $age - $periodes;
                                                     return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                                 })
                                                 ->count()
@@ -1015,8 +1062,11 @@ class AdminKabController extends Controller
                                             //     }
                                             // }
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umurz = $tgl_lahir->diffInYears($today);
-
+                                            // $umurz = $tgl_lahir->diffInYears($today);
+                                            $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umurz = $umurz - $periodes;
                                             if ($anggota->warga->makan_beras) {
                                                 $totalBeras++;
                                             } else {
@@ -1044,14 +1094,22 @@ class AdminKabController extends Controller
                                             if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                                 $totalLakiLaki++;
                                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                $umur = $tgl_lahir->diffInYears($today);
+                                                // $umur = $tgl_lahir->diffInYears($today);
+                                                $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $umur = $umur - $periodes;
                                                 if ($umur <= 5) {
                                                     $totalBalitaLaki++;
                                                 }
                                             } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                                 $totalPerempuan++;
                                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                $umur = $tgl_lahir->diffInYears($today);
+                                                // $umur = $tgl_lahir->diffInYears($today);
+                                                $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $umur = $umur - $periodes;
                                                 if ($umur >= 15 && $umur <= 49) {
                                                     $totalWUS++;
                                                 }
@@ -1092,9 +1150,13 @@ class AdminKabController extends Controller
                                         if ($hasMarriedMen) {
                                             $hitung = $anggotaRumah->keluarga->anggota
                                                 ->filter(function ($anggota) {
-                                                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                    $today = new DateTime();
-                                                    $age = $today->diff($birthdate)->y;
+                                                    // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                    // $today = new DateTime();
+                                                    // $age = $today->diff($birthdate)->y;
+                                                    $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                    $yearNow = \Carbon\Carbon::now()->year;
+                                                    $periodes = $yearNow - $anggota->warga->periode;
+                                                    $age = $age - $periodes;
                                                     return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                                 })
                                                 ->count()
@@ -1303,8 +1365,11 @@ class AdminKabController extends Controller
                                 //     }
                                 // }
                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                $umurz = $tgl_lahir->diffInYears($today);
-
+                                // $umurz = $tgl_lahir->diffInYears($today);
+                                $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                $yearNow = \Carbon\Carbon::now()->year;
+                                $periodes = $yearNow - $anggota->warga->periode;
+                                $umurz = $umurz - $periodes;
                                 if ($anggota->warga->makan_beras) {
                                     $countBeras++;
                                 } else {
@@ -1337,14 +1402,22 @@ class AdminKabController extends Controller
                                 if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                     $countLakiLaki++;
                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                    $umur = $tgl_lahir->diffInYears($today);
+                                    // $umur = $tgl_lahir->diffInYears($today);
+                                    $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                    $yearNow = \Carbon\Carbon::now()->year;
+                                    $periodes = $yearNow - $anggota->warga->periode;
+                                    $umur = $umur - $periodes;
                                     if ($umur <= 5) {
                                         $countbalitaLaki++;
                                     }
                                 } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                     $countPerempuan++;
                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                    $umur = $tgl_lahir->diffInYears($today);
+                                    // $umur = $tgl_lahir->diffInYears($today);
+                                    $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                    $yearNow = \Carbon\Carbon::now()->year;
+                                    $periodes = $yearNow - $anggota->warga->periode;
+                                    $umur = $umur - $periodes;
                                     if ($umur >= 15 && $umur <= 49) {
                                         $countWUS++;
                                     }
@@ -1385,9 +1458,13 @@ class AdminKabController extends Controller
                             if ($hasMarriedMen) {
                                 $hitung = $anggotaRumah->keluarga->anggota
                                     ->filter(function ($anggota) {
-                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                        $today = new DateTime();
-                                        $age = $today->diff($birthdate)->y;
+                                        // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                        // $today = new DateTime();
+                                        // $age = $today->diff($birthdate)->y;
+                                        $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $age = $age - $periodes;
                                         return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                     })
                                     ->count()
@@ -1565,8 +1642,11 @@ class AdminKabController extends Controller
                                         //     }
                                         // }
                                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umurz = $tgl_lahir->diffInYears($today);
-
+                                        // $umurz = $tgl_lahir->diffInYears($today);
+                                        $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $umurz = $umurz - $periodes;
                                         if ($anggota->warga->makan_beras) {
                                             $countBeras++;
                                         } else {
@@ -1599,14 +1679,22 @@ class AdminKabController extends Controller
                                         if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                             $countLakiLaki++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur <= 5) {
                                                 $countbalitaLaki++;
                                             }
                                         } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                             $countPerempuan++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur >= 15 && $umur <= 49) {
                                                 $countWUS++;
                                             }
@@ -1624,9 +1712,13 @@ class AdminKabController extends Controller
                                     if ($hasMarriedMen) {
                                         $hitung = $anggotaRumah->keluarga->anggota
                                             ->filter(function ($anggota) {
-                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                $today = new DateTime();
-                                                $age = $today->diff($birthdate)->y;
+                                                // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                // $today = new DateTime();
+                                                // $age = $today->diff($birthdate)->y;
+                                                $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $age = $age - $periodes;
                                                 return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                             })
                                             ->count()

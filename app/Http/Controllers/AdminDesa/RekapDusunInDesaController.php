@@ -163,7 +163,11 @@ class RekapDusunInDesaController extends Controller
                                     }
                                     foreach ($anggotaRumah->keluarga->anggota as $anggota) {
                                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umurz = $tgl_lahir->diffInYears($today);
+                                        // $umurz = $tgl_lahir->diffInYears($today);
+                                        $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $umurz = $umurz - $periodes;
 
                                         if ($anggota->warga->makan_beras) {
                                             $totalBeras++;
@@ -192,14 +196,22 @@ class RekapDusunInDesaController extends Controller
                                         if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                             $totalLakiLaki++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur <= 5) {
                                                 $totalbalitaLaki++;
                                             }
                                         } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                             $totalPerempuan++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur >= 15 && $umur <= 49) {
                                                 $totalWUS++;
                                             }
@@ -216,9 +228,13 @@ class RekapDusunInDesaController extends Controller
                                     if ($hasMarriedMen) {
                                         $countPUS = $anggotaRumah->keluarga->anggota
                                             ->filter(function ($anggota) {
-                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                $today = new DateTime();
-                                                $age = $today->diff($birthdate)->y;
+                                                // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                // $today = new DateTime();
+                                                // $age = $today->diff($birthdate)->y;
+                                                $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $age = $age - $periodes;
                                                 return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                             })
                                             ->count()
@@ -342,9 +358,13 @@ class RekapDusunInDesaController extends Controller
                         if ($hasMarriedMen) {
                             $hitung = $anggotaRumah->anggota
                                 ->filter(function ($anggota) {
-                                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                    $today = new DateTime();
-                                    $age = $today->diff($birthdate)->y;
+                                    // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                    // $today = new DateTime();
+                                    // $age = $today->diff($birthdate)->y;
+                                    $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                    $yearNow = \Carbon\Carbon::now()->year;
+                                    $periodes = $yearNow - $anggota->warga->periode;
+                                    $age = $age - $periodes;
                                     return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                 })
                                 ->count()
@@ -358,8 +378,11 @@ class RekapDusunInDesaController extends Controller
                     where('id_dasawisma',$item->id)->get();
                 foreach ($datawrga as $anggota) {
                         $tgl_lahir = Carbon::parse($anggota->tgl_lahir);
-                        $umurz = $tgl_lahir->diffInYears($today);
-
+                        // $umurz = $tgl_lahir->diffInYears($today);
+                        $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                        $yearNow = \Carbon\Carbon::now()->year;
+                        $periodes = $yearNow - $anggota->warga->periode;
+                        $umurz = $umurz - $periodes;
                         if ($anggota->makan_beras) {
                             $countBeras++;
                         } else {
@@ -392,14 +415,22 @@ class RekapDusunInDesaController extends Controller
                         if ($anggota->jenis_kelamin === 'laki-laki') {
                             $countLakiLaki++;
                             $tgl_lahir = Carbon::parse($anggota->tgl_lahir);
-                            $umur = $tgl_lahir->diffInYears($today);
+                            // $umur = $tgl_lahir->diffInYears($today);
+                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                            $yearNow = \Carbon\Carbon::now()->year;
+                            $periodes = $yearNow - $anggota->warga->periode;
+                            $umur = $umur - $periodes;
                             if ($umur <= 5) {
                                 $countbalitaLaki++;
                             }
                         } elseif ($anggota->jenis_kelamin === 'perempuan') {
                             $countPerempuan++;
                             $tgl_lahir = Carbon::parse($anggota->tgl_lahir);
-                            $umur = $tgl_lahir->diffInYears($today);
+                            // $umur = $tgl_lahir->diffInYears($today);
+                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                            $yearNow = \Carbon\Carbon::now()->year;
+                            $periodes = $yearNow - $anggota->warga->periode;
+                            $umur = $umur - $periodes;
                             if ($umur >= 15 && $umur <= 49) {
                                 $countWUS++;
                             }
@@ -1032,7 +1063,11 @@ class RekapDusunInDesaController extends Controller
                                     }
                                     foreach ($anggotaRumah->keluarga->anggota as $anggota) {
                                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umurz = $tgl_lahir->diffInYears($today);
+                                        // $umurz = $tgl_lahir->diffInYears($today);
+                                        $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $umurz = $umurz - $periodes;
 
                                         if ($anggota->warga->makan_beras) {
                                             $countBeras++;
@@ -1061,14 +1096,22 @@ class RekapDusunInDesaController extends Controller
                                         if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                             $countLakiLaki++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur <= 5) {
                                                 $countbalitaLaki++;
                                             }
                                         } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                             $countPerempuan++;
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                            $umur = $tgl_lahir->diffInYears($today);
+                                            // $umur = $tgl_lahir->diffInYears($today);
+                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umur = $umur - $periodes;
                                             if ($umur >= 15 && $umur <= 49) {
                                                 $countWUS++;
                                             }
@@ -1085,9 +1128,13 @@ class RekapDusunInDesaController extends Controller
                                     if ($hasMarriedMen) {
                                         $countPUSdata = $anggotaRumah->keluarga->anggota
                                             ->filter(function ($anggota) {
-                                                $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                $today = new DateTime();
-                                                $age = $today->diff($birthdate)->y;
+                                                // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                // $today = new DateTime();
+                                                // $age = $today->diff($birthdate)->y;
+                                                $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $age = $age - $periodes;
                                                 return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                             })
                                             ->count()
@@ -1269,7 +1316,11 @@ class RekapDusunInDesaController extends Controller
                                 foreach ($keluarga->keluarga->anggota as $anggota) {
                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
 
-                                    $umurz = $tgl_lahir->diffInYears($today);
+                                    // $umurz = $tgl_lahir->diffInYears($today);
+                                    $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                    $yearNow = \Carbon\Carbon::now()->year;
+                                    $periodes = $yearNow - $anggota->warga->periode;
+                                    $umurz = $umurz - $periodes;
                                     if ($umurz >= 45) {
                                         $totalAnggotaLansia++;
                                     }
@@ -1296,14 +1347,22 @@ class RekapDusunInDesaController extends Controller
                                     if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                         $totalAnggotaLaki++;
                                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umur = $tgl_lahir->diffInYears($today);
+                                        // $umur = $tgl_lahir->diffInYears($today);
+                                        $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $umur = $umur - $periodes;
                                         if ($umur <= 5) {
                                             $totalAnggotaBalitaLaki++;
                                         }
                                     } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                         $totalAnggotaPerempuan++;
                                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umur = $tgl_lahir->diffInYears($today);
+                                        // $umur = $tgl_lahir->diffInYears($today);
+                                        $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $umur = $umur - $periodes;
                                         if ($umur >= 15 && $umur <= 49) {
                                             $totalAnggotaWUS++;
                                         }
@@ -1332,9 +1391,13 @@ class RekapDusunInDesaController extends Controller
                                 if ($hasMarriedMen) {
                                     $countPUS = $keluarga->keluarga->anggota
                                         ->filter(function ($anggota) {
-                                            $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                            $today = new DateTime();
-                                            $age = $today->diff($birthdate)->y;
+                                            // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                            // $today = new DateTime();
+                                            // $age = $today->diff($birthdate)->y;
+                                            $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $age = $age - $periodes;
                                             return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                         })
                                         ->count()
@@ -1486,7 +1549,11 @@ class RekapDusunInDesaController extends Controller
                                             foreach ($keluarga->keluarga->anggota as $anggota) {
                                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
 
-                                                $umurz = $tgl_lahir->diffInYears($today);
+                                                // $umurz = $tgl_lahir->diffInYears($today);
+                                                $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $umurz = $umurz - $periodes;
                                                 if ($umurz >= 45) {
                                                     $totalAnggotaLansia++;
                                                 }
@@ -1513,14 +1580,22 @@ class RekapDusunInDesaController extends Controller
                                                 if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                                     $totalAnggotaLaki++;
                                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                    $umur = $tgl_lahir->diffInYears($today);
+                                                    // $umur = $tgl_lahir->diffInYears($today);
+                                                    $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                    $yearNow = \Carbon\Carbon::now()->year;
+                                                    $periodes = $yearNow - $anggota->warga->periode;
+                                                    $umur = $umur - $periodes;
                                                     if ($umur <= 5) {
                                                         $totalAnggotaBalitaLaki++;
                                                     }
                                                 } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                                     $totalAnggotaPerempuan++;
                                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                    $umur = $tgl_lahir->diffInYears($today);
+                                                    // $umur = $tgl_lahir->diffInYears($today);
+                                                    $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                    $yearNow = \Carbon\Carbon::now()->year;
+                                                    $periodes = $yearNow - $anggota->warga->periode;
+                                                    $umur = $umur - $periodes;
                                                     if ($umur >= 15 && $umur <= 49) {
                                                         $totalAnggotaWUS++;
                                                     }
@@ -1538,9 +1613,13 @@ class RekapDusunInDesaController extends Controller
                                             if ($hasMarriedMen) {
                                                 $countPUS = $keluarga->keluarga->anggota
                                                     ->filter(function ($anggota) {
-                                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                        $today = new DateTime();
-                                                        $age = $today->diff($birthdate)->y;
+                                                        // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                        // $today = new DateTime();
+                                                        // $age = $today->diff($birthdate)->y;
+                                                        $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                        $yearNow = \Carbon\Carbon::now()->year;
+                                                        $periodes = $yearNow - $anggota->warga->periode;
+                                                        $age = $age - $periodes;
                                                         return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                                     })
                                                     ->count()
@@ -1696,7 +1775,11 @@ class RekapDusunInDesaController extends Controller
                                         foreach ($keluarga->keluarga->anggota as $anggota) {
                                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
 
-                                            $umurz = $tgl_lahir->diffInYears($today);
+                                            // $umurz = $tgl_lahir->diffInYears($today);
+                                            $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $umurz = $umurz - $periodes;
                                             if ($umurz >= 45) {
                                                 $totalAnggotaLansia++;
                                             }
@@ -1723,14 +1806,22 @@ class RekapDusunInDesaController extends Controller
                                             if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                                 $totalAnggotaLaki++;
                                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                $umur = $tgl_lahir->diffInYears($today);
+                                                // $umur = $tgl_lahir->diffInYears($today);
+                                                $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $umur = $umur - $periodes;
                                                 if ($umur <= 5) {
                                                     $totalAnggotaBalitaLaki++;
                                                 }
                                             } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                                 $totalAnggotaPerempuan++;
                                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                $umur = $tgl_lahir->diffInYears($today);
+                                                // $umur = $tgl_lahir->diffInYears($today);
+                                                $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $umur = $umur - $periodes;
                                                 if ($umur >= 15 && $umur <= 49) {
                                                     $totalAnggotaWUS++;
                                                 }
@@ -1760,9 +1851,13 @@ class RekapDusunInDesaController extends Controller
                                         if ($hasMarriedMen) {
                                             $countPUS = $keluarga->keluarga->anggota
                                                 ->filter(function ($anggota) {
-                                                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                    $today = new DateTime();
-                                                    $age = $today->diff($birthdate)->y;
+                                                    // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                    // $today = new DateTime();
+                                                    // $age = $today->diff($birthdate)->y;
+                                                    $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                    $yearNow = \Carbon\Carbon::now()->year;
+                                                    $periodes = $yearNow - $anggota->warga->periode;
+                                                    $age = $age - $periodes;
                                                     return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                                 })
                                                 ->count()
@@ -1921,7 +2016,11 @@ class RekapDusunInDesaController extends Controller
                                             foreach ($keluarga->keluarga->anggota as $anggota) {
                                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
 
-                                                $umurz = $tgl_lahir->diffInYears($today);
+                                                // $umurz = $tgl_lahir->diffInYears($today);
+                                                $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                $yearNow = \Carbon\Carbon::now()->year;
+                                                $periodes = $yearNow - $anggota->warga->periode;
+                                                $umurz = $umurz - $periodes;
                                                 if ($umurz >= 45) {
                                                     $totalAnggotaLansia++;
                                                 }
@@ -1948,14 +2047,22 @@ class RekapDusunInDesaController extends Controller
                                                 if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                                     $totalAnggotaLaki++;
                                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                    $umur = $tgl_lahir->diffInYears($today);
+                                                    // $umur = $tgl_lahir->diffInYears($today);
+                                                    $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                    $yearNow = \Carbon\Carbon::now()->year;
+                                                    $periodes = $yearNow - $anggota->warga->periode;
+                                                    $umur = $umur - $periodes;
                                                     if ($umur <= 5) {
                                                         $totalAnggotaBalitaLaki++;
                                                     }
                                                 } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                                     $totalAnggotaPerempuan++;
                                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                                    $umur = $tgl_lahir->diffInYears($today);
+                                                    // $umur = $tgl_lahir->diffInYears($today);
+                                                    $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                    $yearNow = \Carbon\Carbon::now()->year;
+                                                    $periodes = $yearNow - $anggota->warga->periode;
+                                                    $umur = $umur - $periodes;
                                                     if ($umur >= 15 && $umur <= 49) {
                                                         $totalAnggotaWUS++;
                                                     }
@@ -1985,9 +2092,13 @@ class RekapDusunInDesaController extends Controller
                                             if ($hasMarriedMen) {
                                                 $countPUS = $keluarga->keluarga->anggota
                                                     ->filter(function ($anggota) {
-                                                        $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                                        $today = new DateTime();
-                                                        $age = $today->diff($birthdate)->y;
+                                                        // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                                        // $today = new DateTime();
+                                                        // $age = $today->diff($birthdate)->y;
+                                                        $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                                        $yearNow = \Carbon\Carbon::now()->year;
+                                                        $periodes = $yearNow - $anggota->warga->periode;
+                                                        $age = $age - $periodes;
                                                         return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                                     })
                                                     ->count()
@@ -2143,7 +2254,11 @@ class RekapDusunInDesaController extends Controller
                         }
                         foreach ($anggotaRumah->keluarga->anggota as $anggota) {
                             $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                            $umurz = $tgl_lahir->diffInYears($today);
+                            // $umurz = $tgl_lahir->diffInYears($today);
+                            $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                            $yearNow = \Carbon\Carbon::now()->year;
+                            $periodes = $yearNow - $anggota->warga->periode;
+                            $umurz = $umurz - $periodes;
 
                             if ($anggota->warga->makan_beras) {
                                 $countBeras++;
@@ -2177,14 +2292,22 @@ class RekapDusunInDesaController extends Controller
                             if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                 $countLakiLaki++;
                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                $umur = $tgl_lahir->diffInYears($today);
+                                // $umur = $tgl_lahir->diffInYears($today);
+                                $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                $yearNow = \Carbon\Carbon::now()->year;
+                                $periodes = $yearNow - $anggota->warga->periode;
+                                $umur = $umur - $periodes;
                                 if ($umur <= 5) {
                                     $countbalitaLaki++;
                                 }
                             } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                 $countPerempuan++;
                                 $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                $umur = $tgl_lahir->diffInYears($today);
+                                // $umur = $tgl_lahir->diffInYears($today);
+                                $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                $yearNow = \Carbon\Carbon::now()->year;
+                                $periodes = $yearNow - $anggota->warga->periode;
+                                $umur = $umur - $periodes;
                                 if ($umur >= 15 && $umur <= 49) {
                                     $countWUS++;
                                 }
@@ -2203,9 +2326,13 @@ class RekapDusunInDesaController extends Controller
                         if ($hasMarriedMen) {
                             $hitung = $anggotaRumah->keluarga->anggota
                                 ->filter(function ($anggota) {
-                                    $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                    $today = new DateTime();
-                                    $age = $today->diff($birthdate)->y;
+                                    // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                    // $today = new DateTime();
+                                    // $age = $today->diff($birthdate)->y;
+                                    $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                    $yearNow = \Carbon\Carbon::now()->year;
+                                    $periodes = $yearNow - $anggota->warga->periode;
+                                    $age = $age - $periodes;
                                     return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                 })
                                 ->count()
@@ -2368,7 +2495,11 @@ class RekapDusunInDesaController extends Controller
                                 foreach ($keluarga->keluarga->anggota as $anggota) {
                                     $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
 
-                                    $umurz = $tgl_lahir->diffInYears($today);
+                                    // $umurz = $tgl_lahir->diffInYears($today);
+                                    $umurz = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                    $yearNow = \Carbon\Carbon::now()->year;
+                                    $periodes = $yearNow - $anggota->warga->periode;
+                                    $umurz = $umurz - $periodes;
                                     if ($umurz >= 45) {
                                         $totalAnggotaLansia++;
                                     }
@@ -2395,14 +2526,22 @@ class RekapDusunInDesaController extends Controller
                                     if ($anggota->warga->jenis_kelamin === 'laki-laki') {
                                         $totalAnggotaLaki++;
                                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umur = $tgl_lahir->diffInYears($today);
+                                        // $umur = $tgl_lahir->diffInYears($today);
+                                        $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $umur = $umur - $periodes;
                                         if ($umur <= 5) {
                                             $totalAnggotaBalitaLaki++;
                                         }
                                     } elseif ($anggota->warga->jenis_kelamin === 'perempuan') {
                                         $totalAnggotaPerempuan++;
                                         $tgl_lahir = Carbon::parse($anggota->warga->tgl_lahir);
-                                        $umur = $tgl_lahir->diffInYears($today);
+                                        // $umur = $tgl_lahir->diffInYears($today);
+                                        $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                        $yearNow = \Carbon\Carbon::now()->year;
+                                        $periodes = $yearNow - $anggota->warga->periode;
+                                        $umur = $umur - $periodes;
                                         if ($umur >= 15 && $umur <= 49) {
                                             $totalAnggotaWUS++;
                                         }
@@ -2431,9 +2570,13 @@ class RekapDusunInDesaController extends Controller
                                 if ($hasMarriedMen) {
                                     $countPUS = $keluarga->keluarga->anggota
                                         ->filter(function ($anggota) {
-                                            $birthdate = new DateTime($anggota->warga->tgl_lahir);
-                                            $today = new DateTime();
-                                            $age = $today->diff($birthdate)->y;
+                                            // $birthdate = new DateTime($anggota->warga->tgl_lahir);
+                                            // $today = new DateTime();
+                                            // $age = $today->diff($birthdate)->y;
+                                            $age = \Carbon\Carbon::parse($anggota->warga->tgl_lahir)->age;
+                                            $yearNow = \Carbon\Carbon::now()->year;
+                                            $periodes = $yearNow - $anggota->warga->periode;
+                                            $age = $age - $periodes;
                                             return $anggota->warga->jenis_kelamin === 'perempuan' && $age >= 15 && $age <= 49 && $anggota->warga->status_perkawinan === 'menikah';
                                         })
                                         ->count()

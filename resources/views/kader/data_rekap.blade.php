@@ -87,7 +87,11 @@
                                                         $tgl_lahir = $c->warga->tgl_lahir;
 
                                                         // Menghitung umur menggunakan Carbon
-                                                        $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                        // $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                            $umur = \Carbon\Carbon::parse($tgl_lahir)->age;
+                                                            $yearNow = \Carbon\Carbon::now()->year;
+                                                            $periode = $yearNow - $c->warga->periode;
+                                                            $umur = $umur - $periode;
                                                         ?>
                                                         {{ \Carbon\Carbon::parse($c->warga->tgl_lahir)->isoFormat('D MMMM Y') }}
                                                         /

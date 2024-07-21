@@ -56,9 +56,9 @@
                                                 <th style="vertical-align: middle;">Jabatan</th>
                                                 <th style="vertical-align: middle;">Jenis Kelamin</th>
                                                 <th style="vertical-align: middle;">Periode</th>
-                                                @if ($nowYear == $periode)
+                                                {{-- @if ($nowYear == $periode) --}}
                                                 <th style="vertical-align: middle;">Aksi</th>
-                                                @endif
+                                                {{-- @endif --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -89,7 +89,7 @@
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->jenis_kelamin) }}
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ ucfirst($c->periode) }}</td>
-                                                    @if ($nowYear == $periode)
+                                                    {{-- @if ($nowYear == $periode) --}}
                                                         <td style="vertical-align: middle;">
                                                             <div class="d-flex justify-content-center align-items-center">
                                                                 <button type="button" class="btn btn-warning btn-sm"
@@ -97,6 +97,7 @@
                                                                     data-target="#details-modal-{{ $c->id }}">
                                                                     <i class="far fa-eye text-white"></i>
                                                                 </button>
+                                                                @if ($nowYear == $periode)
                                                                 <a class="btn btn-primary btn-sm ml-1"
                                                                     href="{{ url('data_warga/' . $c->id . '/edit') }}"><i class="fas fa-edit"></i>
                                                                 </a>
@@ -107,9 +108,10 @@
                                                                     <button type="submit"
                                                                         class="btn btn-danger btn-sm delete ml-1"><i class="fas fa-trash"></i></button>
                                                                 </form>
+                                                                @endif
                                                             </div>
                                                         </td>
-                                                    @endif
+                                                    {{-- @endif --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -155,8 +157,12 @@
                                                                     @if ($c->tgl_lahir)
                                                                         <?php
                                                                         // Menghitung umur berdasarkan tanggal lahir
-                                                                        $tanggal_lahir = \Carbon\Carbon::parse($c->tgl_lahir);
-                                                                        $umur = $tanggal_lahir->age;
+                                                                        // $tanggal_lahir = \Carbon\Carbon::parse($c->tgl_lahir);
+                                                                        // $umur = $tanggal_lahir->age;
+                                                                        $umur = \Carbon\Carbon::parse($c->tgl_lahir)->age;
+                                                                        $yearNow = \Carbon\Carbon::now()->year;
+                                                                        $periode = $yearNow - $c->periode;
+                                                                        $umur = $umur - $periode;
                                                                         ?>
                                                                         <strong>{{ $umur }} Tahun</strong><br>
                                                                     @else

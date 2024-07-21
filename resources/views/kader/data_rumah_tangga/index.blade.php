@@ -50,9 +50,9 @@
                                                 <th style="vertical-align: middle;">RT</th>
                                                 <th style="vertical-align: middle;">RW</th>
                                                 <th style="vertical-align: middle;">Tahun</th>
-                                                @if ($nowYear == $periode)
+                                                {{-- @if ($nowYear == $periode) --}}
                                                 <th style="vertical-align: middle;">Aksi</th>
-                                                @endif
+                                                {{-- @endif --}}
                                             </tr>
                                         </thead>
 
@@ -98,7 +98,7 @@
                                                         @endif
                                                     </td>
                                                     <td style="vertical-align: middle;">{{ $c->periode }}</td>
-                                                    @if ($nowYear == $periode)
+                                                    {{-- @if ($nowYear == $periode) --}}
                                                         <td style="vertical-align: middle;">
                                                             <div class="d-flex justify-content-center align-items-center">
                                                                 <button type="button" class="btn btn-warning btn-sm"
@@ -106,6 +106,7 @@
                                                                     data-target="#details-modal-{{ $c->id }}">
                                                                     <i class="far fa-eye text-white"></i>
                                                                 </button>
+                                                                @if ($nowYear == $periode)
                                                                 <a class="btn btn-primary btn-sm ml-1"
                                                                     href="{{ url('data_rumah_tangga/' . $c->id . '/edit') }}"><i
                                                                         class="fas fa-edit"></i>
@@ -119,10 +120,11 @@
                                                                         class="btn btn-danger btn-sm delete ml-1"><i
                                                                             class="fas fa-trash"></i>
                                                                     </button>
+                                                                    @endif
                                                                 </form>
                                                             </div>
                                                         </td>
-                                                    @endif
+                                                    {{-- @endif --}}
                                                 </tr>
                                             @endforeach
                                         </tbody>
