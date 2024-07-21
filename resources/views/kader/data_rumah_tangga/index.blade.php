@@ -186,7 +186,7 @@
                                                                 Mempunyai Jamban Keluarga: <strong> Ya / 1 Buah</strong><br>
                                                             @else
                                                                 Mempunyai Jamban Keluarga: <strong> Tidak/
-                                                                    {{ $c->jumlah_jamban }} Buah</strong><br>
+                                                                    {{ $c->jumlah_jamban }} 0 Buah</strong><br>
                                                             @endif
                                                             Sumber Air Keluarga:
                                                             @if ($c->sumber_air_pdam)
