@@ -222,7 +222,7 @@ class WargaSeeder extends Seeder
             'jabatan' => 'anggota',
             'jenis_kelamin' => 'laki-laki',
             'tempat_lahir' => 'Indramayu',
-            'tgl_lahir' => '1988-04-17',
+            'tgl_lahir' => '1979-04-17',
             'status_perkawinan' => 'menikah',
             'agama' => 'budha',
             'alamat' => 'anjatan',

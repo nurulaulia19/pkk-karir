@@ -2009,7 +2009,7 @@ class RekapDusunInDesaController extends Controller
                                             // if ($keluarga->keluarga->industri_id != 0) {
                                             //     $totalKegiatanIndustri++;
                                             // }
-                                            if ($keluarga->keluarga->industri_id != 0 && $keluarga->keluarga->is_valid != null) {
+                                            if ($keluarga->keluarga->industri_id != 0 && $keluarga->keluarga->is_valid_industri  != null) {
                                                 $totalKegiatanIndustri++;
                                             }
                                             // Iterasi melalui setiap anggota keluarga
@@ -2106,12 +2106,14 @@ class RekapDusunInDesaController extends Controller
                                                     : 0;
                                             }
                                             $totalAnggotaPUS += $countPUS;
+
                                         }
                                     }
                                 }
                             }
                         }
                     }
+
                     $rwInRtDusun[] = (object) [
                         'rw_name' => $rttt->rw->name,
                         'rw_id' => $nameObject,
