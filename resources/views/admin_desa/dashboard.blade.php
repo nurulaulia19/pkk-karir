@@ -108,7 +108,7 @@
                 <i class="ion ion-folder"></i>
                 {{-- <div class="notification-badge">3</div> --}}
               </div>
-              <a href="/data_kelompok_pkk_desa" class="small-box-footer"
+              <a href="/rekap_desa" class="small-box-footer"
                 >Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i
               ></a>
             </div>
@@ -127,7 +127,7 @@
                 <i class="ion ion-person-add"></i>
                 {{-- <div class="notification-badge">3</div> --}}
               </div>
-              <a href="/data_kader" class="small-box-footer"
+              <a href="/data_dasawisma" class="small-box-footer"
                 >Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i
               ></a>
             </div>
@@ -146,7 +146,7 @@
                 </div>
                 <!-- Notifikasi jumlah rekapan baru -->
                 {{-- <div class="notification-badge">3</div> --}}
-                <a href="/data_kelompok_dasa_wisma" class="small-box-footer">
+                <a href="/data_dasawisma" class="small-box-footer">
                     Lihat Selengkapnya <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
