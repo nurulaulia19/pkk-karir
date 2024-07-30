@@ -44,7 +44,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama Keluarga</th>
+                                                <th>Nama Kepala Keluarga</th>
                                                 <th>Kategori</th>
                                                 <th>Periode</th>
                                                 @if ($nowYear == $periode)

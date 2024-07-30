@@ -70,7 +70,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>Pilih Kepala Keluarga</label>
+                        <label>Nama Kepala Keluarga</label>
                         <select class="form-control" name="keluarga_id">
                                 <option value="{{ $keluarga->id }}" selected>
                                     {{ $keluarga->nama_kepala_keluarga }} - {{ $keluarga->nik_kepala_keluarga }}
