@@ -49,7 +49,7 @@
                                                 <th style="vertical-align: middle;">Dasawisma</th>
                                                 <th style="vertical-align: middle;">RT</th>
                                                 <th style="vertical-align: middle;">RW</th>
-                                                <th style="vertical-align: middle;">Tahun</th>
+                                                <th style="vertical-align: middle;">Periode</th>
                                                 {{-- @if ($nowYear == $periode) --}}
                                                 <th style="vertical-align: middle;">Aksi</th>
                                                 {{-- @endif --}}
