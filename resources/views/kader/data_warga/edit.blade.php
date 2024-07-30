@@ -7,7 +7,7 @@
 <div class="container">
     <ul class="nav nav-tabs" id="dataWargaTabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="dasawisma-tab" data-toggle="tab" href="#dasawisma" role="tab" aria-controls="dasawisma" aria-selected="true">Data Dasa Wisma</a>
+            <a class="nav-link active" id="dasawisma-tab" data-toggle="tab" href="#dasawisma" role="tab" aria-controls="dasawisma" aria-selected="true">Data Dasawisma</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="warga-tab" data-toggle="tab" href="#warga" role="tab" aria-controls="warga" aria-selected="false">Data Warga</a>
