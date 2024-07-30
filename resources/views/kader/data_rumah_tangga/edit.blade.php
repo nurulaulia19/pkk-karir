@@ -482,10 +482,17 @@
                             <th>Penjelasan</th>
                         </tr>
                         <tr>
-                            <td>Nama Kepala Rumah Tangga</td>
-                            <td>Di isi dengan nama Kepala Rumah Tangga pada rumah yang didata.
+                            <td>Nama Pertama</td>
+                            <td>Di isi dengan nama Kepala Keluarga yang menjadi Kepala Rumah Tangga pada rumah yang didata.
                                 Kepala Rumah Tangga adalah yang bertanggung jawab atas segala sesuatu yang terkait dengan
-                                kegiatan di dalam rumah yang sedang didata.</td>
+                                kegiatan di dalam rumah yang sedang didata.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nama Kedua dan Seterusnya</td>
+                            <td>Di isi dengan nama Kepala Keluarga pada Rumah Tangga yang sedang didata.
+                                Kolom ini di isi apabila ada lebih dari satu KK di dalam satu Rumah Tangga
+                            </td>
                         </tr>
                         <tr>
                             <td>Stiker P4K (Program Perencanaan Persalinan dan Pencegahan Komplikasi)</td>
