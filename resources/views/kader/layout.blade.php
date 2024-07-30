@@ -194,14 +194,14 @@
                                     <a href="/data_pemanfaatan"
                                         class="nav-link {{ Request::is('data_pemanfaatan*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Data Pemanfaatan Tanah <br> Pekarangan Keluarga</p>
+                                        <p>Data Pemanfaatan Tanah <br> Pekarangan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="/data_industri"
                                         class="nav-link {{ Request::is('data_industri*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Data Industri Rumah <br>Tangga Keluarga</p>
+                                        <p>Data Industri Rumah <br>Tangga</p>
                                     </a>
                                 </li>
 
