@@ -46,7 +46,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Kepala Rumah Tangga</th>
-                                                <th>Kategori Pemanfaatan</th>
+                                                <th>Nama Pemanfaatan</th>
                                                 <th>Periode</th>
                                                 @if ($nowYear == $periode)
                                                 <th>Aksi</th>
