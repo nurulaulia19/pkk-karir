@@ -174,7 +174,11 @@
                                                                     Status Dalam Keluarga :
                                                                     @if ($c->kepalaKeluarga->isNotEmpty())
                                                                         @foreach ($c->kepalaKeluarga as $keluarga)
-                                                                            <strong>{{ $keluarga->status }}</strong><br>
+                                                                            @if ($keluarga->status == 'kepala-keluarga')
+                                                                                Kepala Keluarga <br>
+                                                                            @else
+                                                                                {{ ucfirst($keluarga->status) }} <br>
+                                                                            @endif
                                                                         @endforeach
                                                                     @else
                                                                         <strong>Belum ada kepala keluarga
