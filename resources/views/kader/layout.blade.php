@@ -180,7 +180,7 @@
                                     <a href="/data_rumah_tangga"
                                         class="nav-link {{ Request::is('data_rumah_tangga*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Rumah Tangga</p>
+                                        <p>Data Rumah Tangga</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
