@@ -18,7 +18,7 @@
         @csrf
         <div class="card-body">
             <div class="form-group">
-                <label for="nama_kategori">Nama Kategori Pemanfaatan Tanah Pekarangan</label>
+                <label for="nama_kategori">Nama Kategori</label>
                 <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori" id="nama_kategori" placeholder="Masukkan Nama Kategori Pemanfaatan Tanah Pekarangan" value="{{ old('nama_kategori') }}" required>
                 @error('nama_kategori')
                     <span class="invalid-feedback" role="alert">
