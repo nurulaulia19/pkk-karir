@@ -105,7 +105,7 @@ class RumahTanggaController extends Controller
             'sumber_air' => 'required|array|min:1',
             'sumber_air.*' => 'in:pdam,sumur,lainnya',
             'keluarga' => 'required|array',
-            'keluarga.*' => 'required|integer|distinct',
+            'keluarga.*' => 'required|integer',
             // 'keluarga' => 'required|unique:rumah_tanggas,nama_kepala_rumah_tangga', // Replace table_name and column_name with your actual table and column names
         ],[
             'keluarga.required' => 'Lengkapi Keluarga Yang Didata',
@@ -220,6 +220,12 @@ class RumahTanggaController extends Controller
             'tempel_stiker' => 'required|boolean',
             'sumber_air' => 'required|array|min:1',
             'sumber_air.*' => 'in:pdam,sumur,lainnya',
+            'keluarga' => 'required|array',
+            'keluarga.*' => 'required|integer',
+            // 'keluarga' => 'required|unique:rumah_tanggas,nama_kepala_rumah_tangga', // Replace table_name and column_name with your actual table and column names
+        ],[
+            'keluarga.required' => 'Lengkapi Keluarga Yang Didata',
+            'keluarga.*.required' => 'Lengkapi Keluarga Yang Didata',
         ]);
 
         $sumberAir = [
@@ -257,7 +263,7 @@ class RumahTanggaController extends Controller
         if (!isUnique($request->keluarga)) {
             return redirect()
                 ->back()
-                ->withErrors(['keluarga' => 'Keluarga tidak boleh sama']);
+                ->withErrors(['keluarga' => 'Nama kepala keluarga tidak boleh sama']);
         }
         // dd($request->all());
 
