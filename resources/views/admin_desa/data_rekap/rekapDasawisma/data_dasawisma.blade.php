@@ -1,8 +1,8 @@
 @extends('admin_desa.layout')
 
-@section('title', 'Data Dasawisma | Admin Desa PKK Kab. Indramayu')
+@section('title', 'Data Kelompok Dasawisma | Admin Desa PKK Kab. Indramayu')
 
-@section('bread', 'Data Dasawisma')
+@section('bread', 'Data Kelompok Dasawisma')
 @section('container')
 
     <!-- Main content -->
