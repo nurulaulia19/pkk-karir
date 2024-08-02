@@ -1,7 +1,7 @@
 @extends('admin_kec.layout')
 
-@section('title' , 'Dashboard | Admin Kecamatan')
-@section('bread' , 'Dashboard')
+@section('title' , 'Data Desa | Admin Kecamatan')
+@section('bread' , 'Data Desa')
 @section('container')
 
 <section class="content">

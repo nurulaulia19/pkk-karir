@@ -76,7 +76,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ $totalKegiatan }}</h3>
-                            <div style="50px">
+                            <div style="height: 50px">
                                 <p>Data Kegiatan Warga</p>
                             </div>
                         </div>

@@ -1,8 +1,8 @@
 @extends('kader.layout')
 
-@section('title', 'Data Industri Rumah Warga | Kader Dasawisma PKK Kab. Indramayu')
+@section('title', 'Data Industri Rumah Tangga | Kader Dasawisma PKK Kab. Indramayu')
 
-@section('bread', 'Data Industri Rumah Warga')
+@section('bread', 'Data Industri Rumah Tangga')
 @section('container')
 
     <!-- Main content -->
