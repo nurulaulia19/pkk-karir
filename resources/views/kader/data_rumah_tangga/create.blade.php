@@ -1,8 +1,8 @@
 @extends('kader.layout')
 
-@section('title', 'Tambah Data Keluarga | Kader Dasawisma PKK Kab. Indramayu')
+@section('title', 'Tambah Data Rumah Tangga | Kader Dasawisma PKK Kab. Indramayu')
 
-@section('bread', 'Tambah Data Keluarga')
+@section('bread', 'Tambah Data Rumah Tangga')
 @section('container')
     <div class="container">
         <ul class="nav nav-tabs" id="dataRumahTanggaTabs" role="tablist">

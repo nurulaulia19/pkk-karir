@@ -1,8 +1,8 @@
 @extends('admin_kab.layout')
 
-@section('title', 'Kategori Industri Rumah Tangga | Admin PKK Kab. Indramayu')
+@section('title', 'Tambah Data Kategori Industri Rumah Tangga | Admin PKK Kab. Indramayu')
 
-@section('bread', 'Kategori Industri Rumah Tangga')
+@section('bread', 'Tambah Data Kategori Industri Rumah Tangga')
 @section('container')
 
 <div class="col-md-6">

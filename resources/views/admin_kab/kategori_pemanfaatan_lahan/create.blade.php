@@ -1,8 +1,8 @@
 @extends('admin_kab.layout')
 
-@section('title', 'Kategori Pemanfaatan Tanah Pekarangan | Admin PKK Kab. Indramayu')
+@section('title', 'Tambah Data Kategori Pemanfaatan Tanah Pekarangan | Admin PKK Kab. Indramayu')
 
-@section('bread', 'Kategori Pemanfaatan Tanah Pekarangan')
+@section('bread', 'Tambah Data Kategori Pemanfaatan Tanah Pekarangan')
 @section('container')
 
 <div class="col-md-6">
