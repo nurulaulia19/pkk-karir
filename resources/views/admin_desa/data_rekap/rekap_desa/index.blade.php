@@ -25,7 +25,7 @@
                                     <h6 class="d-flex justify-content-center"><strong>REKAPITULASI</strong></h6>
                                     <h6 class="d-flex justify-content-center"><strong>CATATAN DATA DAN KEGIATAN
                                             WARGA</strong> </h6>
-                                    <h6 class="d-flex justify-content-center"><strong>KELOMPOK DESA/KELURAHAN</strong> </h6>
+                                    <h6 class="d-flex justify-content-center"><strong>TP PKK DESA/KELURAHAN</strong> </h6>
                                     <h6 class="d-flex justify-content-center"><strong>TAHUN {{ $periode }}</strong>
                                     </h6>
                                 </div>

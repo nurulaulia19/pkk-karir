@@ -23,19 +23,18 @@
                                 <div>
                                     <h6 class="d-flex justify-content-center"><strong>REKAPITULASI</strong></h6>
                                     <h6 class="d-flex justify-content-center"><strong>CATATAN DATA DAN KEGIATAN WARGA</strong> </h6>
-                                    <h6 class="d-flex justify-content-center"><strong>KELOMPOK KECAMATAN</strong> </h6>
+                                    <h6 class="d-flex justify-content-center"><strong>TP PKK KECAMATAN</strong> </h6>
                                     <h6 class="d-flex justify-content-center"><strong>TAHUN {{$periode}}</strong> </h6>
                                 </div>
-                                <div>
-
-                                    <h6>Kecamatan :
-                                        {{ $kecamatan->nama_kecamatan }}
+                                <div class="text-center">
+                                    <h6><strong> KECAMATAN :
+                                        {{ strtoupper($kecamatan->nama_kecamatan) }}</strong>
                                     </h6>
-                                    <h6>Kabupaten :
-                                        {{ optional($kecamatan->kabupaten)->name ?? 'Indramayu' }}
+                                    <h6><strong> KABUPATEN :
+                                        {{ strtoupper(optional($kecamatan->kabupaten)->name ?? 'INDRAMAYU') }} </strong>
                                     </h6>
-                                    <h6>Provinsi :
-                                        {{ optional($kecamatan->kabupaten->provinsi)->name ?? 'Jawa Barat' }}
+                                    <h6><strong> PROVINSI :
+                                        {{ strtoupper(optional($kecamatan->kabupaten->provinsi)->name ?? 'JAWA BARAT') }} </strong>
                                     </h6>
                                 </div>
 
