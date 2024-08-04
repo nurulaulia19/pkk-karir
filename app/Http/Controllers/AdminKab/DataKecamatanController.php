@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminKab;
 use App\Http\Controllers\Controller;
 use App\Models\DataKabupaten;
 use App\Models\DataKecamatan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -136,6 +137,9 @@ class DataKecamatanController extends Controller
     {
         // Menghapus data provinsi berdasarkan ID
         $kecamatan = DataKecamatan::findOrFail($id);
+        // Hapus semua pengguna yang berelasi dengan kecamatan ini
+        User::where('id_kecamatan', $id)->forceDelete();
+        // dd($kecamatan);
         $kecamatan->delete();
 
         Alert::success('Berhasil', 'Data berhasil dihapus');

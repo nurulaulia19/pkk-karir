@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminKab;
 use App\Http\Controllers\Controller;
 use App\Models\Data_Desa;
 use App\Models\DataKecamatan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -131,6 +132,7 @@ class DataDesaController extends Controller
     {
         //temukan id desa
         $desa::find($data_desa)->delete();
+        User::where('id_desa', $data_desa)->forceDelete();
         Alert::success('Berhasil', 'Data berhasil di hapus');
 
         return redirect('/data_desa')->with('status', 'sukses');

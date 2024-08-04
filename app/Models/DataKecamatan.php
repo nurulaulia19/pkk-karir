@@ -15,10 +15,10 @@ class DataKecamatan extends Model
 
 
     public function desa(){
-        return $this->hasMany(Data_Desa::class, 'id_kecamatan');
+        return $this->hasMany(Data_Desa::class, 'id_kecamatan', 'id');
     }
     public function user(){
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'id_kecamatan');
     }
     public function warga(){
         return $this->hasMany(DataWarga::class);
