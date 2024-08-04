@@ -18,7 +18,7 @@
                                     <thead>
                                         <tr>
                                         <th>No</th>
-                                        <th>Nama Rw</th>
+                                        <th>Nama RW</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
