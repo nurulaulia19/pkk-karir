@@ -21,7 +21,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <center>
-                                    <h6><strong>CATATAN DATA KEGIATAN WARGA</strong></h6>
+                                    <h6><strong>CATATAN DATA DAN KEGIATAN WARGA</strong></h6>
                                     <h6><strong>TP PKK KABUPATEN</strong></h6>
                                     <h6><strong>TAHUN {{ $periode }}</strong></h6>
                                     <h6><strong>KAB/KOTA :
