@@ -207,7 +207,7 @@ class RekapKelompokKabupatenExport implements FromArray, WithHeadings, WithEvent
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                // $event->sheet->getDelegate()->mergeCells('A8:AI9');
+                $event->sheet->getDelegate()->mergeCells('AJ8:AJ9');
                 $lastRow = count($this->kecamatans) + 10;
                 $event->sheet->getDelegate()->mergeCells('A'.$lastRow.':B'.$lastRow);
                 // $highestRow = $event->sheet->getHighestRow();
