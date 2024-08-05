@@ -290,7 +290,7 @@
                                                                         $age = $age - $periodes;
                                                                         return $age >= 45;
                                                                     })->count() }}
-                                                                <br>
+                                                                </strong> Orang <br>
                                                             </strong>
                                                             Jumlah Kebutuhan Khusus :
                                                             <strong>
