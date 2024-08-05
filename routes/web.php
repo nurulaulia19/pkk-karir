@@ -98,7 +98,7 @@ Route::post('/admin_desa/logout', [AdminController::class, 'logoutPost'])->name(
 Route::middleware(['disableBack'])->group(function () {
     Route::middleware(['user_type:admin_desa', 'auth'])->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin_desa.dashboard');
-        Route::resource('rw', RwController::class);
+        Route::resource('rw', RwController::class)->except(['show']);
         Route::resource('rt', RtController::class);
         Route::resource('data_dusun', KategoriDusunController::class);
         // data kelompok dasa wisma
@@ -264,14 +264,14 @@ Route::middleware(['disableBack'])->group(function () {
 
         Route::get('/keluarga', [RumahTanggaController::class, 'keluarga']);
 
-        Route::resource('/data_pemanfaatan', DataPemanfaatanPekaranganController::class);
-        Route::resource('/data_pemanfaatan', DataPemanfaatanPekaranganController::class)->except(['edit', 'update', 'destroy']);
+        Route::resource('/data_pemanfaatan', DataPemanfaatanPekaranganController::class)->except(['edit', 'destroy']);
+        // Route::resource('/data_pemanfaatan', DataPemanfaatanPekaranganController::class)->except(['edit', 'update', 'destroy']);
         Route::get('data_pemanfaatan/{id}/edit', [DataPemanfaatanPekaranganController::class, 'edit'])->name('data_pemanfaatan.edit');
         Route::get('data_pemanfaatan/{id}/deleted', [DataPemanfaatanPekaranganController::class, 'destroy'])->name('data_pemanfaatan.splice');
         Route::delete('data_pemanfaatan/{id}/deleted/all', [DataPemanfaatanPekaranganController::class, 'deleted_all'])->name('data_pemanfaatan.deleted_all');
 
-        Route::resource('/data_industri', DataIndustriRumahController::class);
-        Route::resource('/data_industri', DataIndustriRumahController::class)->except(['edit', 'update', 'destroy']);
+        // Route::resource('/data_industri', DataIndustriRumahController::class);
+        Route::resource('/data_industri', DataIndustriRumahController::class)->except(['edit', 'destroy']);
         Route::get('data_industri/{id}/edit', [DataIndustriRumahController::class, 'edit'])->name('data_industri.edit');
         Route::delete('data_industri/{id}/deleted', [DataIndustriRumahController::class, 'destroy'])->name('data_industri.destroy');
         // Route::delete('data_industri/{id}/deleted/all', [DataIndustriRumahController::class, 'deleted_all'])->name('data_industri.deleted_all');
@@ -300,8 +300,8 @@ Route::middleware(['disableBack'])->group(function () {
         Route::post('/profil/update/{id}/password', [KaderFormController::class, 'update_password']);
 
         // Forgot Password
-        Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-        Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+        // Route::get('/forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+        // Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     });
 });
 

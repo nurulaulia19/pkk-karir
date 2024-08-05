@@ -33,7 +33,8 @@ class DataPemanfaatanPekaranganController extends Controller
             DataPemanfaatanPekarangan::where('rumah_tangga_id', $rumahTanggaId->id)->delete();
         }
         Alert::success('Berhasil', 'Data berhasil di hapus');
-        return redirect()->route('data_pemanfaatan.index');
+        // return redirect()->route('data_pemanfaatan.index');
+        return redirect('/data_pemanfaatan');
     }
 
     public function index(Request $request)
