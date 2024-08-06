@@ -1125,93 +1125,93 @@ class UserSeeder extends Seeder
         ]);
         $admin_desa->assignRole(Role::ROLE_ADMIN);
 
-        $admin_kelurahan = User::create([
+        $admin_desa = User::create([
             'name' => 'Admin PKK Kel. Bojongsari',
             'email' => 'adminkelbojongsari@gmail.com',
             'password' => Hash::make('bojongsari'),
-            'user_type' => 'admin_kelurahan',
+            'user_type' => 'admin_desa',
             'foto' => null,
             'id_kecamatan' => 11,
             'id_desa' => 98,
         ]);
-        $admin_kelurahan->assignRole(Role::ROLE_ADMIN);
+        $admin_desa->assignRole(Role::ROLE_ADMIN);
 
-        $admin_kelurahan = User::create([
+        $admin_desa = User::create([
             'name' => 'Admin PKK Kel. Karanganyar',
             'email' => 'adminkelkaranganya@gmail.com',
             'password' => Hash::make('karanganyar'),
-            'user_type' => 'admin_kelurahan',
+            'user_type' => 'admin_desa',
             'foto' => null,
             'id_kecamatan' => 11,
             'id_desa' => 99,
         ]);
-        $admin_kelurahan->assignRole(Role::ROLE_ADMIN);
+        $admin_desa->assignRole(Role::ROLE_ADMIN);
 
-        $admin_kelurahan = User::create([
+        $admin_desa = User::create([
             'name' => 'Admin PKK Kel. Karangmalang',
             'email' => 'adminkelkarangmalang@gmail.com',
             'password' => Hash::make('karangmalang'),
-            'user_type' => 'admin_kelurahan',
+            'user_type' => 'admin_desa',
             'foto' => null,
             'id_kecamatan' => 11,
             'id_desa' => 100,
         ]);
-        $admin_kelurahan->assignRole(Role::ROLE_ADMIN);
+        $admin_desa->assignRole(Role::ROLE_ADMIN);
 
-        $admin_kelurahan = User::create([
+        $admin_desa = User::create([
             'name' => 'Admin PKK Kel. Kepandean',
             'email' => 'adminkelkepandean@gmail.com',
             'password' => Hash::make('kepandean'),
-            'user_type' => 'admin_kelurahan',
+            'user_type' => 'admin_desa',
             'foto' => null,
             'id_kecamatan' => 11,
             'id_desa' => 101,
         ]);
-        $admin_kelurahan->assignRole(Role::ROLE_ADMIN);
+        $admin_desa->assignRole(Role::ROLE_ADMIN);
 
-        $admin_kelurahan = User::create([
+        $admin_desa = User::create([
             'name' => 'Admin PKK Kel. Lemahabang',
             'email' => 'adminkellemahabang@gmail.com',
             'password' => Hash::make('lemahabang'),
-            'user_type' => 'admin_kelurahan',
+            'user_type' => 'admin_desa',
             'foto' => null,
             'id_kecamatan' => 11,
             'id_desa' => 102,
         ]);
-        $admin_kelurahan->assignRole(Role::ROLE_ADMIN);
+        $admin_desa->assignRole(Role::ROLE_ADMIN);
 
-        $admin_kelurahan = User::create([
+        $admin_desa = User::create([
             'name' => 'Admin PKK Kel. Lemahmekar',
             'email' => 'adminkellemahmekar@gmail.com',
             'password' => Hash::make('lemahmekar'),
-            'user_type' => 'admin_kelurahan',
+            'user_type' => 'admin_desa',
             'foto' => null,
             'id_kecamatan' => 11,
             'id_desa' => 103,
         ]);
-        $admin_kelurahan->assignRole(Role::ROLE_ADMIN);
+        $admin_desa->assignRole(Role::ROLE_ADMIN);
 
-        $admin_kelurahan = User::create([
+        $admin_desa = User::create([
             'name' => 'Admin PKK Kel. Margadadi',
             'email' => 'adminkelmargadadi@gmail.com',
             'password' => Hash::make('margadadi'),
-            'user_type' => 'admin_kelurahan',
+            'user_type' => 'admin_desa',
             'foto' => null,
             'id_kecamatan' => 11,
             'id_desa' => 104,
         ]);
-        $admin_kelurahan->assignRole(Role::ROLE_ADMIN);
+        $admin_desa->assignRole(Role::ROLE_ADMIN);
 
-        $admin_kelurahan = User::create([
+        $admin_desa = User::create([
             'name' => 'Admin PKK Kel. Paoman',
             'email' => 'adminkelpaoman@gmail.com',
             'password' => Hash::make('paoman'),
-            'user_type' => 'admin_kelurahan',
+            'user_type' => 'admin_desa',
             'foto' => null,
             'id_kecamatan' => 11,
             'id_desa' => 105,
         ]);
-        $admin_kelurahan->assignRole(Role::ROLE_ADMIN);
+        $admin_desa->assignRole(Role::ROLE_ADMIN);
 
 
         // admin desa Bulak

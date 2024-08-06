@@ -27,7 +27,7 @@
 
                                     <h6>Dusun : {{ ucfirst($dusun_data->name) }}</h6>
                                     {{-- @dd($dusun) --}}
-                                    <h6>Desa/Kel : {{ $dusun_data->desa->nama_desa }} </h6>
+                                    <h6>Desa/Kel : {{ ucfirst($dusun_data->desa->nama_desa) }} </h6>
                                     <h6>Tahun : {{ $periode }}</h6>
                                 </center>
 

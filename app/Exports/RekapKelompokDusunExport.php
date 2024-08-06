@@ -268,7 +268,7 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             ['CATATAN DATA DAN KEGIATAN WARGA'],
             ['KELOMPOK PKK DUSUN'],
             [
-                'DUSUN: ' . strtoupper($this->dusun_data->first()->desa->nama_desa),
+                'DUSUN: ' . strtoupper($this->dusun_data->name),
             ],
 
             [
