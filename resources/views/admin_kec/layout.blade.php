@@ -127,7 +127,7 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                        <p> <a href="#" class="d-block" style="font-size: 15px">{{ Auth::user()->name }}</a> </p>
                     </div>
                 </div>
 
