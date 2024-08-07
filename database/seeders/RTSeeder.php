@@ -15,7 +15,8 @@ class RTSeeder extends Seeder
      */
     public function run()
     {
-        // RW 1
+        // Desa Anjatan
+        // RW 01
         Rt::create([
             'name' => "01",
             'rw_id' => 1,
@@ -33,82 +34,84 @@ class RTSeeder extends Seeder
             'dusun_id' => 1,
         ]);
 
-        // Rt::create([
-        //     'name' => "04",
-        //     'rw_id' => 1,
-        //     'dusun_id' => 1,
-        // ]);
 
-        // Rt::create([
-        //     'name' => "05",
-        //     'rw_id' => 1,
-        //     'dusun_id' => 1,
-        // ]);
-
-        // RW 2
+        // RW 02
         Rt::create([
-            'name' => "01",
+            'name' => "04",
             'rw_id' => 2,
             'dusun_id' => 2,
+        ]);
+
+        Rt::create([
+            'name' => "05",
+            'rw_id' => 2,
+            'dusun_id' => 2,
+        ]);
+
+        // Desa Cantigi Kulon
+         // RW 01
+         Rt::create([
+            'name' => "01",
+            'rw_id' => 3,
+            'dusun_id' => 5,
         ]);
 
         Rt::create([
             'name' => "02",
-            'rw_id' => 2,
-            'dusun_id' => 2,
+            'rw_id' => 3,
+            'dusun_id' => 5,
         ]);
 
-        // // RW 3
-        // Rt::create([
-        //     'name' => "01",
-        //     'rw_id' => 3,
-        //     'dusun_id' => 3,
-        // ]);
+        // RW 02
+        Rt::create([
+            'name' => "03",
+            'rw_id' => 4,
+            'dusun_id' => 6,
+        ]);
 
-        // Rt::create([
-        //     'name' => "02",
-        //     'rw_id' => 3,
-        //     'dusun_id' => 3,
-        // ]);
+        Rt::create([
+            'name' => "04",
+            'rw_id' => 4,
+            'dusun_id' => 6,
+        ]);
 
-        // // RW 4
-        // Rt::create([
-        //     'name' => "01",
-        //     'rw_id' => 4,
-        //     'dusun_id' => 4,
-        // ]);
+         // RW 03
+         Rt::create([
+            'name' => "05",
+            'rw_id' => 5,
+            'dusun_id' => 7,
+        ]);
 
-        // Rt::create([
-        //     'name' => "02",
-        //     'rw_id' => 4,
-        //     'dusun_id' => 4,
-        // ]);
+        Rt::create([
+            'name' => "06",
+            'rw_id' => 5,
+            'dusun_id' => 7,
+        ]);
 
-        // // RW 5
-        // Rt::create([
-        //     'name' => "01",
-        //     'rw_id' => 5,
-        //     'dusun_id' => 5,
-        // ]);
+         // RW 04
+         Rt::create([
+            'name' => "07",
+            'rw_id' => 6,
+            'dusun_id' => 8,
+        ]);
 
-        // Rt::create([
-        //     'name' => "02",
-        //     'rw_id' => 5,
-        //     'dusun_id' => 5,
-        // ]);
+        Rt::create([
+            'name' => "08",
+            'rw_id' => 6,
+            'dusun_id' => 8,
+        ]);
 
-        // // RW 6
-        // Rt::create([
-        //     'name' => "01",
-        //     'rw_id' => 6,
-        //     'dusun_id' => 0, // Dusun ID 0
-        // ]);
+        // RW 05
+        Rt::create([
+            'name' => "09",
+            'rw_id' => 7,
+            'dusun_id' => 9,
+        ]);
 
-        // Rt::create([
-        //     'name' => "02",
-        //     'rw_id' => 6,
-        //     'dusun_id' => 0, // Dusun ID 0
-        // ]);
-
+        Rt::create([
+            'name' => "10",
+            'rw_id' => 7,
+            'dusun_id' => 9,
+        ]);
     }
 }

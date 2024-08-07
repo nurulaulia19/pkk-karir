@@ -44,7 +44,7 @@
                                         <thead>
                                             <tr>
                                                 <th rowspan="2" style="text-align: center; ">No</th>
-                                                <th rowspan="2" style="text-align: center;">Nama Desa</th>
+                                                <th rowspan="2" style="text-align: center;">Nama Desa/Kel</th>
                                                 <th rowspan="2" style="text-align: center;">Jml Dusun</th>
                                                 <th rowspan="2" style="text-align: center;">Jml RW</th>
                                                 <th rowspan="2" style="text-align: center;">Jml RT</th>

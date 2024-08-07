@@ -272,7 +272,7 @@ class RekapKelompokDusunExport implements FromArray, WithHeadings, WithEvents, W
             ],
 
             [
-                'DESA/KELURAHAN : ' . strtoupper($this->dusun_data->first()->desa->nama_desa),
+                'DESA/KELURAHAN : ' . strtoupper($this->dusun_data->desa->nama_desa),
             ],
             [
                 'TAHUN : ' . strtoupper($this->periode),

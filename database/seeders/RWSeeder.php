@@ -15,46 +15,56 @@ class RWSeeder extends Seeder
      */
     public function run()
     {
-        // RW 1 - Dusun ID 1
+        // Desa Anjatan
+        // RW 01 - Dusun ID 1
         Rw::create([
             'name' => '01',
             'dusun_id' => 1,
             'desa_id' => 1,
         ]);
 
-        // RW 2 - Dusun ID 2
+        // RW 02 - Dusun ID 2
         Rw::create([
             'name' => '02',
             'dusun_id' => 2,
             'desa_id' => 1,
         ]);
 
-        // RW 3 - Dusun ID 3
-        // Rw::create([
-        //     'name' => '03',
-        //     'dusun_id' => 1,
-        //     'desa_id' => 1,
-        // ]);
+        // Desa Cantigi Kulon
+        // RW 01 - Dusun ID 5
+        Rw::create([
+            'name' => '01',
+            'dusun_id' => 5,
+            'desa_id' => 49,
+        ]);
 
-        // // RW 4 - Dusun ID 4
-        // Rw::create([
-        //     'name' => '04',
-        //     'dusun_id' => 1,
-        //     'desa_id' => 1,
-        // ]);
+        // RW 02 - Dusun ID 6
+        Rw::create([
+            'name' => '02',
+            'dusun_id' => 6,
+            'desa_id' => 49,
+        ]);
 
-        // // RW 5 - Dusun ID 5
-        // Rw::create([
-        //     'name' => '05',
-        //     'dusun_id' => 1,
-        //     'desa_id' => 1,
-        // ]);
+        // RW 03 - Dusun ID 7
+        Rw::create([
+            'name' => '03',
+            'dusun_id' => 7,
+            'desa_id' => 49,
+        ]);
 
-        // // RW 6 - Dusun ID 0
-        // Rw::create([
-        //     'name' => '06',
-        //     'dusun_id' => 0,
-        //     'desa_id' => 1,
-        // ]);
+        // RW 04 - Dusun ID 8
+        Rw::create([
+            'name' => '04',
+            'dusun_id' => 8,
+            'desa_id' => 49,
+        ]);
+
+        // RW 05 - Dusun ID 9
+        Rw::create([
+            'name' => '05',
+            'dusun_id' => 9,
+            'desa_id' => 49,
+        ]);
+
     }
 }

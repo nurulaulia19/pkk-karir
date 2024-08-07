@@ -15,6 +15,7 @@ class DusunSeeder extends Seeder
      */
     public function run()
     {
+        // Desa Anjatan
         Dusun::create([
             'name' => 'sawah indah',
             'desa_id' => 1
@@ -31,9 +32,29 @@ class DusunSeeder extends Seeder
             'name' => 'karang mulya',
             'desa_id' => 1
         ]);
-        // Dusun::create([
-        //     'name' => 'karang mulya',
-        //     'desa_id' => 1
-        // ]);
+
+        // Desa Cantigi Kulon
+        Dusun::create([
+            'name' => 'Blok karang balong',
+            'desa_id' => 49
+        ]);
+        Dusun::create([
+            'name' => 'Blok karang poman',
+            'desa_id' => 49
+        ]);
+        Dusun::create([
+            'name' => 'Blok balai desa',
+            'desa_id' => 49
+        ]);
+        Dusun::create([
+            'name' => 'Blok tengah',
+            'desa_id' => 49
+        ]);
+        Dusun::create([
+            'name' => 'Blok pulo',
+            'desa_id' => 49
+        ]);
+
+
     }
 }

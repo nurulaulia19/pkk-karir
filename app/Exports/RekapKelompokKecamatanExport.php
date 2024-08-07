@@ -230,7 +230,7 @@ class RekapKelompokKecamatanExport implements FromArray, WithHeadings, WithEvent
 
         $headings2 = [
             'NO',
-            'NAMA DESA',
+            'NAMA DESA/KELURAHAN',
             'JML DUSUN',
             'JML RW',
             'JML RT',

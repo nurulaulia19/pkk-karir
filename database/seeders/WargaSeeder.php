@@ -16,6 +16,7 @@ class WargaSeeder extends Seeder
      */
     public function run()
     {
+        // Warga Desa Anjatan
         $abdul = DataWarga::create([
             'id_desa' => 1,
             'id_kecamatan' => 1,
@@ -250,36 +251,44 @@ class WargaSeeder extends Seeder
             'is_valid' => now()
         ]);
 
-        // DataWarga::create([
-        //     'id_desa' => 1,
-        //     'id_kecamatan' => 1,
-        //     'id_dasawisma' => 1,
-        //     'no_registrasi' => '020103042009007',
-        //     'no_ktp' => '3212070101940007',
-        //     'nama' => 'Citra Dewi',
-        //     'jabatan' => 'sekretaris',
-        //     'jenis_kelamin' => 'perempuan',
-        //     'tempat_lahir' => 'Indramayu',
-        //     'tgl_lahir' => '1990-05-22',
-        //     'status_perkawinan' => 'menikah',
-        //     'aktivitas_kesehatan_lingkungan' => 1,
-        //     'aktivitas_UP2K' => 1,
-        //     'agama' => 'kristen',
-        //     'alamat' => 'anjatan',
-        //     'pendidikan' => 'SMA/Sederajat',
-        //     'pekerjaan' => 'Lainnya',
-        //     'akseptor_kb' => 1,
-        //     'aktif_posyandu' => 0,
-        //     'berkebutuhan_khusus' => 'Tidak',
-        //     'ikut_bkb' => 0,
-        //     'ikut_kelompok_belajar' => 'Tidak',
-        //     'ikut_paud_sejenis' => 0,
-        //     'ikut_koperasi' => 1,
-        //     'memiliki_tabungan' => 1,
-        //     'periode' => 2023,
-        //     'is_keluarga' => true,
-        //     'is_valid' => '2023-01-10'
-        // ]);
+        // Warga Desa Cantigi Kulon
+        $samsul = DataWarga::create([
+            'id_desa' => 49,
+            'id_kecamatan' => 6,
+            'id_dasawisma' => 2,
+            'no_registrasi' => '020103042009007',
+            'no_ktp' => '3212070101940007',
+            'nama' => 'Samsul Hadi',
+            'jabatan' => '-',
+            'jenis_kelamin' => 'laki-laki',
+            'tempat_lahir' => 'Indramayu',
+            'tgl_lahir' => '1990-05-22',
+            'status_perkawinan' => 'lajang',
+            'aktivitas_kesehatan_lingkungan' => 1,
+            'aktivitas_UP2K' => 1,
+            'agama' => 'kristen',
+            'alamat' => 'cantigi kulon',
+            'pendidikan' => 'SMA/Sederajat',
+            'pekerjaan' => 'Lainnya',
+            'akseptor_kb' => 1,
+            'aktif_posyandu' => 0,
+            'berkebutuhan_khusus' => 'Tidak',
+            'ikut_bkb' => 0,
+            'ikut_kelompok_belajar' => 'Tidak',
+            'ikut_paud_sejenis' => 0,
+            'ikut_koperasi' => 1,
+            'memiliki_tabungan' => 1,
+            'periode' => 2023,
+            'is_keluarga' => true,
+            'is_valid' => '2023-01-10',
+            'is_kegiatan' => true,
+        ]);
+        DataKegiatanWarga::create([
+            'warga_id' => $samsul->id,
+            'data_kegiatan_id' => 1,
+            'periode' => 2023,
+            'is_valid' => now()
+        ]);
 
         // DataWarga::create([
         //     'id_desa' => 1,

@@ -13,6 +13,7 @@ class DataKeluargaSeeder extends Seeder
 
     public function run()
     {
+        // keluarga desa anjatan
         $kepala = DataWarga::find(1);
         $keluarga = DataKeluarga::create([
             'nama_kepala_keluarga' => $kepala->nama,
@@ -94,29 +95,30 @@ class DataKeluargaSeeder extends Seeder
             ]);
 
 
-            // Temukan DataWarga dengan ID 5 (sebagai kepala keluarga)
-            // $kelapa = DataWarga::find(9);
+            // keluarga desa cantigi kulon
+            // Temukan DataWarga dengan ID 7 (sebagai kepala keluarga)
+            $kelapa = DataWarga::find(7);
 
             // // Membuat entri DataKeluarga baru
-            // $keluarga4 = DataKeluarga::create([
-            //     'nama_kepala_keluarga' => $kelapa->nama,
-            //     'nik_kepala_keluarga' => $kelapa->no_ktp,
-            //     'id_dasawisma' => 1,
-            //     'periode' => 2023,
-            //     'is_valid' => '2023-02-02',
-            //     'industri_id' => 3,
-            //     'is_valid_industri' => '2023-02-02',
-            //     'is_rumah_tangga' => true,
-            //     //tambahan seeder dari rumah tangga
-            //     'is_rumah_tangga' => 1
-            // ]);
+            $keluarga4 = DataKeluarga::create([
+                'nama_kepala_keluarga' => $kelapa->nama,
+                'nik_kepala_keluarga' => $kelapa->no_ktp,
+                'id_dasawisma' => 2,
+                'periode' => 2023,
+                'is_valid' => '2023-02-02',
+                'industri_id' => 3,
+                'is_valid_industri' => '2023-02-02',
+                'is_rumah_tangga' => true,
+                //tambahan seeder dari rumah tangga
+                'is_rumah_tangga' => 1
+            ]);
 
-            // // Menambahkan kepala keluarga ke tabel Keluargahaswarga
-            // Keluargahaswarga::create([
-            //     'keluarga_id' => $keluarga4->id,
-            //     'warga_id' => $kelapa->id,
-            //     'status' => 'kepala-keluarga',
-            // ]);
+            // Menambahkan kepala keluarga ke tabel Keluargahaswarga
+            Keluargahaswarga::create([
+                'keluarga_id' => $keluarga4->id,
+                'warga_id' => $kelapa->id,
+                'status' => 'kepala-keluarga',
+            ]);
 
             // // Menambahkan Lina ke tabel Keluargahaswarga dengan status istri
             // Keluargahaswarga::create([

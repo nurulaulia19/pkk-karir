@@ -18,6 +18,7 @@ class RumahTanggaSeeder extends Seeder
      */
     public function run()
     {
+        // rumah tangga desa anjatan
         $kepala = DataKeluarga::find(1);
         $kepala->is_rumah_tangga = true;
         $kepala->save();
@@ -138,46 +139,47 @@ class RumahTanggaSeeder extends Seeder
             'is_valid' => '2023-02-02',
         ]);
 
+        // rumah tangga desa cantigi kulon
         // DataKeluarga dengan ID 4 sebagai kepala keluarga
-        // $kepala4 = DataKeluarga::find(4);
-        // $kepala4->is_rumah_tangga = true;
-        // $kepala4->save();
+        $kepala4 = DataKeluarga::find(4);
+        $kepala4->is_rumah_tangga = true;
+        $kepala4->save();
 
-        // // Buat entri RumahTangga untuk kepala keluarga keempat
-        // $rumahTangga4 = RumahTangga::create([
-        //     'nama_kepala_rumah_tangga' => $kepala4->nama_kepala_keluarga,
-        //     'nik_kepala_rumah_tangga' => $kepala4->nik_kepala_keluarga,
-        //     'id_dasawisma' => 1,
-        //     'punya_jamban' => 1,
-        //     'punya_tempat_sampah' => 0,
-        //     'saluran_pembuangan_air_limbah' => 1,
-        //     'kriteria_rumah_sehat' => 1,
-        //     'tempel_stiker' => 1,
-        //     'periode' => 2023,
-        //     'sumber_air_pdam' => 1,
-        //     'sumber_air_sumur' => 1,
-        //     'sumber_air_lainnya' => 0,
-        //     'is_pemanfaatan_lahan' => true,
-        //     'is_valid_pemanfaatan_lahan' => '2023-02-02',
-        //     'is_valid' => '2023-02-02',
-        // ]);
+        // Buat entri RumahTangga untuk kepala keluarga keempat
+        $rumahTangga4 = RumahTangga::create([
+            'nama_kepala_rumah_tangga' => $kepala4->nama_kepala_keluarga,
+            'nik_kepala_rumah_tangga' => $kepala4->nik_kepala_keluarga,
+            'id_dasawisma' => 2,
+            'punya_jamban' => 1,
+            'punya_tempat_sampah' => 1,
+            'saluran_pembuangan_air_limbah' => 1,
+            'kriteria_rumah_sehat' => 1,
+            'tempel_stiker' => 1,
+            'periode' => 2023,
+            'sumber_air_pdam' => 1,
+            'sumber_air_sumur' => 1,
+            'sumber_air_lainnya' => 0,
+            'is_pemanfaatan_lahan' => true,
+            'is_valid_pemanfaatan_lahan' => '2023-02-02',
+            'is_valid' => '2023-02-02',
+        ]);
 
-        // // Hubungkan rumah tangga dengan kepala keluarga keempat
-        // RumahTanggaHasKeluarga::create([
-        //     'rumahtangga_id' => $rumahTangga4->id,
-        //     'keluarga_id' => 4, // ID keluarga yang sesuai
-        //     'status' => 'kepala-rumah-tangga',
-        // ]);
+        // Hubungkan rumah tangga dengan kepala keluarga keempat
+        RumahTanggaHasKeluarga::create([
+            'rumahtangga_id' => $rumahTangga4->id,
+            'keluarga_id' => 4, // ID keluarga yang sesuai
+            'status' => 'kepala-rumah-tangga',
+        ]);
 
-        // // Tambahkan data pemanfaatan pekarangan untuk rumah tangga keempat
-        // DataPemanfaatanPekarangan::create([
-        //     'id_desa' => 1,
-        //     'id_kecamatan' => 1,
-        //     'rumah_tangga_id' => $rumahTangga4->id,
-        //     'kategori_id' => 1,
-        //     'periode' => 2023,
-        //     'is_valid' => '2023-02-02',
-        // ]);
+        // Tambahkan data pemanfaatan pekarangan untuk rumah tangga keempat
+        DataPemanfaatanPekarangan::create([
+            'id_desa' => 49,
+            'id_kecamatan' => 6,
+            'rumah_tangga_id' => $rumahTangga4->id,
+            'kategori_id' => 1,
+            'periode' => 2023,
+            'is_valid' => '2023-02-02',
+        ]);
 
 
         // // DataKeluarga dengan ID 5 sebagai kepala keluarga
