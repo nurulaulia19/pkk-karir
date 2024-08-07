@@ -1138,7 +1138,7 @@ class UserSeeder extends Seeder
 
         $admin_desa = User::create([
             'name' => 'Admin PKK Kel. Karanganyar',
-            'email' => 'adminkelkaranganya@gmail.com',
+            'email' => 'adminkelkaranganyar@gmail.com',
             'password' => Hash::make('karanganyar'),
             'user_type' => 'admin_desa',
             'foto' => null,
