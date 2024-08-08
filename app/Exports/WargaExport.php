@@ -81,7 +81,8 @@ class WargaExport implements FromCollection, WithHeadings, WithStyles
         ];
 
         return [
-            ['REKAPITULASI DATA WARGA KELUARGA'],
+            ['REKAPITULASI DATA WARGA'],
+            ['TAHUN ' . $this->keluarga->periode],
             [''],
             $memberHeadings,
             // $allHeadings
@@ -123,15 +124,17 @@ class WargaExport implements FromCollection, WithHeadings, WithStyles
         // Menggabungkan semua sel pada baris 1 (dari kolom A sampai kolom terakhir yang berisi data)
         $lastColumn = $sheet->getHighestColumn(); // Mendapatkan kolom terakhir yang berisi data
         $sheet->mergeCells('A1:' . $lastColumn . '1'); // Menggabungkan sel dari A1 sampai sel terakhir pada baris 1
+        $sheet->mergeCells('A2:' . $lastColumn . '2');
 
         // Mengatur horizontal alignment (penyelarasan horizontal) pada sel A1 ke tengah
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-        // Mengatur teks pada baris 1 hingga 7 menjadi tebal (bold)
-        $sheet->getStyle('1:3')->getFont()->setBold(true);
+        // Mengatur teks pada baris 1 hingga 4 menjadi tebal (bold)
+        $sheet->getStyle('1:4')->getFont()->setBold(true);
 
         // Menentukan rentang kolom untuk gaya (dari A7 sampai kolom terakhir yang berisi data)
-        $dataRange = 'A3:' . $lastColumn . $sheet->getHighestRow();
+        $dataRange = 'A4:' . $lastColumn . $sheet->getHighestRow();
 
         // Mengaplikasikan gaya pada rentang kolom yang telah ditentukan
         $sheet->getStyle($dataRange)->applyFromArray([
@@ -171,8 +174,8 @@ class WargaExport implements FromCollection, WithHeadings, WithStyles
         }
 
         // Mengatur Posisi Nomor di Tengah
-        $sheet->getStyle('A3:B' . ($sheet->getHighestRow()))->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyle('A3:B' . ($sheet->getHighestRow()))->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
+        $sheet->getStyle('A4:B' . ($sheet->getHighestRow()))->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('A4:B' . ($sheet->getHighestRow()))->getAlignment()->setVertical(Alignment::VERTICAL_CENTER);
 
         // Mengatur Posisi Nilai Kegiatan di Tengah
         // Mendapatkan kolom terakhir yang berisi data (dalam format huruf, misalnya 'R')
@@ -187,7 +190,7 @@ class WargaExport implements FromCollection, WithHeadings, WithStyles
             $col = Coordinate::stringFromColumnIndex($colIndex);
 
             // Tentukan rentang kolom yang ingin diubah gaya (style)nya
-            $columnRange = $col . '3:' . $col . $sheet->getHighestRow();
+            $columnRange = $col . '4:' . $col . $sheet->getHighestRow();
 
             // Set alignment (penyelarasan) teks ke tengah horizontal dan vertikal untuk rentang kolom
             $sheet->getStyle($columnRange)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);

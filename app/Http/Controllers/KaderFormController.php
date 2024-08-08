@@ -203,7 +203,8 @@ class KaderFormController extends Controller
     public function rekap_data_warga($id)
     {
         $dataKeluarga = DataKeluarga::with('anggota.warga')->findOrFail($id);
-        return view('kader.data_rekap', compact('dataKeluarga'));
+        $periode = $dataKeluarga->periode;
+        return view('kader.data_rekap', compact('dataKeluarga','periode'));
     }
 
     public function printExcel($id)

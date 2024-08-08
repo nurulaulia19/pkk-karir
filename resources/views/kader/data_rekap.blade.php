@@ -1,8 +1,8 @@
 @extends('kader.layout')
 
-@section('title', 'Data Rekap Data Warga | Kader Dasawisma PKK Kab. Indramayu')
+@section('title', 'Rekap Data Warga | Kader Dasawisma PKK Kab. Indramayu')
 
-@section('bread', 'Data Rekap Data Warga')
+@section('bread', 'Rekap Data Warga')
 @section('container')
 
     <!-- Main content -->
@@ -23,7 +23,9 @@
                                 <div class="table-responsive">
                                     <h6><strong>
                                             <center>
-                                                REKAPITULASI DATA WARGA KELUARGA
+                                                REKAPITULASI DATA WARGA
+                                                <br>
+                                                TAHUN {{ $periode }}
                                         </strong></h6>
                                     </center>
                                     <br>
