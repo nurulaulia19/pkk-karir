@@ -95,7 +95,7 @@
                                                             $periode = $yearNow - $c->warga->periode;
                                                             $umur = $umur - $periode;
                                                         ?>
-                                                        {{ \Carbon\Carbon::parse($c->warga->tgl_lahir)->isoFormat('D MMMM Y') }}
+                                                        {{ \Carbon\Carbon::parse($c->warga->tgl_lahir)->format('d/m/Y') }}
                                                         /
                                                         {{ ucfirst($umur) }} Tahun
                                                     </td>

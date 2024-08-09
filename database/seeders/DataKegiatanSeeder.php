@@ -38,10 +38,10 @@ class DataKegiatanSeeder extends Seeder
                 'name'=>'Sandang',
             ],
             [
-                'name'=>'Persencanaan Sehat',
+                'name'=>'Kesehatan',
             ],
             [
-                'name'=>'Kesehatan',
+                'name'=>'Persencanaan Sehat',
             ],
 
          ]);

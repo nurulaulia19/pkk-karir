@@ -74,8 +74,8 @@
                                                 <th rowspan="2">Pendidikan</th>
                                                 <th rowspan="2">Pekerjaan</th>
                                                 <th rowspan="2">Berkebutuhan Khusus</th>
-                                                <th style="text-align:center" colspan="{{ count($dataKegiatan) }}">Kegiatan
-                                                    Yang diikuti</th>
+                                                <th style="text-align:center" colspan="{{ count($dataKegiatan) }}">Kegiatan PKK
+                                                    yang Diikuti</th>
                                             </tr>
                                             <tr>
                                                 @foreach ($dataKegiatan as $item)
@@ -110,7 +110,7 @@
                                                         }
                                                     @endphp
 
-                                                    <td style="vertical-align: middle;">{{ $data_warga->warga->tgl_lahir }}
+                                                    <td style="vertical-align: middle;">{{ \Carbon\Carbon::parse($data_warga->warga->tgl_lahir)->format('d/m/Y') }}
                                                         / {{ $umur }} Tahun</td>
                                                     </td>
                                                     <td style="vertical-align: middle;">
