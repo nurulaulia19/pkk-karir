@@ -81,7 +81,7 @@ class WargaExport implements FromCollection, WithHeadings, WithStyles
         ];
 
         return [
-            ['REKAPITULASI DATA WARGA'],
+            ['REKAPITULASI DATA WARGA KELUARGA'],
             ['TAHUN ' . $this->keluarga->periode],
             [''],
             $memberHeadings,

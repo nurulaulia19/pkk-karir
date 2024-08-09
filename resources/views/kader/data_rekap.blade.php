@@ -23,7 +23,7 @@
                                 <div class="table-responsive">
                                     <h6><strong>
                                             <center>
-                                                REKAPITULASI DATA WARGA
+                                                REKAPITULASI DATA WARGA KELUARGA
                                                 <br>
                                                 TAHUN {{ $periode }}
                                         </strong></h6>
