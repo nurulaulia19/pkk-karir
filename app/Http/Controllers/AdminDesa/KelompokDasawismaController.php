@@ -65,9 +65,17 @@ class KelompokDasawismaController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+        // dd($user);
         $request->validate([
             // Validation rules for Dasawisma data
-            'nama_dasawisma' => 'required|unique:data_dasawisma',
+            // 'nama_dasawisma' => 'required|unique:data_dasawisma',
+            'nama_dasawisma' => [
+                'required',
+                Rule::unique('data_dasawisma')->where(function ($query) use ($user) {
+                    return $query->where('id_desa', $user->id_desa);
+                }),
+            ],
             'alamat_dasawisma' => 'required',
             'status' => 'required',
             'id_rt' => 'required',
@@ -188,13 +196,20 @@ class KelompokDasawismaController extends Controller
     {
         $kader = User::where('id_dasawisma', $data_dasawisma->id)->first();
         // dd($kader);
+        $user = Auth::user();
 
 
         $request->validate([
             // Aturan validasi untuk Dasawisma data
-            'nama_dasawisma' =>  [
+            // 'nama_dasawisma' =>  [
+            //     'required',
+            //     Rule::unique('data_dasawisma')->ignore($data_dasawisma),
+            // ],
+            'nama_dasawisma' => [
                 'required',
-                Rule::unique('data_dasawisma')->ignore($data_dasawisma),
+                Rule::unique('data_dasawisma')->where(function ($query) use ($user, $data_dasawisma) {
+                    return $query->where('id_desa', $user->id_desa)->where('id', '!=', $data_dasawisma->id);
+                }),
             ],
             'alamat_dasawisma' => 'required',
             'status' => 'required',

@@ -27,7 +27,13 @@ class KategoriDusunController extends Controller
     {
         $user = Auth::user();
         $request->validate([
-            'name' => 'required|unique:dusuns,name',
+            // 'name' => 'required',
+            'name' => [
+                'required',
+                Rule::unique('dusuns')->where(function ($query) use ($user) {
+                    return $query->where('desa_id', $user->id_desa);
+                }),
+            ],
         ], [
             'name.required' => 'Lengkapi Nama Dusun',
             'name.unique' => 'Nama Dusun Sudah Ada',
@@ -54,10 +60,16 @@ class KategoriDusunController extends Controller
     {
         $user = Auth::user();
         $request->validate([
+            // 'name' => [
+            //     'required',
+            //     Rule::unique('dusuns')->ignore($id),
+            // ],
             'name' => [
                 'required',
-                Rule::unique('dusuns')->ignore($id),
-            ],
+                Rule::unique('dusuns')->where(function ($query) use ($user, $id) {
+                    return $query->where('desa_id', $user->id_desa)->where('id', '!=', $id);
+            }),
+        ],
         ], [
             'name.required' => 'Lengkapi Nama Dusun',
             'name.unique' => 'Nama Dusun Sudah Ada',
